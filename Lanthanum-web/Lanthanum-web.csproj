@@ -5,4 +5,8 @@
     <RootNamespace>Lanthanum_web</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Logging\Logging.csproj" />
+  </ItemGroup>
+
 </Project>

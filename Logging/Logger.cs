@@ -1,17 +1,13 @@
 ﻿using Serilog;
+using Serilog.Enrichers;
 using Serilog.Events;
-using System.Diagnostics;
-using System.Linq;
-using Serilog.Configuration;
-using Serilog.Core;
-
 
 namespace Logging
 {
     public class Logger : ILogger
     {
         private Serilog.Core.Logger _logger;
-        private const string Template = "[{Timestamp:yyyy-MM-dd HH:mm:ss zzz]} [{Level:u3}] [Thread {ThreadId}] {Message:lj} [{SourceContext:l}.{Caller}]{NewLine}";
+        private const string Template = "[{Timestamp:yyyy-MM-dd HH:mm:ss zzz]} [{Level:u3}] [Thread {ThreadId}] {Message:lj}{NewLine}";
         public void Debug(string message)
         {
             _logger.Debug(message);
@@ -41,9 +37,9 @@ namespace Logging
         {
             _logger = new LoggerConfiguration()
                 .Enrich.WithThreadId()
+                .MinimumLevel.Warning()
                 .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Warning, outputTemplate: Template)
                 .MinimumLevel.Verbose()
-                .Enrich.FromLogContext()
                 .WriteTo.File(path, restrictedToMinimumLevel: LogEventLevel.Verbose, outputTemplate: Template)
                 .CreateLogger();
         }
