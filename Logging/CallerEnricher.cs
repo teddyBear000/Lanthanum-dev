@@ -16,6 +16,8 @@ namespace Logging
             typeof(Logger).Assembly 
         };
         private bool IsCalledFromLogger(Assembly assembly) => _assemblies.Contains(assembly);
+        private string GetCallerData(MethodBase method) => $"{method.DeclaringType.FullName}.{method.Name}({string.Join(", ", method.GetParameters().Select(pi => pi.ParameterType.FullName))})";
+
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
             var skip = 3;
@@ -31,8 +33,7 @@ namespace Logging
                 var method = stack.GetMethod();
                 if (!IsCalledFromLogger(method.DeclaringType.Assembly))
                 {
-                    var caller = $"{method.DeclaringType.FullName}.{method.Name}({string.Join(", ", method.GetParameters().Select(pi => pi.ParameterType.FullName))})";
-                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(caller)));
+                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(GetCallerData(method))));
                     return;
                 }
 
