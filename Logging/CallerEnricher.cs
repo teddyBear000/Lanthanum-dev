@@ -15,30 +15,23 @@ namespace Logging
             typeof(Log).Assembly, 
             typeof(Logger).Assembly 
         };
-        private bool IsCalledFromLogger(Assembly assembly) => _assemblies.Contains(assembly);
+        private bool IsCalledFromLogger(MethodBase method) => _assemblies.Contains(method.DeclaringType.Assembly);
+        
         private string GetCallerData(MethodBase method) => $"{method.DeclaringType.FullName}.{method.Name}({string.Join(", ", method.GetParameters().Select(pi => pi.ParameterType.FullName))})";
+
+        private void UpdateValues(ref int index, ref StackFrame stack) => (index, stack) = (++index, new StackFrame(index));
 
         public void Enrich(LogEvent logEvent, ILogEventPropertyFactory propertyFactory)
         {
             var skip = 3;
-            while (true)
+            for (var stack = new StackFrame(skip); stack.HasMethod(); UpdateValues(ref skip, ref stack))
             {
-                var stack = new StackFrame(skip);
-                if (!stack.HasMethod())
-                {
-                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue("<unknown method>")));
-                    return;
-                }
-
                 var method = stack.GetMethod();
-                if (!IsCalledFromLogger(method.DeclaringType.Assembly))
-                {
-                    logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(GetCallerData(method))));
-                    return;
-                }
-
-                skip++;
+                if (IsCalledFromLogger(method)) continue;
+                logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue(GetCallerData(method))));
+                return;
             }
+            logEvent.AddPropertyIfAbsent(new LogEventProperty("Caller", new ScalarValue("<unknown method>")));
         }
     }
 }

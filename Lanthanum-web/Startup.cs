@@ -1,4 +1,3 @@
-using Logging;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -22,7 +21,6 @@ namespace Lanthanum_web
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            var logger = new Logger($"{Environment.CurrentDirectory}\\logger.log");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -36,18 +34,6 @@ namespace Lanthanum_web
                 {
                     await context.Response.WriteAsync("Hello World!");
                 });
-                logger.Info("On the default page");
-                
-            });
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapGet("/error", async context =>
-                {
-                    await context.Response.WriteAsync(Environment.CurrentDirectory);
-                });
-                logger.Fatal("On the error page");
-
             });
         }
     }
