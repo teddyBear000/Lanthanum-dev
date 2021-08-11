@@ -11,7 +11,7 @@ namespace Logging
 
         private const string Template = "[{Timestamp:yyyy-MM-dd HH:mm:ss zzz]} [{Level:u3}] [Thread {ThreadId}] {Message:lj} (at {Caller}){NewLine}";
         
-        private string GetPath(string path) => File.Exists(path) ? path : Path.Combine(Environment.CurrentDirectory + "log.log");
+        private string GetPath(string path) => path == string.Empty ? Path.Combine(Environment.CurrentDirectory, "logger.log") : path;
         
         public void Debug(string message) => _logger.Debug(message);
 
