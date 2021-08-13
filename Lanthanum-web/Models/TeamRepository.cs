@@ -10,9 +10,9 @@ namespace Lanthanum_web.Models
     {
         private readonly ApplicationContext context;
         private bool disposed = false;
-        public TeamRepository(ApplicationContext context)
+        public TeamRepository()
         {
-            this.context = context;
+            this.context = new ApplicationContext();
         }
         public IQueryable<Team> GetAllItems()
         {

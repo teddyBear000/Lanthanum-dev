@@ -8,7 +8,9 @@
     public class Reaction
     {
         public int Id { get; set; }
-        public User User { get; set; }
         public ReactionStates ReactionState { get; set; }
+
+        public User User { get; set; }
+        public Comment Comment { get; set; }
     }
 }

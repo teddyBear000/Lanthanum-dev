@@ -10,9 +10,9 @@ namespace Lanthanum_web.Models
     {
         private readonly ApplicationContext context;
         private bool disposed = false;
-        public ReactionRepository(ApplicationContext context)
+        public ReactionRepository()
         {
-            this.context = context;
+            this.context = new ApplicationContext();
         }
         public IQueryable<Reaction> GetAllItems()
         {

@@ -12,6 +12,7 @@ namespace Lanthanum_web.Domain
         public string MainText { get; set; }
         public List<KindOfSport> KindsOfSport { get; set; }
         public List<Team> Teams { get; set; }
+        public List<Comment> Comments { get; set; }
         public int ViewsCount { get; set; }
         public int CommentsCount { get; set; }
         public DateTime DateTimeOfCreation { get; set; }

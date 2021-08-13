@@ -15,7 +15,4 @@ namespace Lanthanum_web.Domain
         public Comment ParentComment { get; set; }
         public List<Reaction> Reactions { get; set; }
     }
-
-
-
 }

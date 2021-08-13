@@ -5,6 +5,8 @@ namespace Lanthanum_web.Domain
     public class Subscription
     {
         public int Id { get; set; }
+
+        public int UserID { get; set; }
         public List<KindOfSport> SubscribedSports { get; set; }
         public List<Team> SubscribedTeams { get; set; }
         public List<User> SubscribedAuthors { get; set; }

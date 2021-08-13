@@ -10,9 +10,9 @@ namespace Lanthanum_web.Models
     {
         private readonly ApplicationContext context;
         private bool disposed = false;
-        public SubscriptionRepository(ApplicationContext context)
+        public SubscriptionRepository()
         {
-            this.context = context;
+            this.context = new ApplicationContext();
         }
         public IQueryable<Subscription> GetAllItems()
         {

@@ -22,11 +22,8 @@ namespace Lanthanum_web.Data
         
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
         {
-                optionsBuilder.UseMySql("server=localhost;user=root;password=2121;database=sportschema",
+                optionsBuilder.UseMySql("server=localhost;user=root;password=12345678;database=sportschema",
                 new MySqlServerVersion(new Version(8, 0, 26)));
         }
-
-
-
     }
 }

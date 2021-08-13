@@ -8,7 +8,7 @@ namespace Lanthanum_web.Domain
         public User BannedUser { get; set; }
         public string Reason { get; set; }
         public DateTime DateOfBan { get; set; }
-        public User BanAuthor { get; set; }
+        public int BanAuthorID { get; set; }
         public bool IsActive { get; set; }
     }
 }

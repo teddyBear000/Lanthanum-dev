@@ -10,10 +10,11 @@ namespace Lanthanum_web.Models
     {
         private readonly ApplicationContext context;
         private bool disposed = false;
-        public UserRepository(ApplicationContext context)
+        public UserRepository()
         {
-            this.context = context;
+            this.context = new ApplicationContext();
         }
+
         public IQueryable<User> GetAllItems()
         {
             return context.Users;
@@ -21,13 +22,22 @@ namespace Lanthanum_web.Models
         public User GetItem(int id)
         {
             User entity = context.Users.Find(id);
+
             return entity;
+        }
+
+        public void AddUserSubscription(User entity)
+        {
+            new SubscriptionRepository().AddItem(new Subscription { UserID = entity.Id });
+            entity.SubscriptionID = context.Subscriptions.First().Id; // Change
         }
 
         public void AddItem(User entity)
         {
             if (entity.Id == default)
             {
+                AddUserSubscription(entity);
+
                 context.Entry(entity).State = EntityState.Added;
                 Save();
             }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Lanthanum_web.Domain
 {
@@ -34,6 +35,9 @@ namespace Lanthanum_web.Domain
         public CurrentStates CurrentState { get; set; }
         public string PasswordHash { get; set; }
         public RoleStates Role { get; set; }
-        public Subscription Subscription { get; set; }
+
+        public int SubscriptionID { get; set; }
+        public List<Subscription> Subscriptions { get; set; }
+        public List<Article> Articles { get; set; }
     }
 }
