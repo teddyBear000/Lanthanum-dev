@@ -3,6 +3,7 @@ using System.Linq;
 using Lanthanum_web.Domain;
 using Lanthanum_web.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace Lanthanum_web.Models
 {
@@ -15,7 +16,7 @@ namespace Lanthanum_web.Models
             this.context = new ApplicationContext();
         }
 
-        public IQueryable<User> GetAllItems()
+        public IEnumerable<User> GetAllItems()
         {
             return context.Users;
         }
