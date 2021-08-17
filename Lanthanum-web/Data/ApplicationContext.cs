@@ -17,9 +17,13 @@ namespace Lanthanum_web.Data
 
         public ApplicationContext()
         {
+        }
+
+        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+        {
             Database.EnsureCreated();
         }
-        
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
         {
                 optionsBuilder.UseMySql("server=localhost;user=root;password=12345678;database=sportschema",

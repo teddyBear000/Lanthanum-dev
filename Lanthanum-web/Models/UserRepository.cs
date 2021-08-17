@@ -30,7 +30,7 @@ namespace Lanthanum_web.Models
         public void AddUserSubscription(User entity)
         {
             new SubscriptionRepository().AddItem(new Subscription { UserID = entity.Id });
-            entity.SubscriptionID = context.Subscriptions.First().Id; // Change
+            entity.SubscriptionID = context.Subscriptions.Last<Subscription>().Id; 
         }
 
         public void AddItem(User entity)
