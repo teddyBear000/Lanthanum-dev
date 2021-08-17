@@ -19,12 +19,15 @@ namespace Lanthanum_web.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+            Categories = new List<string>
+            {
+                "Home", "NBA", "NFL", "MLB", "CBB", "NASCAR", "GOLF", "SOCCER", "TEAM HUB", "LIFESTYLE", "DEALBOOK",
+                "VIDEO"
+            };
         }
 
         public IActionResult Index()
         {
-            
-
             return View();
         }
 
@@ -38,5 +41,7 @@ namespace Lanthanum_web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public static List<string> Categories { get; set; }
     }
 }

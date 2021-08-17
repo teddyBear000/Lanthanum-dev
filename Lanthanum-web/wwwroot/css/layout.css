@@ -1,0 +1,79 @@
+﻿/* Costumer styles */
+* {
+    font-size: 16px;
+}
+
+html {
+    min-width: 1015px;
+}
+
+button:hover span {
+    border-color: white;
+    background: white;
+    color: #d72130;
+}
+
+.selected {
+    color: #d72130;
+    list-style-type: disc;
+    font-weight: bold;
+}
+
+li {
+    font-weight: lighter;
+    color: rgb(188, 188, 188);
+    list-style-type: none;
+    font-weight: bold;
+    margin-top: 8px;
+}
+
+nav ul {
+    height: 450px;
+    width: 185px;
+}
+
+nav ul {
+    overflow: hidden;
+}
+
+li:hover {
+    cursor: pointer;
+}
+
+textarea:focus, input:focus {
+    outline: none;
+}
+
+*:focus {
+    outline: none;
+}
+
+@media screen and (max-width: 1150px) {
+     .searchField {
+         width: 250px;
+     }
+ }
+
+@media screen and (min-width: 1150px) {
+     .searchField {
+         width: 330px;
+     }
+ }
+
+@media screen and (min-width: 1290px) {
+    .searchField {
+        width: 400px;
+    }
+}
+
+@media screen and (min-width: 1480px) {
+     .searchField {
+         width: 500px;
+     }
+ }
+
+.center {
+    line-height: 50px;
+    text-align: center;
+    border: 2px;
+}
