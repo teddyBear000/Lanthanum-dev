@@ -25,13 +25,19 @@ namespace Lanthanum_web.Models
             return entity;
         }
 
-        public void AddItem(KindOfSport entity)
+        public KindOfSport AddItem(KindOfSport entity)
         {
+            KindOfSport newEntity = null;
+
             if (entity.Id == default)
             {
                 context.Entry(entity).State = EntityState.Added;
                 Save();
+
+                newEntity = (KindOfSport)(context.Entry(entity).GetDatabaseValues().ToObject());
             }
+
+            return newEntity;
         }
 
         public void UpdateItem(KindOfSport entity)

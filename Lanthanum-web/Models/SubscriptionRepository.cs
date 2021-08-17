@@ -25,13 +25,19 @@ namespace Lanthanum_web.Models
             return entity;
         }
 
-        public void AddItem(Subscription entity)
+        public Subscription AddItem(Subscription entity)
         {
+            Subscription newEntity = null;
+
             if (entity.Id == default)
             {
                 context.Entry(entity).State = EntityState.Added;
                 Save();
+
+                newEntity = (Subscription)(context.Entry(entity).GetDatabaseValues().ToObject());
             }
+
+            return newEntity;
         }
 
         public void UpdateItem(Subscription entity)

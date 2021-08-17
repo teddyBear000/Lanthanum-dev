@@ -27,21 +27,27 @@ namespace Lanthanum_web.Models
             return entity;
         }
 
-        public void AddUserSubscription(User entity)
+        public void CreateSubscribtion(User OldEntity, User NewEntity)
         {
-            new SubscriptionRepository().AddItem(new Subscription { UserID = entity.Id });
-            entity.SubscriptionID = context.Subscriptions.Last<Subscription>().Id; 
+            var subscribtionEntity = new SubscriptionRepository().AddItem(new Subscription { UserID = NewEntity.Id });
+            OldEntity.SubscriptionID = subscribtionEntity.Id;
+            Save();
         }
 
-        public void AddItem(User entity)
+        public User AddItem(User entity)
         {
+            User newEntity = null;
+
             if (entity.Id == default)
             {
-                AddUserSubscription(entity);
-
                 context.Entry(entity).State = EntityState.Added;
                 Save();
+
+                newEntity = (User)(context.Entry(entity).GetDatabaseValues().ToObject());
+                CreateSubscribtion(entity, newEntity);
             }
+
+            return newEntity;
         }
 
         public void UpdateItem(User entity)

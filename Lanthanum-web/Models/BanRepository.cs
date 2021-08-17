@@ -25,13 +25,19 @@ namespace Lanthanum_web.Models
             return entity;
         }
 
-        public void AddItem(Ban entity)
+        public Ban AddItem(Ban entity)
         {
+            Ban newEntity = null;
+
             if (entity.Id == default)
             {
                 context.Entry(entity).State = EntityState.Added;
                 Save();
+
+                newEntity = (Ban)(context.Entry(entity).GetDatabaseValues().ToObject());
             }
+
+            return newEntity;
         }
 
         public void UpdateItem(Ban entity)

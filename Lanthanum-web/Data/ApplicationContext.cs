@@ -17,6 +17,7 @@ namespace Lanthanum_web.Data
 
         public ApplicationContext()
         {
+            Database.EnsureCreated();
         }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options)

@@ -9,7 +9,7 @@ namespace Lanthanum_web.Models
     {
         public IEnumerable<T> GetAllItems();
         public T GetItem(int id);
-        public void AddItem(T entity);
+        public T AddItem(T entity);
         public void UpdateItem(T entity);
         public void DeleteItem(int id);
         public void Save();

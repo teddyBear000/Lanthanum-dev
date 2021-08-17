@@ -25,13 +25,18 @@ namespace Lanthanum_web.Models
             return entity;
         }
 
-        public void AddItem(Reaction entity)
+        public Reaction AddItem(Reaction entity)
         {
+            Reaction newEntity = null;
             if (entity.Id == default)
             {
                 context.Entry(entity).State = EntityState.Added;
                 Save();
+
+                newEntity = (Reaction)(context.Entry(entity).GetDatabaseValues().ToObject());
             }
+
+            return newEntity;
         }
 
         public void UpdateItem(Reaction entity)
