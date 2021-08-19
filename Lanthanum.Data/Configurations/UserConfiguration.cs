@@ -13,6 +13,7 @@ namespace Lanthanum.Data.Configurations
 
             builder
                 .HasOne(u => u.Subscription)
+                .WithOne(s => s.Owner)
                 .HasForeignKey<Subscription>(s => s.OwnerId);
 
             builder
