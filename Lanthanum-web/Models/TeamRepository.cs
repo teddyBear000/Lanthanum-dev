@@ -25,18 +25,35 @@ namespace Lanthanum_web.Models
             return entity;
         }
 
+        public bool TryAddItem(Team entity)
+        {
+            try
+            {
+                entity = AddItem(entity);
+                return true;
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
         public Team AddItem(Team entity)
         {
-            Team newEntity = null;
-            if (entity.Id == default)
-            {
-                context.Entry(entity).State = EntityState.Added;
-                Save();
+            if (entity.Id != default)
+                throw new ArgumentException("Wrong ID");
 
-                newEntity = (Team)(context.Entry(entity).GetDatabaseValues().ToObject());
-            }
+            var element = context.Entry(entity);
+            element.State = EntityState.Added;
+            Save();
 
-            return newEntity;
+            return element.Entity;
         }
 
         public void UpdateItem(Team entity)

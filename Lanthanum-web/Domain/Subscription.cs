@@ -11,5 +11,4 @@ namespace Lanthanum_web.Domain
         public List<Team> SubscribedTeams { get; set; }
         public List<User> SubscribedAuthors { get; set; }
     }
-
 }

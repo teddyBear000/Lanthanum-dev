@@ -25,19 +25,35 @@ namespace Lanthanum_web.Models
             return entity;
         }
 
+        public bool TryAddItem(KindOfSport entity)
+        {
+            try
+            {
+                entity = AddItem(entity);
+                return true;
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
+
         public KindOfSport AddItem(KindOfSport entity)
         {
-            KindOfSport newEntity = null;
+            if (entity.Id != default)
+                throw new ArgumentException("Wrong ID");
 
-            if (entity.Id == default)
-            {
-                context.Entry(entity).State = EntityState.Added;
-                Save();
+            var element = context.Entry(entity);
+            element.State = EntityState.Added;
+            Save();
 
-                newEntity = (KindOfSport)(context.Entry(entity).GetDatabaseValues().ToObject());
-            }
-
-            return newEntity;
+            return element.Entity;
         }
 
         public void UpdateItem(KindOfSport entity)

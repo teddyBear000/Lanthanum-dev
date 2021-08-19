@@ -19,25 +19,43 @@ namespace Lanthanum_web.Models
         {
             return context.Comments;
         }
+
         public Comment GetItem(int id)
         {
             Comment entity = context.Comments.Find(id);
             return entity;
         }
 
-        public Comment AddItem(Comment entity)
+        public bool TryAddItem(Comment entity)
         {
-            Comment newEntity = null;
-
-            if (entity.Id == default)
+            try
             {
-                context.Entry(entity).State = EntityState.Added;
-                Save();
-
-                newEntity = (Comment)(context.Entry(entity).GetDatabaseValues().ToObject());
+                entity = AddItem(entity);
+                return true;
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
             }
 
-            return newEntity;
+        }
+
+        public Comment AddItem(Comment entity)
+        {
+            if (entity.Id != default)
+                throw new ArgumentException("Wrong ID");
+
+            var element = context.Entry(entity);
+            element.State = EntityState.Added;
+            Save();
+
+            return element.Entity;
         }
 
         public void UpdateItem(Comment entity)

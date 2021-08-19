@@ -24,20 +24,35 @@ namespace Lanthanum_web.Models
             Subscription entity = context.Subscriptions.Find(id);
             return entity;
         }
+        public bool TryAddItem(Subscription entity)
+        {
+            try
+            {
+                entity = AddItem(entity);
+                return true;
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
 
         public Subscription AddItem(Subscription entity)
         {
-            Subscription newEntity = null;
+            if (entity.Id != default)
+                throw new ArgumentException("Wrong ID");
 
-            if (entity.Id == default)
-            {
-                context.Entry(entity).State = EntityState.Added;
-                Save();
+            var element = context.Entry(entity);
+            element.State = EntityState.Added;
+            Save();
 
-                newEntity = (Subscription)(context.Entry(entity).GetDatabaseValues().ToObject());
-            }
-
-            return newEntity;
+            return element.Entity;
         }
 
         public void UpdateItem(Subscription entity)

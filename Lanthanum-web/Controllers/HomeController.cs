@@ -20,7 +20,6 @@ namespace Lanthanum_web.Controllers
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();

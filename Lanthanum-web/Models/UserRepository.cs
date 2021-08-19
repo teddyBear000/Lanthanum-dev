@@ -27,29 +27,45 @@ namespace Lanthanum_web.Models
             return entity;
         }
 
-        public void CreateSubscribtion(User OldEntity, User NewEntity)
+        public void CreateSubscribtion(User Entity)
         {
-            var subscribtionEntity = new SubscriptionRepository().AddItem(new Subscription { UserID = NewEntity.Id });
-            OldEntity.SubscriptionID = subscribtionEntity.Id;
+            var subscribtionEntity = new SubscriptionRepository().AddItem(new Subscription { UserID = Entity.Id });
+            Entity.SubscriptionID = subscribtionEntity.Id;
             Save();
+        }
+        public bool TryAddItem(User entity)
+        {
+            try
+            {
+                entity = AddItem(entity);
+                return true;
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
 
         public User AddItem(User entity)
         {
-            User newEntity = null;
+            if (entity.Id != default)
+                throw new ArgumentException("Wrong ID");
 
-            if (entity.Id == default)
-            {
-                context.Entry(entity).State = EntityState.Added;
-                Save();
+            var element = context.Entry(entity);
+            element.State = EntityState.Added;
+            Save();
 
-                newEntity = (User)(context.Entry(entity).GetDatabaseValues().ToObject());
-                CreateSubscribtion(entity, newEntity);
-            }
+            CreateSubscribtion(element.Entity);
 
-            return newEntity;
+            return element.Entity;
         }
-
+       
         public void UpdateItem(User entity)
         {
             if (entity.Id != default)

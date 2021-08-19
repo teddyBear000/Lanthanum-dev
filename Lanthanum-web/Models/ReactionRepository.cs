@@ -24,19 +24,35 @@ namespace Lanthanum_web.Models
             Reaction entity = context.Reactions.Find(id);
             return entity;
         }
+        public bool TryAddItem(Reaction entity)
+        {
+            try
+            {
+                entity = AddItem(entity);
+                return true;
+            }
+            catch (ArgumentException e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+        }
 
         public Reaction AddItem(Reaction entity)
         {
-            Reaction newEntity = null;
-            if (entity.Id == default)
-            {
-                context.Entry(entity).State = EntityState.Added;
-                Save();
+            if (entity.Id != default)
+                throw new ArgumentException("Wrong ID");
 
-                newEntity = (Reaction)(context.Entry(entity).GetDatabaseValues().ToObject());
-            }
+            var element = context.Entry(entity);
+            element.State = EntityState.Added;
+            Save();
 
-            return newEntity;
+            return element.Entity;
         }
 
         public void UpdateItem(Reaction entity)
