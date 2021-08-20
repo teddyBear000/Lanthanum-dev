@@ -24,7 +24,7 @@ namespace Lanthanum.Web.Domain
     public enum UserStates
     {
         Activated,
-        InActivated,
+        UnActivated,
         Banned
     }
 
