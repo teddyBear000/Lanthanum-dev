@@ -13,7 +13,7 @@ namespace Lanthanum.Web.Controllers
             return View();
         }
 
-        public IActionResult SignIn()
+        public IActionResult SignUp()
         {
             return View();
         }
