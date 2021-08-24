@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Lanthanum.Web</RootNamespace>
-    <UserSecretsId>404bd746-d17f-4568-8af5-2a0f8514d334</UserSecretsId>
+    <UserSecretsId>1533425c-9bbc-47bf-8062-72828590be69</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
