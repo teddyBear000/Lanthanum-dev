@@ -26,7 +26,7 @@ namespace Lanthanum.Web
         {
             services.AddControllersWithViews();
             
-            var builder = new SqlConnectionStringBuilder(
+           /* var builder = new SqlConnectionStringBuilder(
                 Configuration.GetConnectionString("DefaultConnection"));
             builder.UserID = Configuration["Database:User"];
             builder.Password = Configuration["Database:Password"];
@@ -37,10 +37,10 @@ namespace Lanthanum.Web
                     new MySqlServerVersion(new Version(8, 0, 26)),
                     x => x.MigrationsAssembly("Lanthanum.Data")
                 )
-            );
+            );*/
             
             // DI
-            services.AddTransient<DbRepository<User>>();
+            /*services.AddTransient<DbRepository<User>>();*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
