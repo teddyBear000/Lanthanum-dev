@@ -1,0 +1,245 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
+.header-logo-container {
+    display: flex;
+    position: absolute;
+    width: 15%;
+    height: 100%;
+    background: #d72130;
+    justify-content: center;
+    align-content: center;
+}
+
+.header-logo {
+    color: white;
+    font-size: 1.3em;
+    font-weight: 400;
+    align-self: center;
+}
+
+.header-logo:hover {
+    color: white;
+    text-decoration: none;
+}
+
+.infinity-image-container {
+    background: url(../images/auth-basketball.jpg) center no-repeat;
+    background-size: cover;
+    height: 100vh;
+    opacity: 0.9;
+}
+
+.fixed-top .header-ref {
+    font-family: 'Open Sans', sans-serif;
+    color: #d72130;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #d72130;
+    text-align: center;
+    padding: 1vh 4vh 1vh 4vh;
+    font-size: 14px;
+    max-width: 500px;
+    margin: 1.1vw 3vw 1.1vw 1.1vw;
+}
+
+.fixed-top .header-ref:hover {
+    color: white;
+    background-color: #d72130;
+    text-decoration: none;
+}
+
+.fixed-top .header-question {
+    font-family: 'Open Sans', sans-serif;
+    color: #434c5d;
+    font-size: 14px;
+    max-width: 500px;
+    padding: 1vh 2vh 1vh 2vh;
+    margin: 3vw 3vw 1.1vw 1.1vw;
+    margin: 1.1vw 0.5vw 1.1vw 1.1vw;
+}
+
+
+.infinity-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+
+.infinity-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.infinity-form h4 {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    color: black;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.social-network-container {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+
+.fb-img {
+    display: flex;
+    background: url(../images/facebook.svg) center no-repeat;
+    width: 7%;
+    height: 3.5vh;
+    align-self: flex-start;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+    min-width: 35px;
+    min-height: 34px;
+}
+
+.google-img {
+    display: flex;
+    background: url(../images/google.svg) center no-repeat;
+    width: 7%;
+    height: 3.5vh;
+    align-self: flex-start;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+    min-width: 35px;
+    min-height: 34px;
+}
+
+.plain-line {
+    font-family: 'Open Sans', sans-serif;
+    color: #434c5d;
+    font-size: 14px;
+    display: block;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.forget-link {
+    font-family: 'Open Sans', sans-serif;
+    color: #709de8;
+    font-size: 14px;
+    display: block;
+    max-width: 500px;
+}
+
+.forget-link:hover {
+    color: #4285f4;
+    text-decoration: none;
+}
+
+.infinity-form .form-input {
+    position: relative;
+}
+
+.infinity-form .form-input input {
+    font-family: 'Open Sans', sans-serif;
+    align-content: center;
+    max-width: 500px;
+    width: 100%;
+    height: 40px;
+    border: 1px solid #eaecf1;
+    outline: none;
+    background: transparent;
+    font-weight: 400;
+    color: black;
+    display: block;
+    margin: 0 auto;
+    padding: 2%;
+    margin-bottom: 15px;
+}
+
+input::placeholder {
+    color: #c6ccd7ed;
+}
+
+.infinity-form .form-input span {
+    position: absolute;
+    top: 8px;
+    padding-left: 10px;
+    color: #777;
+}
+
+.infinity-form button[type="submit"] {
+    font-family: 'Open Sans', sans-serif;
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #d72130; /*Button Color*/
+    color: #fff;
+    font-weight: 550;
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+@media (max-width: 768px) {
+    .infinity-form-container {
+        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(../images/auth-basketball.jpg) center no-repeat;
+        background-size: cover;
+        height: 100vh;
+        opacity: 0.93;
+    }
+
+    .header-logo-container {
+        height: 11vh;
+        text-align: center;
+    }
+
+    .fixed-top .header-container {
+        color: white;
+        text-shadow: 5px 5px 10px black;
+    }
+
+    .fixed-top .header-question {
+        color: white;
+        text-shadow: black 0px 0px 90px;
+    }
+
+    .infinity-form h4 {
+        color: white;
+        text-shadow: 5px 5px 10px black;
+    }
+
+    .fb-img {
+        filter: invert(1);
+    }
+
+    .google-img {
+        filter: invert(1);
+    }
+
+    .email-line p {
+        color: white;
+        font-size: 15px;
+        text-shadow: 5px 5px 10px black;
+    }
+
+    .plain-line {
+        color: white;
+        text-shadow: 5px 5px 10px black;
+    }
+
+    .forget-link {
+        color: white;
+        text-shadow: 5px 5px 10px black;
+    }
+
+    .forget-link:hover {
+        color: #458cfd;
+        text-decoration: underline;
+    }
+
+    .infinity-form .form-input input {
+        background-color: white;
+    }
+}
