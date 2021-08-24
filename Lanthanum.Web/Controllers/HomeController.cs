@@ -15,22 +15,22 @@ namespace Lanthanum.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        /*private readonly DbRepository<User> _userRepository;*/
+        private readonly DbRepository<User> _userRepository;
 
-        public HomeController(ILogger<HomeController> logger/*, DbRepository<User> userRepository*/)
+        public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository)
         {
             _logger = logger;
-            /*_userRepository = userRepository;*/
+            _userRepository = userRepository;
         }
         
         public IActionResult Index()
         {
-            /*_userRepository.AddAsync(new User()
+            _userRepository.AddAsync(new User()
             {
                 Email = "mail@gmail.com",
                 FirstName = "name"
             });
-            */
+            
             return View();
         }
 
