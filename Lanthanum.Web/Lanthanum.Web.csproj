@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>Lanthanum.Web</RootNamespace>
-    <UserSecretsId>git</UserSecretsId>
+    <UserSecretsId>1533425c-9bbc-47bf-8062-72828590be69</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
