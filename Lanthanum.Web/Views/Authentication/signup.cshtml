@@ -3,20 +3,23 @@
 }
 
 <div class="container-fluid">
-    <div class="row">
-        <!-- IMAGE CONTAINER -->
-        <div class="col-lg-6 col-md-6 d-none d-md-block infinity-image-container"></div>
-        <!-- IMAGE CONTAINER END -->
-       
-        <!-- FORM CONTAINER BEGIN -->
-        <div class="col-lg-6 col-md-6 infinity-form-container">
-            <div class="fixed-top">
-                <div class="header-logo-container">
-                    <a href="~/Home" class="header-logo">Sports Hub</a>
-                </div>
-                <a href="~/authentication/login" class="header-ref float-right">Log In</a>
-                <p class="float-right header-question">Already have an account?</p>
+    <header>
+        <nav class="navbar navbar-expand-sm  bg-transparent justify-content-between">
+            <a class="navbar-brand d-table" href="~/Home">
+                <p class="d-table-cell">Sports Hub</p>
+            </a>
+            <div class="navbar-nav ml-auto">
+                <p class="nav-item header-question ml-sm-5">Already have an account?</p>
+                <a href="~/authentication/login" class="nav-item header-ref ml-sm-5">Log In</a>
             </div>
+        </nav>
+    </header>
+    <div class="row">
+    <!-- IMAGE CONTAINER -->
+        <div class="col-lg-6 col-md-6 d-none d-md-block infinity-image-container"></div>
+    <!-- IMAGE CONTAINER END -->
+    <!-- FORM CONTAINER BEGIN -->
+        <div class="col-lg-6 col-md-6 infinity-form-container">
             <div class="col-lg-9 col-md-12 col-sm-8 col-xs-12 infinity-form">
                 <div class="text-left mb-4">
                     <h4>Create Account</h4>
@@ -42,10 +45,10 @@
                         <div class="float-left">
                             EMAIL
                         </div>
-                        <br/>
+                        <br />
                     </div>
                     <div class="form-input">
-                        <input type="password" name="" placeholder="johndoe@gmail.com" required>
+                        <input type="email" name="" placeholder="johndoe@gmail.com" required>
                     </div>
 
                     <div class="plain-line">
@@ -65,6 +68,6 @@
                 </form>
             </div>
         </div>
-        <!--FORM CONTAINER END-->
+    <!--FORM CONTAINER END-->
     </div>
 </div>
