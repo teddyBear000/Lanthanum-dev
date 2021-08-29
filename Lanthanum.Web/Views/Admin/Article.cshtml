@@ -11,16 +11,17 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="conteiner">
-        <div class="row">
-            <div class="col offset-9">
-                <button id="warn" class="allbuttons secondary-button" type="button">Cancel</button>
-                <button class="allbuttons primary-button" type="submit">Save</button>
+    <form method="post" controller="admin" action="article">
+        <div class="conteiner">
+            <div class="row">
+                <div class="col offset-9">
+                    <button id="warn" class="allbuttons secondary-button" type="button">Cancel</button>
+                    <button class="allbuttons primary-button" type="submit">Save</button>
+                </div>
             </div>
         </div>
-    </div>
-
-
+        <input type="text" name="name" placeholder="Input yout name"/>
+    </form>
     <!-- POP UP CONTAINER BEGIN -->
     <div class="warning-container" id="warning-container">
         <div class="image">
@@ -34,7 +35,7 @@
             </div>
             <div class="buttons">
                 <button id="close-warn" class="allbuttons secondary-button">No</button>
-                <button class="allbuttons primary-button">Yes</button>
+                <button class="allbuttons primary-button" onclick=@($"window.location.href='{Url.Action("Index", "Home")}'");>Yes</button>
             </div>
         </div>
     </div>
