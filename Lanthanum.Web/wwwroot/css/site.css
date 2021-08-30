@@ -68,11 +68,6 @@ body {
 
 /* Footer styles start*/
 #footer-divider {
-    position: absolute;
-    left: 17.5%;
-    right: 0%;
-    top: 0%;
-    bottom: 99.73%;
     background: #D8D8D8;
     border: 1px solid #B2B2B2;
 }
@@ -86,9 +81,16 @@ body {
 .form-control::placeholder {
     font-size: 0.95rem;
     color: #aaa;
+    box-shadow: none;
+    outline: none;
 }
 
 .form-control.shadow-0:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.form-control:focus {
     box-shadow: none;
 }
 
@@ -155,8 +157,10 @@ body {
 }
 
 #footer-newsletter-form {
-    width:284px;
-    height:32px;
+    width: 284px;
+    height: 32px;
+    box-shadow: none;
+    outline: none;
 }
 
 #footer-newsletter-email-input {
@@ -166,8 +170,9 @@ body {
     font-size: 12px;
     line-height: 17px;
     /* identical to box height, or 142% */
-
+    box-shadow: none;
     color: #B2B2B2;
+    outline: none;
 }
 
 #footer-newsletter-subscribe-button {
@@ -179,9 +184,9 @@ body {
     font-size: 12px;
     line-height: 17px;
     /* identical to box height, or 142% */
-
-
+    box-shadow: none;
     color: #FFF5F5;
+    outline: none;
 }
 
 #footer {

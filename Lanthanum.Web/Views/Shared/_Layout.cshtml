@@ -35,16 +35,20 @@
         </main>
     </div>
 
-    @*Old footer*@
+    @* Old footer *@
     @*<footer class="border-top footer text-muted">
             <div class="container">
                 &copy; 2021 - Lanthanum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
             </div>
         </footer>*@
 
+    @* New footer *@
+
+    @* Tabs with links *@
+
     <footer class="bg-white" id="footer">
         <div class="container py-5">
-            @*<hr id="footer-divider" />*@
+            <hr id="footer-divider" />
             <div class="row py-4 justify-content-between">
                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Company Info</h6>
@@ -69,9 +73,9 @@
                     <p class="text-muted mb-1" id="footer-newsletter-description">Sign up to receive the latest sports news</p>
                     <div class="p-1">
                         <div class="input-group" id="footer-newsletter-form">
-                            <input type="email" placeholder="Your email address" class="form-control shadow-none" aria-describedby="footer-newsletter-subscribe-button" id="footer-newsletter-email-input">
+                            <input type="email" placeholder="Your email address" class="form-control shadow-none shadow-0" aria-describedby="footer-newsletter-subscribe-button" id="footer-newsletter-email-input">
                             <div class="input-group-append">
-                                <button type="submit" class="btn btn-outline-danger shadow-none" id="footer-newsletter-subscribe-button">Subscribe</button>
+                                <button type="submit" class="btn btn-outline-danger shadow-none shadow-0" id="footer-newsletter-subscribe-button">Subscribe</button>
                             </div>
                         </div>
                     </div>
@@ -79,18 +83,19 @@
             </div>
         </div>
 
-        <!-- Copyrights -->
-        <div class="footer-copyright py-4 row align-items-center m-0">
-            <div class="container flex-row col-4 justify-content-center">
-                <p class="mb-0 py-2" id="footer-copyright-logo">Sports Hub</p>
+        @* Copyrights *@
+
+        <div class="footer-copyright py-4 row m-0">
+            <div class="container flex-row col-4">
+                <p class="mb-0 py-2" id="footer-copyright-logo"><a class="text-white" asp-area="" asp-controller="Home" asp-action="Index">Sports Hub</a></p>
             </div>
-            <div class="container flex-row col-4 justify-content-center">
+            <div class="container flex-row col-4">
                 <p class="footer-copyright-text mb-0 py-1">Copyright ©2019 Sports Hub</p>
-                <p class="footer-copyright-text mb-0 py-1"><a class="text-white" href="#">Privacy</a> / <a class="text-white" href="#">Terms</a></p>
+                <p class="footer-copyright-text mb-0 py-1"><a class="text-white" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> / <a class="text-white" href="#">Terms</a></p>
             </div>
         </div>
     </footer>
-    <!-- End -->
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
