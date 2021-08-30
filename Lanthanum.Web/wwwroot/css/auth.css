@@ -1,25 +1,36 @@
 ﻿@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
 
-.header-logo-container {
-    display: flex;
+header {
     position: absolute;
-    width: 15%;
+    width: 100vw;
+    height: 7.5vh;
+    z-index: 1;
+    left: 0;
+}
+
+nav.navbar {
+    padding: 0;
     height: 100%;
-    background: #d72130;
-    justify-content: center;
-    align-content: center;
 }
 
-.header-logo {
-    color: white;
-    font-size: 1.3em;
-    font-weight: 400;
+.navbar-brand {
+    background-color: #d72130;
+    width: 12%;
+    min-width: 80px;
+    height: 100%;
+    align-self: flex-start;
+}
+
+.navbar-brand p {
+    width: 100%;
+    text-align: center;
+    margin: 0;
     align-self: center;
-}
-
-.header-logo:hover {
+    white-space: initial;
     color: white;
-    text-decoration: none;
+    font-size: 1.7rem;
+    font-weight: 400;
+    vertical-align: middle;
 }
 
 .infinity-image-container {
@@ -29,7 +40,7 @@
     opacity: 0.9;
 }
 
-.fixed-top .header-ref {
+.header-ref {
     font-family: 'Open Sans', sans-serif;
     color: #d72130;
     border-width: 1px;
@@ -42,13 +53,13 @@
     margin: 1.1vw 3vw 1.1vw 1.1vw;
 }
 
-.fixed-top .header-ref:hover {
+.header-ref:hover {
     color: white;
     background-color: #d72130;
     text-decoration: none;
 }
 
-.fixed-top .header-question {
+.header-question {
     font-family: 'Open Sans', sans-serif;
     color: #434c5d;
     font-size: 14px;
@@ -204,17 +215,7 @@ input::placeholder {
         opacity: 0.93;
     }
 
-    .header-logo-container {
-        height: 11vh;
-        text-align: center;
-    }
-
-    .fixed-top .header-container {
-        color: white;
-        text-shadow: 5px 5px 10px black;
-    }
-
-    .fixed-top .header-question {
+    .header-question {
         color: white;
         text-shadow: black 0px 0px 90px;
     }

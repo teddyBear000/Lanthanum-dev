@@ -2,69 +2,55 @@
     Layout = "_AuthenticationLayout";
 }
 
-<div class="container-fluid">
-    <div class="row">
-        <!-- IMAGE CONTAINER -->
-        <div class="col-lg-6 col-md-6 d-none d-md-block infinity-image-container"></div>
-        <!-- IMAGE CONTAINER END -->
-       
-        <!-- FORM CONTAINER BEGIN -->
-        <div class="col-lg-6 col-md-6 infinity-form-container">
-            <div class="fixed-top">
-                <div class="header-logo-container">
-                    <a href="~/Home" class="header-logo">Sports Hub</a>
-                </div>
-                <a href="~/authentication/login" class="header-ref float-right">Log In</a>
-                <p class="float-right header-question">Already have an account?</p>
-            </div>
-            <div class="col-lg-9 col-md-12 col-sm-8 col-xs-12 infinity-form">
-                <div class="text-left mb-4">
-                    <h4>Create Account</h4>
-                </div>
-                <form class="px-3">
-                    <div class="social-network-container">
-                        <a href="#" class="fb-img"></a>
-                        <a href="#" class="google-img"></a>
-                    </div>
-                    <div class="text-left plain-line mb-3">Or use your email for registration:</div>
-                    <div class="fname-lname-container">
-                        <div class="form-input name-item mr-2">
-                            <div class="plain-line mb-1">FIRST NAME</div>
-                            <input type="text" name="" placeholder="John">
-                        </div>
-                        <div class="form-input name-item ml-2">
-                            <div class="plain-line mb-1">LAST NAME</div>
-                            <input type="text" name="" placeholder="Doe">
-                        </div>
-                    </div>
+@section AuthenticationHeaderAttr
+{
+    <p class="nav-item header-question ml-md-5">Already have an account?</p>
+    <a href="~/authentication/login" class="nav-item header-ref ml-sm-5">Log In</a>
+}
 
-                    <div class="plain-line">
-                        <div class="float-left">
-                            EMAIL
-                        </div>
-                        <br/>
-                    </div>
-                    <div class="form-input">
-                        <input type="password" name="" placeholder="johndoe@gmail.com" required>
-                    </div>
 
-                    <div class="plain-line">
-                        <div class="float-left">
-                            PASSWORD
-                        </div>
-                        <div class="text-right">
-                            <a href="reset.html" class="forget-link">Forgot password?</a>
-                        </div>
-                    </div>
-                    <div class="form-input">
-                        <input type="password" name="" placeholder="8+ characters(letters and numbers)" required>
-                    </div>
-                    <div class="mb-3">
-                        <button type="submit" class="btn btn-block">SIGN UP</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <!--FORM CONTAINER END-->
-    </div>
+<div class="text-left mb-4">
+    <h4>Create Account</h4>
 </div>
+<form class="px-3">
+    <div class="social-network-container">
+        <a href="#" class="fb-img"></a>
+        <a href="#" class="google-img"></a>
+    </div>
+    <div class="text-left plain-line mb-3">Or use your email for registration:</div>
+    <div class="fname-lname-container">
+        <div class="form-input name-item mr-2">
+            <div class="plain-line mb-1">FIRST NAME</div>
+            <input type="text" name="" placeholder="John">
+        </div>
+        <div class="form-input name-item ml-2">
+            <div class="plain-line mb-1">LAST NAME</div>
+            <input type="text" name="" placeholder="Doe">
+        </div>
+    </div>
+
+    <div class="plain-line">
+        <div class="float-left">
+            EMAIL
+        </div>
+        <br />
+    </div>
+    <div class="form-input">
+        <input type="email" name="" placeholder="johndoe@gmail.com" required>
+    </div>
+
+    <div class="plain-line">
+        <div class="float-left">
+            PASSWORD
+        </div>
+        <div class="text-right">
+            <a href="reset.html" class="forget-link">Forgot password?</a>
+        </div>
+    </div>
+    <div class="form-input">
+        <input type="password" name="" placeholder="8+ characters(letters and numbers)" required>
+    </div>
+    <div class="mb-3">
+        <button type="submit" class="btn btn-block">SIGN UP</button>
+    </div>
+</form>
