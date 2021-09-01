@@ -1,48 +1,70 @@
-﻿<!DOCTYPE html>
+﻿@using Lanthanum.Web.Controllers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Lanthanum.Web</title>
+    <title>@ViewData["Title"] - Lanthanum_web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/layout.css" />
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Lanthanum.Web</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+        <nav class="navbar navbar-light justify-content-between" style="padding: 0; border-bottom: solid; border-bottom-color: #e0e0e0; border-width: 1px; ">
+            <div class="navbar" style="width: 52%; padding: 0;">
+                <a href="#" class="navbar-brand center" style=" background: #d72130; width: 200px; padding: 16px; color: white; font-size: 1.3em; font-weight: 400; cursor: pointer; height: 80px;">Sports Hub</a>
+                <span style="width: 50px; text-align: center">
+                    <i class="material-icons"></i>
+                </span>
+                <div class="searchField" style="height: 100%">
+                    <input placeholder="Search by" style="height: 100%; text-color: dark-gray; border-width: 0" type="text">
                 </div>
+            </div>
+            <div class="navbar" style="width: 23%; height: 80px; border-left: solid; border-right: solid; border-right-color: #e0e0e0; border-left-color: #e0e0e0; border-width: 1px;"></div>
+            <div class="navbar" style="width: 250px">
+                <a href="#" style="color: #d72130; width: 50%; text-align: center">Sign up</a>
+                <button href="#" style="        color: #d72130;
+        border: solid;
+        border-color: #d72130; border-width: 2px;
+        padding: 2px;
+        width: 50%;
+        text-align: center;
+        background: transparent">
+                    Log in
+                </button>
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+
+    <main>
+        <div class="row">
+            <div style="width: 215px;">
+                <nav>
+                    <ul style="margin-left: 30px; margin-top: 50px;" data-tag="channelList">
+                        <li onclick="switchChannel(this)" class="selected">@HomeController.Categories[0]</li>
+                        @foreach (var item in HomeController.Categories.Skip(1))
+                        {
+                            <li onclick="switchChannel(this)">@item</li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
 
     <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Lanthanum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        <div class="container" style="text-align: left">
+            &copy; 2021 - Sports Hub
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

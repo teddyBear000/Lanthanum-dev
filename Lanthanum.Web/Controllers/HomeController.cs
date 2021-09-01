@@ -21,6 +21,11 @@ namespace Lanthanum.Web.Controllers
         {
             _logger = logger;
             _userRepository = userRepository;
+            Categories = new List<string>
+            {
+                "Home", "NBA", "NFL", "MLB", "CBB", "NASCAR", "GOLF", "SOCCER", "TEAM HUB", "LIFESTYLE", "DEALBOOK",
+                "VIDEO"
+            };
         }
         
         public IActionResult Index()
@@ -44,5 +49,7 @@ namespace Lanthanum.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public static List<string> Categories { get; set; }
     }
 }
