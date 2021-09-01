@@ -97,17 +97,15 @@ dropdown-form option:hover {
     display: flex;
     flex-direction: column;
     height: 100%;
-    /*background: aqua;*/
-    overflow: scroll;
+    overflow: auto;
 }
 
 .article-preview {
     display: flex;
     flex: none;
     /*background: blueviolet*/;
-    height: 25%;
-    align-items: center;
     padding: 12px;
+    max-height: 23%;
 }
 
 .article-preview img {
@@ -124,6 +122,7 @@ dropdown-form option:hover {
     width: 100%;
     margin-left: 20px;
     /*background: red;*/
+
 }
 
 .headline {
@@ -132,6 +131,8 @@ dropdown-form option:hover {
     font-size: 17px;
     color: #2b2f43;
     overflow: hidden;
+    column-width: 200px;
+    -webkit-column-width: 300px;
 }
 
 .article-brief-start {
@@ -139,8 +140,12 @@ dropdown-form option:hover {
     font-size: 14px;
     color: #7f7b7b;
     overflow: hidden;
-    height: 100%;
-    overflow: hidden;
+    column-width: 300px;
+    -webkit-column-width: 300px;
+}
+
+.location-status-container {
+    max-height: 150px;
 }
 
 .location {
@@ -148,8 +153,9 @@ dropdown-form option:hover {
     font-size: 14px;
     color: #7f7b7b;
     overflow: hidden;
-    height: 100%;
-    overflow: hidden;
+    max-width: 149px;
+    -webkit-column-width: 200px;
+    align-self: center;
     /*May Have Another Content*/
 }
 
@@ -158,5 +164,19 @@ dropdown-form option:hover {
     font-size: 14px;
     color: #434c5d;
     font-weight: bold;
-    overflow: hidden;
+    align-content: flex-end;
+    display: flex;
+
+}
+.state .green-circle {
+    transform: scale(0.5, 0.5);
+}
+::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+    overflow-y: auto;
+}
+::-webkit-scrollbar-thumb {
+    background: #C4C4C4;
+    border-radius: 10px;
 }
