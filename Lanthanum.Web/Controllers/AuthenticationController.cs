@@ -50,9 +50,12 @@ namespace Lanthanum.Web.Controllers
                     
                 return RedirectToAction("Index", "Home");
             }
-                
+            
+            // If wrong email and password
             ModelState.AddModelError(string.Empty, "Incorrect user ID or password. Try again.");
-            ModelState.AddModelError("Email", string.Empty);
+            
+            // Adding red border for input fields
+            ModelState.AddModelError("Email", string.Empty); 
             ModelState.AddModelError("Password", string.Empty);
 
             return View(model);

@@ -11,7 +11,7 @@ namespace Lanthanum.Web.Domain
         public string LastName { get; set; }
         public string Nickname { get; set; }
         public string Email { get; set; }
-        public DateTime RegistrationDate { get; set; }
+        public DateTime RegistrationDate { get; init; }
         public bool IsBaned { get; set; }
         public CurrentStates CurrentState { get; set; }
         public string PasswordHash { get; set; }
