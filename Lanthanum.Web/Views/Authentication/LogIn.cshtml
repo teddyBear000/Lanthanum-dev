@@ -1,27 +1,32 @@
-﻿@{
+﻿@model LogInViewModel
+
+@{
     Layout = "_AuthenticationLayout";
 }
 
 @section AuthenticationHeaderAttr
 {
     <p class="nav-item header-question ml-md-5">Don't have an account?</p>
-    <a href="~/authentication/signup" class="nav-item header-ref ml-sm-5">Sign Up</a>
+    <a asp-controller ="Authentication" asp-action="SignUp" class="nav-item header-ref ml-sm-5">Sign Up</a>
 }
 
-<div class="text-left mb-4">
+<div class="text-left mb-4 px-3">
     <h4>Log in To Sports Hub</h4>
 </div>
-<form class="px-3">
+<form class="px-3" method="post">
     <div class="social-network-container">
         <a href="#" class="fb-img"></a>
         <a href="#" class="google-img"></a>
     </div>
+    <div>@Html.ValidationSummary(true)</div>
     <div class="plain-line">
-        <div class="float-left">EMAIL ADDRESS</div>
+        <div class="float-left">
+            EMAIL ADDRESS
+        </div>
     </div>
     <br>
     <div class="form-input">
-        <input type="email" name="" placeholder="Email@gmail.com" tabindex="10" required>
+        @Html.TextBoxFor(m => m.Email, new {placeholder = "Email@gmail.com"})
     </div>
     <div class="plain-line">
         <div class="float-left">
@@ -32,9 +37,9 @@
         </div>
     </div>
     <div class="form-input">
-        <input type="password" name="" placeholder="8+ characters(letters and numbers)" required>
+        @Html.TextBoxFor(m => m.Password, new {placeholder = "8+ characters(letters and numbers)", type = "password"})
     </div>
     <div class="mb-3">
-        <button type="submit" class="btn btn-block">LOGIN</button>
+        <button type="submit" class="btn btn-block">LOG IN</button>
     </div>
 </form>

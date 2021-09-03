@@ -19,7 +19,10 @@ namespace Lanthanum.Web.Data
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
-            Database.EnsureCreated(); // change
+            Database.EnsureDeleted();
+            Database.EnsureCreated(); // TODO: change
+            AddMockedData(); // TODO: remove
+            base.SaveChanges();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -43,6 +46,15 @@ namespace Lanthanum.Web.Data
         public async Task<int> SaveChangesAsync()
         {
             return await base.SaveChangesAsync();
+        }
+
+        private void AddMockedData()
+        {
+            Users.Add(new User()
+            {
+                Email = "mail@gmail.com",
+                PasswordHash = "12345678"
+            });
         }
     }
 }

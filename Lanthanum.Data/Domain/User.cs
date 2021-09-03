@@ -12,20 +12,13 @@ namespace Lanthanum.Web.Domain
         public string Nickname { get; set; }
         public string Email { get; set; }
         public DateTime RegistrationDate { get; set; }
-        public UserStates UserState { get; set; }
+        public bool IsBaned { get; set; }
         public CurrentStates CurrentState { get; set; }
         public string PasswordHash { get; set; }
         public RoleStates Role { get; set; }
         public Subscription Subscription { get; set; }
         public List<Subscription> Subscribers { get; set; }
         public List<Article> PublishedArticles { get; set; }
-    }
-    
-    public enum UserStates
-    {
-        Activated,
-        UnActivated,
-        Banned
     }
 
     public enum RoleStates
