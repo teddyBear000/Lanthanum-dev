@@ -13,9 +13,9 @@ namespace Lanthanum.Web.Controllers
             return View();
         }
 
-        public List<string> GetMainArticles() 
+        public List<Lanthanum.Web.Domain.Article> GetMainArticles()
         {
-            return new List<string>{ "Article1", "Article2"};
+            return new List<Lanthanum.Web.Domain.Article> { };
         }
     }
 }
