@@ -15,6 +15,7 @@ body {
     display: flex;
     flex-direction: row;
     height: 3.7vh;
+    padding: 0 12px 0 12px;
 }
 
 .preview-wrapper {
@@ -73,7 +74,9 @@ body {
     margin-right: 5px;
     width: 15px;
 }
-
+form {
+    padding: 0 12px 0 12px;
+}
 .dropdown-form {
     width: 27%;
     background: transparent;
@@ -97,7 +100,6 @@ dropdown-form option:hover {
     display: flex;
     flex-direction: column;
     height: 100%;
-    overflow: auto;
 }
 
 .article-preview {
@@ -106,6 +108,12 @@ dropdown-form option:hover {
     /*background: blueviolet*/;
     padding: 12px;
     max-height: 23%;
+}
+
+.article-preview:hover {
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    text-decoration: none;
+    
 }
 
 .article-preview img {
@@ -131,7 +139,7 @@ dropdown-form option:hover {
     font-size: 17px;
     color: #2b2f43;
     overflow: hidden;
-    column-width: 200px;
+    column-width: 300px;
     -webkit-column-width: 300px;
 }
 
@@ -180,3 +188,47 @@ dropdown-form option:hover {
     background: #C4C4C4;
     border-radius: 10px;
 }
+
+.dropdown {
+    align-self: flex-end;
+    display: none;
+}
+
+.dropdown-menu {
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    border: none;
+}
+
+.dropdown-menu li {
+    position: relative;
+    outline: none;
+}
+
+.dropdown-menu .dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -7px;
+    outline: none;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    border: none;
+}
+
+
+
+.dropdown-menu > li:hover > .dropdown-submenu {
+    display: block;
+    box-shadow: 0px 5px 10px 2px rgba(34, 60, 80, 0.2);
+    border: none;
+
+}
+
+.fa-ellipsis-h {
+    color: #d72130;
+}
+
+.article-preview:hover .dropdown 
+{
+    display: block;
+}
+
