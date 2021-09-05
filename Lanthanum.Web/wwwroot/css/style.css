@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap%27');
+
+.marged {
+    border: 1px solid red;
+    margin-left: 30%;
+    margin-right: 25%;
+    width: 50%;
+}
+
+.left {
+    align-items: left;
+    justify-content: left;
+    text-align: left;
+}
+
+.allbuttons {
+    width: 130px;
+    height: 40px;
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.primary-button {
+    background-color: red;
+    color: whitesmoke;
+}
+
+.secondary-button {
+    background-color: transparent;
+    color: red;
+}
+
+.centered {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+
