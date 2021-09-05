@@ -9,6 +9,7 @@ body {
     flex-direction: column;
     height: 100vh;
     margin: 0 auto;
+    width: 50%;
 }
 
 .preview-search-container {
@@ -107,6 +108,7 @@ dropdown-form option:hover {
     flex: none;
     /*background: blueviolet*/;
     padding: 12px;
+    position: relative;
     max-height: 23%;
 }
 
@@ -232,3 +234,8 @@ dropdown-form option:hover {
     display: block;
 }
 
+.main-link {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
