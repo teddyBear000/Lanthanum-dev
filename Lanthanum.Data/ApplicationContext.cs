@@ -19,7 +19,9 @@ namespace Lanthanum.Web.Data
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
-            Database.EnsureCreated();
+            Database.EnsureCreated(); // TODO: change
+            AddMockedData(); // TODO: remove
+            base.SaveChanges();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
