@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
@@ -24,6 +25,7 @@ namespace Lanthanum.Web.Controllers
             _service = service;
         }
         
+        [HttpGet]
         public IActionResult LogIn()
         {
             return View();
@@ -61,9 +63,58 @@ namespace Lanthanum.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
         public IActionResult SignUp()
         {
             return View();
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult SignUp(SignUpViewModel model)
+        {
+            if (!ModelState.IsValid) return View(model);
+            
+            // Looking for user with this email in database
+            var existingUser = _repository
+                .SingleOrDefaultAsync(u => u.Email == model.Email)
+                .Result;
+
+            // If user with this email is existing
+            if (existingUser != null)
+            {
+                ModelState.AddModelError("Email", "This email is already used.");
+
+                return View(model);
+            }
+            
+            var passwordHashed = model.Password; // TODO: Hash password
+
+            var newUser = new User
+            {
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Email = model.Email,
+                IsBaned = false,
+                CurrentState = CurrentStates.Offline,
+                PasswordHash = passwordHashed,
+                Role = RoleStates.User,
+                Subscription = new Subscription(),
+                Subscribers = new List<Subscription>(),
+                PublishedArticles = new List<Article>()
+            };
+
+            try
+            {
+                _repository.AddAsync(newUser).Wait();
+            }
+            catch
+            {
+                // TODO: Add logging
+                return RedirectToAction("Error", "Home");
+            }
+
+            return RedirectToAction("LogIn", "Authentication");
         }
     }
 }
