@@ -6,6 +6,6 @@
 3. Set up user secrets manager and replace "password" and "user" with correct credentials:
 ```dosini
 > dotnet user-secrets init --project Lanthanum.Web
-> dotnet dotnet user-secrets set "DataBase:Password" "password" --project Lantanum.Web
+> dotnet dotnet user-secrets set "DataBase:Password" "password" --project Lanthanum.Web
 > dotnet user-secrets set "DataBase:User" "user" --project Lanthanum.Web
 ```
