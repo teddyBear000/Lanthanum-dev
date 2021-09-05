@@ -25,12 +25,6 @@ namespace Lanthanum.Web.Controllers
         
         public IActionResult Index()
         {
-            _userRepository.AddAsync(new User()
-            {
-                Email = "mail@gmail.com",
-                FirstName = "name"
-            });
-            
             return View();
         }
 
