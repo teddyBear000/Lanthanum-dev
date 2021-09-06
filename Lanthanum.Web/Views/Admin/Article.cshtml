@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link rel="stylesheet" href="~/css/style.css">
     <link rel="stylesheet" href="~/css/popup.css">
-    <link rel="styleshee" href="~/css/form.css">
+    <link rel="stylesheet" href="~/css/drag-and-drop.css" />
     <title>Document</title>
 </head>
 <body>
@@ -19,9 +19,42 @@
                     <button class="allbuttons primary-button" type="submit">Save</button>
                 </div>
             </div>
+            <!-- DRAG & DROP CONTAINER BEGIN -->
+            <div class="row">
+                <div class="col">
+                    <p class="form-text">PICTURE</p>
+                    <div class="drag-area">
+                        <div class="icon">
+                            <img src="~/images/PhotoIco.png" , height="100px">
+                        </div>
+                        <header><span class="hightlight" onclick="AddElement()">+Add picture </span>or drop it rigth there</header>
+                        <p>You can add next formats: png. jpg. jpeg. tif</p>
+                        <input id="getImage" type="file" name="LogoPath" hidden>
+                    </div>
+                </div>
+            </div>
+            <!-- DRAG & DROP CONTAINER END -->
+            <div class="row">
+                <div class="col">
+                    <p>ALT*</p>
+                    <input type="text" name="Alt">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>ARTICLE HEADLINE*</p>
+                    <input type="text" name="Headline">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <p>CAPTION*</p>
+                    <input type="text" name="Caption">
+                </div>
+            </div>
         </div>
-        <input type="text" name="name" placeholder="Input yout name"/>
     </form>
+    
     <!-- POP UP CONTAINER BEGIN -->
     <div class="warning-container" id="warning-container">
         <div class="image">
@@ -40,8 +73,7 @@
         </div>
     </div>
     <!-- POP UP CONTAINER END -->
-
-
 </body>
 <script src="~/js/popup.js"></script>
+<script src="~/js/drag-drop.js"></script>
 </html>
