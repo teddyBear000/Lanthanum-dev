@@ -55,6 +55,30 @@ namespace Lanthanum.Web.Data
                 Email = "mail@gmail.com",
                 PasswordHash = "12345678"
             });
+
+            Articles.Add(new Article()
+                {
+
+                LogoPath = "C:/Users/demab/source/repos/Lanthanum-dev/Lanthanum.Web/wwwroot/images/mock_article_img.png",
+                Headline="ArticleHeadlineBlaBlaBla",
+                MainText = "blablablablablablablablablablablablablablabla" +
+                           "blablablablablablablablablablblablablablablablablablablablablablablabla" +
+                           "blablablablablablablablablablaablablablablablablablablab" +
+                           "lablablablablablablablablablablablablablabla",
+                Team = new Team()
+                {
+                    Name="Jerks",
+                    Location = "Tennesy",
+                    KindOfSport = new KindOfSport()
+                    {
+                        Name="Football"
+                    },
+                    Conference = "AFC North"
+                    
+                }
+
+                }
+            );
         }
     }
 }

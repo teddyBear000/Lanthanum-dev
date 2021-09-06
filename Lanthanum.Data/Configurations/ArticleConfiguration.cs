@@ -23,5 +23,5 @@ namespace Lanthanum.Data.Configurations
                 .Property(a => a.DateTimeOfCreation)
                 .ValueGeneratedOnAdd();
         }
-    }
+    }   
 }
