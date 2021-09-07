@@ -52,7 +52,7 @@ html {
 
 button.accept-policy {
     font-size: 1rem;
-/*    line-height: inherit;*/
+    /*    line-height: inherit;*/
 }
 
 /* Sticky footer styles
@@ -192,76 +192,7 @@ body {
 
 /* Footer styles end */
 
-/* Privacy */
-#contact-us-title {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 24px;
-    line-height: 33px;
-    /* identical to box height */
-
-    font-variant: small-caps;
-}
-
-.contact-us-user-info-field-title {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 10px;
-    line-height: 11px;
-    /* identical to box height, or 110% */
-
-    letter-spacing: 0.9px;
-    text-transform: uppercase;
-    /* Lable name */
-
-    color: #7F8899;
-}
-
-.contact-us-input {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-    color: #C6CCD7;
-    border: 1px solid #D4D9E2;
-    box-sizing: border-box;
-    width: 390px;
-    height: 40px;
-    padding: 0 15px 0 15px;
-}
-
-#contact-us-input-message {
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-    color: #C6CCD7;
-    border: 1px solid #D4D9E2;
-    box-sizing: border-box;
-    width: 390px;
-    height: 191px;
-    padding: 0 15px 145px 15px;
-    text-align: start;
-
-}
-
-#contact-us-button {
-    text-align: center;
-    background: #D72130;
-    border: 1px solid #C63638;
-    box-sizing: border-box;
-    width: 178px;
-    height: 32px;
-    border-radius: 0;
-    box-shadow: none;
-    outline: none;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-    /* identical to box height */
-    color: #FFFFFF;
-}
+/* Privacy styles start */
 
 .privacy-title {
     font-family: Open Sans;
@@ -282,6 +213,105 @@ body {
     color: #000000;
 }
 
+/* Privacy styles end */
+
+/* Contact Us styles start */
+
+.contact-us-title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+    font-variant: small-caps;
+}
+
+.contact-us-user-info-field-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    /* identical to box height, or 110% */
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    /* Lable name */
+    color: #7F8899;
+}
+
+.contact-us-input {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: #C6CCD7;
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    padding: 0 0 0 15px;
+}
+
+.contact-us-input-message {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: #C6CCD7;
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    padding: 5px 0 0 15px;
+}
+
+.contact-us-button {
+    text-align: center;
+    background: #D72130;
+    border: 1px solid #C63638;
+    box-sizing: border-box;
+    width: 178px;
+    height: 32px;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    /* identical to box height */
+    color: #FFFFFF;
+}
+
+.contact-us-table-key {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    /* identical to box height, or 110% */
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    /* Lable name */
+    color: #7F8899;
+    padding: 1px;
+}
+
+.contact-us-table-value {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #2B2F43;
+    padding: 8px;
+}
+
+/* Contact Us styles end */
+
+/* About Sports Hub styles start */
+
 .about-title {
     font-family: Open Sans;
     font-style: normal;
@@ -301,3 +331,4 @@ body {
     color: #000000;
 }
 
+/* About Sports Hub styles end */

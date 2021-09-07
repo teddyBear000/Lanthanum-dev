@@ -22,7 +22,7 @@ namespace Lanthanum.Web.Controllers
             _logger = logger;
             _userRepository = userRepository;
         }
-        
+
         public IActionResult Index()
         {
             _userRepository.AddAsync(new User()
@@ -30,7 +30,7 @@ namespace Lanthanum.Web.Controllers
                 Email = "mail@gmail.com",
                 FirstName = "name"
             });
-            
+
             return View();
         }
 

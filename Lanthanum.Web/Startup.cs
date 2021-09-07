@@ -25,7 +25,7 @@ namespace Lanthanum.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            
+
             var builder = new SqlConnectionStringBuilder(
                 Configuration.GetConnectionString("DefaultConnection"));
             builder.UserID = Configuration["Database:User"];
@@ -38,7 +38,7 @@ namespace Lanthanum.Web
                     x => x.MigrationsAssembly("Lanthanum.Data")
                 )
             );
-            
+
             // DI
             services.AddTransient<DbRepository<User>>();
         }
@@ -68,7 +68,7 @@ namespace Lanthanum.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                
+
             });
         }
     }
