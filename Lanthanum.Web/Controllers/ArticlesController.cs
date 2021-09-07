@@ -19,19 +19,13 @@ namespace Lanthanum.Web.Controllers
             _userRepository = userRepository;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Details(int id)
         {
             Article article = _articleRepositor.GetByIdAsync(id).Result;
-            var user = _userRepository.GetAllAsync().Result;
+            List<Article> articleList = _articleRepositor.GetAllAsync().Result.ToList();
 
             ViewBag.ModelArticle = article;
-            ViewBag.ModelArticles = new List<Article>() { article, article, article, article, article, article }; // TODO: Add real articles instead of one article
-            ViewBag.Message = user;
+            ViewBag.ModelArticles = new List<Article>() { articleList[0], articleList[1], articleList[2], articleList[3], articleList[4], articleList[5] };
            
             return View();
         }

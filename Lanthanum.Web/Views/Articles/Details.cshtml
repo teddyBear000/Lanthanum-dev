@@ -2,7 +2,6 @@
 @model dynamic
 @{
     var article = ViewBag.ModelArticle;
-    var users = ViewBag.Message;
     var articles = ViewBag.ModelArticles;
 }
 
@@ -11,10 +10,13 @@
     <link rel="stylesheet" href="~/css/details.css" />
 </head>
 
-<div>
+<div class="GeneralView">
     <div class="ArticleHeader">
         <img src=@article.LogoPath alt="Photo Of Event" class="ImageContainer">
+        <img src="/images/background_image.jpg" class="BackgroundContainer">
+
         <div class="greyBox">
+            
             <div class="DateTime">
                 <p>Published / @article.DateTimeOfCreation.ToString("dd.MM.yyyy")<p>
             </div>
@@ -26,7 +28,7 @@
             <div class="HeaderText">
                 <p>@article.Header</p>
             </div>
-
+            
         </div>
     </div>
 
@@ -90,10 +92,5 @@
                 </div>
             </div>
         }
-
-        <div>
-            <h1> " <br"> </br"> <br"> </br"> <br"> </br"> </h1>
-        </div>
     </div>
-
 </div>

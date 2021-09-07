@@ -23,17 +23,9 @@ namespace Lanthanum.Web.Controllers
             _userRepository = userRepository;
             _articleRepository = articleRepository;
         }
-        
-        public void Stuff()
-        {
-            var mail = new MailSender();
-
-            mail.SendWelcome("ignars3@gmail.com");
-        }
-
+      
         public IActionResult Index()
         {
-            Stuff();
             return View();
         }
 
