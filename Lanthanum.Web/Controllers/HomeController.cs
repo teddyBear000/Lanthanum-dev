@@ -1,4 +1,4 @@
-﻿using Lanthanum.Web.Models;
+using Lanthanum.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -16,13 +16,21 @@ namespace Lanthanum.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DbRepository<User> _userRepository;
-
-        public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository)
+        private readonly DbRepository<Article> _articleRepository;
+        public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository, DbRepository<Article> articleRepository)
         {
             _logger = logger;
             _userRepository = userRepository;
+            _articleRepository = articleRepository;
         }
         
+        public void Stuff()
+        {
+            var mail = new MailSender();
+
+            mail.SendWelcome("ignars3@gmail.com");
+        }
+
         public IActionResult Index()
         {
             return View();

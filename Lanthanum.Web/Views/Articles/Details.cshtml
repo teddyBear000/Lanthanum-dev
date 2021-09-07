@@ -1,0 +1,99 @@
+﻿@page
+@model dynamic
+@{
+    var article = ViewBag.ModelArticle;
+    var users = ViewBag.Message;
+    var articles = ViewBag.ModelArticles;
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/details.css" />
+</head>
+
+<div>
+    <div class="ArticleHeader">
+        <img src=@article.LogoPath alt="Photo Of Event" class="ImageContainer">
+        <div class="greyBox">
+            <div class="DateTime">
+                <p>Published / @article.DateTimeOfCreation.ToString("dd.MM.yyyy")<p>
+            </div>
+
+            <div class="HeadLine">
+                <p>@article.Headline</p>
+            </div>
+
+            <div class="HeaderText">
+                <p>@article.Header</p>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="whiteBox">
+        <div class="TextMain">
+            <p>@article.MainText</p>
+        </div>
+    </div>
+
+    <div class="BorderOne">
+        <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+            <span style="font-size: 20px; background-color: #ffffff; padding: 0 10px;">
+                MORE ARTICLES
+            </span>
+        </div>
+    </div>
+
+    <div class="GeneralContainer">
+        @for (int i = 0; i < 3; i++)
+        {
+            <div class="containerFirst">
+                <div class="row">
+
+                    <div class="col NoMerge">
+                        <div class="imgAbt NoMerge">
+                            <img width="176" height="99" src=@articles[i].LogoPath />
+                        </div>
+                    </div>
+
+                    <div class="col HeadMiniText">
+                        <p class="NoMergeText">@articles[i].Headline</p>
+                        <div class="MiniText">
+                            <p>@articles[i].Header </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="GeneralContainerTwo">
+        @for (int i = 3; i < 6; i++)
+        {
+            <div class="containerFirst">
+                <div class="row">
+
+                    <div class="col NoMerge">
+                        <div class="imgAbt NoMerge">
+                            <img width="176" height="99" src=@articles[i].LogoPath />
+                        </div>
+                    </div>
+
+                    <div class="col HeadMiniText">
+                        <p class="NoMergeText">@articles[i].Headline</p>
+                        <div class="MiniText">
+                            <p>@articles[i].Header </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        }
+
+        <div>
+            <h1> " <br"> </br"> <br"> </br"> <br"> </br"> </h1>
+        </div>
+    </div>
+
+</div>
