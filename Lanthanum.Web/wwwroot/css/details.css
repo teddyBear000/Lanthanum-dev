@@ -10,15 +10,24 @@
     word-wrap: break-word;
     background-color: rgba(0,0,0,.03);
     border: 1px solid rgba(0,0,0,.125);
-
-    z-index: 10;
+    z-index: 2;
     overflow: auto;
     box-sizing: border-box;
     display: block;
 }
 
+.OneGeneral {
+
+}
+
+.Devider {
+    position: absolute;
+    left: 25.5%;
+    top: 69%;
+}
+
 .DateTime {
-    z-index: 1;
+    z-index: 5;
     font-family: arial;
     font-size: 0.85rem;
     color: rgb(127,123,123);
@@ -27,7 +36,7 @@
 }
 
 .HeadLine {
-    z-index: 1;
+    z-index: 5;
     font-family: arial;
     font-size: 1.15rem;
     font-weight: bold;
@@ -36,7 +45,7 @@
 }
 
 .HeaderText {
-    z-index: 1;
+    z-index: 5;
     font-family: Tahoma;
     font-size: 1.4rem;
     font-weight: bold;
@@ -51,6 +60,16 @@ img.ImageContainer {
     top: 17.5%;
     width: 816px;
     height: 459px;
+}
+
+img.BackgroundContainer {
+    width: 420px;
+    height: 290px;
+    position: absolute;
+    left: 59.5%;
+    top: 26.5%;
+    z-index: 1;
+    border: 1px solid rgba(0,0,0,.125);
 }
 
 .whiteBox {
@@ -79,7 +98,7 @@ img.ImageContainer {
     height: 300px;
     position: absolute;
     left: 26%;
-    top: 100%;
+    top: 90%;
 }
 
 .GeneralContainer {
@@ -88,7 +107,7 @@ img.ImageContainer {
 
     position: absolute;
     left: 26%;
-    top: 108%;
+    top: 98%;
 }
 
 .GeneralContainerTwo {
@@ -96,7 +115,7 @@ img.ImageContainer {
     height: 300px;
     position: absolute;
     left: 48.65%;
-    top: 108%;
+    top: 98%;
 }
 
 .containerFirst {

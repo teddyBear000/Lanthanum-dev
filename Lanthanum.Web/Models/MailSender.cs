@@ -16,6 +16,7 @@ namespace Lanthanum.Web.Models
         private readonly string SportSubHtml;
         private readonly string ReplySubHtml;
         private readonly string BanHtml;
+        private string apiKey;
 
         public MailSender()
         {
@@ -48,11 +49,11 @@ namespace Lanthanum.Web.Models
             {
                 BanHtml = sr.ReadToEnd();
             }
+            apiKey = "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";
         }
 
         public async void SendWelcome(string clientEmail)
         {
-            var apiKey = "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";
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
@@ -67,7 +68,6 @@ namespace Lanthanum.Web.Models
 
         public async void SendBan(string clientEmail, string adminName, string banReason)
         {
-            var apiKey = "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";
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
@@ -82,7 +82,6 @@ namespace Lanthanum.Web.Models
 
         public async void SendComment(string clientEmail, Comment comment)
         {
-            var apiKey = "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";
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
@@ -97,7 +96,6 @@ namespace Lanthanum.Web.Models
 
         public async void SendSubscription(string clientEmail, SendForm format, string objectName, Article article)
         {
-            var apiKey = "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";
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage();
 
@@ -131,7 +129,6 @@ namespace Lanthanum.Web.Models
 
             msg.AddTo(new EmailAddress(clientEmail, "Dear User"));
             var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
-            Console.WriteLine(response.StatusCode); // TODO: Delete WriteLine
         }
 
         private string GetArticleHtml(Article article)
