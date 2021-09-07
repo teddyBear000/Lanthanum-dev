@@ -11,24 +11,10 @@ namespace Lanthanum.Web.Views.Articles
 {
     public class DetailsModel : PageModel
     {
-        private readonly DbRepository<Article> _dbRepository;
-        public Article Article { get; private set; }
-
-        public DetailsModel(DbRepository<Article> dbRepository)
+        public IActionResult OnGet()
         {
-            _dbRepository = dbRepository;
-        }
-
-        public IActionResult OnGet(int id)
-        {
-            Article = _dbRepository.GetByIdAsync(id).Result;
-
-            if (Article == null)
-            {
-                return RedirectToPage("/Home");
-            }
-
             return Page();
         }
     }
 }
+    
