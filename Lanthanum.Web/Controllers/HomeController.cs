@@ -17,11 +17,15 @@ namespace Lanthanum.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly DbRepository<User> _userRepository;
         private readonly DbRepository<Article> _articleRepository;
+        public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository)
         public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository, DbRepository<Article> articleRepository)
+        private readonly DbRepository<Comment> _commentRepository;
+        public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository, DbRepository<Article> articleRepository, DbRepository<Comment> commentRepository)
         {
             _logger = logger;
             _userRepository = userRepository;
             _articleRepository = articleRepository;
+            _commentRepository = commentRepository;
         }
       
         public IActionResult Index()

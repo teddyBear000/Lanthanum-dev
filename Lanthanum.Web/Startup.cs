@@ -57,6 +57,7 @@ namespace Lanthanum.Web
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<AuthService>();
             services.AddTransient<DbRepository<Article>>();
+            services.AddTransient<DbRepository<Comment>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -86,6 +87,7 @@ namespace Lanthanum.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            
         }
     }
 }
