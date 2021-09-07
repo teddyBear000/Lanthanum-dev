@@ -9,9 +9,10 @@ namespace Lanthanum.Web.Domain
         public int Id { get; init; }
         public List<User> Authors { get; set; }
         public string Headline { get; set; }
+        public string Header { get; set; }
         public string LogoPath { get; set; }
         public string MainText { get; set; }
-        public List<KindOfSport> KindsOfSports { get; set; }
+        public List<KindOfSport> KindsOfSport { get; set; }
         public List<Team> Teams { get; set; }
         public List<Comment> Comments { get; set; }
         public int ViewsCount { get; set; }

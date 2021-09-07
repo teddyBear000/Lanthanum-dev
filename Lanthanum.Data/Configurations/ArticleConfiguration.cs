@@ -20,7 +20,7 @@ namespace Lanthanum.Data.Configurations
                 .WithMany(t => t.Articles);
             
             builder
-                .HasMany(a => a.KindsOfSports)
+                .HasMany(a => a.KindsOfSport)
                 .WithMany(k => k.Articles);
 
             builder
