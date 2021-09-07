@@ -16,21 +16,18 @@ namespace Lanthanum.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DbRepository<User> _userRepository;
-
-        public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository)
+        private readonly DbRepository<Article> _articleRepository;
+        private readonly DbRepository<Comment> _commentRepository;
+        public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository, DbRepository<Article> articleRepository, DbRepository<Comment> commentRepository)
         {
             _logger = logger;
             _userRepository = userRepository;
+            _articleRepository = articleRepository;
+            _commentRepository = commentRepository;
         }
         
         public IActionResult Index()
         {
-            _userRepository.AddAsync(new User()
-            {
-                Email = "mail@gmail.com",
-                FirstName = "name"
-            });
-            
             return View();
         }
 
