@@ -2,9 +2,9 @@
 using System;
 using System.IO;
 using Serilog.Events;
-using LoggingLibriary.Extensions;
+using Lanthanum.Logging.Extensions;
 
-namespace LoggingLibriary
+namespace Lanthanum.Logging
 {
     public class Logger : ILogger
     {

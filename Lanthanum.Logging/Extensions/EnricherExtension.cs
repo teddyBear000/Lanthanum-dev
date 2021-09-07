@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using Serilog.Configuration;
 
-namespace LoggingLibriary.Extensions
+namespace Lanthanum.Logging.Extensions
 {
     public static class EnricherExtension
     {

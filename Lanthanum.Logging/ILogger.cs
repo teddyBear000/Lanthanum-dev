@@ -1,4 +1,4 @@
-﻿namespace LoggingLibriary
+﻿namespace Lanthanum.Logging
 {
     public interface ILogger
     {

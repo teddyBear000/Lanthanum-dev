@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.Collections.Generic;
 
-namespace LoggingLibriary.Extensions
+namespace Lanthanum.Logging.Extensions
 {
     class CallerEnricher : ILogEventEnricher
     {
