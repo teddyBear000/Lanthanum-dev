@@ -2,7 +2,7 @@
 
 @model dynamic
 @{
-    var Articles = ViewBag.ModelArticles;
+    var Articles = ViewBag.MoreArticlesSection;
 }
 
 <head>
@@ -162,102 +162,6 @@
         }
     </div>
 </div>
-=======
-
-@model dynamic
-@{
-    var Article = ViewBag.Article;
-    var Comments = ViewBag.Comments;
-    var Users = ViewBag.Users;
-    var CurrentUser = ViewBag.CurrentUser;
-}
-
-<head>
-    <link rel="stylesheet" href="~/css/comments.css" />
-</head>
-
-<body>
-
-
-    <div class="blog-comment">
-        <h3>COMMENTS(@Comments.Count)</h3>
-
-        <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-bottom: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
-            <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
-                <form method="post" action="/Articles/AddComment">
-                    <div class="d-flex flex-row align-items-start ml-3 mr-5">
-                        <img class="rounded-circle mr-2" src="/content/userAvatars/@CurrentUser.AvatarImagePath" alt="/content/userAvatars/standart.jpg" width="55" />
-                        <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
-                        <input type="hidden" name="articleId" value="@Article.Id" />
-                    </div>
-                    <div class="mt-2 text-right mr-3">
-                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white " type="reset">Cancel</button>
-                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
-                    </div>
-                </form>
-            </div>
-
-            <ul class="comments">
-                @foreach (var comment in Comments)
-                {
-                    var commentAuthorAvatarPath = "";
-                    var commentAuthorNickname = "";
-                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorAvatarPath = "/content/userAvatars/" + user.AvatarImagePath; } }
-                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorNickname = user.Nickname; } }
-                    @if (comment.ParentComment == null)
-                    {
-                        <li class="clearfix">
-                            <img src="@commentAuthorAvatarPath" class="avatar" alt="/content/userAvatars/standart.jpg">
-                            <div class="post-comments">
-                                <p class="meta"><a href="#" style=" font-weight: bold">@commentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
-                                <p class="comment-content">
-                                    @comment.Content
-                                </p>
-                                <p class="underpost">@comment.DateTimeOfCreation.Date.ToShortDateString() </p>
-                            </div>
-                    <div class="blog-comment">
-                        <h3>COMMENTS(@Comments.Count)</h3>
-
-                        <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
-                            <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
-                                <form method="post" action="/Articles/AddComment">
-                                    <div class="d-flex flex-row align-items-start ml-3 mr-5">
-                                        <img class="rounded-circle mr-2" src="/content/userAvatars/@CurrentUser.AvatarImagePath" alt="/content/userAvatars/standart.jpg" width="55" />
-                                        <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
-                                        <input type="hidden" name="articleId" value="@Article.Id" />
-                                    </div>
-                                    <div class="mt-2 text-right mr-3">
-                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white " type="reset">Cancel</button>
-                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <ul class="comments">
-                                @foreach (var comment in Comments)
-                                {
-                                    var commentAuthorAvatarPath = "";
-                                    var commentAuthorNickname = "";
-                                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorAvatarPath = "/content/userAvatars/" + user.AvatarImagePath; } }
-                                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorNickname = user.Nickname; } }
-                                    @if (comment.ParentComment == null)
-                                    {
-
-                    <div class="col NoMerge">
-                        <div class="imgAbt NoMerge">
-                            <img width="176" height="99" src=@articles[i].LogoPath />
-                        </div>
-                    </div>
-
-                    <div class="col HeadMiniText">
-                        <p class="NoMergeText">@articles[i].Headline</p>
-                        <div class="MiniText">
-                            <p>@articles[i].Header </p>
-                        </div>
-                    </div>
-
-                </div>
-
                                         <li class="clearfix">
                                             <img src="@commentAuthorAvatarPath" class="avatar" alt="/content/userAvatars/standart.jpg">
                                             <div class="post-comments">

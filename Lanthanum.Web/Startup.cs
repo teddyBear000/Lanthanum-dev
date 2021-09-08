@@ -12,6 +12,7 @@ using Lanthanum.Web.Domain;
 using Lanthanum.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Lanthanum.Web.Models;
 
 namespace Lanthanum.Web
 {
@@ -43,6 +44,8 @@ namespace Lanthanum.Web
                 UserID = Configuration["Database:User"],
                 Password = Configuration["Database:Password"]
             };
+
+            WebApiOptions.ApiKey = Configuration["MailApi"];
 
             services.AddDbContext<ApplicationContext>(
                 options => options.UseMySql(
