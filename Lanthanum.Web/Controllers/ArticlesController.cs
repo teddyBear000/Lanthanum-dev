@@ -3,12 +3,10 @@ using Microsoft.Extensions.Logging;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lanthanum.Web.Models;
-using System;
 using System.Threading.Tasks;
 
 namespace Lanthanum.Web.Controllers
@@ -28,10 +26,7 @@ namespace Lanthanum.Web.Controllers
             _userRepository = userRepository;
             _articleRepository = articleRepository;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+
         public IActionResult Details(int id)
         {
             var article =  _articleRepository.GetByIdAsync(id).Result;
@@ -40,27 +35,29 @@ namespace Lanthanum.Web.Controllers
                 .OrderByDescending(x => x.DateTimeOfCreation)
                 .ToList();
             var users = _userRepository.GetAllAsync().Result.ToList();
-            var currentUser = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result;
+            //var currentUser = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result;
+            List<Article> articleList = _articleRepository.GetAllAsync().Result.ToList();
+            var currentUser = _userRepository.GetByIdAsync(1).Result;
+
             ViewBag.Article = article;
             ViewBag.Comments = comments;
             ViewBag.Users = users;
             ViewBag.CurrentUser = currentUser;
-            Article article = _articleRepositor.GetByIdAsync(id).Result;
-            List<Article> articleList = _articleRepositor.GetAllAsync().Result.ToList();
-
             ViewBag.ModelArticle = article;
-            ViewBag.ModelArticles = new List<Article>() { articleList[0], articleList[1], articleList[2], articleList[3], articleList[4], articleList[5] };
+            ViewBag.ModelArticles = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] };
            
             return View();
-            
         }
-        [Authorize]
+
+
+        //[Authorize]
         public IActionResult AddComment(string commentContent, int articleId,int parentCommentId=-1)
         {
             var comment = new Comment
             {
                 Content = commentContent,
-                Author = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result,
+                //Author = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result,
+                Author = _userRepository.GetByIdAsync(1).Result,
                 Article = _articleRepository.GetByIdAsync(articleId).Result,
                 ParentComment = _commentRepository.GetByIdAsync(parentCommentId).Result
             };

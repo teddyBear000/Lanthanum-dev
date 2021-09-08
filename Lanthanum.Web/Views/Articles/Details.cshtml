@@ -1,13 +1,11 @@
 ﻿@page
-
 @model dynamic
 @{
-    var article = ViewBag.ModelArticle;
-    var articles = ViewBag.ModelArticles;
     var Article = ViewBag.Article;
     var Comments = ViewBag.Comments;
     var Users = ViewBag.Users;
     var CurrentUser = ViewBag.CurrentUser;
+    var Articles = ViewBag.ModelArticles;
 }
 
 <head>
@@ -16,153 +14,180 @@
     <link rel="stylesheet" href="~/css/comments.css" />
 </head>
 
-<div class="GeneralView">
-    <div class="ArticleHeader">
-        <img src=@article.LogoPath alt="Photo Of Event" class="ImageContainer">
-        <img src="/images/background_image.jpg" class="BackgroundContainer">
-<body>
+<body style="background: #fff">
 
-        <div class="greyBox">
+    <div class="GeneralView">
+        <div class="ArticleHeader">
+            <img src=@Article.LogoPath alt="Photo Of Event" class="ImageContainer">
+            <img src="/images/background_image.jpg" class="BackgroundContainer">
 
-            <div class="DateTime">
-                <p>Published / @article.DateTimeOfCreation.ToString("dd.MM.yyyy")<p>
+            <div class="greyBox">
+
+                <div class="DateTime">
+                    <p>Published / @Article.DateTimeOfCreation.ToString("dd.MM.yyyy")<p>
+                </div>
+
+                <div class="HeadLine">
+                    <p>@Article.Headline</p>
+                </div>
+
+                <div class="HeaderText">
+                    <p>@Article.Header</p>
+                </div>
+
             </div>
-    <div class="blog-comment">
-        <h3>COMMENTS(@Comments.Count)</h3>
 
-            <div class="HeadLine">
-                <p>@article.Headline</p>
-        <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-bottom: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
-            <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
-                <form method="post" action="/Articles/AddComment">
-                    <div class="d-flex flex-row align-items-start ml-3 mr-5">
-                        <img class="rounded-circle mr-2" src="/content/userAvatars/@CurrentUser.AvatarImagePath" alt="/content/userAvatars/standart.jpg" width="55" />
-                        <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
-                        <input type="hidden" name="articleId" value="@Article.Id" />
+            <div class="BodyHead">
+                <div class="whiteBox">
+                    <div class="TextMain">
+                        <p>@Article.MainText</p>
                     </div>
 
-            <div class="HeaderText">
-                <p>@article.Header</p>
-                    <div class="mt-2 text-right mr-3">
-                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white " type="reset">Cancel</button>
-                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
-                    </div>
-            
-                </form>
-            </div>
-    </div>
+                    <div class="blog-comment">
+                        <h3>COMMENTS(@Comments.Count)</h3>
 
-    <div class="whiteBox">
-        <div class="TextMain">
-            <p>@article.MainText</p>
-        </div>
-    </div>
-
-    <div class="BorderOne">
-        <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
-            <span style="font-size: 20px; background-color: #ffffff; padding: 0 10px;">
-                MORE ARTICLES
-            </span>
-        </div>
-    </div>
-
-    <div class="GeneralContainer">
-        @for (int i = 0; i < 3; i++)
-            <ul class="comments">
-                @foreach (var comment in Comments)
-                {
-            <div class="containerFirst">
-                <div class="row">
-
-                    <div class="col NoMerge">
-                        <div class="imgAbt NoMerge">
-                            <img width="176" height="99" src=@articles[i].LogoPath />
-                        </div>
-                    </div>
-
-                    <div class="col HeadMiniText">
-                        <p class="NoMergeText">@articles[i].Headline</p>
-                        <div class="MiniText">
-                            <p>@articles[i].Header </p>
-                        </div>
-                    var commentAuthorAvatarPath = "";
-                    var commentAuthorNickname = "";
-                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorAvatarPath = "/content/userAvatars/" + user.AvatarImagePath; } }
-                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorNickname = user.Nickname; } }
-                    @if (comment.ParentComment == null)
-                    {
-                        <li class="clearfix">
-                            <img src="@commentAuthorAvatarPath" class="avatar" alt="/content/userAvatars/standart.jpg">
-                            <div class="post-comments">
-                                <p class="meta"><a href="#" style=" font-weight: bold">@commentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
-                                <p class="comment-content">
-                                    @comment.Content
-                                </p>
-                                <p class="underpost">@comment.DateTimeOfCreation.Date.ToShortDateString() </p>
-                            </div>
-
-                            <div class="bg-light p-2 collapse" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; " id="replyComment_@comment.Id">
+                        <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
+                            <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
                                 <form method="post" action="/Articles/AddComment">
                                     <div class="d-flex flex-row align-items-start ml-3 mr-5">
                                         <img class="rounded-circle mr-2" src="/content/userAvatars/@CurrentUser.AvatarImagePath" alt="/content/userAvatars/standart.jpg" width="55" />
                                         <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
                                         <input type="hidden" name="articleId" value="@Article.Id" />
-                                        <input type="hidden" name="parentCommentId" value="@comment.Id" />
                                     </div>
                                     <div class="mt-2 text-right mr-3">
-                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" data-toggle="collapse" data-target="#replyComment_@comment.Id" type="reset">Cancel</button>
+                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white " type="reset">Cancel</button>
                                         <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
                                     </div>
-        }
                                 </form>
                             </div>
 
-    <div class="GeneralContainerTwo">
-        @for (int i = 3; i < 6; i++)
                             <ul class="comments">
-                                @foreach (var subComment in Comments)
+                                @foreach (var comment in Comments)
                                 {
-                                    var subCommentAuthorAvatarPath = "";
-                                    var subCommentAuthorNickname = "";
-                                    @foreach (var user in Users) { if (user.Id == subComment.Author.Id) { subCommentAuthorAvatarPath = "/content/userAvatars/" + user.AvatarImagePath; } }
-                                    @foreach (var user in Users) { if (user.Id == subComment.Author.Id) { subCommentAuthorNickname = user.Nickname; } }
-                                    @if (subComment.ParentComment == comment)
+                                    var commentAuthorAvatarPath = "";
+                                    var commentAuthorNickname = "";
+                                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorAvatarPath = "/content/userAvatars/" + user.AvatarImagePath; } }
+                                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorNickname = user.Nickname; } }
+                                    @if (comment.ParentComment == null)
                                     {
-            <div class="containerFirst">
-                <div class="row">
-
-                    <div class="col NoMerge">
-                        <div class="imgAbt NoMerge">
-                            <img width="176" height="99" src=@articles[i].LogoPath />
-                        </div>
-                    </div>
-
-                    <div class="col HeadMiniText">
-                        <p class="NoMergeText">@articles[i].Headline</p>
-                        <div class="MiniText">
-                            <p>@articles[i].Header </p>
-                        </div>
-                    </div>
-
-                </div>
                                         <li class="clearfix">
-                                            <img src="@subCommentAuthorAvatarPath" class="avatar" alt="/content/userAvatars/standart.jpg">
+                                            <img src="@commentAuthorAvatarPath" class="avatar" alt="/content/userAvatars/standart.jpg">
                                             <div class="post-comments">
-                                                <p class="meta"><a href="#" style=" font-weight: bold">@subCommentAuthorNickname</a> says : </p>
+                                                <p class="meta"><a href="#" style=" font-weight: bold">@commentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
                                                 <p class="comment-content">
-                                                    @subComment.Content
+                                                    @comment.Content
                                                 </p>
-                                                <p class="underpost">@subComment.DateTimeOfCreation.Date.ToShortDateString() </p>
+                                                <p class="underpost">@comment.DateTimeOfCreation.Date.ToShortDateString() </p>
                                             </div>
+
+                                            <div class="bg-light p-2 collapse" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; " id="replyComment_@comment.Id">
+                                                <form method="post" action="/Articles/AddComment">
+                                                    <div class="d-flex flex-row align-items-start ml-3 mr-5">
+                                                        <img class="rounded-circle mr-2" src="/content/userAvatars/@CurrentUser.AvatarImagePath" alt="/content/userAvatars/standart.jpg" width="55" />
+                                                        <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
+                                                        <input type="hidden" name="articleId" value="@Article.Id" />
+                                                        <input type="hidden" name="parentCommentId" value="@comment.Id" />
+                                                    </div>
+                                                    <div class="mt-2 text-right mr-3">
+                                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" data-toggle="collapse" data-target="#replyComment_@comment.Id" type="reset">Cancel</button>
+                                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <ul class="comments">
+                                                @foreach (var subComment in Comments)
+                                                {
+                                                    var subCommentAuthorAvatarPath = "";
+                                                    var subCommentAuthorNickname = "";
+                                                    @foreach (var user in Users) { if (user.Id == subComment.Author.Id) { subCommentAuthorAvatarPath = "/content/userAvatars/" + user.AvatarImagePath; } }
+                                                    @foreach (var user in Users) { if (user.Id == subComment.Author.Id) { subCommentAuthorNickname = user.Nickname; } }
+                                                    @if (subComment.ParentComment == comment)
+                                                    {
+
+                                                        <li class="clearfix">
+                                                            <img src="@subCommentAuthorAvatarPath" class="avatar" alt="/content/userAvatars/standart.jpg">
+                                                            <div class="post-comments">
+                                                                <p class="meta"><a href="#" style=" font-weight: bold">@subCommentAuthorNickname</a> says : </p>
+                                                                <p class="comment-content">
+                                                                    @subComment.Content
+                                                                </p>
+                                                                <p class="underpost">@subComment.DateTimeOfCreation.Date.ToShortDateString() </p>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
                                         </li>
                                     }
                                 }
-                            </ul>
-                        </li>
-                    }
-                }
 
-            </ul>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="BorderOne">
+                        <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+                            <span style="font-size: 20px; background-color: #ffffff; font-weight: 680; padding: 0 10px; ">
+                                MORE ARTICLES
+                            </span>
+                        </div>
+
+                        <div class="SectionFixed">
+                            <div class="GeneralContainer">
+                                @for (int i = 0; i < 3; i++)
+                                {
+                                    <div class="containerFirst">
+                                        <div class="row">
+
+                                            <div class="col NoMerge">
+                                                <div class="imgAbt NoMerge">
+                                                    <img width="176" height="99" src=@Articles[i].LogoPath />
+                                                </div>
+                                            </div>
+
+                                            <div class="col HeadMiniText">
+                                                <a href="@Articles[i].Id" class="NoMergeText">@Articles[i].Headline</a>
+                                                <div class="MiniText">
+                                                    <p>@Articles[i].Header </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="GeneralContainerTwo">
+                                @for (int i = 3; i < 6; i++)
+                                {
+                                    <div class="containerFirst">
+                                        <div class="row">
+
+                                            <div class="col NoMerge">
+                                                <div class="imgAbt NoMerge">
+                                                    <img width="176" height="99" src=@Articles[i].LogoPath />
+                                                </div>
+                                            </div>
+
+                                            <div class="col HeadMiniText">
+                                                <a href="@Articles[i].Id" class="NoMergeText">@Articles[i].Headline</a>
+                                                <div class="MiniText">
+                                                    <p>@Articles[i].Header </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
+
+        
     </div>
 </body>

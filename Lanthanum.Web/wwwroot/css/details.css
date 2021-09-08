@@ -1,19 +1,17 @@
-﻿.greyBox {
+﻿
+.greyBox {
     float: left;
     width: 420px;
     height: 290px;
     padding: 10px 20px 30px;
     position: absolute;
-    left: 59.5%;
-    top: 26.5%;
+    left: 58%;
+    top: 18.3%;
     text-align: justify;
     word-wrap: break-word;
     background-color: rgba(0,0,0,.03);
-    border: 1px solid rgba(0,0,0,.125);
     z-index: 2;
-    overflow: auto;
-    box-sizing: border-box;
-    display: block;
+    overflow: visible;
 }
 
 .OneGeneral {
@@ -55,9 +53,6 @@
 
 img.ImageContainer {
     z-index: -1;
-    position: absolute;
-    left: 25.9%;
-    top: 17.5%;
     width: 816px;
     height: 459px;
 }
@@ -66,19 +61,14 @@ img.BackgroundContainer {
     width: 420px;
     height: 290px;
     position: absolute;
-    left: 59.5%;
-    top: 26.5%;
+    left: 58%;
+    top: 18.3%;
     z-index: 1;
-    border: 1px solid rgba(0,0,0,.125);
 }
 
 .whiteBox {
     float: left;
-    width: 816px;
-    height: 459px;
-    position: absolute;
-    left: 25.5%;
-    top: 70%;
+    height: auto;
     text-align: justify;
     word-wrap: break-word;
     z-index: 10;
@@ -91,31 +81,46 @@ img.BackgroundContainer {
     font-weight: lighter;
     color: rgb(315,33,48);
     padding-left: 10px;
+    padding-bottom: 2em;
 }
 
 .BorderOne {
-    width: 816px;
-    height: 300px;
-    position: absolute;
-    left: 26%;
-    top: 90%;
+    height: 100px;
 }
 
 .GeneralContainer {
-    width: 900px;
+    width: 420px;
     height: 300px;
+    display: inline-block;
+    float: left;
+    padding-left: 0.65em;
+    padding-top: 2em;
+}
 
-    position: absolute;
-    left: 26%;
-    top: 98%;
+.SectionFixed {
+    width: 840px;
 }
 
 .GeneralContainerTwo {
-    width: 900px;
+    width: 420px;
     height: 300px;
-    position: absolute;
-    left: 48.65%;
-    top: 98%;
+    display: inline-block;
+    float: left;
+    padding-top: 2em;
+    padding-left: 1.6em;
+}
+
+.ArticleHeader {
+    position: relative;
+    left: 8.3%;
+    top: 5.8em;
+
+    margin-bottom: 2em;
+}
+
+.BodyHead {
+    margin-top: 2.4em;
+    width: 825px;
 }
 
 .containerFirst {
