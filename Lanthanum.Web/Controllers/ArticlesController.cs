@@ -35,7 +35,7 @@ namespace Lanthanum.Web.Controllers
                 .OrderByDescending(x => x.DateTimeOfCreation)
                 .ToList();
             var users = _userRepository.GetAllAsync().Result.ToList();
-            var currentUser = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result;
+            var currentUser = _userRepository.GetByIdAsync(1).Result;
             List<Article> articleList = _articleRepository.GetAllAsync().Result.ToList();
 
             ViewBag.Article = article;
@@ -43,19 +43,19 @@ namespace Lanthanum.Web.Controllers
             ViewBag.Users = users;
             ViewBag.CurrentUser = currentUser;
             ViewBag.ModelArticle = article;
-            ViewBag.ModelArticles = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] };
+            ViewBag.MoreArticlesSection = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] };
            
             return View();
         }
 
 
-        [Authorize]
+        //[Authorize]
         public IActionResult AddComment(string commentContent, int articleId,int parentCommentId=-1)
         {
             var comment = new Comment
             {
                 Content = commentContent,
-                Author = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result,
+                Author = _userRepository.GetByIdAsync(1).Result,
                 Article = _articleRepository.GetByIdAsync(articleId).Result,
                 ParentComment = _commentRepository.GetByIdAsync(parentCommentId).Result
             };

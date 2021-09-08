@@ -16,7 +16,8 @@ namespace Lanthanum.Web.Models
         private readonly string SportSubHtml;
         private readonly string ReplySubHtml;
         private readonly string BanHtml;
-        private string apiKey;
+        private readonly string apiKey;
+        private readonly EmailAddress emailSender;
 
         public MailSender()
         {
@@ -49,7 +50,9 @@ namespace Lanthanum.Web.Models
             {
                 BanHtml = sr.ReadToEnd();
             }
-            apiKey = "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";
+
+            apiKey = WebApiOptions.ApiKey;
+            emailSender = new EmailAddress("noreplysport.1@gmail.com", "Sport Site");
         }
 
         public async void SendWelcome(string clientEmail)
@@ -57,7 +60,7 @@ namespace Lanthanum.Web.Models
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("noreplysport.1@gmail.com", "Sport Site"),
+                From = emailSender,
                 Subject = "Welcome to the Sports Hub",
                 HtmlContent = WelcomeHtml.Replace("INPUT-DATE", GetDate())
             };
@@ -71,7 +74,7 @@ namespace Lanthanum.Web.Models
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("noreplysport.1@gmail.com", "Sport Site"),
+                From = emailSender,
                 Subject = "Sports Hub Notification",
                 HtmlContent = BanHtml.Replace("INPUT-ADMIN", adminName).Replace("INPUT-REASON", banReason)
             };
@@ -85,7 +88,7 @@ namespace Lanthanum.Web.Models
             var client = new SendGridClient(apiKey);
             var msg = new SendGridMessage()
             {
-                From = new EmailAddress("noreplysport.1@gmail.com", "Sport Site"),
+                From = emailSender,
                 Subject = "Sports Hub Notification",
                 HtmlContent = ReplySubHtml.Replace("INPUT-COMMENT", GetCommentHtml(comment))
             };
@@ -103,7 +106,7 @@ namespace Lanthanum.Web.Models
             {
                 msg = new SendGridMessage()
                 {
-                    From = new EmailAddress("noreplysport.1@gmail.com", "Sport Site"),
+                    From = emailSender,
                     Subject = "Sports Hub Notification",
                     HtmlContent = AuthorSubHtml.Replace("INPUT-AUTHOR", objectName).Replace("INPUT-ARTICLE", GetArticleHtml(article))
                 };
@@ -112,7 +115,7 @@ namespace Lanthanum.Web.Models
             {
                 msg = new SendGridMessage()
                 {
-                    From = new EmailAddress("noreplysport.1@gmail.com", "Sport Site"),
+                    From = emailSender,
                     Subject = "Sports Hub Notification",
                     HtmlContent = TeamSubHtml.Replace("INPUT-TEAM", objectName).Replace("INPUT-ARTICLE", GetArticleHtml(article))
                 };
@@ -121,7 +124,7 @@ namespace Lanthanum.Web.Models
             {
                 msg = new SendGridMessage()
                 {
-                    From = new EmailAddress("noreplysport.1@gmail.com", "Sport Site"),
+                    From = emailSender,
                     Subject = "Sports Hub Notification",
                     HtmlContent = SportSubHtml.Replace("INPUT-SPORT", objectName).Replace("INPUT-ARTICLE", GetArticleHtml(article))
                 };

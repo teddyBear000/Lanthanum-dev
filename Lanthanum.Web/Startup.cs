@@ -9,6 +9,7 @@ using System;
 using System.Data.SqlClient;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
+using Lanthanum.Web.Models;
 
 namespace Lanthanum.Web
 {
@@ -30,6 +31,8 @@ namespace Lanthanum.Web
                 Configuration.GetConnectionString("DefaultConnection"));
             builder.UserID = Configuration["Database:User"];
             builder.Password = Configuration["Database:Password"];
+
+            WebApiOptions.ApiKey = Configuration["MailApi"];
 
             services.AddDbContext<ApplicationContext>(
                 options => options.UseMySql(
