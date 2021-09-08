@@ -1,5 +1,5 @@
 ﻿body {
-    background: #eee;
+    background: #fff;
     
 }
 
@@ -20,9 +20,12 @@ a {
 
 
 .blog-comment {
-    padding-left: 15%;
-    padding-right: 15%;
+    padding-top: 2em;
+    padding-bottom: 4em;
+    padding-left: 3%;
+    padding-right: 3%;
     background-color: #eee;
+    margin-bottom: 3.5em;
 }
     
 
