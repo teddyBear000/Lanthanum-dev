@@ -32,14 +32,21 @@ namespace Lanthanum.Web.Controllers
                 .Find(x => x.Article == _articleRepository.GetByIdAsync(id).Result)
                 .OrderByDescending(x => x.DateTimeOfCreation)
                 .ToList();
-            var users = _userRepository.GetAllAsync().Result.ToList();
-            var currentUser = _userRepository.GetByIdAsync(1).Result;
+            var users = _userRepository.Find(x => x == comments.Select(y => y.Author).Distinct());
             List<Article> articleList = _articleRepository.GetAllAsync().Result.ToList();
-
+            var currentUserImage = "/content/userAvatars/";
+            try 
+            { 
+                currentUserImage += _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result.AvatarImagePath; 
+            }
+            catch 
+            { 
+                currentUserImage = "";
+            }
             ViewBag.Article = article;
             ViewBag.Comments = comments;
             ViewBag.Users = users;
-            ViewBag.CurrentUser = currentUser;
+            ViewBag.CurrentUserImage = currentUserImage;
             ViewBag.ModelArticle = article;
             ViewBag.ModelArticles = new List<Article>() { articleList[0], articleList[1], articleList[2], articleList[3], articleList[4], articleList[5] };
             ViewBag.MoreArticlesSection = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] };
@@ -48,15 +55,15 @@ namespace Lanthanum.Web.Controllers
            
             return View();
         }
+        
 
-
-        //[Authorize]
+        [Authorize]
         public IActionResult AddComment(string commentContent, int articleId,int parentCommentId=-1)
         {
             var comment = new Comment
             {
                 Content = commentContent,
-                Author = _userRepository.GetByIdAsync(1).Result,
+                Author = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result,
                 Article = _articleRepository.GetByIdAsync(articleId).Result,
                 ParentComment = _commentRepository.GetByIdAsync(parentCommentId).Result
             };
