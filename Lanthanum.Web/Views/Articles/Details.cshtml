@@ -4,7 +4,8 @@
     var Article = ViewBag.Article;
     var Comments = ViewBag.Comments;
     var Users = ViewBag.Users;
-    var CurrentUser = ViewBag.CurrentUser;
+    var CurrentUserImage = ViewBag.CurrentUserImage;
+    if (CurrentUserImage == "") CurrentUserImage = "/content/userAvatars/standart.jpg";
     var Articles = ViewBag.MoreArticlesSection;
 }
 
@@ -50,7 +51,7 @@
                             <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
                                 <form method="post" action="/Articles/AddComment">
                                     <div class="d-flex flex-row align-items-start ml-3 mr-5">
-                                        <img class="rounded-circle mr-2" src="/content/userAvatars/@CurrentUser.AvatarImagePath" alt="/content/userAvatars/standart.jpg" width="55" />
+                                        <img class="rounded-circle mr-2" src="@CurrentUserImage" width="55" />
                                         <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
                                         <input type="hidden" name="articleId" value="@Article.Id" />
                                     </div>
@@ -71,7 +72,7 @@
                                     @if (comment.ParentComment == null)
                                     {
                                         <li class="clearfix">
-                                            <img src="@commentAuthorAvatarPath" class="avatar" alt="/content/userAvatars/standart.jpg">
+                                            <img src="@commentAuthorAvatarPath" class="avatar">
                                             <div class="post-comments">
                                                 <p class="meta"><a href="#" style=" font-weight: bold">@commentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
                                                 <p class="comment-content">
@@ -83,7 +84,7 @@
                                             <div class="bg-light p-2 collapse" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; " id="replyComment_@comment.Id">
                                                 <form method="post" action="/Articles/AddComment">
                                                     <div class="d-flex flex-row align-items-start ml-3 mr-5">
-                                                        <img class="rounded-circle mr-2" src="/content/userAvatars/@CurrentUser.AvatarImagePath" alt="/content/userAvatars/standart.jpg" width="55" />
+                                                        <img class="rounded-circle mr-2" src="@CurrentUserImage"  width="55" />
                                                         <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
                                                         <input type="hidden" name="articleId" value="@Article.Id" />
                                                         <input type="hidden" name="parentCommentId" value="@comment.Id" />
@@ -106,7 +107,7 @@
                                                     {
 
                                                         <li class="clearfix">
-                                                            <img src="@subCommentAuthorAvatarPath" class="avatar" alt="/content/userAvatars/standart.jpg">
+                                                            <img src="@subCommentAuthorAvatarPath" class="avatar">
                                                             <div class="post-comments">
                                                                 <p class="meta"><a href="#" style=" font-weight: bold">@subCommentAuthorNickname</a> says : </p>
                                                                 <p class="comment-content">
