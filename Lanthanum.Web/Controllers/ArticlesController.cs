@@ -32,17 +32,40 @@ namespace Lanthanum.Web.Controllers
                 .Find(x => x.Article == _articleRepository.GetByIdAsync(id).Result)
                 .OrderByDescending(x => x.DateTimeOfCreation)
                 .ToList();
-            var users = _userRepository.Find(x => x == comments.Select(y => y.Author).Distinct());
+
+            var users = new List<User>();
+            foreach(var userElement in _userRepository.GetAllAsync().Result)
+            {
+                foreach(var commentElement in comments)
+                {
+                    if (userElement == commentElement.Author)
+                    {
+                        users.Add(userElement);
+                    }
+                }
+            }
+
             List<Article> articleList = _articleRepository.GetAllAsync().Result.ToList();
             var currentUserImage = "/content/userAvatars/";
+
             try 
             { 
-                currentUserImage += _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result.AvatarImagePath; 
+                var temp = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result; 
+
+                if (temp != null)
+                {
+                    currentUserImage += temp.AvatarImagePath;
+                }
+                else 
+                {
+                    throw new Exception("Not Authorized");
+                }
             }
-            catch 
+            catch (Exception e)
             { 
                 currentUserImage = "";
             }
+
             ViewBag.Article = article;
             ViewBag.Comments = comments;
             ViewBag.Users = users;
