@@ -1,5 +1,4 @@
-﻿
-.greyBox {
+﻿.greyBox {
     float: left;
     width: 420px;
     height: 290px;
@@ -12,10 +11,6 @@
     background-color: rgba(0,0,0,.03);
     z-index: 2;
     overflow: visible;
-}
-
-.OneGeneral {
-
 }
 
 .Devider {
