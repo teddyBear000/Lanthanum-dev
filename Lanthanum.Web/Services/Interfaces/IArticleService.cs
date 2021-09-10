@@ -8,6 +8,5 @@ namespace Lanthanum.Web.Services
 {
     public interface IArticleService
     {
-        public Task<IEnumerable<Article>> GetAllArticles();
     }
 }

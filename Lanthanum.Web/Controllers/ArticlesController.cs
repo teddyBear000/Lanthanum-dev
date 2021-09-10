@@ -2,10 +2,13 @@
 using Lanthanum.Web.Domain;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Lanthanum.Web.Models;
 using Lanthanum.Web.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -13,27 +16,17 @@ namespace Lanthanum.Web.Controllers
     {
 
         private readonly IArticleService _articleService;
+        private readonly ILogger<ArticlesController> _logger;
 
-        public ArticlesController(IArticleService articleService)
+        public ArticlesController(IArticleService articleService, Logger<ArticlesController> logger)
         {
             _articleService = articleService;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
             return View();
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Article>>> GetAllArticles()
-        {
-            var articles = await _articleService.GetAllArticles();
-            if (articles != null)
-            {
-                return Ok(articles);
-            }
-
-            return BadRequest("There are no articles");
         }
     }
 }

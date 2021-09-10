@@ -18,5 +18,12 @@ namespace Lanthanum.Web.Domain
         public int ViewsCount { get; set; }
         public int CommentsCount { get; set; }
         public DateTime DateTimeOfCreation { get; set; }
+        public ArticleStatus ArticleStatus { get; set; }
+    }
+
+    public enum ArticleStatus
+    {
+        Published,
+        Unpublished
     }
 }

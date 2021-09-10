@@ -19,13 +19,11 @@
         <a href="#" class="google-img"></a>
     </div>
     <div>@Html.ValidationSummary(false)</div>
-    <div class="plain-line">
-        <div class="float-left">
+
+    <div class="form-input">
+        <div class="plain-line">
             EMAIL ADDRESS
         </div>
-    </div>
-    <br>
-    <div class="form-input">
         @Html.TextBoxFor(m => m.Email, new {placeholder = "Email@gmail.com"})
     </div>
     <div class="plain-line">

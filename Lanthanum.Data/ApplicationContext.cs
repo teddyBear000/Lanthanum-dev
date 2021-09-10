@@ -1,6 +1,7 @@
 ﻿using Lanthanum.Web.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lanthanum.Data.Configurations;
 
@@ -56,28 +57,131 @@ namespace Lanthanum.Web.Data
                 PasswordHash = "12345678"
             });
 
-            Articles.Add(new Article()
-                {
+            Articles.AddRangeAsync(new List<Article>()
+                
+                { 
+                    new Article(){
 
-                LogoPath = "C:/Users/demab/source/repos/Lanthanum-dev/Lanthanum.Web/wwwroot/images/mock_article_img.png",
-                Headline="ArticleHeadlineBlaBlaBla",
-                MainText = "blablablablablablablablablablablablablablabla" +
-                           "blablablablablablablablablablblablablablablablablablablablablablablabla" +
-                           "blablablablablablablablablablaablablablablablablablablab" +
-                           "lablablablablablablablablablablablablablabla",
-                Team = new Team()
-                {
-                    Name="Jerks",
-                    Location = "Tennesy",
-                    KindOfSport = new KindOfSport()
+                    LogoPath = "/images/mock_article_img.png",
+                    Headline="ArticleHeadlineBlaBlaBla",
+                    MainText = "blablablablablablablablablablablablablablabla",
+                               Team = new Team()
                     {
-                        Name="Football"
+                        Name="Jerks",
+                        Location = "Tennesy",
+                        KindOfSport = new KindOfSport()
+                        {
+                            Name="Football"
+                        },
+                        Conference = "AFC North"
+                        
                     },
-                    Conference = "AFC North"
-                    
-                }
+                        Alt = "img",
+                        ArticleStatus = ArticleStatus.Published
+                        
+                    },
 
+                    new Article(){
+
+                        LogoPath = "/images/mock_article_img.png",
+                        Headline="ArticleHeadlineBlaBlaBla",
+                        MainText = "dasdasbla",
+                        Team = new Team()
+                        {
+                            Name="Jerks",
+                            Location = "Tennesy",
+                            KindOfSport = new KindOfSport()
+                            {
+                                Name="Football"
+                            },
+                            Conference = "AFC North"
+
+                        },
+                        Alt = "img",
+                        ArticleStatus = ArticleStatus.Unpublished
+
+                    },
+                    new Article(){
+
+                        LogoPath = "/images/mock_article_img.png",
+                        Headline="ArticleHeadlineBlaBlaBla",
+                        MainText = "asd",
+                        Team = new Team()
+                        {
+                            Name="Jerks",
+                            Location = "Tennesy",
+                            KindOfSport = new KindOfSport()
+                            {
+                                Name="Football"
+                            },
+                            Conference = "AFC North"
+
+                        },
+                        Alt = "img",
+                        ArticleStatus = ArticleStatus.Unpublished
+                    },
+                    new Article(){
+
+                        LogoPath = "/images/mock_article_img.png",
+                        Headline="ArticleHeadlineBlaBlaBla",
+                        MainText = "a",
+                        Team = new Team()
+                        {
+                            Name="Jerks",
+                            Location = "Tennesy",
+                            KindOfSport = new KindOfSport()
+                            {
+                                Name="Football"
+                            },
+                            Conference = "AFC North"
+
+                        },
+                        Alt = "img",
+                        ArticleStatus = ArticleStatus.Unpublished
+
+                    },
+                    new Article(){
+
+                        LogoPath = "/images/mock_article_img.png",
+                        Headline="ArticleHeadlineBlaBlaBla",
+                        MainText = "b",
+                        Team = new Team()
+                        {
+                            Name="Jerks",
+                            Location = "Tennesy",
+                            KindOfSport = new KindOfSport()
+                            {
+                                Name="Football"
+                            },
+                            Conference = "AFC North"
+
+                        },
+                        Alt = "img",
+                        ArticleStatus = ArticleStatus.Published
+
+                    },
+                    new Article(){
+
+                        LogoPath = "/images/mock_article_img.png",
+                        Headline="ArticleHeadlineBlaBlaBla",
+                        MainText = "f",
+                        Team = new Team()
+                        {
+                            Name="Jerks",
+                            Location = "Tennesy",
+                            KindOfSport = new KindOfSport()
+                            {
+                                Name="Football"
+                            },
+                            Conference = "AFC North"
+
+                        },
+                        Alt = "img",
+                        ArticleStatus = ArticleStatus.Unpublished
+
+                    }
                 }
+                
             );
         }
     }

@@ -11,6 +11,7 @@ using Lanthanum.Web.Controllers;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Services;
+using Lanthanum.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 
@@ -59,6 +60,7 @@ namespace Lanthanum.Web
             services.AddSingleton<AuthService>();
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<DbRepository<Article>>();
+            services.AddTransient<IAdminService, AdminService>();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
