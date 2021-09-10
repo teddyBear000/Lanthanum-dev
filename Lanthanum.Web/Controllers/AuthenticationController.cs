@@ -36,16 +36,12 @@ namespace Lanthanum.Web.Controllers
         public IActionResult LogIn(LogInViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            
-            var passwordHashed = model.Password; // TODO: Hash password
+
             var user = _repository
-                .SingleOrDefaultAsync(
-                    u => u.Email == model.Email
-                         && u.PasswordHash == passwordHashed
-                         )
+                .SingleOrDefaultAsync(u => u.Email == model.Email)
                 .Result;
 
-            if (user != null)
+            if (user != null && BCrypt.Net.BCrypt.Verify(model.Password, user.PasswordHash))
             {
                 _service.Authenticate(user).Wait();
                 user.CurrentState = CurrentStates.Online;
@@ -87,8 +83,8 @@ namespace Lanthanum.Web.Controllers
 
                 return View(model);
             }
-            
-            var passwordHashed = model.Password; // TODO: Hash password
+
+            var passwordHashed = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
             var newUser = new User
             {
@@ -108,11 +104,14 @@ namespace Lanthanum.Web.Controllers
             {
                 _repository.AddAsync(newUser).Wait();
             }
-            catch
+            catch(Exception ex)
             {
-                // TODO: Add logging
+                _logger.LogError($"User {newUser.Email} not registered. {ex.Message}");
+                
                 return RedirectToAction("Error", "Home");
             }
+            
+            _logger.LogInformation($"User {newUser.Email} registered successfully, role {newUser.Role}.");
 
             return RedirectToAction("LogIn", "Authentication");
         }

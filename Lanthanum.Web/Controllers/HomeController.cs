@@ -28,6 +28,7 @@ namespace Lanthanum.Web.Controllers
 
         public IActionResult Index()
         {
+            AddAdmin();
             return View();
         } 
 
@@ -40,6 +41,21 @@ namespace Lanthanum.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        
+        // TODO: Move
+        private void AddAdmin()
+        {
+            const string email = "mail@gmail.com"; // admin email
+            if (_userRepository.SingleOrDefaultAsync(x => x.Email == email).Result == null)
+            {
+                _userRepository.AddAsync(new User
+                {
+                    Email = email,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("12345678"),
+                    Role = RoleStates.Admin
+                }).Wait();
+            }
         }
     }
 }
