@@ -1,8 +1,9 @@
-﻿@{
+﻿@using Lanthanum.Web.Domain
+@model IEnumerable<Lanthanum.Web.Models.ArticleViewModel>
+@{
     Layout = null;
 }
-@addTagHelper *, Lanthanum.Web
-@model IEnumerable<Lanthanum.Web.Models.ArticleViewModel>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
         <div class="row">
             <div class="col-6 main-form-container">
                 <div class="preview-search-container justify-content-between my-3">
-                    <a href="#" class="text-decoration-none preview-wrapper">
+                    <a class="text-decoration-none preview-wrapper" asp-action="Check">
                         <img src="~/images/preview_eye.png" alt="preview_eye.png" class="preview-eye-img" />
                         <p class="preview-text ml-1 mb-0">Preview</p>
                     </a>
@@ -48,363 +49,372 @@
                         <option value="c">c</option>
                     </select>
                 </form>
-            <div class="articles-preview-container mt-3">
-            <article-appender article-view-models="Model"></article-appender>
-            <div class="article-preview my-2">
-                <a href="#" class="main-link"></a>
-                <img src="~/images/mock_article_img.png" alt="sample_img"/>
-                <div class="text-container">
-                    <div class="dropdown">
-                        <a type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-h fa-lg "></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    Submenu &raquo;
-                                </a>
-                                <ul class="dropdown-menu dropdown-submenu">
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 1</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 2</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
+                <div class="articles-preview-container mt-3">
+                    @*<article-appender article-view-models="Model"></article-appender>*@
+                    @foreach (var mod in Model)
+                    {
+                        <div class="article-preview my-2">
+                            <a href="#" class="main-link"></a>
+                            <img src="~/images/mock_article_img.png" alt="sample_img" />
+                            <div class="text-container">
+                                <div class="dropdown">
+                                    <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h fa-lg "></i>
+                                    </a>
+                                    <form method="post">
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li><button class="dropdown-item" asp-controller="Admin" asp-action="DeleteArticle" asp-route-id="@mod.Id">Delete</button></li>
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 1</a>
+                                                @if (@mod.ArticleStatus == ArticleStatus.Published)
+                                                {
+                                                    <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id">Unpublish</button>
+                                                }
+                                                else
+                                                {
+                                                    <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id">Publish</button>
+                                                }
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 2</a>
+                                                <a class="dropdown-item" href="#">
+                                                    Move &raquo;
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-submenu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Submenu item 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Submenu item 2</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Submenu item 4</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Submenu item 5</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                    </form>
+                                </div>
+                                <div class="headline">@mod.Headline</div>
+                                <div class="article-brief-start my-2">@mod.MainText</div>
+                                <div class="location-status-container d-flex justify-content-between">
+                                    <span class="location">@String.Format("{0} / {1}", mod.TeamConference, mod.TeamName)</span>
+                                    @if (mod.ArticleStatus == ArticleStatus.Published)
+                                    {
+                                        <div class="status">
+                                            <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
+                                            <p class="d-block m-0">@mod.ArticleStatus</p>
+                                        </div>
+                                    }
+
+                                    else
+                                    {
+                                        <div class="status">
+                                            <img class="circle" src="~/images/yellow_circle.png" alt="yellow_circle" />
+                                            <p class="d-block m-0">@mod.ArticleStatus</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <div class="article-preview my-2">
+                        <a href="#" class="main-link"></a>
+                        <img src="~/images/mock_article_img.png" alt="sample_img" />
+                        <div class="text-container">
+                            <div class="dropdown">
+                                <a  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h fa-lg "></i>
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">Another action</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            Submenu &raquo;
+                                        </a>
+                                        <ul class="dropdown-menu dropdown-submenu">
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 1</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 2</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                                <ul class="dropdown-menu dropdown-submenu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 2</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 4</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 5</a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 4</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 5</a>
-                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                    <div class="article-brief-start my-2">
-                        TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                        with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                    </div>
-                    <div class="location-status-container d-flex justify-content-between">
-                        <span class="location">AFC South / Tennessee</span>
-                        <div class="status">
-                            <img class="circle" src="~/images/green_circle.png" alt="green_circle"/>
-                            <p class="d-block m-0">Published</p>
+                            </div>
+                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
+                            <div class="article-brief-start my-2">
+                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
+                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
+                            </div>
+                            <div class="location-status-container d-flex justify-content-between">
+                                <span class="location">AFC South / Tennessee</span>
+                                <div class="status">
+                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
+                                    <p class="d-block m-0">Published</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="article-preview my-2">
-                <a href="#" class="main-link"></a>
-                <img src="~/images/mock_article_img.png" alt="sample_img"/>
-                <div class="text-container">
-                    <div class="dropdown">
-                        <a type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-h fa-lg "></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    Submenu &raquo;
+                    <div class="article-preview my-2">
+                        <a href="#" class="main-link"></a>
+                        <img src="~/images/mock_article_img.png" alt="sample_img" />
+                        <div class="text-container">
+                            <div class="dropdown">
+                                <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h fa-lg "></i>
                                 </a>
-                                <ul class="dropdown-menu dropdown-submenu">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li>
-                                        <a class="dropdown-item" href="#">Submenu item 1</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">Submenu item 2</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <a class="dropdown-item" href="#">
+                                            Submenu &raquo;
+                                        </a>
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 1</a>
+                                                <a class="dropdown-item" href="#">Submenu item 1</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 2</a>
+                                                <a class="dropdown-item" href="#">Submenu item 2</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                                <ul class="dropdown-menu dropdown-submenu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 2</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 4</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 5</a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 4</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 5</a>
-                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                    <div class="article-brief-start my-2">
-                        TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                        with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                    </div>
-                    <div class="location-status-container d-flex justify-content-between">
-                        <span class="location">AFC South / Tennessee</span>
-                        <div class="status">
-                            <img class="circle" src="~/images/green_circle.png" alt="green_circle"/>
-                            <p class="d-block m-0">Published</p>
+                            </div>
+                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
+                            <div class="article-brief-start my-2">
+                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
+                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
+                            </div>
+                            <div class="location-status-container d-flex justify-content-between">
+                                <span class="location">AFC South / Tennessee</span>
+                                <div class="status">
+                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
+                                    <p class="d-block m-0">Published</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="article-preview my-2">
-                <a href="#" class="main-link"></a>
-                <img src="~/images/mock_article_img.png" alt="sample_img"/>
-                <div class="text-container">
-                    <div class="dropdown">
-                        <a type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-h fa-lg "></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    Submenu &raquo;
+                    <div class="article-preview my-2">
+                        <a href="#" class="main-link"></a>
+                        <img src="~/images/mock_article_img.png" alt="sample_img" />
+                        <div class="text-container">
+                            <div class="dropdown">
+                                <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h fa-lg "></i>
                                 </a>
-                                <ul class="dropdown-menu dropdown-submenu">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li>
-                                        <a class="dropdown-item" href="#">Submenu item 1</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">Submenu item 2</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <a class="dropdown-item" href="#">
+                                            Submenu &raquo;
+                                        </a>
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 1</a>
+                                                <a class="dropdown-item" href="#">Submenu item 1</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 2</a>
+                                                <a class="dropdown-item" href="#">Submenu item 2</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                                <ul class="dropdown-menu dropdown-submenu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 2</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 4</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 5</a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 4</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 5</a>
-                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                    <div class="article-brief-start my-2">
-                        TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                        with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                    </div>
-                    <div class="location-status-container d-flex justify-content-between">
-                        <span class="location">AFC South / Tennessee</span>
-                        <div class="status">
-                            <img class="circle" src="~/images/green_circle.png" alt="green_circle"/>
-                            <p class="d-block m-0">Published</p>
+                            </div>
+                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
+                            <div class="article-brief-start my-2">
+                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
+                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
+                            </div>
+                            <div class="location-status-container d-flex justify-content-between">
+                                <span class="location">AFC South / Tennessee</span>
+                                <div class="status">
+                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
+                                    <p class="d-block m-0">Published</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="article-preview my-2">
-                <a href="#" class="main-link"></a>
-                <img src="~/images/mock_article_img.png" alt="sample_img"/>
-                <div class="text-container">
-                    <div class="dropdown">
-                        <a type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-h fa-lg "></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    Submenu &raquo;
+                    <div class="article-preview my-2">
+                        <a href="#" class="main-link"></a>
+                        <img src="~/images/mock_article_img.png" alt="sample_img" />
+                        <div class="text-container">
+                            <div class="dropdown">
+                                <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h fa-lg "></i>
                                 </a>
-                                <ul class="dropdown-menu dropdown-submenu">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li>
-                                        <a class="dropdown-item" href="#">Submenu item 1</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">Submenu item 2</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <a class="dropdown-item" href="#">
+                                            Submenu &raquo;
+                                        </a>
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 1</a>
+                                                <a class="dropdown-item" href="#">Submenu item 1</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 2</a>
+                                                <a class="dropdown-item" href="#">Submenu item 2</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                                <ul class="dropdown-menu dropdown-submenu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 2</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 4</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 5</a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 4</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 5</a>
-                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                    <div class="article-brief-start my-2">
-                        TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                        with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                    </div>
-                    <div class="location-status-container d-flex justify-content-between">
-                        <span class="location">AFC South / Tennessee</span>
-                        <div class="status">
-                            <img class="circle" src="~/images/green_circle.png" alt="green_circle"/>
-                            <p class="d-block m-0">Published</p>
+                            </div>
+                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
+                            <div class="article-brief-start my-2">
+                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
+                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
+                            </div>
+                            <div class="location-status-container d-flex justify-content-between">
+                                <span class="location">AFC South / Tennessee</span>
+                                <div class="status">
+                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
+                                    <p class="d-block m-0">Published</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="article-preview my-2">
-                <a href="#" class="main-link"></a>
-                <img src="~/images/mock_article_img.png" alt="sample_img"/>
-                <div class="text-container">
-                    <div class="dropdown">
-                        <a type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-h fa-lg "></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    Submenu &raquo;
+                    <div class="article-preview my-2">
+                        <a href="#" class="main-link"></a>
+                        <img src="~/images/mock_article_img.png" alt="sample_img" />
+                        <div class="text-container">
+                            <div class="dropdown">
+                                <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-h fa-lg "></i>
                                 </a>
-                                <ul class="dropdown-menu dropdown-submenu">
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
                                     <li>
-                                        <a class="dropdown-item" href="#">Submenu item 1</a>
+                                        <a class="dropdown-item" href="#">Another action</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#">Submenu item 2</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                        <a class="dropdown-item" href="#">
+                                            Submenu &raquo;
+                                        </a>
                                         <ul class="dropdown-menu dropdown-submenu">
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 1</a>
+                                                <a class="dropdown-item" href="#">Submenu item 1</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="#">Multi level 2</a>
+                                                <a class="dropdown-item" href="#">Submenu item 2</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
+                                                <ul class="dropdown-menu dropdown-submenu">
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 1</a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="dropdown-item" href="#">Multi level 2</a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 4</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Submenu item 5</a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 4</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 5</a>
-                                    </li>
                                 </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                    <div class="article-brief-start my-2">
-                        TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                        with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                    </div>
-                    <div class="location-status-container d-flex justify-content-between">
-                        <span class="location">AFC South / Tennessee</span>
-                        <div class="status">
-                            <img class="circle" src="~/images/green_circle.png" alt="green_circle"/>
-                            <p class="d-block m-0">Published</p>
+                            </div>
+                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
+                            <div class="article-brief-start my-2">
+                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
+                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
+                            </div>
+                            <div class="location-status-container d-flex justify-content-between">
+                                <span class="location">AFC South / Tennessee</span>
+                                <div class="status">
+                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
+                                    <p class="d-block m-0">Published</p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="article-preview my-2">
-                <a href="#" class="main-link"></a>
-                <img src="~/images/mock_article_img.png" alt="sample_img"/>
-                <div class="text-container">
-                    <div class="dropdown">
-                        <a type="text" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fa fa-ellipsis-h fa-lg "></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li>
-                                <a class="dropdown-item" href="#">Another action</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#">
-                                    Submenu &raquo;
-                                </a>
-                                <ul class="dropdown-menu dropdown-submenu">
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 1</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 2</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li>
-                                                <a class="dropdown-item" href="#">Multi level 1</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Multi level 2</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 4</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Submenu item 5</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                    <div class="article-brief-start my-2">
-                        TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                        with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                    </div>
-                    <div class="location-status-container d-flex justify-content-between">
-                        <span class="location">AFC South / Tennessee</span>
-                        <div class="status">
-                            <img class="circle" src="~/images/green_circle.png" alt="green_circle"/>
-                            <p class="d-block m-0">Published</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            </div>
                 <script>
                     search = document.querySelector(".search");
                     search_img = document.querySelector(".search-img");

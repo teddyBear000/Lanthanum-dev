@@ -20,10 +20,10 @@ namespace Lanthanum.Web.Data
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated(); // TODO: change
-            AddMockedData(); // TODO: remove
-            base.SaveChanges();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated(); // TODO: change
+            //AddMockedData(); // TODO: remove
+            //base.SaveChanges();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -57,7 +57,7 @@ namespace Lanthanum.Web.Data
                 PasswordHash = "12345678"
             });
 
-            Articles.AddRangeAsync(new List<Article>()
+            Articles.AddRange(new List<Article>()
                 
                 { 
                     new Article(){

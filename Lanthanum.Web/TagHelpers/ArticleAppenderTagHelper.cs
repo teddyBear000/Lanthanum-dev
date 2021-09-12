@@ -91,6 +91,22 @@ namespace Lanthanum.Web.TagHelpers
             return articleLogoImg;
         }
 
+        //private async Task<TagBuilder> DropdownAsync(ArticleViewModel model)
+        //{
+        //    //Dropdown
+        //    TagBuilder dropdownDiv = new TagBuilder("div");
+        //    dropdownDiv.Attributes.Add("class",_defaultDropdownClass);
+        //    TagBuilder dotsAnchor = new TagBuilder("a");
+        //    dotsAnchor.Attributes.Add("type","submit");
+        //    await Task.Run(() =>
+        //    {
+        //        articleLogoImg.Attributes.Add("alt", model.Alt);
+        //        articleLogoImg.Attributes.Add("src", model.LogoPath);
+        //    });
+
+        //    return articleLogoImg;
+        //}
+
         private async Task<TagBuilder> TextContainerAsync()
         {
             //Container of all text inside article-preview

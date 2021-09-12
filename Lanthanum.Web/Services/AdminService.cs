@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Services.Interfaces;
+using Microsoft.AspNetCore.Components;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lanthanum.Web.Services
 {
@@ -17,10 +19,25 @@ namespace Lanthanum.Web.Services
             _repository = repository;
         }
 
-        public async Task<IEnumerable<Article>> GetAllArticles()
+        public async Task<IEnumerable<Article>> GetAllArticlesAsync()
         {
-            var articles = await _repository.GetAllAsync();
+            var articles =  await _repository.GetAllAsync()
+                .Include(t=>t.Team)
+                .ToListAsync();
             return articles;
+        }
+        public async Task DeleteArticleByIdAsync(int id)
+        {
+            var article = await _repository.GetByIdAsync(id);
+            await _repository.RemoveAsync(article);
+        }
+        public async Task ChangeArticleStateByIdAsync(int id)
+        {
+            var article = await _repository.GetByIdAsync(id);
+            article.ArticleStatus = article.ArticleStatus == ArticleStatus.Published ? 
+                (ArticleStatus.Unpublished) : (ArticleStatus.Published);
+            await _repository.Context.SaveChangesAsync();
+
         }
     }
 }

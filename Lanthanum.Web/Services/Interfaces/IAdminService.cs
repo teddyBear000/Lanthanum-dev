@@ -8,6 +8,8 @@ namespace Lanthanum.Web.Services.Interfaces
 {
     public interface  IAdminService
     {
-        public Task<IEnumerable<Article>> GetAllArticles();
+        public Task<IEnumerable<Article>> GetAllArticlesAsync();
+        public Task DeleteArticleByIdAsync(int id);
+        public Task ChangeArticleStateByIdAsync(int id);
     }
 }

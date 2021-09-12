@@ -10,7 +10,7 @@ namespace Lanthanum.Web.Data.Repositories
 {
     public class DbRepository<TEntity> where TEntity : class, IEntity
     {
-        protected readonly ApplicationContext Context;
+        public readonly ApplicationContext Context;
 
         public DbRepository(ApplicationContext context)
         {
@@ -22,9 +22,9 @@ namespace Lanthanum.Web.Data.Repositories
             return await Context.Set<TEntity>().FindAsync(id);
         }
         
-        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        public DbSet<TEntity> GetAllAsync()
         {
-            return await Context.Set<TEntity>().ToListAsync();
+            return Context.Set<TEntity>();
         }
         
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
