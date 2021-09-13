@@ -13,7 +13,7 @@ namespace Lanthanum.Web.Domain
         public string Email { get; set; }
         public string AvatarImagePath { get; set; }  
         public DateTime RegistrationDate { get; init; }
-        public bool IsBaned { get; set; }
+        public bool IsBanned { get; set; }
         public CurrentStates CurrentState { get; set; }
         public string PasswordHash { get; set; }
         public RoleStates Role { get; set; }
