@@ -67,6 +67,7 @@ namespace Lanthanum.Web.Models
 
             msg.AddTo(new EmailAddress(clientEmail, "Dear User"));
             var response = await client.SendEmailAsync(msg).ConfigureAwait(false);
+            Console.WriteLine(response.StatusCode);
         }
 
         public async void SendBan(string clientEmail, string adminName, string banReason)
