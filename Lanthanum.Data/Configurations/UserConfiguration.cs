@@ -1,12 +1,12 @@
-using Lanthanum.Web.Domain;
+using Lanthanum.Web.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Lanthanum.Data.Configurations
+namespace Lanthanum.Web.Data.Configurations
 {
-    public class UserConfiguration: IEntityTypeConfiguration<Web.Domain.User>
+    public class UserConfiguration : IEntityTypeConfiguration<User>
     {
-        public void Configure(EntityTypeBuilder<Web.Domain.User> builder)
+        public void Configure(EntityTypeBuilder<User> builder)
         {
             builder
                 .HasKey(u => u.Id);

@@ -1,11 +1,11 @@
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Lanthanum.Web.Data.Repositories;
-using Lanthanum.Web.Domain;
 using Microsoft.AspNetCore.Authorization;
 using System.Collections.Generic;
 using System.Linq;
-using Lanthanum.Web.Models;
+using Lanthanum.Web.Data.Domain;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -27,42 +27,36 @@ namespace Lanthanum.Web.Controllers
 
         public IActionResult Details(int id)
         {
-            var article =  _articleRepository.GetByIdAsync(id).Result;
+            var article = _articleRepository.GetByIdAsync(id).Result;
             var comments = _commentRepository
                 .Find(x => x.Article == _articleRepository.GetByIdAsync(id).Result)
                 .OrderByDescending(x => x.DateTimeOfCreation)
                 .ToList();
 
             var users = new List<User>();
-            foreach(var userElement in _userRepository.GetAllAsync().Result)
+            foreach (var userElement in _userRepository.GetAllAsync().Result)
             {
-                foreach(var commentElement in comments)
-                {
-                    if (userElement == commentElement.Author)
-                    {
-                        users.Add(userElement);
-                    }
-                }
+                users.AddRange(from commentElement in comments where userElement == commentElement.Author select userElement);
             }
 
             List<Article> articleList = _articleRepository.GetAllAsync().Result.ToList();
             var currentUserImage = "/content/userAvatars/";
 
-            try 
-            { 
-                var temp = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result; 
+            try
+            {
+                var temp = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result;
 
                 if (temp != null)
                 {
                     currentUserImage += temp.AvatarImagePath;
                 }
-                else 
+                else
                 {
                     throw new Exception("Not Authorized");
                 }
             }
             catch (Exception e)
-            { 
+            {
                 currentUserImage = "";
             }
 
@@ -71,17 +65,23 @@ namespace Lanthanum.Web.Controllers
             ViewBag.Users = users;
             ViewBag.CurrentUserImage = currentUserImage;
             ViewBag.ModelArticle = article;
-            ViewBag.ModelArticles = new List<Article>() { articleList[0], articleList[1], articleList[2], articleList[3], articleList[4], articleList[5] };
-            ViewBag.MoreArticlesSection = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] };
-           
+            ViewBag.ModelArticles = new List<Article>
+            {
+                articleList[0], articleList[1], articleList[2], articleList[3], articleList[4], articleList[5]
+            };
+            ViewBag.MoreArticlesSection = new List<Article>
+            {
+                articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0]
+            };
+
             ViewBag.ModelArticle = article;
-           
+
             return View();
         }
-        
+
 
         [Authorize]
-        public IActionResult AddComment(string commentContent, int articleId,int parentCommentId=-1)
+        public IActionResult AddComment(string commentContent, int articleId, int parentCommentId = -1)
         {
             var comment = new Comment
             {

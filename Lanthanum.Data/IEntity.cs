@@ -1,4 +1,4 @@
-namespace Lanthanum.Data
+namespace Lanthanum.Web.Data
 {
     public interface IEntity
     {

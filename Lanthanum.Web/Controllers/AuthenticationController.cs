@@ -1,7 +1,6 @@
-﻿using System;
+﻿using Lanthanum.Web.Data.Domain;
 using Microsoft.AspNetCore.Mvc;
 using Lanthanum.Web.Data.Repositories;
-using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
 using Lanthanum.Web.Services;
 using Microsoft.Extensions.Logging;
@@ -15,26 +14,26 @@ namespace Lanthanum.Web.Controllers
         private readonly AuthService _service;
 
         public AuthenticationController(
-            ILogger<HomeController> logger, 
-            DbRepository<User> repository, 
+            ILogger<HomeController> logger,
+            DbRepository<User> repository,
             AuthService service)
         {
             _logger = logger;
             _repository = repository;
             _service = service;
         }
-        
+
         public IActionResult LogIn()
         {
             return View();
         }
-        
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult LogIn(LogInViewModel model)
         {
             if (!ModelState.IsValid) return View(model);
-            
+
             var passwordHashed = model.Password; // TODO: Hash password
             var user = _repository
                 .SingleOrDefaultAsync(
@@ -47,15 +46,15 @@ namespace Lanthanum.Web.Controllers
             {
                 _service.Authenticate(user).Wait();
                 user.CurrentState = CurrentStates.Online;
-                    
+
                 return RedirectToAction("Index", "Home");
             }
-            
+
             // If wrong email and password
             ModelState.AddModelError(string.Empty, "Incorrect user ID or password. Try again.");
-            
+
             // Adding red border for input fields
-            ModelState.AddModelError("Email", string.Empty); 
+            ModelState.AddModelError("Email", string.Empty);
             ModelState.AddModelError("Password", string.Empty);
 
             return View(model);

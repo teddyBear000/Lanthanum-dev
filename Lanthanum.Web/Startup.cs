@@ -7,8 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Data.SqlClient;
+using Lanthanum.Web.Data.Domain;
 using Lanthanum.Web.Data.Repositories;
-using Lanthanum.Web.Domain;
 using Lanthanum.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -35,9 +35,9 @@ namespace Lanthanum.Web
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
                     options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
                 });
-            
+
             services.AddControllersWithViews();
-            
+
             var builder = new SqlConnectionStringBuilder(
                 Configuration.GetConnectionString("DefaultConnection"))
             {
@@ -90,7 +90,7 @@ namespace Lanthanum.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
-            
+
         }
     }
 }

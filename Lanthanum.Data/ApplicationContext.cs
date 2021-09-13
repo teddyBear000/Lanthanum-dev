@@ -1,8 +1,8 @@
-﻿using Lanthanum.Web.Domain;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
-using Lanthanum.Data.Configurations;
+using Lanthanum.Web.Data.Configurations;
+using Lanthanum.Web.Data.Domain;
 
 namespace Lanthanum.Web.Data
 {
@@ -17,7 +17,7 @@ namespace Lanthanum.Web.Data
         public DbSet<Ban> Bans { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             Database.EnsureDeleted();
             Database.EnsureCreated(); // TODO: change
@@ -42,7 +42,7 @@ namespace Lanthanum.Web.Data
             builder
                 .ApplyConfiguration(new CommentConfiguration());
         }
-        
+
         public async Task<int> SaveChangesAsync()
         {
             return await base.SaveChangesAsync();

@@ -1,11 +1,10 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Lanthanum.Web.Domain;
+using Lanthanum.Web.Data.Domain;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 
 namespace Lanthanum.Web.Services
 {
@@ -17,7 +16,7 @@ namespace Lanthanum.Web.Services
         {
             _httpContextAccessor = httpContextAccessor;
         }
-        
+
         public async Task<bool> Authenticate(User user)
         {
             var claims = new List<Claim>
@@ -27,9 +26,9 @@ namespace Lanthanum.Web.Services
             };
 
             var id = new ClaimsIdentity(
-                claims, 
-                "ApplicationCookie", 
-                ClaimsIdentity.DefaultNameClaimType, 
+                claims,
+                "ApplicationCookie",
+                ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType
             );
 
@@ -40,14 +39,14 @@ namespace Lanthanum.Web.Services
 
             return true;
         }
-        
+
         public bool Logout()
         {
             _httpContextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            
+
             return true;
         }
-        
+
         public virtual bool IsSignedIn(ClaimsPrincipal principal)
         {
             return principal?.Identities != null &&
