@@ -68,14 +68,16 @@ namespace Lanthanum.Web.Controllers
                 currentUserImage = "";
             }
 
-            ViewBag.Article = article;
-            ViewBag.Comments = comments;
-            ViewBag.Users = users;
-            ViewBag.CurrentUserImage = currentUserImage;
-            ViewBag.ModelArticle = article;
-            ViewBag.MoreArticlesSection = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] };
+            var model = new ArticleViewModel
+            {
+                MainArticle = article,
+                Comments = comments,
+                Users = users,
+                CurrentUserImage = currentUserImage,
+                MoreArticlesSection = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] }
+            };
            
-            return View();
+            return View(model);
         }
         
 
