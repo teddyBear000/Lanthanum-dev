@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using Lanthanum.Web.Domain;
+using Lanthanum.Web.Data.Domain;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
 namespace Lanthanum.Web.Models
 {
-    public enum SendForm {AuthorSubsription, TeamSubscription, SportSubscription}
+    public enum SendForm { AuthorSubsription, TeamSubscription, SportSubscription }
 
     public class MailSender
     {
@@ -153,7 +153,7 @@ namespace Lanthanum.Web.Models
             string[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
             var date = DateTime.Now;
-            
+
             return months[date.Month] + " " + date.Day + ", " + date.Year;
         }
     }

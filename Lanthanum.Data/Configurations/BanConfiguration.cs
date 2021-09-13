@@ -1,11 +1,12 @@
+using Lanthanum.Web.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Lanthanum.Data.Configurations
+namespace Lanthanum.Web.Data.Configurations
 {
-    public class BanConfiguration : IEntityTypeConfiguration<Web.Domain.Ban>
+    public class BanConfiguration : IEntityTypeConfiguration<Ban>
     {
-        public void Configure(EntityTypeBuilder<Web.Domain.Ban> builder)
+        public void Configure(EntityTypeBuilder<Ban> builder)
         {
             builder
                 .Property(b => b.DateOfBan)

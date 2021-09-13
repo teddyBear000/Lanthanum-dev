@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lanthanum.Data;
 
-namespace Lanthanum.Web.Domain
+namespace Lanthanum.Web.Data.Domain
 {
-    public class Team: IEntity
+    public class Team : IEntity
     {
         public int Id { get; init; }
         public string Name { get; set; }
