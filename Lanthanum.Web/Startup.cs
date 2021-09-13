@@ -10,6 +10,10 @@ using System.Data.SqlClient;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
+using Lanthanum.Web.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
+
 
 namespace Lanthanum.Web
 {
@@ -25,12 +29,22 @@ namespace Lanthanum.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Auth
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
+                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
+                });
+            
             services.AddControllersWithViews();
             
             var builder = new SqlConnectionStringBuilder(
-                Configuration.GetConnectionString("DefaultConnection"));
-            builder.UserID = Configuration["Database:User"];
-            builder.Password = Configuration["Database:Password"];
+                Configuration.GetConnectionString("DefaultConnection"))
+            {
+                UserID = Configuration["Database:User"],
+                Password = Configuration["Database:Password"]
+            };
 
             WebApiOptions.ApiKey = Configuration["MailApi"];
 
@@ -41,11 +55,13 @@ namespace Lanthanum.Web
                     x => x.MigrationsAssembly("Lanthanum.Data")
                 )
             );
-            
+
             // DI
             services.AddTransient<DbRepository<User>>();
             services.AddTransient<DbRepository<Article>>();
             services.AddTransient<DbRepository<Comment>>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<AuthService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,6 +82,7 @@ namespace Lanthanum.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

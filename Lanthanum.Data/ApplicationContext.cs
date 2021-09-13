@@ -44,5 +44,14 @@ namespace Lanthanum.Web.Data
         {
             return await base.SaveChangesAsync();
         }
+
+        private void AddMockedData()
+        {
+            Users.Add(new User()
+            {
+                Email = "mail@gmail.com",
+                PasswordHash = "12345678"
+            });
+        }
     }
 }
