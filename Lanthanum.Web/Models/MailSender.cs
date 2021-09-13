@@ -153,7 +153,7 @@ namespace Lanthanum.Web.Models
             string[] months = { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" };
 
             var date = DateTime.Now;
-            
+
             return months[date.Month] + " " + date.Day + ", " + date.Year;
         }
     }

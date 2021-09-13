@@ -1,11 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Lanthanum.Web.Domain;
-using Lanthanum.Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lanthanum.Web
 {

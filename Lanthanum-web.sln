@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31515.178
@@ -6,6 +5,8 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lanthanum.Web", "Lanthanum.Web\Lanthanum.Web.csproj", "{3CCC56D1-9450-4449-B085-BB76C229EA57}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lanthanum.Data", "Lanthanum.Data\Lanthanum.Data.csproj", "{58CE9544-B6A3-4FDF-AECB-7285759F4505}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lanthanum.Logging", "Lanthanum.Logging\Lanthanum.Logging.csproj", "{C2184270-98BF-4063-BAF6-B2E5F11B8606}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +22,10 @@ Global
 		{58CE9544-B6A3-4FDF-AECB-7285759F4505}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58CE9544-B6A3-4FDF-AECB-7285759F4505}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58CE9544-B6A3-4FDF-AECB-7285759F4505}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2184270-98BF-4063-BAF6-B2E5F11B8606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2184270-98BF-4063-BAF6-B2E5F11B8606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2184270-98BF-4063-BAF6-B2E5F11B8606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2184270-98BF-4063-BAF6-B2E5F11B8606}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

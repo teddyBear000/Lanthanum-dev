@@ -1,14 +1,9 @@
-﻿using Lanthanum.Web.Models;
+using Lanthanum.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+using Lanthanum.Web.Data.Domain;
 using Lanthanum.Web.Data.Repositories;
-using Lanthanum.Web.Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -25,15 +20,8 @@ namespace Lanthanum.Web.Controllers
             _articleRepository = articleRepository;
             _commentRepository = commentRepository;
         }
-        
-        private void sendMail()
-        {
-            var mailSender = new MailSender();
-            mailSender.SendWelcome("ignars3@gmail.com");
-        }
         public IActionResult Index()
         {
-            sendMail();
 
             return View();
         } 

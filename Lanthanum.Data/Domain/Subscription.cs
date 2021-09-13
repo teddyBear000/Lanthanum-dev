@@ -1,12 +1,11 @@
 ﻿using System.Collections.Generic;
-using Lanthanum.Data;
 
-namespace Lanthanum.Web.Domain
+namespace Lanthanum.Web.Data.Domain
 {
-    public class Subscription: IEntity
+    public class Subscription : IEntity
     {
         public int Id { get; init; }
-        
+
         public User Owner { get; set; }
         public int OwnerId { get; set; }
         public List<KindOfSport> SubscribedSports { get; set; }

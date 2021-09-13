@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lanthanum.Data;
 
-namespace Lanthanum.Web.Domain
+namespace Lanthanum.Web.Data.Domain
 {
-    public class Comment: IEntity
+    public class Comment : IEntity
     {
         public int Id { get; init; }
         public User Author { get; set; }

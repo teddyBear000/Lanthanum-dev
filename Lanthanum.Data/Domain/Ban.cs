@@ -1,9 +1,8 @@
 ﻿using System;
-using Lanthanum.Data;
 
-namespace Lanthanum.Web.Domain
+namespace Lanthanum.Web.Data.Domain
 {
-    public class Ban: IEntity
+    public class Ban : IEntity
     {
         public int Id { get; init; }
         public User BannedUser { get; set; }

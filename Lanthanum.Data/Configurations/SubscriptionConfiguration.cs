@@ -1,11 +1,12 @@
+using Lanthanum.Web.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Lanthanum.Data.Configurations
+namespace Lanthanum.Web.Data.Configurations
 {
-    public class SubscriptionConfiguration: IEntityTypeConfiguration<Web.Domain.Subscription>
+    public class SubscriptionConfiguration : IEntityTypeConfiguration<Subscription>
     {
-        public void Configure(EntityTypeBuilder<Web.Domain.Subscription> builder)
+        public void Configure(EntityTypeBuilder<Subscription> builder)
         {
             builder
                 .HasMany(s => s.SubscribedAuthors)

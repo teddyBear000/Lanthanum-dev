@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using Lanthanum.Data;
 
-namespace Lanthanum.Web.Domain
+namespace Lanthanum.Web.Data.Domain
 {
-    public class KindOfSport: IEntity
+    public class KindOfSport : IEntity
     {
         public int Id { get; init; }
         public string Name { get; set; }
