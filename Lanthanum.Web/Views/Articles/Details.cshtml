@@ -65,16 +65,14 @@
                             <ul class="comments">
                                 @foreach (var comment in Comments)
                                 {
-                                    var commentAuthorAvatarPath = "";
-                                    var commentAuthorNickname = "";
-                                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorAvatarPath = "/content/userAvatars/" + user.AvatarImagePath; } }
-                                    @foreach (var user in Users) { if (user.Id == comment.Author.Id) { commentAuthorNickname = user.Nickname; } }
+                                    var сommentAuthorAvatarPath = "/content/userAvatars/" + Users.Find(x => x.Id == comment.Author.Id).AvatarImagePath;
+                                    var сommentAuthorNickname = Users.Find(x => x.Id == comment.Author.Id).Nickname;
                                     @if (comment.ParentComment == null)
                                     {
                                         <li class="clearfix">
-                                            <img src="@commentAuthorAvatarPath" class="avatar">
+                                            <img src="@сommentAuthorAvatarPath" class="avatar">
                                             <div class="post-comments">
-                                                <p class="meta"><a href="#" style=" font-weight: bold">@commentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
+                                                <p class="meta"><a href="#" style=" font-weight: bold">@сommentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
                                                 <p class="comment-content">
                                                     @comment.Content
                                                 </p>
@@ -99,10 +97,8 @@
                                             <ul class="comments">
                                                 @foreach (var subComment in Comments)
                                                 {
-                                                    var subCommentAuthorAvatarPath = "";
-                                                    var subCommentAuthorNickname = "";
-                                                    @foreach (var user in Users) { if (user.Id == subComment.Author.Id) { subCommentAuthorAvatarPath = "/content/userAvatars/" + user.AvatarImagePath; } }
-                                                    @foreach (var user in Users) { if (user.Id == subComment.Author.Id) { subCommentAuthorNickname = user.Nickname; } }
+                                                    var subCommentAuthorAvatarPath = "/content/userAvatars/"+Users.Find(x=>x.Id == subComment.Author.Id).AvatarImagePath;
+                                                    var subCommentAuthorNickname = Users.Find(x => x.Id == subComment.Author.Id).Nickname;
                                                     @if (subComment.ParentComment == comment)
                                                     {
 
