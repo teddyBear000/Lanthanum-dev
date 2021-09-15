@@ -1,13 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Lanthanum.Web.Data.Repositories;
+﻿using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
+using Lanthanum.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lanthanum.Web.Models;
-using System.Threading.Tasks;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -18,7 +17,6 @@ namespace Lanthanum.Web.Controllers
         private readonly DbRepository<Comment> _commentRepository;
         private readonly DbRepository<User> _userRepository;
         private readonly DbRepository<Article> _articleRepository;
-
         public ArticlesController(ILogger<ArticlesController> logger, DbRepository<Comment> commentRepository, DbRepository<User> userRepository, DbRepository<Article> articleRepository)
         {
             _logger = logger;
@@ -27,14 +25,27 @@ namespace Lanthanum.Web.Controllers
             _articleRepository = articleRepository;
         }
 
-        public IActionResult Details(int id)
+
+        public IActionResult Details(int id, string commentSortingMethod=" ")
         {
             var article =  _articleRepository.GetByIdAsync(id).Result;
             var comments = _commentRepository
                 .Find(x => x.Article == _articleRepository.GetByIdAsync(id).Result)
-                .OrderByDescending(x => x.DateTimeOfCreation)
                 .ToList();
-
+            switch (commentSortingMethod) 
+            {
+                case "SortingMethodNewest":
+                    comments.Sort((x, y) => y.DateTimeOfCreation.CompareTo(x.DateTimeOfCreation));
+                    break;
+                case "SortingMethodOldest":
+                    comments.Sort((x, y) => x.DateTimeOfCreation.CompareTo(y.DateTimeOfCreation));
+                    break;
+                /*case "SortingMethodPopularity":
+                    break;*/
+                default:
+                    comments.Sort((x, y) => y.DateTimeOfCreation.CompareTo(x.DateTimeOfCreation));
+                    break;
+            }
             var users = new List<User>();
             foreach(var userElement in _userRepository.GetAllAsync().Result)
             {

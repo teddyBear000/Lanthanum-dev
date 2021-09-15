@@ -1,4 +1,5 @@
 ﻿@using Lanthanum.Web.Models
+@using Lanthanum.Web.Domain
 @model Lanthanum.Web.Models.ArticleViewModel
 @{
     var Article = Model.MainArticle;
@@ -8,7 +9,13 @@
     if (CurrentUserImage == "") { CurrentUserImage = "/content/userAvatars/standart.jpg"; };
     var Articles = Model.MoreArticlesSection;
 }
+@{
+    string FormatUserAvatarPath(User user)
+    {
 
+        return "/content/userAvatars/" + user.AvatarImagePath;
+    }
+}
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/details.css" />
@@ -43,10 +50,40 @@
                     <div class="TextMain">
                         <p>@Article.MainText</p>
                     </div>
-
+                    <!---Comment section-->
                     <div class="blog-comment">
-                        <h3>COMMENTS(@Comments.Count)</h3>
+                        <div class="headings">
+                            <h3>COMMENTS(@Comments.Count)</h3>
+                            <div class="sort-comments-dropdown">
+                                <!---Comment sorting-->
+                                <div class="sort-comments-dropdown-start"><button class="sort-comments-button">Sorting order:</button></div>
+                                <div class="sort-comments-dropdown-content">
+                                    <div class="sort-comments-dropdown-content-element">
+                                        <form method="post" action="/Articles/Details">
+                                            <input type="hidden" name="Id" value="@Article.Id" />
+                                            <input type="hidden" name="commentSortingMethod" value="SortingMethodNewest" />
+                                            <button class="sort-comments-dropdown-content-button" type="submit">Newest</button>
+                                        </form>
+                                    </div>
+                                    <div class="sort-comments-dropdown-content-element">
+                                        <form method="post" action="/Articles/Details">
+                                            <input type="hidden" name="Id" value="@Article.Id" />
+                                            <input type="hidden" name="commentSortingMethod" value="SortingMethodOldest" />
+                                            <button class="sort-comments-dropdown-content-button" type="submit">Oldest</button>
+                                        </form>
+                                    </div>
+                                    <div class="sort-comments-dropdown-content-element">
+                                        <form method="post" action="/Articles/Details">
+                                            <input type="hidden" name="Id" value="@Article.Id" />
+                                            <input type="hidden" name="commentSortingMethod" value="SortingMethodPopularity" />
+                                            <button class="sort-comments-dropdown-content-button" type="submit">Top-rated</button>
+                                        </form>
+                                    </div>
 
+                                </div>
+                            </div>
+                        </div>
+                        <!---Comment input-->
                         <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
                             <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
                                 <form method="post" action="/Articles/AddComment">
@@ -61,11 +98,11 @@
                                     </div>
                                 </form>
                             </div>
-
+                            <!---Cycle of displayed comments-->
                             <ul class="comments">
                                 @foreach (var comment in Comments)
                                 {
-                                    var сommentAuthorAvatarPath = "/content/userAvatars/" + Users.Find(x => x.Id == comment.Author.Id).AvatarImagePath;
+                                    var сommentAuthorAvatarPath = FormatUserAvatarPath(Users.Find(x => x.Id == comment.Author.Id));
                                     var сommentAuthorNickname = Users.Find(x => x.Id == comment.Author.Id).Nickname;
                                     @if (comment.ParentComment == null)
                                     {
@@ -78,7 +115,7 @@
                                                 </p>
                                                 <p class="underpost">@comment.DateTimeOfCreation.Date.ToShortDateString() </p>
                                             </div>
-
+                                            <!---Comment input-->
                                             <div class="bg-light p-2 collapse" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; " id="replyComment_@comment.Id">
                                                 <form method="post" action="/Articles/AddComment">
                                                     <div class="d-flex flex-row align-items-start ml-3 mr-5">
@@ -93,11 +130,11 @@
                                                     </div>
                                                 </form>
                                             </div>
-
+                                            <!---Cycle of displayed subcomments-->
                                             <ul class="comments">
                                                 @foreach (var subComment in Comments)
                                                 {
-                                                    var subCommentAuthorAvatarPath = "/content/userAvatars/"+Users.Find(x=>x.Id == subComment.Author.Id).AvatarImagePath;
+                                                    var subCommentAuthorAvatarPath = FormatUserAvatarPath(Users.Find(x => x.Id == subComment.Author.Id));
                                                     var subCommentAuthorNickname = Users.Find(x => x.Id == subComment.Author.Id).Nickname;
                                                     @if (subComment.ParentComment == comment)
                                                     {
