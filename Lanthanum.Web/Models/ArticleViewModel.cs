@@ -13,8 +13,9 @@ namespace Lanthanum.Web.Models
         public string MainText { get; set; }
         public string Alt { get; set; }
         public string Caption { get; set; }
-        public string TeamName { get; set; }
+        public string TeamLocation{ get; set; }
         public string TeamConference { get; set; }
+        public string TeamName { get; set; }
         public ArticleStatus ArticleStatus { get; set; }
     }
 }

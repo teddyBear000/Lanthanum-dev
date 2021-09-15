@@ -1,4 +1,5 @@
 ﻿@using Lanthanum.Web.Domain
+@using System.Collections
 @model IEnumerable<Lanthanum.Web.Models.ArticleViewModel>
 @{
     Layout = null;
@@ -32,25 +33,44 @@
                         <input type="text" name="" placeholder="Type here to search" />
                     </div>
                 </div>
-                <form class="d-flex justify-content-between my-3">
-                    <select class="dropdown-form" name="">
-                        <option value="a">All Conferences</option>
-                        <option value="b">b</option>
-                        <option value="c">c</option>
-                    </select>
-                    <select class="dropdown-form" name="">
-                        <option value="a">All Teams</option>
-                        <option value="b">b</option>
-                        <option value="c">c</option>
-                    </select>
-                    <select class="dropdown-form" name="">
-                        <option value="a">All</option>
-                        <option value="b">b</option>
-                        <option value="c">c</option>
-                    </select>
-                </form>
+                <div class="sort-dropdown-container">
+                    <div class="dropdown sort-dropdown">
+                        <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            All Conferences
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="All">All</a>
+                            @foreach (string conference in (IEnumerable<string>)ViewData["Conferences"])
+                            {
+                                <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="@conference">@conference</a>
+                            }
+                        </div>
+                    </div>
+                    <div class="dropdown sort-dropdown">
+                        <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            All Teams
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="All">All</a>
+                            @foreach (string teamName in (IEnumerable<string>)ViewData["TeamNames"])
+                            {
+                                <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="@teamName">@teamName</a>
+                            }
+                        </div>
+                    </div>
+                    <div class="dropdown sort-dropdown">
+                        <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            All
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="All">All</a>
+                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Published">Published</a>
+                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Unpublished">Unpublished</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="articles-preview-container mt-3">
-                    @*<article-appender article-view-models="Model"></article-appender>*@
+                    @*<article-appender article-view-models="Model"></article-appender>*@ @*To Delete this line*@
                     @foreach (var mod in Model)
                     {
                         <div class="article-preview my-2">
@@ -99,7 +119,7 @@
                                 <div class="headline">@mod.Headline</div>
                                 <div class="article-brief-start my-2">@mod.MainText</div>
                                 <div class="location-status-container d-flex justify-content-between">
-                                    <span class="location">@String.Format("{0} / {1}", mod.TeamConference, mod.TeamName)</span>
+                                    <span class="location">@String.Format("{0} / {1}", mod.TeamConference, mod.TeamLocation)</span>
                                     @if (mod.ArticleStatus == ArticleStatus.Published)
                                     {
                                         <div class="status">
@@ -119,301 +139,7 @@
                             </div>
                         </div>
                     }
-                    <div class="article-preview my-2">
-                        <a href="#" class="main-link"></a>
-                        <img src="~/images/mock_article_img.png" alt="sample_img" />
-                        <div class="text-container">
-                            <div class="dropdown">
-                                <a  id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h fa-lg "></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            Submenu &raquo;
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 1</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 2</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
-                                                <ul class="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 2</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 4</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 5</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                            <div class="article-brief-start my-2">
-                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                            </div>
-                            <div class="location-status-container d-flex justify-content-between">
-                                <span class="location">AFC South / Tennessee</span>
-                                <div class="status">
-                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
-                                    <p class="d-block m-0">Published</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="article-preview my-2">
-                        <a href="#" class="main-link"></a>
-                        <img src="~/images/mock_article_img.png" alt="sample_img" />
-                        <div class="text-container">
-                            <div class="dropdown">
-                                <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h fa-lg "></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            Submenu &raquo;
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 1</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 2</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
-                                                <ul class="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 2</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 4</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 5</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                            <div class="article-brief-start my-2">
-                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                            </div>
-                            <div class="location-status-container d-flex justify-content-between">
-                                <span class="location">AFC South / Tennessee</span>
-                                <div class="status">
-                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
-                                    <p class="d-block m-0">Published</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="article-preview my-2">
-                        <a href="#" class="main-link"></a>
-                        <img src="~/images/mock_article_img.png" alt="sample_img" />
-                        <div class="text-container">
-                            <div class="dropdown">
-                                <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h fa-lg "></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            Submenu &raquo;
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 1</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 2</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
-                                                <ul class="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 2</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 4</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 5</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                            <div class="article-brief-start my-2">
-                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                            </div>
-                            <div class="location-status-container d-flex justify-content-between">
-                                <span class="location">AFC South / Tennessee</span>
-                                <div class="status">
-                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
-                                    <p class="d-block m-0">Published</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="article-preview my-2">
-                        <a href="#" class="main-link"></a>
-                        <img src="~/images/mock_article_img.png" alt="sample_img" />
-                        <div class="text-container">
-                            <div class="dropdown">
-                                <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h fa-lg "></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            Submenu &raquo;
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 1</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 2</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
-                                                <ul class="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 2</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 4</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 5</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                            <div class="article-brief-start my-2">
-                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                            </div>
-                            <div class="location-status-container d-flex justify-content-between">
-                                <span class="location">AFC South / Tennessee</span>
-                                <div class="status">
-                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
-                                    <p class="d-block m-0">Published</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="article-preview my-2">
-                        <a href="#" class="main-link"></a>
-                        <img src="~/images/mock_article_img.png" alt="sample_img" />
-                        <div class="text-container">
-                            <div class="dropdown">
-                                <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fa fa-ellipsis-h fa-lg "></i>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            Submenu &raquo;
-                                        </a>
-                                        <ul class="dropdown-menu dropdown-submenu">
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 1</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 2</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 3 &raquo; </a>
-                                                <ul class="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Multi level 2</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 4</a>
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">Submenu item 5</a>
-                                            </li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="headline">As M.L.B.'s Season Opens in Japan, at Least the Dirt Is Familiar</div>
-                            <div class="article-brief-start my-2">
-                                TOKYO — Major League Baseball begins its 2019 season on Wednesday in Japan
-                                with the first of two games between the Oakland Athletics and the Seattle Mariners. But when the teams
-                            </div>
-                            <div class="location-status-container d-flex justify-content-between">
-                                <span class="location">AFC South / Tennessee</span>
-                                <div class="status">
-                                    <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
-                                    <p class="d-block m-0">Published</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 <script>
                     search = document.querySelector(".search");

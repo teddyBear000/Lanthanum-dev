@@ -67,7 +67,7 @@ namespace Lanthanum.Web.Data
                     MainText = "blablablablablablablablablablablablablablabla",
                                Team = new Team()
                     {
-                        Name="Jerks",
+                        Name="Foks",
                         Location = "Tennesy",
                         KindOfSport = new KindOfSport()
                         {
@@ -108,7 +108,7 @@ namespace Lanthanum.Web.Data
                         MainText = "asd",
                         Team = new Team()
                         {
-                            Name="Jerks",
+                            Name="Foks",
                             Location = "Tennesy",
                             KindOfSport = new KindOfSport()
                             {
@@ -147,7 +147,7 @@ namespace Lanthanum.Web.Data
                         MainText = "b",
                         Team = new Team()
                         {
-                            Name="Jerks",
+                            Name="Goks",
                             Location = "Tennesy",
                             KindOfSport = new KindOfSport()
                             {
@@ -167,7 +167,7 @@ namespace Lanthanum.Web.Data
                         MainText = "f",
                         Team = new Team()
                         {
-                            Name="Jerks",
+                            Name="Goks",
                             Location = "Tennesy",
                             KindOfSport = new KindOfSport()
                             {
