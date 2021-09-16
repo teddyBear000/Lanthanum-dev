@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@using Lanthanum.Web.Views
+@await Component.InvokeAsync("FooterViewComponent")
+
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -36,17 +40,10 @@
     </div>
 
     @* Old footer *@
-    @*<footer class="border-top footer text-muted">
-            <div class="container">
-                &copy; 2021 - Lanthanum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-            </div>
-        </footer>*@
-
-    @* New footer *@
 
     @* Tabs with links *@
 
-    <footer class="bg-white" id="footer">
+    <!--<footer class="bg-white" id="footer">
         <div class="container py-5">
             <hr id="footer-divider" />
             <div class="row py-4 justify-content-between">
@@ -81,11 +78,10 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>-->
+    @* Copyrights *@
 
-        @* Copyrights *@
-
-        <div class="footer-copyright py-4 row m-0">
+    <!--<div class="footer-copyright py-4 row m-0">
             <div class="container flex-row col-4">
                 <p class="mb-0 py-2" id="footer-copyright-logo"><a class="text-white" asp-area="" asp-controller="Home" asp-action="Index">Sports Hub</a></p>
             </div>
@@ -94,6 +90,10 @@
                 <p class="footer-copyright-text mb-0 py-1"><a class="text-white" asp-area="" asp-controller="Footer" asp-action="Privacy">Privacy / Terms</a></p>
             </div>
         </div>
+    </footer>-->
+
+    <footer class="bg-white" id="footer">
+        <partial name="Footer.cshtml" />
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
