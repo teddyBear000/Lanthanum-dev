@@ -1,5 +1,4 @@
 ﻿@using Lanthanum.Web.Views
-@await Component.InvokeAsync("FooterViewComponent")
 
 
 <!DOCTYPE html>
@@ -92,9 +91,11 @@
         </div>
     </footer>-->
 
+    @await Component.InvokeAsync("FooterViewComponent")
     <footer class="bg-white" id="footer">
         <partial name="Footer.cshtml" />
     </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
