@@ -1,5 +1,6 @@
 ﻿@using Lanthanum.Web.Domain
 @using System.Collections
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @model IEnumerable<Lanthanum.Web.Models.ArticleViewModel>
 @{
     Layout = null;
@@ -36,37 +37,59 @@
                 <div class="sort-dropdown-container">
                     <div class="dropdown sort-dropdown">
                         <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            All Conferences
-                        </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="All">All</a>
-                            @foreach (string conference in (IEnumerable<string>)ViewData["Conferences"])
+                            @if (!string.IsNullOrEmpty((string)ViewData["FilterConference"]))
                             {
-                                <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="@conference">@conference</a>
+                                <text>@ViewData["FilterConference"]</text>
                             }
-                        </div>
+                            else
+                            {
+                                <text>All Conferences</text>
+                            }
+
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="" asp-route-filterTeam="@ViewData["FilterTeam"]" asp-route-filterStatus="@ViewData["FilterStatus"]">All Conferences</a></li>
+                            @foreach (string conference in (IEnumerable<string>) ViewData["Conferences"])
+                            {
+                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="@conference" asp-route-filterTeam="@ViewData["FilterTeam"]" asp-route-filterStatus="@ViewData["FilterStatus"]">@conference</a></li>
+                            }
+                        </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
                         <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            All Teams
+                            @if (!string.IsNullOrEmpty((string)ViewData["FilterTeam"]))
+                            {
+                                <text>@ViewData["FilterTeam"]</text>
+                            }
+                            else
+                            {
+                                <text>All Teams</text>
+                            }
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="All">All</a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterStatus="@ViewData["FilterStatus"]">All Teams</a></li>
                             @foreach (string teamName in (IEnumerable<string>)ViewData["TeamNames"])
                             {
-                                <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="@teamName">@teamName</a>
+                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="@teamName" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterStatus="@ViewData["FilterStatus"]">@teamName</a></li>
                             }
-                        </div>
+                        </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
                         <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            All
+                            @if (!string.IsNullOrEmpty((string)ViewData["FilterStatus"]))
+                            {
+                                <text>@ViewData["FilterStatus"]</text>
+                            }
+                            else
+                            {
+                                <text>All</text>
+                            }
                         </button>
-                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="All">All</a>
-                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Published">Published</a>
-                            <a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Unpublished">Unpublished</a>
-                        </div>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterTeam="@ViewData["FilterTeam"]">All</a></li>
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Published" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterTeam="@ViewData["FilterTeam"]">Published</a></li>
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Unpublished" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterTeam="@ViewData["FilterTeam"]">Unpublished</a></li>
+                        </ul>
                     </div>
                 </div>
                 <div class="articles-preview-container mt-3">

@@ -30,9 +30,10 @@ namespace Lanthanum.Web.Controllers
         [Route("articles-list")]
         public async Task<ActionResult<IEnumerable<ArticleViewModel>>> ArticlesList(string filterConference,string filterTeam,string filterStatus)
         {
-            ViewData["FilterConference"] = filterConference;
-            ViewData["FilterTeam"] = filterTeam;
-            ViewData["FilterStatus"] = filterStatus;
+            if(filterConference!=null) { ViewData["FilterConference"] = filterConference; }
+            if (filterTeam!=null) { ViewData["FilterTeam"] = filterTeam; }
+            if (filterStatus!=null) { ViewData["FilterStatus"] = filterStatus; }
+
             var articles = await _adminService.GetAllArticlesAsync();
 
             if (articles != null)
@@ -51,8 +52,8 @@ namespace Lanthanum.Web.Controllers
                     ArticleStatus = article.ArticleStatus
                 });
 
-                ViewData["TeamNames"] = articles.Select(a => a.Team.Name).Distinct();
-                ViewData["Conferences"] = articles.Select(a => a.Team.Conference).Distinct();
+                ViewData["TeamNames"] = articlesToViewModels.Select(a => a.TeamName).Distinct();
+                ViewData["Conferences"] = articlesToViewModels.Select(a => a.TeamConference).Distinct();
 
                 _adminService.FilterArticles(ref articlesToViewModels, filterConference, filterTeam, filterStatus);
                 return View("articles_list",articlesToViewModels);
