@@ -27,12 +27,12 @@ namespace Lanthanum.Web.Controllers
 
 
         [HttpGet]
-        [Route("articles-list")]
+        [Route("articles-list"),ActionName("ArticlesList")]
         public async Task<ActionResult<IEnumerable<ArticleViewModel>>> ArticlesList(string filterConference,string filterTeam,string filterStatus)
         {
-            if(filterConference!=null) { ViewData["FilterConference"] = filterConference; }
-            if (filterTeam!=null) { ViewData["FilterTeam"] = filterTeam; }
-            if (filterStatus!=null) { ViewData["FilterStatus"] = filterStatus; }
+            ViewData["FilterConference"] = filterConference;
+            ViewData["FilterTeam"] = filterTeam;
+            ViewData["FilterStatus"] = filterStatus;
 
             var articles = await _adminService.GetAllArticlesAsync();
 
@@ -50,12 +50,12 @@ namespace Lanthanum.Web.Controllers
                     TeamLocation = article.Team.Location,
                     TeamName = article.Team.Name,
                     ArticleStatus = article.ArticleStatus
-                });
+                }).ToList();
 
                 ViewData["TeamNames"] = articlesToViewModels.Select(a => a.TeamName).Distinct();
                 ViewData["Conferences"] = articlesToViewModels.Select(a => a.TeamConference).Distinct();
-
                 _adminService.FilterArticles(ref articlesToViewModels, filterConference, filterTeam, filterStatus);
+
                 return View("articles_list",articlesToViewModels);
             }
             return BadRequest("There are no articles");
@@ -65,10 +65,11 @@ namespace Lanthanum.Web.Controllers
         [Route("delete-article"), ActionName("DeleteArticle")]
         public async Task<ActionResult> DeleteArticleAsync(int id)
         {
+            await _adminService.DeleteArticleByIdAsync(id);
             try
             {
-                await _adminService.DeleteArticleByIdAsync(id);
-                return RedirectToAction("ArticlesList","Admin");
+                return Ok();
+                //return RedirectToAction("ArticlesList","Admin");
             }
             catch (Exception e)
             {
@@ -84,7 +85,8 @@ namespace Lanthanum.Web.Controllers
             try
             {
                 await _adminService.ChangeArticleStatusByIdAsync(id);
-                return RedirectToAction("ArticlesList", "Admin");
+                return NoContent();
+                //return RedirectToAction("ArticlesList", "Admin");
             }
             catch (Exception e)
             {

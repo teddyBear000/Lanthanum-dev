@@ -19,6 +19,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -48,10 +49,22 @@
 
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="" asp-route-filterTeam="@ViewData["FilterTeam"]" asp-route-filterStatus="@ViewData["FilterStatus"]">All Conferences</a></li>
+                            <li>
+                                <a class="dropdown-item" asp-action="ArticlesList" 
+                                   asp-route-filterConference="" 
+                                   asp-route-filterTeam="@ViewData["FilterTeam"]"
+                                   asp-route-filterStatus="@ViewData["FilterStatus"]">All Conferences
+                                </a>
+                            </li>
                             @foreach (string conference in (IEnumerable<string>) ViewData["Conferences"])
                             {
-                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="@conference" asp-route-filterTeam="@ViewData["FilterTeam"]" asp-route-filterStatus="@ViewData["FilterStatus"]">@conference</a></li>
+                                <li>
+                                    <a class="dropdown-item" asp-action="ArticlesList"
+                                       asp-route-filterConference="@conference"
+                                       asp-route-filterTeam="@ViewData["FilterTeam"]"
+                                       asp-route-filterStatus="@ViewData["FilterStatus"]">@conference
+                                    </a>
+                                </li>
                             }
                         </ul>
                     </div>
@@ -67,10 +80,22 @@
                             }
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterStatus="@ViewData["FilterStatus"]">All Teams</a></li>
+                            <li>
+                                <a class="dropdown-item" asp-action="ArticlesList" 
+                                   asp-route-filterTeam="" 
+                                   asp-route-filterConference="@ViewData["FilterConference"]" 
+                                   asp-route-filterStatus="@ViewData["FilterStatus"]">All Teams
+                                </a>
+                            </li>
                             @foreach (string teamName in (IEnumerable<string>)ViewData["TeamNames"])
                             {
-                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="@teamName" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterStatus="@ViewData["FilterStatus"]">@teamName</a></li>
+                                <li>
+                                    <a class="dropdown-item" asp-action="ArticlesList"
+                                       asp-route-filterTeam="@teamName"
+                                       asp-route-filterConference="@ViewData["FilterConference"]"
+                                       asp-route-filterStatus="@ViewData["FilterStatus"]">@teamName
+                                    </a>
+                                </li>
                             }
                         </ul>
                     </div>
@@ -86,9 +111,27 @@
                             }
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterTeam="@ViewData["FilterTeam"]">All</a></li>
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Published" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterTeam="@ViewData["FilterTeam"]">Published</a></li>
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Unpublished" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterTeam="@ViewData["FilterTeam"]">Unpublished</a></li>
+                            <li>
+                                <a class="dropdown-item" asp-action="ArticlesList" 
+                                   asp-route-filterStatus="" 
+                                   asp-route-filterConference="@ViewData["FilterConference"]" 
+                                   asp-route-filterTeam="@ViewData["FilterTeam"]">All
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-action="ArticlesList" 
+                                   asp-route-filterStatus="Published" 
+                                   asp-route-filterConference="@ViewData["FilterConference"]" 
+                                   asp-route-filterTeam="@ViewData["FilterTeam"]">Published
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" asp-action="ArticlesList" 
+                                   asp-route-filterStatus="Unpublished" 
+                                   asp-route-filterConference="@ViewData["FilterConference"]" 
+                                   asp-route-filterTeam="@ViewData["FilterTeam"]">Unpublished
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -104,17 +147,25 @@
                                     <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h fa-lg "></i>
                                     </a>
-                                    <form method="post">
+                                    
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li><button class="dropdown-item" asp-controller="Admin" asp-action="DeleteArticle" asp-route-id="@mod.Id">Delete</button></li>
+                                            <li>
+                                                <form method="post" asp-controller="Admin" asp-action="DeleteArticle" asp-route-id="@mod.Id" data-ajax="true" data-ajax-complete="deleteItem(this)">
+                                                    <button class="dropdown-item" type="submit">Delete</button>
+                                                </form>
+                                            </li>
                                             <li>
                                                 @if (@mod.ArticleStatus == ArticleStatus.Published)
                                                 {
-                                                    <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id">Unpublish</button>
+                                                    <form method="post" data-ajax="true" data-ajax-complete="deleteItem(this)">
+                                                        <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id">Unpublish</button>
+                                                    </form>
                                                 }
                                                 else
                                                 {
-                                                    <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id">Publish</button>
+                                                    <form method="post" data-ajax="true" data-ajax-complete="deleteItem(this)">
+                                                        <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id" a>Publish</button>
+                                                    </form>
                                                 }
                                             </li>
                                             <li>
@@ -137,7 +188,7 @@
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </form>
+                                    
                                 </div>
                                 <div class="headline">@mod.Headline</div>
                                 <div class="article-brief-start my-2">@mod.MainText</div>
@@ -162,7 +213,6 @@
                             </div>
                         </div>
                     }
-                    
                 </div>
                 <script>
                     search = document.querySelector(".search");
@@ -178,6 +228,12 @@
                         el.addEventListener("click", () => window.location.href = "hello");
                     });
 
+                </script>
+
+                <script>
+                    function deleteItem(form) {
+                        $(form).closest("div.article-preview").remove();
+                    }
                 </script>
             </div>
         </div>

@@ -22,8 +22,8 @@ namespace Lanthanum.Web.Data
         {
             //Database.EnsureDeleted();
             //Database.EnsureCreated(); // TODO: change
-            //AddMockedData(); // TODO: remove
-            //base.SaveChanges();
+            AddMockedData(); // TODO: remove
+            base.SaveChanges();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

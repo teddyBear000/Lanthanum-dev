@@ -54,6 +54,7 @@ namespace Lanthanum.Web
                 )
             );
 
+
             // DI
             services.AddTransient<DbRepository<User>>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
