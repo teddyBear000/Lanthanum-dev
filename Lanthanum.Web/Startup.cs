@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Data.SqlClient;
+using System.Linq;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
@@ -57,7 +58,6 @@ namespace Lanthanum.Web
             );
 
             // DI
-            services.AddTransient<DbRepository<User>>();
             services.AddTransient<DbRepository<Article>>();
             services.AddTransient<DbRepository<Comment>>();
             services.AddScoped<DbRepository<User>>();
