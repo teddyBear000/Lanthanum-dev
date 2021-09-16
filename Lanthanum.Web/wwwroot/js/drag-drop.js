@@ -38,7 +38,7 @@ function ShowFile(file){
         console.log("if begin: value = " + input.value)
         let fileReader = new FileReader();
         fileReader.onload = () => {
-            dropArea.innerHTML= `<img id="inserted" src="${fileReader.result}" height=490px>`;
+            dropArea.innerHTML= `<img id="inserted" src="${fileReader.result}" height=459px>`;
         }
         fileReader.readAsDataURL(file);
         dropArea.classList.add("active");

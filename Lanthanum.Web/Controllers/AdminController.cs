@@ -14,6 +14,10 @@ namespace Lanthanum.Web.Controllers
         [HttpGet]
         public IActionResult Article() => View();
         [HttpPost]
-        public IActionResult Article(Article article) => Content($"{article.Headline}");
+        public IActionResult Article(Article article)
+        {
+            Console.WriteLine(article.Headline);
+           return Content($"{article.Headline}");
+        }
     }
 }

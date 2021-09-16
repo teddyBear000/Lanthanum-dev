@@ -14,47 +14,142 @@
     <form method="post" controller="admin" action="article">
         <div class="conteiner">
             <div class="row">
-                <div class="col offset-9">
-                    <button id="warn" class="allbuttons secondary-button" type="button">Cancel</button>
-                    <button class="allbuttons primary-button" type="submit">Save</button>
+                <div class="col Flex">
+                    <div class="KindText pull-left">
+                        <h3>NBA</h3>
+                    </div>
+
+                    <div class="offset-7">
+                        <button id="warn" class="allbuttons secondary-button" type="button">Cancel</button>
+                        <button class="allbuttons primary-button" type="submit">Save</button>
+                    </div>
+
                 </div>
             </div>
-            <!-- DRAG & DROP CONTAINER BEGIN -->
             <div class="row">
-                <div class="col">
-                    <p class="form-text">PICTURE</p>
-                    <div class="drag-area">
-                        <div class="icon">
-                            <img src="~/images/PhotoIco.png" , height="100px">
+                <div class="col FlexTwo">
+                    <div class="Divider">
+                        @for (int i = 0; i < 8; i++)
+                        {
+                            <div class="KindsText pull-left" onclick="AddElement()">
+                                Home
+                            </div>
+                        }
+                        <div class="KindsText KindsTextSelected pull-left">
+                            GOLF
                         </div>
-                        <header><span class="hightlight" onclick="AddElement()">+Add picture </span>or drop it rigth there</header>
-                        <p>You can add next formats: png. jpg. jpeg. tif</p>
-                        <input id="getImage" type="file" name="LogoPath" hidden>
+                        @for (int i = 0; i < 8; i++)
+                        {
+                            <div class="KindsText pull-left" onclick="AddElement()">
+                                NBA
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
-            <!-- DRAG & DROP CONTAINER END -->
-            <div class="row">
-                <div class="col">
-                    <p>ALT*</p>
-                    <input type="text" name="Alt">
+
+            <div class="ArticleHeader">
+
+                <!-- DRAG & DROP CONTAINER BEGIN -->
+                <div class="row">
+                    <div class="col">
+                        <p class="form-text InputText">PICTURE *</p>
+                        <div class="drag-area">
+                            <div class="icon IconForm">
+                                <img src="~/images/PhotoIco.png" height="80px">
+                            </div>
+                            <div class="IconText">
+                                <header><span class="hightlight" onclick="AddElement()">+Add picture</span> or drop it rigth there</header>
+                                <p>You can add next formats: png. jpg. jpeg. tif</p>
+                                <input id="getImage" type="file" name="LogoPath" hidden>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>ARTICLE HEADLINE*</p>
-                    <input type="text" name="Headline">
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>CAPTION*</p>
-                    <input type="text" name="Caption">
+                <!-- DRAG & DROP CONTAINER END -->
+                <div class="InputText">
+                    <div class="row">
+                        <div class="col pull-left">
+                            <p class="InputText">CONFERENCE</p>
+                            <p>
+                                <select class="InputData" style="padding-left: 10px" name="conferences">
+                                    <option value="r0">Not Selected</option>
+                                    <option value="r1">NBA</option>
+                                    <option value="r2">GOLF</option>
+                                </select>
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="InputText">TEAM</p>
+                            <p>
+                                <select class="InputData" style="padding-left: 10px" name="teams">
+                                    <option value="r0">Not Selected</option>
+                                    <option value="r1">Lakers</option>
+                                    <option value="r2">Barcelona</option>
+                                    <option value="r3">Warriors</option>
+                                </select>
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="InputText">LOCATION</p>
+                            <p>
+                                <select class="InputData" style="padding-left: 10px" name="location">
+                                    <option value="r0">Not Selected</option>
+                                    <option value="r1">Los Angeles</option>
+                                    <option value="r2">New York</option>
+                                    <option value="r3">Lviv</option>
+                                    <option value="r4">London</option>
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="InputText">ALT *</p>
+                            <input class="InputData" style="padding-left: 10px" type="text" name="Headline" placeholder="Alternative text for picture">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="InputText">ARTICLE HEADLINE *</p>
+                            <input class="InputData" style="padding-left: 10px" type="text" name="Headline" placeholder="Name">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="InputText">CAPTION *</p>
+                            <input class="InputData" style="padding-left: 10px" type="text" name="Headline" placeholder="Write caption text here">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="InputText">CONTENT *</p>
+                            <input class="ContentData" style="padding-left: 10px" type="text" name="Headline" placeholder="Please add text here">
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-bottom: 150px">
+                        <div class="col pull-left">
+                            <p class="form-text InputTextLast" style="width: ">Comments:  Show  </p>
+
+                            <label class="switch">
+                                <input type="checkbox">
+                                <span class="slider round"></span>
+                            </label>
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </form>
-    
+
     <!-- POP UP CONTAINER BEGIN -->
     <div class="warning-container" id="warning-container">
         <div class="image">
@@ -68,12 +163,13 @@
             </div>
             <div class="buttons">
                 <button id="close-warn" class="allbuttons secondary-button">No</button>
-                <button class="allbuttons primary-button" onclick=@($"window.location.href='{Url.Action("Index", "Home")}'");>Yes</button>
+                <button class="allbuttons primary-button" onclick=@($"window.location.href='{Url.Action("Index", "Home")}'") ;>Yes</button>
             </div>
         </div>
     </div>
     <!-- POP UP CONTAINER END -->
 </body>
+
 <script src="~/js/popup.js"></script>
 <script src="~/js/drag-drop.js"></script>
 </html>

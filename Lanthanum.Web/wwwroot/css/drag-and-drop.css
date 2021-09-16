@@ -4,33 +4,37 @@
     color: red;
     cursor: pointer;
 }
+.hightlight:hover {
+    text-decoration: underline;
+}
 
 .drag-area {
     font-family: 'Open Sans', sans-serif;
     border: 2px dotted gray;
-    width: 100%;
-    height: 500px;
-    display: flex;
+    width: 816px;
+    height: 459px;
     text-align: center;
     justify-content: center;
     flex-direction: column;
+    background-color: rgb(250, 250, 250);
+    margin-bottom: 20px;
 }
+    .drag-area.active {
+        display: flex;
+        border: 0px solid gray;
+    }
 
-.drag-area.active {
-    border: 2px solid gray;
-}
-
-.drag-area img #inserted{
+.drag-area img #inserted {
     height: 100%;
     width: 100%;
     object-fit: cover;
-    border-radius: 5px;
+    border: 2px solid gray;
 }
 
 .form-text{
     color: gray;
     padding: 0;
-    margin: 0;
+    margin-bottom: 4px;
 }
 
 .form-container {
@@ -46,4 +50,12 @@
     width: 100%;
     height: 50px;
     margin-bottom: 20px;
+}
+
+.IconText {
+    margin-top: 30px;
+}
+
+.IconForm {
+    margin-top: 140px;
 }
