@@ -63,7 +63,7 @@ namespace Lanthanum.Web.Controllers
                     throw new Exception("Not Authorized");
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             { 
                 currentUserImage = "";
             }

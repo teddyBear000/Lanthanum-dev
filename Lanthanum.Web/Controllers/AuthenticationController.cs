@@ -14,15 +14,19 @@ namespace Lanthanum.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly DbRepository<User> _repository;
         private readonly AuthService _service;
+        private readonly IEmailSenderService _emailSenderService;
 
         public AuthenticationController(
             ILogger<HomeController> logger, 
             DbRepository<User> repository, 
-            AuthService service)
+            AuthService service,
+            IEmailSenderService emailSenderService
+        )
         {
             _logger = logger;
             _repository = repository;
             _service = service;
+            _emailSenderService = emailSenderService;
         }
         
         [HttpGet]
@@ -91,7 +95,7 @@ namespace Lanthanum.Web.Controllers
                 FirstName = model.FirstName,
                 LastName = model.LastName,
                 Email = model.Email,
-                IsBaned = false,
+                IsBanned = false,
                 CurrentState = CurrentStates.Offline,
                 PasswordHash = passwordHashed,
                 Role = RoleStates.User,
@@ -112,6 +116,8 @@ namespace Lanthanum.Web.Controllers
             }
             
             _logger.LogInformation($"User {newUser.Email} registered successfully, role {newUser.Role}.");
+            
+            _emailSenderService.SendWelcomeEmailAsync(newUser);
 
             return RedirectToAction("LogIn", "Authentication");
         }
