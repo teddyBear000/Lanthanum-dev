@@ -13,6 +13,8 @@ namespace Lanthanum.Data.Configurations
             builder
                 .HasMany(a => a.Reactions)
                 .WithOne(c => c.Comment);
+            builder
+                .Ignore(c => c.Rate);
         }
     }
 }

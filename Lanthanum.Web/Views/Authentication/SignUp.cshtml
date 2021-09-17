@@ -7,7 +7,7 @@
 @section AuthenticationHeaderAttr
 {
     <p class="nav-item header-question ml-md-5">Already have an account?</p>
-    <a asp-controller = "Authentication" asp-action = "LogIn" class="nav-item header-ref ml-sm-5">Log In</a>
+    <a asp-controller="Authentication" asp-action="LogIn" class="nav-item header-ref ml-sm-5">Log In</a>
 }
 
 <div class="text-left mb-4 px-3">
@@ -23,22 +23,17 @@
     <div class="fname-lname-container">
         <div class="form-input name-item mr-2">
             <div class="plain-line mb-1">FIRST NAME</div>
-            @Html.TextBoxFor(m => m.FirstName, new {placeholder = "John"})
+            @Html.TextBoxFor(m => m.FirstName, new { placeholder = "John" })
         </div>
         <div class="form-input name-item ml-2">
             <div class="plain-line mb-1">LAST NAME</div>
-            @Html.TextBoxFor(m => m.LastName, new {placeholder = "Doe"})
+            @Html.TextBoxFor(m => m.LastName, new { placeholder = "Doe" })
         </div>
     </div>
 
-    <div class="plain-line">
-        <div class="float-left">
-            EMAIL
-        </div>
-        <br />
-    </div>
-    <div class="form-input">
-        @Html.TextBoxFor(m => m.Email, new {placeholder = "johndoe@gmail.com"})
+    <div class="form-input name-item">
+        <div class="plain-line">EMAIL</div>
+        @Html.TextBoxFor(m => m.Email, new { placeholder = "johndoe@gmail.com" })
     </div>
 
     <div class="plain-line">
@@ -50,7 +45,7 @@
         </div>
     </div>
     <div class="form-input">
-        @Html.TextBoxFor(m => m.Password, new {placeholder = "8+ characters(letters and numbers)", type = "password"})
+        @Html.TextBoxFor(m => m.Password, new { placeholder = "8+ characters(letters and numbers)", type = "password" })
     </div>
     <div class="mb-3">
         <button type="submit" class="btn btn-block">SIGN UP</button>

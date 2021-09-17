@@ -4,13 +4,9 @@ using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lanthanum.Web.Models;
-using System.Threading.Tasks;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -60,17 +56,22 @@ namespace Lanthanum.Web.Controllers
 
             List<Article> articleList = _articleRepository.GetAllAsync().Result.ToList();
             var currentUserImage = "/content/userAvatars/";
-
             switch (commentSortingMethod)
             {
                 case "SortingMethodNewest":
-                    comments.Sort((x, y) => y.DateTimeOfCreation.CompareTo(x.DateTimeOfCreation));
+                    comments
+                        .Sort((x, y) => y.DateTimeOfCreation
+                        .CompareTo(x.DateTimeOfCreation));
                     break;
                 case "SortingMethodOldest":
-                    comments.Sort((x, y) => x.DateTimeOfCreation.CompareTo(y.DateTimeOfCreation));
+                    comments
+                        .Sort((x, y) => x.DateTimeOfCreation
+                        .CompareTo(y.DateTimeOfCreation));
                     break;
-                /*case "SortingMethodPopularity":
-                    break;*/
+                case "SortingMethodPopularity":
+                    comments
+                        .Sort((x, y) => y.Rate.CompareTo(x.Rate));
+                    break;
                 default:
                     comments.Sort((x, y) => y.DateTimeOfCreation.CompareTo(x.DateTimeOfCreation));
                     break;
@@ -129,7 +130,7 @@ namespace Lanthanum.Web.Controllers
         public IActionResult ManageReaction(int articleId, int commentId, int rate)
         {
             var author = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result;
-            var comment = _commentRepository.SingleOrDefaultAsync(x => x.Id == commentId).Result;
+            var comment = _commentRepository.GetByIdAsync(commentId).Result;
             //Check whether reaction exists, if not -> creating one
             if (_reactionRepository.SingleOrDefaultAsync(x => x.Author == author&&x.Comment==comment).Result == null) 
             {

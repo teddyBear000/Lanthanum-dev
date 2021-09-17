@@ -11,6 +11,12 @@
     var Reactions = Model.ReactionToComments;
 }
 @{
+    string FormaUserCredits(Comment comment)
+    {
+        var FirstName =Users.Find(x => x.Id == comment.Author.Id).FirstName;
+        var LastName = Users.Find(x => x.Id == comment.Author.Id).LastName;
+        return FirstName + " " + LastName;
+    }
     string FormatUserAvatarPath(User user)
     {
         return "/content/userAvatars/" + user.AvatarImagePath;
@@ -33,7 +39,29 @@
         }
         return countOfDislikes.ToString();
     }
-}
+    string CheckCurrentReactionLike(Comment comment)
+    {
+        foreach (var reaction in Reactions)
+        {
+            if (comment == reaction.Comment && reaction.Author.Email == User.Identity.Name&&reaction.TypeOfReaction==ReactionType.Like)
+            {
+                return "color: #d54343;";
+            }
+        }
+        return "color: #c4c4c4;";
+    }
+    string CheckCurrentReactionDislike(Comment comment)
+    {
+        foreach (var reaction in Reactions)
+        {
+            if (comment == reaction.Comment && reaction.Author.Email == User.Identity.Name && reaction.TypeOfReaction == ReactionType.Dislike)
+            {
+                return "color: #d54343;";
+            }
+        }
+        return "color: #c4c4c4;";
+    }
+    }
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/details.css" />
@@ -121,13 +149,12 @@
                                 @foreach (var comment in Comments)
                                 {
                                     var сommentAuthorAvatarPath = FormatUserAvatarPath(Users.Find(x => x.Id == comment.Author.Id));
-                                    var сommentAuthorNickname = Users.Find(x => x.Id == comment.Author.Id).Nickname;
                                     @if (comment.ParentComment == null)
                                     {
                                         <li class="clearfix">
                                             <img src="@сommentAuthorAvatarPath" class="avatar">
                                             <div class="post-comments">
-                                                <p class="meta"><a class="nickname-link" href="#" style=" font-weight: bold">@сommentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
+                                                <p class="meta"><a class="nickname-link" href="#" style=" font-weight: bold">@FormaUserCredits(comment)</a> says : <i class="float-right mr-2"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
                                                 <p class="comment-content">
                                                     @comment.Content
                                                 </p>
@@ -137,16 +164,16 @@
                                                     <div class="red-section">
                                                         <form method="post" action="/Articles/ManageReaction">
                                                             <input type="hidden" name="articleId" value="@Article.Id" />
-                                                            <input type="hidden" name="сommentId" value="@comment.Id" />
+                                                            <input type="hidden" name="commentId" value="@comment.Id" />
                                                             <input type="hidden" name="rate" value="1" />
-                                                            <div class="comment-like"><button class="fa fa-thumbs-up" type="submit"></button></div>
+                                                            <div class="comment-like"><button class="fa fa-thumbs-up" style="@CheckCurrentReactionLike(comment)" type="submit"></button></div>
                                                         </form>@CountLikes(comment)
                                                         <form method="post" action="/Articles/ManageReaction">
                                                             <input type="hidden" name="articleId" value="@Article.Id" />
                                                             <input type="hidden" name="commentId" value="@comment.Id" />
                                                             <input type="hidden" name="rate" value="0" />
                                                             <div class="comment-dislike">
-                                                                <button class="fa fa-thumbs-down" type="submit"></button>@CountDislikes(comment)
+                                                                <button class="fa fa-thumbs-down" type="submit"style="@CheckCurrentReactionDislike(comment)"></button>@CountDislikes(comment)
                                                             </div>
                                                         </form>
                                                     </div>
@@ -173,14 +200,13 @@
                                                 @foreach (var subComment in Comments)
                                                 {
                                                     var subCommentAuthorAvatarPath = FormatUserAvatarPath(Users.Find(x => x.Id == subComment.Author.Id));
-                                                    var subCommentAuthorNickname = Users.Find(x => x.Id == subComment.Author.Id).Nickname;
                                                     @if (subComment.ParentComment == comment)
                                                     {
 
                                                         <li class="clearfix">
                                                             <img src="@subCommentAuthorAvatarPath" class="avatar">
                                                             <div class="post-comments">
-                                                                <p class="meta"><a href="#" class="nickname-link" style=" font-weight: bold">@subCommentAuthorNickname</a> says : </p>
+                                                                <p class="meta"><a href="#" class="nickname-link" style=" font-weight: bold">@FormaUserCredits(subComment)</a> says : </p>
                                                                 <p class="comment-content">
                                                                     @subComment.Content
                                                                 </p>
@@ -190,16 +216,16 @@
                                                                     <div class="red-section">
                                                                         <form method="post" action="/Articles/ManageReaction">
                                                                             <input type="hidden" name="articleId" value="@Article.Id" />
-                                                                            <input type="hidden" name="сommentId" value="@subComment.Id" />
+                                                                            <input type="hidden" name="commentId" value="@subComment.Id" />
                                                                             <input type="hidden" name="rate" value="1" />
-                                                                            <div class="comment-like"><button class="fa fa-thumbs-up" type="submit"></button></div>
+                                                                            <div class="comment-like"><button class="fa fa-thumbs-up"style="@CheckCurrentReactionLike(subComment)" type="submit"></button></div>
                                                                         </form>@CountLikes(subComment)
                                                                         <form method="post" action="/Articles/ManageReaction">
                                                                             <input type="hidden" name="articleId" value="@Article.Id" />
                                                                             <input type="hidden" name="commentId" value="@subComment.Id" />
                                                                             <input type="hidden" name="rate" value="0" />
                                                                             <div class="comment-dislike">
-                                                                                <button class="fa fa-thumbs-down" type="submit"></button>
+                                                                                <button class="fa fa-thumbs-down "style="@CheckCurrentReactionDislike(subComment)" type="submit"></button>
                                                                             </div>
                                                                         </form>@CountDislikes(subComment)
                                                                     </div>
