@@ -1,6 +1,5 @@
 ﻿body {
     background: #fff;
-    
 }
 
 a {
@@ -55,6 +54,7 @@ a {
         font-weight: 700;
         font-size: 18px;
         background-color: transparent;
+        outline: none;
     }   
     .blog-comment .sort-comments-dropdown-content-element{
         display: flex;
@@ -74,21 +74,17 @@ a {
     .blog-comment .sort-comments-dropdown:hover .sort-comments-dropdown-content .sort-comments-dropdown-content-element:hover {
         background-color: #eee;
     }
-
-
-
-
-
-
-
-
-
         .blog-comment ul {
             list-style-type: none;
             padding: 0;
         }
-    
 
+    .blog-comment .red-section {
+        display: flex;
+        font-size: 18px;
+        color: #c4c4c4;
+        font-weight: 600;
+    }
     .blog-comment img.avatar {
         position: relative;
         float: left;
@@ -121,8 +117,29 @@ a {
         color: #aaaaaa;
         padding-bottom: 8px;
         margin-bottom: 10px !important;
-    }
 
+    }
+        .blog-comment .meta .nickname-link:hover  {
+            color: #d54343;
+            text-decoration: none;
+        }
+        .blog-comment .meta a {
+            font-weight: 600;
+        }
+            .blog-comment .meta :hover a {
+            color: #d54343;
+            text-decoration: none;
+        }
+    .blog-comment .comment-like {
+        margin-left: -5px;
+    }
+    .blog-comment .comment-dislike{
+        margin-left: 5px; 
+    }
+    .blog-comment .red-section button {
+        background-color: transparent;
+        border: none;
+    }
     .blog-comment .underpost {
         font-size: 13px;
         color: #aaaaaa;
@@ -153,3 +170,12 @@ a {
         margin-top: 10px;
         font-size: 18px;
     }
+.fa:hover {
+    color: #d54343;
+    outline: none;
+}
+.fa {
+    font-size: 20px;
+    outline: none;
+    color: #c4c4c4;
+}

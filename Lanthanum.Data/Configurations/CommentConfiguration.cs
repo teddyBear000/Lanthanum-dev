@@ -10,6 +10,9 @@ namespace Lanthanum.Data.Configurations
             builder
                 .Property(c => c.DateTimeOfCreation)
                 .ValueGeneratedOnAdd();
+            builder
+                .HasMany(a => a.Reactions)
+                .WithOne(c => c.Comment);
         }
     }
 }

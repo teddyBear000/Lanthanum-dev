@@ -60,6 +60,7 @@ namespace Lanthanum.Web
             services.AddTransient<DbRepository<User>>();
             services.AddTransient<DbRepository<Article>>();
             services.AddTransient<DbRepository<Comment>>();
+            services.AddTransient<DbRepository<Reaction>>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<AuthService>();
         }
