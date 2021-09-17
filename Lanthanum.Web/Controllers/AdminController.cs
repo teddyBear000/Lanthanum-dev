@@ -14,7 +14,6 @@ namespace Lanthanum.Web.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
-
         public AdminController(IAdminService adminService)
         {
             _adminService = adminService;
@@ -33,6 +32,7 @@ namespace Lanthanum.Web.Controllers
             ViewData["FilterConference"] = filterConference;
             ViewData["FilterTeam"] = filterTeam;
             ViewData["FilterStatus"] = filterStatus;
+
 
             var articles = await _adminService.GetAllArticlesAsync();
 
@@ -61,14 +61,14 @@ namespace Lanthanum.Web.Controllers
             return BadRequest("There are no articles");
         }
 
-        [HttpPost]
         [Route("delete-article"), ActionName("DeleteArticle")]
+        [HttpPost]
         public async Task<ActionResult> DeleteArticleAsync(int id)
         {
-            await _adminService.DeleteArticleByIdAsync(id);
             try
             {
-                return Ok();
+                await _adminService.DeleteArticleByIdAsync(id);
+                return NoContent();
                 //return RedirectToAction("ArticlesList","Admin");
             }
             catch (Exception e)

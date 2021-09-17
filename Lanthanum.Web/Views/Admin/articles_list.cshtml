@@ -50,22 +50,24 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <a class="dropdown-item" asp-action="ArticlesList" 
-                                   asp-route-filterConference="" 
+                                <a class="dropdown-item" asp-action="ArticlesList"
+                                   asp-route-filterConference=""
                                    asp-route-filterTeam="@ViewData["FilterTeam"]"
-                                   asp-route-filterStatus="@ViewData["FilterStatus"]">All Conferences
+                                   asp-route-filterStatus="@ViewData["FilterStatus"]">
+                                    All Conferences
                                 </a>
                             </li>
-                            @foreach (string conference in (IEnumerable<string>) ViewData["Conferences"])
+                            @foreach (string conference in (IEnumerable<string>)ViewData["Conferences"])
                             {
                                 <li>
                                     <a class="dropdown-item" asp-action="ArticlesList"
                                        asp-route-filterConference="@conference"
                                        asp-route-filterTeam="@ViewData["FilterTeam"]"
-                                       asp-route-filterStatus="@ViewData["FilterStatus"]">@conference
-                                    </a>
-                                </li>
-                            }
+                                       asp-route-filterStatus="@ViewData["FilterStatus"]">
+                                        @conference
+                                </a>
+                            </li>
+                        }
                         </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
@@ -81,10 +83,11 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <a class="dropdown-item" asp-action="ArticlesList" 
-                                   asp-route-filterTeam="" 
-                                   asp-route-filterConference="@ViewData["FilterConference"]" 
-                                   asp-route-filterStatus="@ViewData["FilterStatus"]">All Teams
+                                <a class="dropdown-item" asp-action="ArticlesList"
+                                   asp-route-filterTeam=""
+                                   asp-route-filterConference="@ViewData["FilterConference"]"
+                                   asp-route-filterStatus="@ViewData["FilterStatus"]">
+                                    All Teams
                                 </a>
                             </li>
                             @foreach (string teamName in (IEnumerable<string>)ViewData["TeamNames"])
@@ -93,10 +96,11 @@
                                     <a class="dropdown-item" asp-action="ArticlesList"
                                        asp-route-filterTeam="@teamName"
                                        asp-route-filterConference="@ViewData["FilterConference"]"
-                                       asp-route-filterStatus="@ViewData["FilterStatus"]">@teamName
-                                    </a>
-                                </li>
-                            }
+                                       asp-route-filterStatus="@ViewData["FilterStatus"]">
+                                        @teamName
+                                </a>
+                            </li>
+                        }
                         </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
@@ -112,31 +116,33 @@
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <li>
-                                <a class="dropdown-item" asp-action="ArticlesList" 
-                                   asp-route-filterStatus="" 
-                                   asp-route-filterConference="@ViewData["FilterConference"]" 
-                                   asp-route-filterTeam="@ViewData["FilterTeam"]">All
+                                <a class="dropdown-item" asp-action="ArticlesList"
+                                   asp-route-filterStatus=""
+                                   asp-route-filterConference="@ViewData["FilterConference"]"
+                                   asp-route-filterTeam="@ViewData["FilterTeam"]">
+                                    All
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" asp-action="ArticlesList" 
-                                   asp-route-filterStatus="Published" 
-                                   asp-route-filterConference="@ViewData["FilterConference"]" 
-                                   asp-route-filterTeam="@ViewData["FilterTeam"]">Published
+                                <a class="dropdown-item" asp-action="ArticlesList"
+                                   asp-route-filterStatus="Published"
+                                   asp-route-filterConference="@ViewData["FilterConference"]"
+                                   asp-route-filterTeam="@ViewData["FilterTeam"]">
+                                    Published
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" asp-action="ArticlesList" 
-                                   asp-route-filterStatus="Unpublished" 
-                                   asp-route-filterConference="@ViewData["FilterConference"]" 
-                                   asp-route-filterTeam="@ViewData["FilterTeam"]">Unpublished
+                                <a class="dropdown-item" asp-action="ArticlesList"
+                                   asp-route-filterStatus="Unpublished"
+                                   asp-route-filterConference="@ViewData["FilterConference"]"
+                                   asp-route-filterTeam="@ViewData["FilterTeam"]">
+                                    Unpublished
                                 </a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="articles-preview-container mt-3">
-                    @*<article-appender article-view-models="Model"></article-appender>*@ @*To Delete this line*@
                     @foreach (var mod in Model)
                     {
                         <div class="article-preview my-2">
@@ -147,48 +153,48 @@
                                     <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h fa-lg "></i>
                                     </a>
-                                    
-                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                            <li>
-                                                <form method="post" asp-controller="Admin" asp-action="DeleteArticle" asp-route-id="@mod.Id" data-ajax="true" data-ajax-complete="deleteItem(this)">
-                                                    <button class="dropdown-item" type="submit">Delete</button>
+
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <li>
+                                            <form method="post" asp-controller="Admin" asp-action="DeleteArticle" asp-route-id="@mod.Id" data-ajax="true" data-ajax-complete="deleteItem(this)">
+                                                <button class="dropdown-item" type="submit">Delete</button>
+                                            </form>
+                                        </li>
+                                        <li>
+                                            @if (@mod.ArticleStatus == ArticleStatus.Published)
+                                            {
+                                                <form method="post" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id" data-ajax="true" data-ajax-complete="unpublishItem(this)">
+                                                    <button class="dropdown-item">Unpublish</button>
                                                 </form>
-                                            </li>
-                                            <li>
-                                                @if (@mod.ArticleStatus == ArticleStatus.Published)
-                                                {
-                                                    <form method="post" data-ajax="true" data-ajax-complete="deleteItem(this)">
-                                                        <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id">Unpublish</button>
-                                                    </form>
-                                                }
-                                                else
-                                                {
-                                                    <form method="post" data-ajax="true" data-ajax-complete="deleteItem(this)">
-                                                        <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id" a>Publish</button>
-                                                    </form>
-                                                }
-                                            </li>
-                                            <li>
-                                                <a class="dropdown-item" href="#">
-                                                    Move &raquo;
-                                                </a>
-                                                <ul class="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Submenu item 1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Submenu item 2</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Submenu item 4</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Submenu item 5</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    
+                                            }
+                                            else
+                                            {
+                                                <form method="post" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id" data-ajax="true" data-ajax-complete="publishItem(this)">
+                                                    <button class="dropdown-item">Publish</button>
+                                                </form>
+                                            }
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">
+                                                Move &raquo;
+                                            </a>
+                                            <ul class="dropdown-menu dropdown-submenu">
+                                                <li>
+                                                    <a class="dropdown-item" href="#">Submenu item 1</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">Submenu item 2</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">Submenu item 4</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="#">Submenu item 5</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+
                                 </div>
                                 <div class="headline">@mod.Headline</div>
                                 <div class="article-brief-start my-2">@mod.MainText</div>
@@ -201,7 +207,6 @@
                                             <p class="d-block m-0">@mod.ArticleStatus</p>
                                         </div>
                                     }
-
                                     else
                                     {
                                         <div class="status">
@@ -214,27 +219,7 @@
                         </div>
                     }
                 </div>
-                <script>
-                    search = document.querySelector(".search");
-                    search_img = document.querySelector(".search-img");
-
-                    search_img.onclick = function () {
-                        search.classList.toggle('active');
-                    }
-                </script>
-                <script>
-                    var box = document.getElementById('.dropdown');
-                    document.querySelectorAll("[data-link]").forEach(el => {
-                        el.addEventListener("click", () => window.location.href = "hello");
-                    });
-
-                </script>
-
-                <script>
-                    function deleteItem(form) {
-                        $(form).closest("div.article-preview").remove();
-                    }
-                </script>
+                <script src="~/js/articles-list.js"></script>
             </div>
         </div>
     </div>
