@@ -26,6 +26,7 @@ namespace Lanthanum.Web.Models
         public void RemoveItem(FooterTabItem toBeDeleted)
         {
             _repository.RemoveAsync(toBeDeleted).Wait();
-        } 
+        }
+
     }
 }

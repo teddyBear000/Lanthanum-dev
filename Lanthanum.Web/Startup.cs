@@ -42,6 +42,7 @@ namespace Lanthanum.Web
 
             // DI
             services.AddTransient<DbRepository<User>>();
+            services.AddScoped<DbRepository<FooterTabItem>>();
             services.AddScoped<FooterTabItemList>();
         }
 
