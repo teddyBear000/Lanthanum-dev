@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Lanthanum.Data;
+﻿using Lanthanum.Data;
 
 namespace Lanthanum.Web.Domain
 {

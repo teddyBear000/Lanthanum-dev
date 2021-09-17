@@ -1,5 +1,17 @@
-﻿@using Lanthanum.Web.Views
+﻿@{ 
+//footerTabItems.AddItem(new FooterTabItem { Name = "About Sport Hub", Category = "CompanyInfo", Link = "About", IsDisplaying = true });
+//footerTabItems.AddItem(new FooterTabItem { Name = "News / In the Press", Category = "CompanyInfo", Link = "#", IsDisplaying = true });
+//footerTabItems.AddItem(new FooterTabItem { Name = "Advertising / Sports Blogger Ad Network", Category = "CompanyInfo", Link = "#", IsDisplaying = true });
+//footerTabItems.AddItem(new FooterTabItem { Name = "Events", Category = "CompanyInfo", Link = "#", IsDisplaying = true });
+//footerTabItems.AddItem(new FooterTabItem { Name = "Contact Us", Category = "CompanyInfo", Link = "ContactUs", IsDisplaying = true });
 
+//footerTabItems.AddItem(new FooterTabItem { Name = "Featured Writers Program", Category = "Contributors", Link = "#", IsDisplaying = true });
+//footerTabItems.AddItem(new FooterTabItem { Name = "Featured Team Writers Program", Category = "Contributors", Link = "#", IsDisplaying = true });
+//footerTabItems.AddItem(new FooterTabItem { Name = "Intership Program", Category = "Contributors", Link = "#", IsDisplaying = true });
+}
+
+@using Lanthanum.Web.Domain
+@inject FooterTabItemList footerTabItems
 
 <!DOCTYPE html>
 <html lang="en">
@@ -91,9 +103,61 @@
         </div>
     </footer>-->
 
-    @await Component.InvokeAsync("FooterViewComponent")
+
     <footer class="bg-white" id="footer">
-        <partial name="Footer.cshtml" />
+        <div class="container py-5">
+            <hr id="footer-divider" />
+            <div class="row py-4 justify-content-between">
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Company Info</h6>
+                    @foreach (FooterTabItem footerTabItem in footerTabItems.GetItems())
+                    {
+                        @if (@footerTabItem.Category == "CompanyInfo" && @footerTabItem.IsDisplaying == true)
+                        {
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>
+                            </ul>
+                        }
+                    }
+                </div>
+                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Contributors</h6>
+                    @foreach (FooterTabItem footerTabItem in footerTabItems.GetItems())
+                    {
+                        @if (@footerTabItem.Category == "Contributors" && @footerTabItem.IsDisplaying == true)
+                        {
+                            <ul class="list-unstyled mb-0">
+                                <li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>
+                            </ul>
+                        }
+                    }
+                </div>
+                <div class="col-lg-4 col-md-6 mb-lg-0">
+                    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Newsletter</h6>
+                    <p class="text-muted mb-1" id="footer-newsletter-description">Sign up to receive the latest sports news</p>
+                    <div class="p-1">
+                        <div class="input-group" id="footer-newsletter-form">
+                            <input type="email" placeholder="Your email address" class="form-control shadow-none shadow-0" aria-describedby="footer-newsletter-subscribe-button" id="footer-newsletter-email-input">
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-outline-danger shadow-none shadow-0" id="footer-newsletter-subscribe-button">Subscribe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* Copyrights *@
+
+        <div class="footer-copyright py-4 row m-0">
+            <div class="container flex-row col-4">
+                <p class="mb-0 py-2" id="footer-copyright-logo"><a class="text-white" asp-area="" asp-controller="Home" asp-action="Index">Sports Hub</a></p>
+            </div>
+            <div class="container flex-row col-4">
+                <p class="footer-copyright-text mb-0 py-1">Copyright ©2019 Sports Hub</p>
+                <p class="footer-copyright-text mb-0 py-1"><a class="text-white" asp-area="" asp-controller="Footer" asp-action="Privacy">Privacy / Terms</a></p>
+            </div>
+        </div>
     </footer>
 
 

@@ -24,8 +24,4 @@
     <ProjectReference Include="..\Lanthanum.Data\Lanthanum.Data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Shared\Components\FooterViewComponent\" />
-  </ItemGroup>
-
 </Project>

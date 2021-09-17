@@ -9,6 +9,7 @@ using System;
 using System.Data.SqlClient;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
+using Lanthanum.Web.Models;
 
 namespace Lanthanum.Web
 {
@@ -41,8 +42,8 @@ namespace Lanthanum.Web
 
             // DI
             services.AddTransient<DbRepository<User>>();
-            services.AddTransient<DbRepository<FooterTabItem>>();
-            services.AddTransient<FooterTabItem>();
+            services.AddScoped<DbRepository<FooterTabItem>>();
+            services.AddScoped<FooterTabItemList>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
