@@ -1,0 +1,190 @@
+﻿@using Lanthanum.Web.Models
+@model Lanthanum.Web.Models.ArticleViewModel
+@{
+    var Article = Model.MainArticle;
+    var Comments = Model.Comments;
+    var Users = Model.Users;
+    var CurrentUserImage = Model.CurrentUserImage;
+    if (CurrentUserImage == "") { CurrentUserImage = "/content/userAvatars/standart.jpg"; };
+    var Articles = Model.MoreArticlesSection;
+}
+
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/details.css" />
+    <link rel="stylesheet" href="~/css/comments.css" />
+</head>
+
+<body style="background: #fff">
+
+    <div class="GeneralView">
+        <div class="ArticleHeader">
+            <img src=@Article.LogoPath alt="Photo Of Event" class="ImageContainer">
+            <img src="/images/background_image.jpg" class="BackgroundContainer">
+
+            <div class="greyBox">
+
+                <div class="DateTime">
+                    <p>Published / @Article.DateTimeOfCreation.ToString("dd.MM.yyyy")<p>
+                </div>
+
+                <div class="HeadLine">
+                    <p>@Article.Headline</p>
+                </div>
+
+                <div class="HeaderText">
+                    <p>@Article.Header</p>
+                </div>
+
+            </div>
+
+            <div class="BodyHead">
+                <div class="whiteBox">
+                    <div class="TextMain">
+                        <p>@Article.MainText</p>
+                    </div>
+
+                    <div class="blog-comment">
+                        <h3>COMMENTS(@Comments.Count)</h3>
+
+                        <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
+                            <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
+                                <form method="post" action="/Articles/AddComment">
+                                    <div class="d-flex flex-row align-items-start ml-3 mr-5">
+                                        <img class="rounded-circle mr-2" src="@CurrentUserImage" width="55" />
+                                        <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
+                                        <input type="hidden" name="articleId" value="@Article.Id" />
+                                    </div>
+                                    <div class="mt-2 text-right mr-3">
+                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white " type="reset">Cancel</button>
+                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <ul class="comments">
+                                @foreach (var comment in Comments)
+                                {
+                                    var сommentAuthorAvatarPath = "/content/userAvatars/" + Users.Find(x => x.Id == comment.Author.Id).AvatarImagePath;
+                                    var сommentAuthorNickname = Users.Find(x => x.Id == comment.Author.Id).Nickname;
+                                    @if (comment.ParentComment == null)
+                                    {
+                                        <li class="clearfix">
+                                            <img src="@сommentAuthorAvatarPath" class="avatar">
+                                            <div class="post-comments">
+                                                <p class="meta"><a href="#" style=" font-weight: bold">@сommentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
+                                                <p class="comment-content">
+                                                    @comment.Content
+                                                </p>
+                                                <p class="underpost">@comment.DateTimeOfCreation.Date.ToShortDateString() </p>
+                                            </div>
+
+                                            <div class="bg-light p-2 collapse" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; " id="replyComment_@comment.Id">
+                                                <form method="post" action="/Articles/AddComment">
+                                                    <div class="d-flex flex-row align-items-start ml-3 mr-5">
+                                                        <img class="rounded-circle mr-2" src="@CurrentUserImage" width="55" />
+                                                        <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
+                                                        <input type="hidden" name="articleId" value="@Article.Id" />
+                                                        <input type="hidden" name="parentCommentId" value="@comment.Id" />
+                                                    </div>
+                                                    <div class="mt-2 text-right mr-3">
+                                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" data-toggle="collapse" data-target="#replyComment_@comment.Id" type="reset">Cancel</button>
+                                                        <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <ul class="comments">
+                                                @foreach (var subComment in Comments)
+                                                {
+                                                    var subCommentAuthorAvatarPath = "/content/userAvatars/"+Users.Find(x=>x.Id == subComment.Author.Id).AvatarImagePath;
+                                                    var subCommentAuthorNickname = Users.Find(x => x.Id == subComment.Author.Id).Nickname;
+                                                    @if (subComment.ParentComment == comment)
+                                                    {
+
+                                                        <li class="clearfix">
+                                                            <img src="@subCommentAuthorAvatarPath" class="avatar">
+                                                            <div class="post-comments">
+                                                                <p class="meta"><a href="#" style=" font-weight: bold">@subCommentAuthorNickname</a> says : </p>
+                                                                <p class="comment-content">
+                                                                    @subComment.Content
+                                                                </p>
+                                                                <p class="underpost">@subComment.DateTimeOfCreation.Date.ToShortDateString() </p>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                }
+                                            </ul>
+                                        </li>
+                                    }
+                                }
+
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="BorderOne">
+                        <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+                            <span style="font-size: 20px; background-color: #ffffff; font-weight: 680; padding: 0 10px; ">
+                                MORE ARTICLES
+                            </span>
+                        </div>
+
+                        <div class="SectionFixed">
+                            <div class="GeneralContainer">
+                                @for (int i = 0; i < 3; i++)
+                                {
+                                    <div class="containerFirst">
+                                        <div class="row">
+
+                                            <div class="col NoMerge">
+                                                <div class="imgAbt NoMerge">
+                                                    <img width="176" height="99" src=@Articles[i].LogoPath />
+                                                </div>
+                                            </div>
+
+                                            <div class="col HeadMiniText">
+                                                <a href="@Articles[i].Id" class="NoMergeText">@Articles[i].Headline</a>
+                                                <div class="MiniText">
+                                                    <p>@Articles[i].Header </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            <div class="GeneralContainerTwo">
+                                @for (int i = 3; i < 6; i++)
+                                {
+                                    <div class="containerFirst">
+                                        <div class="row">
+
+                                            <div class="col NoMerge">
+                                                <div class="imgAbt NoMerge">
+                                                    <img width="176" height="99" src=@Articles[i].LogoPath />
+                                                </div>
+                                            </div>
+
+                                            <div class="col HeadMiniText">
+                                                <a href="@Articles[i].Id" class="NoMergeText">@Articles[i].Headline</a>
+                                                <div class="MiniText">
+                                                    <p>@Articles[i].Header </p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+</body>

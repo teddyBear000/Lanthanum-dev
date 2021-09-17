@@ -1,6 +1,7 @@
 ﻿using Lanthanum.Web.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Lanthanum.Data.Configurations;
 
@@ -21,7 +22,6 @@ namespace Lanthanum.Web.Data
         {
             Database.EnsureDeleted();
             Database.EnsureCreated(); // TODO: change
-            AddMockedData(); // TODO: remove
             base.SaveChanges();
         }
 
@@ -46,15 +46,6 @@ namespace Lanthanum.Web.Data
         public async Task<int> SaveChangesAsync()
         {
             return await base.SaveChangesAsync();
-        }
-
-        private void AddMockedData()
-        {
-            Users.Add(new User()
-            {
-                Email = "mail@gmail.com",
-                PasswordHash = "12345678"
-            });
         }
     }
 }
