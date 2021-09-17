@@ -30,9 +30,9 @@ namespace Lanthanum.Web.Controllers
         [Route("articles-list")]
         public async Task<ActionResult<IEnumerable<ArticleViewModel>>> ArticlesList(string filterConference,string filterTeam,string filterStatus)
         {
-            if(filterConference!=null) { ViewData["FilterConference"] = filterConference; }
-            if (filterTeam!=null) { ViewData["FilterTeam"] = filterTeam; }
-            if (filterStatus!=null) { ViewData["FilterStatus"] = filterStatus; }
+            if(filterConference!=null) { TempData["FilterConference"] = filterConference; }
+            if (filterTeam!=null) { TempData["FilterTeam"] = filterTeam; }
+            if (filterStatus!=null) { TempData["FilterStatus"] = filterStatus; }
 
             var articles = await _adminService.GetAllArticlesAsync();
 
@@ -55,7 +55,11 @@ namespace Lanthanum.Web.Controllers
                 ViewData["TeamNames"] = articlesToViewModels.Select(a => a.TeamName).Distinct();
                 ViewData["Conferences"] = articlesToViewModels.Select(a => a.TeamConference).Distinct();
 
-                _adminService.FilterArticles(ref articlesToViewModels, filterConference, filterTeam, filterStatus);
+                _adminService.FilterArticles(
+                    ref articlesToViewModels, 
+                    (string)TempData?.Peek("FilterConference"),
+                    (string)TempData?.Peek("FilterTeam"),
+                   (string) TempData?.Peek("FilterStatus"));
                 return View("articles_list",articlesToViewModels);
             }
             return BadRequest("There are no articles");

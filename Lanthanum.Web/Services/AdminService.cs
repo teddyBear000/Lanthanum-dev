@@ -47,16 +47,16 @@ namespace Lanthanum.Web.Services
         */
         public IEnumerable<ArticleViewModel> FilterArticles(ref IEnumerable<ArticleViewModel> articlesToViewModels, params string[] filterParams)
         {
-            if (!string.IsNullOrEmpty(filterParams[0]))
+            if (!string.IsNullOrEmpty(filterParams[0]) && filterParams[0] != "All")
             {
                 articlesToViewModels = articlesToViewModels.Where(a => a.TeamConference == filterParams[0]);
             }
-            if(!string.IsNullOrEmpty(filterParams[1]))
+            if(!string.IsNullOrEmpty(filterParams[1]) && filterParams[1] != "All")
             {
                 articlesToViewModels = articlesToViewModels.Where(a => a.TeamName == filterParams[1]);
             }
 
-            if (!string.IsNullOrEmpty(filterParams[2]))
+            if (!string.IsNullOrEmpty(filterParams[2]) && filterParams[2] != "All")
             {
                 articlesToViewModels = articlesToViewModels.Where(a => a.ArticleStatus.ToString() == filterParams[2]);
             }

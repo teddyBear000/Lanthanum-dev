@@ -37,9 +37,9 @@
                 <div class="sort-dropdown-container">
                     <div class="dropdown sort-dropdown">
                         <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (!string.IsNullOrEmpty((string)ViewData["FilterConference"]))
+                            @if (!string.IsNullOrEmpty((string)TempData.Peek("FilterConference")))
                             {
-                                <text>@ViewData["FilterConference"]</text>
+                                <text>@TempData.Peek("FilterConference")</text>
                             }
                             else
                             {
@@ -48,18 +48,18 @@
 
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="" asp-route-filterTeam="@ViewData["FilterTeam"]" asp-route-filterStatus="@ViewData["FilterStatus"]">All Conferences</a></li>
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="All" asp-route-filterTeam="@TempData.Peek("FilterTeam")" asp-route-filterStatus="@TempData.Peek("FilterStatus")">All Conferences</a></li>
                             @foreach (string conference in (IEnumerable<string>) ViewData["Conferences"])
                             {
-                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="@conference" asp-route-filterTeam="@ViewData["FilterTeam"]" asp-route-filterStatus="@ViewData["FilterStatus"]">@conference</a></li>
+                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="@conference" asp-route-filterTeam="@TempData.Peek("FilterTeam")" asp-route-filterStatus="@TempData.Peek("FilterStatus")">@conference</a></li>
                             }
                         </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
                         <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (!string.IsNullOrEmpty((string)ViewData["FilterTeam"]))
+                            @if (!string.IsNullOrEmpty((string)TempData.Peek("FilterTeam")))
                             {
-                                <text>@ViewData["FilterTeam"]</text>
+                                <text>@TempData.Peek("FilterTeam")</text>
                             }
                             else
                             {
@@ -67,18 +67,18 @@
                             }
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterStatus="@ViewData["FilterStatus"]">All Teams</a></li>
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="All" asp-route-filterConference="@TempData.Peek("FilterConference")" asp-route-filterStatus="@TempData.Peek("FilterStatus")">All Teams</a></li>
                             @foreach (string teamName in (IEnumerable<string>)ViewData["TeamNames"])
                             {
-                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="@teamName" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterStatus="@ViewData["FilterStatus"]">@teamName</a></li>
+                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterTeam="@teamName" asp-route-filterConference="@TempData.Peek("FilterConference")" asp-route-filterStatus="@TempData.Peek("FilterStatus")">@teamName</a></li>
                             }
                         </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
                         <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (!string.IsNullOrEmpty((string)ViewData["FilterStatus"]))
+                            @if (!string.IsNullOrEmpty((string)TempData.Peek("FilterStatus")))
                             {
-                                <text>@ViewData["FilterStatus"]</text>
+                                <text>@TempData.Peek("FilterStatus")</text>
                             }
                             else
                             {
@@ -86,9 +86,9 @@
                             }
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterTeam="@ViewData["FilterTeam"]">All</a></li>
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Published" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterTeam="@ViewData["FilterTeam"]">Published</a></li>
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Unpublished" asp-route-filterConference="@ViewData["FilterConference"]" asp-route-filterTeam="@ViewData["FilterTeam"]">Unpublished</a></li>
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="All" asp-route-filterConference="@TempData.Peek("FilterConference")" asp-route-filterTeam="@TempData.Peek("FilterTeam")">All</a></li>
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Published" asp-route-filterConference="@TempData.Peek("FilterConference")" asp-route-filterTeam="@TempData.Peek("FilterTeam")">Published</a></li>
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterStatus="Unpublished" asp-route-filterConference="@TempData.Peek("FilterConference")" asp-route-filterTeam="@TempData.Peek("FilterTeam")">Unpublished</a></li>
                         </ul>
                     </div>
                 </div>
