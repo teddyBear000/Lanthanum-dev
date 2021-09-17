@@ -17,6 +17,11 @@ header {
     font-size: 0.8rem;
 }
 
+.input-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
 input.input-validation-error {
     border: 1px solid #d72130 !important;
     background: url(../images/validation-error.svg) no-repeat 98% 50% !important;

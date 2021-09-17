@@ -33,8 +33,8 @@ namespace Lanthanum.Web
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
-                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
+                    options.LoginPath = new PathString("/Authentication/LogIn");
+                    options.AccessDeniedPath = new PathString("/Authentication/LogIn");
                 });
             
             services.AddControllersWithViews();
