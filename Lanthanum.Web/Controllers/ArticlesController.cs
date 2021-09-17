@@ -1,4 +1,6 @@
-﻿using Lanthanum.Web.Data.Repositories;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
 using Microsoft.AspNetCore.Authorization;
@@ -7,11 +9,14 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Lanthanum.Web.Models;
+using System.Threading.Tasks;
 
 namespace Lanthanum.Web.Controllers
 {
     public class ArticlesController : Controller
     {
+
         private readonly ILogger<ArticlesController> _logger;
         private readonly DbRepository<Comment> _commentRepository;
         private readonly DbRepository<User> _userRepository;
@@ -30,12 +35,13 @@ namespace Lanthanum.Web.Controllers
             var article = _articleRepository.GetByIdAsync(id).Result;
             var comments = _commentRepository
                 .Find(x => x.Article == _articleRepository.GetByIdAsync(id).Result)
+                .OrderByDescending(x => x.DateTimeOfCreation)
                 .ToList();
 
             var reactions = new List<Reaction>();
             var users = new List<User>();
             foreach (var comment in comments) 
-            { 
+            {
                 foreach(var reaction in _reactionRepository.GetAllAsync().Result) 
                 {
                     if (reaction.Comment == comment) reactions.Add(reaction);
@@ -70,21 +76,21 @@ namespace Lanthanum.Web.Controllers
                     break;
             }
 
-            try
-            {
-                var temp = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result;
+            try 
+            { 
+                var temp = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result; 
 
                 if (temp != null)
                 {
                     currentUserImage += temp.AvatarImagePath;
                 }
-                else
+                else 
                 {
                     throw new Exception("Not Authorized");
                 }
-            }   
+            }
             catch (Exception e)
-            {
+            { 
                 currentUserImage = "";
             }
 
@@ -97,10 +103,10 @@ namespace Lanthanum.Web.Controllers
                 CurrentUserImage = currentUserImage,
                 MoreArticlesSection = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] }
             };
-
+           
             return View(model);
         }
-
+        
 
         [Authorize]
         public IActionResult AddComment(string commentContent, int articleId, int parentCommentId = -1)

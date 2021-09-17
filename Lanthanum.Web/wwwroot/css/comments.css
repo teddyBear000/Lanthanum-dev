@@ -1,5 +1,6 @@
 ﻿body {
     background: #fff;
+    
 }
 
 a {
@@ -31,7 +32,7 @@ a {
         justify-content: space-between ;
         align-items: flex-start;
     }
-
+    
     .blog-comment .sort-comments-dropdown {
         position: relative;
         display: inline-block flex;
@@ -74,11 +75,11 @@ a {
     .blog-comment .sort-comments-dropdown:hover .sort-comments-dropdown-content .sort-comments-dropdown-content-element:hover {
         background-color: #eee;
     }
-        .blog-comment ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
+    .blog-comment ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    
     .blog-comment .red-section {
         display: flex;
         font-size: 18px;
@@ -140,6 +141,7 @@ a {
         background-color: transparent;
         border: none;
     }
+
     .blog-comment .underpost {
         font-size: 13px;
         color: #aaaaaa;
@@ -178,4 +180,4 @@ a {
     font-size: 20px;
     outline: none;
     color: #c4c4c4;
-}
+    }

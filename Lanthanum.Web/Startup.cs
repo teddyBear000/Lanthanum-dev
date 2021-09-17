@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
+using Lanthanum.Web.Options;
 using Lanthanum.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -55,6 +56,13 @@ namespace Lanthanum.Web
                     x => x.MigrationsAssembly("Lanthanum.Data")
                 )
             );
+            
+            // Email sender service configuration
+            services.Configure<SendGridOptions>(Configuration.GetSection("SendGridOptions"));
+            services.Configure<SendGridOptions>(options =>
+            {
+                options.ApiKey = Configuration["SendGridApiKey"];
+            });
 
             // DI
             services.AddTransient<DbRepository<User>>();
@@ -63,6 +71,7 @@ namespace Lanthanum.Web
             services.AddTransient<DbRepository<Reaction>>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<AuthService>();
+            services.AddSingleton<IEmailSenderService, SendGridService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
