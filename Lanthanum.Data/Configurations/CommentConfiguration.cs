@@ -12,7 +12,8 @@ namespace Lanthanum.Data.Configurations
                 .ValueGeneratedOnAdd();
             builder
                 .HasMany(a => a.Reactions)
-                .WithOne(c => c.Comment);
+                .WithOne(c => c.Comment)
+                .OnDelete(DeleteBehavior.Cascade);
             builder
                 .Ignore(c => c.Rate);
         }

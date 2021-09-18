@@ -5,14 +5,14 @@
     var Comments = Model.Comments;
     var Users = Model.Users;
     var CurrentUserImage = Model.CurrentUserImage;
-    if (CurrentUserImage == "") { CurrentUserImage = "/content/userAvatars/standart.jpg"; };
+    if (CurrentUserImage == "") { CurrentUserImage = "/content/userAvatars/default.jpg"; };
     var Articles = Model.MoreArticlesSection;
     var Reactions = Model.ReactionToComments;
 }
 @{
     string CheckCurrentUserDeleteComment(Comment comment)
     {
-        if(comment.Author.Email== User.Identity.Name)return "display:none";
+        if (comment.Author.Email != User.Identity.Name) return "display:none";
         return " ";
     }
     string FormaUserCredits(Comment comment)
@@ -166,27 +166,35 @@
                                                     <p>@comment.DateTimeOfCreation.Date.ToShortDateString()</p>
                                                     <!---Section of actions with comments: like, dislike, edit, delete-->
                                                     <div class="red-section">
-                                                        <form method="post" action="/Articles/ManageReaction">
-                                                            <input type="hidden" name="articleId" value="@Article.Id" />
-                                                            <input type="hidden" name="commentId" value="@comment.Id" />
-                                                            <input type="hidden" name="rate" value="1" />
-                                                            <div class="comment-like"><button class="fa fa-thumbs-up" style="@CheckCurrentReactionLike(comment)" type="submit"></button></div>
-                                                        </form>@CountLikes(comment)
-                                                        <form method="post" action="/Articles/ManageReaction">
-                                                            <input type="hidden" name="articleId" value="@Article.Id" />
-                                                            <input type="hidden" name="commentId" value="@comment.Id" />
-                                                            <input type="hidden" name="rate" value="0" />
-                                                            <div class="comment-dislike">
-                                                                <button class="fa fa-thumbs-down" type="submit" style="@CheckCurrentReactionDislike(comment)"></button>@CountDislikes(comment)
+                                                        <div class="reaction-box">
+                                                            <div class="like-box">
+                                                                <form method="post" action="/Articles/ManageReaction">
+                                                                    <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                    <input type="hidden" name="commentId" value="@comment.Id" />
+                                                                    <input type="hidden" name="reactionPoint" value="1" />
+                                                                    <div class="comment-like"><button class="fa fa-thumbs-up" style="@CheckCurrentReactionLike(comment)" type="submit"></button>@CountLikes(comment)</div>
+                                                                </form>
                                                             </div>
-                                                        </form>
-                                                        <form method="post" action="/Article/DeleteComment">
-                                                            <input type="hidden" name="articleId" value="@Article.Id" />
-                                                            <input type="hidden" name="commentId" value="@comment.Id" />
-                                                            <div class="delete-comment">
-                                                                <button class="delete-comment-button" style="display:none">Delete</button>
+                                                            <div class="dislike-box">
+                                                                <form method="post" action="/Articles/ManageReaction">
+                                                                    <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                    <input type="hidden" name="commentId" value="@comment.Id" />
+                                                                    <input type="hidden" name="reactionPoint" value="0" />
+                                                                    <div class="comment-dislike">
+                                                                        <button class="fa fa-thumbs-down" type="submit" style="@CheckCurrentReactionDislike(comment)"></button>@CountDislikes(comment)
+                                                                    </div>
+                                                                </form>
                                                             </div>
-                                                        </form>
+                                                        </div>
+                                                        <div class="delete-edit-box">
+                                                            <form method="post" action="/Articles/DeleteComment">
+                                                                <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                <input type="hidden" name="commentId" value="@comment.Id" />
+                                                                <div class="delete-comment">
+                                                                    <button class="delete-comment-button" style="@CheckCurrentUserDeleteComment(comment)">Delete</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -225,20 +233,35 @@
                                                                     <p>@subComment.DateTimeOfCreation.Date.ToShortDateString()</p>
                                                                     <!---Section of actions with subcomments: like, dislike, edit, delete-->
                                                                     <div class="red-section">
-                                                                        <form method="post" action="/Articles/ManageReaction">
-                                                                            <input type="hidden" name="articleId" value="@Article.Id" />
-                                                                            <input type="hidden" name="commentId" value="@subComment.Id" />
-                                                                            <input type="hidden" name="rate" value="1" />
-                                                                            <div class="comment-like"><button class="fa fa-thumbs-up" style="@CheckCurrentReactionLike(subComment)" type="submit"></button></div>
-                                                                        </form>@CountLikes(subComment)
-                                                                        <form method="post" action="/Articles/ManageReaction">
-                                                                            <input type="hidden" name="articleId" value="@Article.Id" />
-                                                                            <input type="hidden" name="commentId" value="@subComment.Id" />
-                                                                            <input type="hidden" name="rate" value="0" />
-                                                                            <div class="comment-dislike">
-                                                                                <button class="fa fa-thumbs-down " style="@CheckCurrentReactionDislike(subComment)" type="submit"></button>
+                                                                        <div class="reaction-box">
+                                                                            <div class="like-box">
+                                                                                <form method="post" action="/Articles/ManageReaction">
+                                                                                    <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                                    <input type="hidden" name="commentId" value="@subComment.Id" />
+                                                                                    <input type="hidden" name="reactionPoint" value="1" />
+                                                                                    <div class="comment-like"><button class="fa fa-thumbs-up" style="@CheckCurrentReactionLike(subComment)" type="submit"></button>@CountLikes(subComment)</div>
+                                                                                </form>
                                                                             </div>
-                                                                        </form>@CountDislikes(subComment)
+                                                                            <div class="dislike-box">
+                                                                                <form method="post" action="/Articles/ManageReaction">
+                                                                                    <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                                    <input type="hidden" name="commentId" value="@subComment.Id" />
+                                                                                    <input type="hidden" name="reactionPoint" value="0" />
+                                                                                    <div class="comment-dislike">
+                                                                                        <button class="fa fa-thumbs-down " style="@CheckCurrentReactionDislike(subComment)" type="submit"></button>@CountDislikes(subComment)
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="delete-edit-box">
+                                                                            <form method="post" action="/Articles/DeleteComment">
+                                                                                <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                                <input type="hidden" name="commentId" value="@subComment.Id" />
+                                                                                <div class="delete-comment">
+                                                                                    <button class="delete-comment-button" style="@CheckCurrentUserDeleteComment(subComment)">Delete</button>
+                                                                                </div>
+                                                                            </form>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>

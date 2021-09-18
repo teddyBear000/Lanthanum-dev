@@ -82,7 +82,20 @@ a {
         background-color: #fff;
     }
 
-
+    .blog-comment .reaction-box {
+        display: flex;
+        
+    }
+        .blog-comment .reaction-box button {
+            outline: none;
+        }
+    .blog-comment .delete-edit-box button {
+        color: #707070;
+        outline: none;
+    }
+            .blog-comment .delete-edit-box button:hover {
+                color: #d54343;
+            }
     .blog-comment ul {
         list-style-type: none;
         padding: 0;
@@ -93,6 +106,7 @@ a {
         font-size: 18px;
         color: #c4c4c4;
         font-weight: 600;
+        justify-content:space-between;
     }
     .blog-comment img.avatar {
         position: relative;
