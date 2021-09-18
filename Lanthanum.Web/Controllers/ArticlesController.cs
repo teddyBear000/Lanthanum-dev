@@ -123,8 +123,13 @@ namespace Lanthanum.Web.Controllers
             return RedirectToAction("Details", new { id = articleId });
         }
 
-
-
+        [Authorize]
+        public IActionResult DeleteComment(int articleId, int commentId) 
+        {
+            var comment = _commentRepository.GetByIdAsync(commentId).Result;
+            _commentRepository.RemoveAsync(comment).Wait();
+            return RedirectToAction("Details", new { id = articleId });
+        }
 
         [Authorize]
         public IActionResult ManageReaction(int articleId, int commentId, int rate)

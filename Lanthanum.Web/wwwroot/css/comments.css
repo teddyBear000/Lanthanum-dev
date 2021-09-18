@@ -75,6 +75,14 @@ a {
     .blog-comment .sort-comments-dropdown:hover .sort-comments-dropdown-content .sort-comments-dropdown-content-element:hover {
         background-color: #eee;
     }
+    .blog-comment .comment-section {
+        border-top: 1px solid #c4c4c4;
+        border-left: 1px solid #c4c4c4;
+        border-right: 1px solid #c4c4c4;
+        background-color: #fff;
+    }
+
+
     .blog-comment ul {
         list-style-type: none;
         padding: 0;
@@ -111,7 +119,6 @@ a {
     .blog-comment .comment-content{
         position: relative;
         word-wrap: break-word;
-
     }
     .blog-comment .meta {
         font-size: 15px;

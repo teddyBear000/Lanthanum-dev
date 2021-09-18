@@ -1,5 +1,4 @@
-﻿@using Lanthanum.Web.Models
-@using Lanthanum.Web.Domain
+﻿@using Lanthanum.Web.Domain
 @model Lanthanum.Web.Models.ArticleViewModel
 @{
     var Article = Model.MainArticle;
@@ -11,9 +10,14 @@
     var Reactions = Model.ReactionToComments;
 }
 @{
+    string CheckCurrentUserDeleteComment(Comment comment)
+    {
+        if(comment.Author.Email== User.Identity.Name)return "display:none";
+        return " ";
+    }
     string FormaUserCredits(Comment comment)
     {
-        var FirstName =Users.Find(x => x.Id == comment.Author.Id).FirstName;
+        var FirstName = Users.Find(x => x.Id == comment.Author.Id).FirstName;
         var LastName = Users.Find(x => x.Id == comment.Author.Id).LastName;
         return FirstName + " " + LastName;
     }
@@ -43,7 +47,7 @@
     {
         foreach (var reaction in Reactions)
         {
-            if (comment == reaction.Comment && reaction.Author.Email == User.Identity.Name&&reaction.TypeOfReaction==ReactionType.Like)
+            if (comment == reaction.Comment && reaction.Author.Email == User.Identity.Name && reaction.TypeOfReaction == ReactionType.Like)
             {
                 return "color: #d54343;";
             }
@@ -61,7 +65,7 @@
         }
         return "color: #c4c4c4;";
     }
-    }
+}
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/details.css" />
@@ -100,7 +104,7 @@
                     <!---Comment section-->
                     <div class="blog-comment">
                         <div class="headings">
-                        <h3>COMMENTS(@Comments.Count)</h3>
+                            <h3>COMMENTS(@Comments.Count)</h3>
                             <div class="sort-comments-dropdown">
                                 <!---Comment sorting-->
                                 <div class="sort-comments-dropdown-start"><button class="sort-comments-button">Sorting order:</button></div>
@@ -130,7 +134,7 @@
                             </div>
                         </div>
                         <!---Comment input-->
-                        <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
+                        <div class="comment-section">
                             <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
                                 <form method="post" action="/Articles/AddComment">
                                     <div class="d-flex flex-row align-items-start ml-3 mr-5">
@@ -173,11 +177,18 @@
                                                             <input type="hidden" name="commentId" value="@comment.Id" />
                                                             <input type="hidden" name="rate" value="0" />
                                                             <div class="comment-dislike">
-                                                                <button class="fa fa-thumbs-down" type="submit"style="@CheckCurrentReactionDislike(comment)"></button>@CountDislikes(comment)
+                                                                <button class="fa fa-thumbs-down" type="submit" style="@CheckCurrentReactionDislike(comment)"></button>@CountDislikes(comment)
+                                                            </div>
+                                                        </form>
+                                                        <form method="post" action="/Article/DeleteComment">
+                                                            <input type="hidden" name="articleId" value="@Article.Id" />
+                                                            <input type="hidden" name="commentId" value="@comment.Id" />
+                                                            <div class="delete-comment">
+                                                                <button class="delete-comment-button" style="display:none">Delete</button>
                                                             </div>
                                                         </form>
                                                     </div>
-                                            </div>
+                                                </div>
 
                                             </div>
                                             <!---Comment input-->
@@ -218,14 +229,14 @@
                                                                             <input type="hidden" name="articleId" value="@Article.Id" />
                                                                             <input type="hidden" name="commentId" value="@subComment.Id" />
                                                                             <input type="hidden" name="rate" value="1" />
-                                                                            <div class="comment-like"><button class="fa fa-thumbs-up"style="@CheckCurrentReactionLike(subComment)" type="submit"></button></div>
+                                                                            <div class="comment-like"><button class="fa fa-thumbs-up" style="@CheckCurrentReactionLike(subComment)" type="submit"></button></div>
                                                                         </form>@CountLikes(subComment)
                                                                         <form method="post" action="/Articles/ManageReaction">
                                                                             <input type="hidden" name="articleId" value="@Article.Id" />
                                                                             <input type="hidden" name="commentId" value="@subComment.Id" />
                                                                             <input type="hidden" name="rate" value="0" />
                                                                             <div class="comment-dislike">
-                                                                                <button class="fa fa-thumbs-down "style="@CheckCurrentReactionDislike(subComment)" type="submit"></button>
+                                                                                <button class="fa fa-thumbs-down " style="@CheckCurrentReactionDislike(subComment)" type="submit"></button>
                                                                             </div>
                                                                         </form>@CountDislikes(subComment)
                                                                     </div>
