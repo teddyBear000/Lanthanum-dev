@@ -29,13 +29,13 @@ namespace Lanthanum.Web.Controllers
 
         [HttpGet]
         [Route("articles-list")]
-        public async Task<ActionResult<IEnumerable<ArticleViewModel>>> ArticlesList(string filterConference,string filterTeam,string filterStatus,string searchString)
+        public async Task<ActionResult<IEnumerable<AdminArticleViewModel>>> ArticlesList(string filterConference,string filterTeam,string filterStatus,string searchString)
         {
             var articles = await _adminService.GetAllArticlesAsync();
 
             if (articles != null)
             {
-                IEnumerable<ArticleViewModel> articlesToViewModels = _mapper.Map<IEnumerable<ArticleViewModel>>(articles);
+                IEnumerable<AdminArticleViewModel> articlesToViewModels = _mapper.Map<IEnumerable<AdminArticleViewModel>>(articles);
 
                 if (filterConference != null) { TempData["FilterConference"] = filterConference; }
                 if (filterTeam != null) { TempData["FilterTeam"] = filterTeam; }

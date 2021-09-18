@@ -9,6 +9,7 @@ namespace Lanthanum.Web.Domain
         public int Id { get; init; }
         public List<User> Authors { get; set; }
         public string Headline { get; set; }
+        public string Header { get; set; }
         public string LogoPath { get; set; }
         public string MainText { get; set; }
         public string Alt { get; set; }

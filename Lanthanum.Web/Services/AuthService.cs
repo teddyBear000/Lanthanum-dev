@@ -47,7 +47,7 @@ namespace Lanthanum.Web.Services
             return true;
         }
         
-        public virtual bool IsSignedIn(ClaimsPrincipal principal)
+        public bool IsSignedIn(ClaimsPrincipal principal)
         {
             return principal?.Identities != null &&
                    principal.Identity.IsAuthenticated;

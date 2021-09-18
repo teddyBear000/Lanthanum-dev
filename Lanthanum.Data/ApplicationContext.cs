@@ -1,6 +1,7 @@
 ﻿using Lanthanum.Web.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lanthanum.Data.Configurations;
@@ -20,10 +21,10 @@ namespace Lanthanum.Web.Data
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
-            Database.EnsureDeleted();
-            Database.EnsureCreated(); // TODO: change
-            AddMockedData(); // TODO: remove
-            base.SaveChanges();
+            //Database.EnsureDeleted();
+            //Database.EnsureCreated(); // TODO: change
+            //AddMockedData(); // TODO: remove
+            //base.SaveChanges();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

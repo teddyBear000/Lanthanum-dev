@@ -1,0 +1,155 @@
+﻿.greyBox {
+    float: left;
+    width: 420px;
+    height: 290px;
+    padding: 10px 20px 30px;
+    position: absolute;
+    left: 58%;
+    top: 18.3%;
+    text-align: justify;
+    word-wrap: break-word;
+    background-color: rgba(0,0,0,.03);
+    z-index: 2;
+    overflow: visible;
+}
+
+.Devider {
+    position: absolute;
+    left: 25.5%;
+    top: 69%;
+}
+
+.DateTime {
+    z-index: 5;
+    font-family: arial;
+    font-size: 0.85rem;
+    color: rgb(127,123,123);
+    padding-top: 30px;
+    padding-left: 10px;
+}
+
+.HeadLine {
+    z-index: 5;
+    font-family: arial;
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: rgb(224,34,50);
+    padding-left: 10px;
+}
+
+.HeaderText {
+    z-index: 5;
+    font-family: Tahoma;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: rgb(43,47,67);
+    padding-left: 10px;
+}
+
+img.ImageContainer {
+    z-index: -1;
+    width: 816px;
+    height: 459px;
+}
+
+img.BackgroundContainer {
+    width: 420px;
+    height: 290px;
+    position: absolute;
+    left: 58%;
+    top: 18.3%;
+    z-index: 1;
+}
+
+.whiteBox {
+    float: left;
+    height: auto;
+    text-align: justify;
+    word-wrap: break-word;
+    z-index: 10;
+}
+
+.TextMain {
+    z-index: 1;
+    font-family: arial;
+    font-size: 1.15rem;
+    font-weight: lighter;
+    color: rgb(315,33,48);
+    padding-left: 10px;
+    padding-bottom: 2em;
+}
+
+.BorderOne {
+    height: 100px;
+}
+
+.GeneralContainer {
+    width: 420px;
+    height: 300px;
+    display: inline-block;
+    float: left;
+    padding-left: 0.65em;
+    padding-top: 2em;
+}
+
+.SectionFixed {
+    width: 840px;
+}
+
+.GeneralContainerTwo {
+    width: 420px;
+    height: 300px;
+    display: inline-block;
+    float: left;
+    padding-top: 2em;
+    padding-left: 1.6em;
+}
+
+.ArticleHeader {
+    position: relative;
+    left: 8.3%;
+    top: 5.8em;
+
+    margin-bottom: 2em;
+}
+
+.BodyHead {
+    margin-top: 2.4em;
+    width: 825px;
+}
+
+.containerFirst {
+    width: 400px;
+    height: 101px;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.MiniText {
+    width: 215px;
+    max-height: 80px;
+    font-family: arial;
+    font-size: 0.85rem;
+    color: rgb(127,123,123);
+    text-align: left;
+}
+
+.HeadMiniText {
+    width: 215px;
+    max-height: 20px;
+    font-family: arial;
+    font-size: 0.9rem;
+    color: black;
+    font-weight: bold;
+    text-align: left;
+    padding-top: 4px;
+}
+
+.NoMerge {
+    padding:0;
+    max-width: 41%;
+}
+
+.NoMergeText {
+    padding: 0;
+    margin-bottom: 0.1rem;
+}

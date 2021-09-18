@@ -21,12 +21,15 @@ namespace Lanthanum.Web.Data.Repositories
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }
-        
-        public DbSet<TEntity> GetAllAsync()
+        public DbSet<TEntity> GetEntity()
         {
             return Context.Set<TEntity>();
         }
-        
+        public async Task<IEnumerable<TEntity>> GetAllAsync()
+        {
+            return await Context.Set<TEntity>().ToListAsync();
+        }
+
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
             return Context.Set<TEntity>().Where(predicate);

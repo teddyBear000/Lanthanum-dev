@@ -1,19 +1,17 @@
 ﻿using Lanthanum.Web.Domain;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Lanthanum.Web.Models
 {
     public class ArticleViewModel
     {
-        public int Id { get; set; }
-        public string Headline { get; set; }
-        public string LogoPath { get; set; }
-        public string MainText { get; set; }
-        public string Alt { get; set; }
-        public string Caption { get; set; }
-        public string TeamLocation{ get; set; }
-        public string TeamConference { get; set; }
-        public string TeamName { get; set; }
-        public string KindOfSportName { get; set; }
-        public ArticleStatus ArticleStatus { get; set; }
+        public Article MainArticle { get; set; }
+        public List<Comment> Comments{get; set;}
+        public List<User> Users { get; set; }
+        public string CurrentUserImage { get; set; }
+        public List<Article> MoreArticlesSection { get; set; }
     }
 }

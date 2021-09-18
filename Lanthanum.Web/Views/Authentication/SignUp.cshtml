@@ -1,4 +1,4 @@
-﻿@model LogInViewModel
+@model SignUpViewModel
 
 @{
     Layout = "_AuthenticationLayout";
@@ -6,12 +6,12 @@
 
 @section AuthenticationHeaderAttr
 {
-    <p class="nav-item header-question ml-md-5">Don't have an account?</p>
-    <a asp-controller ="Authentication" asp-action="SignUp" class="nav-item header-ref ml-sm-5">Sign Up</a>
+    <p class="nav-item header-question ml-md-5">Already have an account?</p>
+    <a asp-controller = "Authentication" asp-action = "LogIn" class="nav-item header-ref ml-sm-5">Log In</a>
 }
 
 <div class="text-left mb-4 px-3">
-    <h4>Log in To Sports Hub</h4>
+    <h4>Create Account</h4>
 </div>
 <form class="px-3" method="post">
     <div class="input-container">
@@ -19,16 +19,29 @@
                 <a href="#" class="fb-img"></a>
                 <a href="#" class="google-img"></a>
             </div>
+            <div class="text-left plain-line mb-3">Or use your email for registration:</div>
             <div>@Html.ValidationSummary(false)</div>
-            <div class="plain-line">
-                <div class="float-left">
-                    EMAIL ADDRESS
+            <div class="fname-lname-container">
+                <div class="form-input name-item mr-2">
+                    <div class="plain-line mb-1">FIRST NAME</div>
+                    @Html.TextBoxFor(m => m.FirstName, new { placeholder = "John" })
+                </div>
+                <div class="form-input name-item ml-2">
+                    <div class="plain-line mb-1">LAST NAME</div>
+                    @Html.TextBoxFor(m => m.LastName, new { placeholder = "Doe" })
                 </div>
             </div>
-            <br>
-            <div class="form-input">
-                @Html.TextBoxFor(m => m.Email, new { placeholder = "Email@gmail.com" })
+        
+            <div class="plain-line">
+                <div class="float-left">
+                    EMAIL
+                </div>
+                <br/>
             </div>
+            <div class="form-input">
+                @Html.TextBoxFor(m => m.Email, new { placeholder = "johndoe@gmail.com" })
+            </div>
+        
             <div class="plain-line">
                 <div class="float-left">
                     PASSWORD
@@ -41,7 +54,8 @@
                 @Html.TextBoxFor(m => m.Password, new { placeholder = "8+ characters(letters and numbers)", type = "password" })
             </div>
             <div class="mb-3">
-                <button type="submit" class="btn btn-block">LOG IN</button>
+                <button type="submit" class="btn btn-block">SIGN UP</button>
             </div>
     </div>
+    
 </form>

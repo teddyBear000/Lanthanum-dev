@@ -9,10 +9,12 @@ using System;
 using System.Data.SqlClient;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
+using Lanthanum.Web.Options;
 using Lanthanum.Web.Services;
 using Lanthanum.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+
 
 namespace Lanthanum.Web
 {
@@ -32,8 +34,8 @@ namespace Lanthanum.Web
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
-                    options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
-                    options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
+                    options.LoginPath = new PathString("/Authentication/LogIn");
+                    options.AccessDeniedPath = new PathString("/Authentication/LogIn");
                 });
 
             services.AddAutoMapper(typeof(Startup));
@@ -53,14 +55,22 @@ namespace Lanthanum.Web
                     x => x.MigrationsAssembly("Lanthanum.Data")
                 )
             );
-
+            
+            // Email sender service configuration
+            services.Configure<SendGridOptions>(Configuration.GetSection("SendGridOptions"));
+            services.Configure<SendGridOptions>(options =>
+            {
+                options.ApiKey = Configuration["SendGridApiKey"];
+            });
 
             // DI
-            services.AddTransient<DbRepository<User>>();
             services.AddTransient<DbRepository<Article>>();
+            services.AddTransient<DbRepository<Comment>>();
+            services.AddTransient<DbRepository<User>>();
             services.AddTransient<DbRepository<KindOfSport>>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<AuthService>();
+            services.AddSingleton<IEmailSenderService, SendGridService>();
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<IAdminService, AdminService>();
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -95,6 +105,7 @@ namespace Lanthanum.Web
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
+            
         }
     }
 }

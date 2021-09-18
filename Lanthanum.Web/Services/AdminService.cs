@@ -25,7 +25,7 @@ namespace Lanthanum.Web.Services
         */
         public async Task<IEnumerable<Article>> GetAllArticlesAsync()
         {
-            var articles =  await _articleRepository.GetAllAsync()
+            var articles =  await _articleRepository.GetEntity()
                 .Include(t=>t.Team)
                 .Include(k=>k.KindOfSport)
                 .ToListAsync();
@@ -56,7 +56,7 @@ namespace Lanthanum.Web.Services
          params string[] filterParams - contains params to filter list of articles.
          Order of params is next: conferenceFilter, teamNameFilter, articleStatusFilter, searchString.
         */
-        public IEnumerable<ArticleViewModel> FilterArticles(ref IEnumerable<ArticleViewModel> articlesToViewModels, params string[] filterParams)
+        public IEnumerable<AdminArticleViewModel> FilterArticles(ref IEnumerable<AdminArticleViewModel> articlesToViewModels, params string[] filterParams)
         {
             if (!string.IsNullOrEmpty(filterParams[0]) && filterParams[0] != "All")
             {
@@ -85,7 +85,7 @@ namespace Lanthanum.Web.Services
         }
         public async Task<Dictionary<int,string>> GetAllKindsOfSportNamesAsync()
         {
-            return await _kindOfSportRepository.GetAllAsync().ToDictionaryAsync(x=>x.Id, x=>x.Name);
+            return await _kindOfSportRepository.GetEntity().ToDictionaryAsync(x=>x.Id, x=>x.Name);
         }
         public async Task ChangeArticleKindOfSportByIdAsync(int articleId, int kindOfSportId)
         {

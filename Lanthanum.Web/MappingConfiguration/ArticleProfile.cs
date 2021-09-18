@@ -8,7 +8,7 @@ namespace Lanthanum.Web.MappingConfiguration
     {
         public ArticleProfile()
         {
-            CreateMap<Article, ArticleViewModel>()
+            CreateMap<Article, AdminArticleViewModel>()
                 .ForMember(
                     dest => dest.TeamConference,
                     opt => opt.MapFrom(src => src.Team.Conference)
