@@ -20,6 +20,10 @@ namespace Lanthanum.Web.MappingConfiguration
                 .ForMember(
                     dest => dest.TeamLocation,
                     opt => opt.MapFrom(src => src.Team.Location)
+                )
+                .ForMember(
+                    dest => dest.KindOfSportName,
+                    opt => opt.MapFrom(src => src.KindOfSport.Name)
                 );
         }
     }

@@ -14,6 +14,7 @@ namespace Lanthanum.Web.Domain
         public string Alt { get; set; }
         public string Caption { get; set; }
         public Team Team { get; set; }
+        public KindOfSport KindOfSport { get; set; }
         public List<Comment> Comments { get; set; }
         public int ViewsCount { get; set; }
         public int CommentsCount { get; set; }

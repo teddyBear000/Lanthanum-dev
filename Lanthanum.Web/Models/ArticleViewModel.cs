@@ -13,6 +13,7 @@ namespace Lanthanum.Web.Models
         public string TeamLocation{ get; set; }
         public string TeamConference { get; set; }
         public string TeamName { get; set; }
+        public string KindOfSportName { get; set; }
         public ArticleStatus ArticleStatus { get; set; }
     }
 }

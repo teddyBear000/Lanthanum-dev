@@ -158,18 +158,19 @@
                                                     Move &raquo;
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-submenu">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Submenu item 1</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Submenu item 2</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Submenu item 4</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Submenu item 5</a>
-                                                    </li>
+                                                    @foreach (var kindOfSport in (Dictionary<int,string>) ViewData["KindsOfSport"])
+                                                    {
+                                                        if (kindOfSport.Value != mod.KindOfSportName)
+                                                        {
+                                                            <li>
+                                                                <button class="dropdown-item" 
+                                                                   asp-action="ChangeArticleKindOfSport" 
+                                                                   asp-route-articleId="@mod.Id" 
+                                                                   asp-route-kindOfSportId="@kindOfSport.Key">@kindOfSport.Value
+                                                                </button>
+                                                            </li>
+                                                        }
+                                                    }
                                                 </ul>
                                             </li>
                                         </ul>

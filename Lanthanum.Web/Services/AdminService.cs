@@ -11,11 +11,13 @@ namespace Lanthanum.Web.Services
 {
     public class AdminService:IAdminService
     {
-        private readonly DbRepository<Article> _repository;
+        private readonly DbRepository<Article> _articleRepository;
+        private readonly DbRepository<KindOfSport> _kindOfSportRepository;
 
-        public AdminService(DbRepository<Article> repository)
+        public AdminService(DbRepository<Article> articleRepository, DbRepository<KindOfSport> kindOfSportRepository)
         {
-            _repository = repository;
+            _articleRepository = articleRepository;
+            _kindOfSportRepository = kindOfSportRepository;
         }
 
         /*
@@ -23,8 +25,9 @@ namespace Lanthanum.Web.Services
         */
         public async Task<IEnumerable<Article>> GetAllArticlesAsync()
         {
-            var articles =  await _repository.GetAllAsync()
+            var articles =  await _articleRepository.GetAllAsync()
                 .Include(t=>t.Team)
+                .Include(k=>k.KindOfSport)
                 .ToListAsync();
             return articles;
         }
@@ -33,8 +36,8 @@ namespace Lanthanum.Web.Services
         */
         public async Task DeleteArticleByIdAsync(int id)
         {
-            var article = await _repository.GetByIdAsync(id);
-            await _repository.RemoveAsync(article);
+            var article = await _articleRepository.GetByIdAsync(id);
+            await _articleRepository.RemoveAsync(article);
         }
         /*
          Fetches article from article repository, changes ArticleStatus to opposite
@@ -42,16 +45,16 @@ namespace Lanthanum.Web.Services
         */
         public async Task ChangeArticleStatusByIdAsync(int id)
         {
-            var article = await _repository.GetByIdAsync(id);
+            var article = await _articleRepository.GetByIdAsync(id);
             article.ArticleStatus = article.ArticleStatus == ArticleStatus.Published ? 
                 (ArticleStatus.Unpublished) : (ArticleStatus.Published);
-            await _repository.Context.SaveChangesAsync();
+            await _articleRepository.Context.SaveChangesAsync();
 
         }
 
         /*
          params string[] filterParams - contains params to filter list of articles.
-         Order of params is next: conferenceFilter, teamNameFilter, articleStatusFilter.
+         Order of params is next: conferenceFilter, teamNameFilter, articleStatusFilter, searchString.
         */
         public IEnumerable<ArticleViewModel> FilterArticles(ref IEnumerable<ArticleViewModel> articlesToViewModels, params string[] filterParams)
         {
@@ -78,8 +81,18 @@ namespace Lanthanum.Web.Services
                  || a.TeamConference.Contains(filterParams[3])
                  || a.TeamLocation.Contains(filterParams[3]));
             }
-
             return articlesToViewModels;
+        }
+        public async Task<Dictionary<int,string>> GetAllKindsOfSportNamesAsync()
+        {
+            return await _kindOfSportRepository.GetAllAsync().ToDictionaryAsync(x=>x.Id, x=>x.Name);
+        }
+        public async Task ChangeArticleKindOfSportByIdAsync(int articleId, int kindOfSportId)
+        {
+            var article = await _articleRepository.GetByIdAsync(articleId);
+            var kindOfSport = await _kindOfSportRepository.GetByIdAsync(kindOfSportId);
+            article.KindOfSport = kindOfSport;
+            await _articleRepository.Context.SaveChangesAsync();
         }
     }
 }

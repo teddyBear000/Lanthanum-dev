@@ -57,10 +57,11 @@ namespace Lanthanum.Web
 
             // DI
             services.AddTransient<DbRepository<User>>();
+            services.AddTransient<DbRepository<Article>>();
+            services.AddTransient<DbRepository<KindOfSport>>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<AuthService>();
             services.AddTransient<IArticleService, ArticleService>();
-            services.AddTransient<DbRepository<Article>>();
             services.AddTransient<IAdminService, AdminService>();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

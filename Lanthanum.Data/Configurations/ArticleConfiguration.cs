@@ -18,7 +18,9 @@ namespace Lanthanum.Data.Configurations
             builder
                 .HasOne(a => a.Team)
                 .WithMany(t => t.Articles);
-
+            builder
+                .HasOne(a => a.KindOfSport)
+                .WithMany(s => s.Articles);
             builder
                 .Property(a => a.DateTimeOfCreation)
                 .ValueGeneratedOnAdd();

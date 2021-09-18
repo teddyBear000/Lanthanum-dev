@@ -57,6 +57,24 @@ namespace Lanthanum.Web.Data
                 PasswordHash = "12345678"
             });
 
+            KindsOfSport.AddRange(
+                new List<KindOfSport>()
+                {
+                    new KindOfSport()
+                    {
+                        Name = "Football"
+                    },
+                    new KindOfSport()
+                    {
+                        Name = "Basketball"
+                    },
+                    new KindOfSport()
+                    {
+                        Name = "Golf"
+                    },
+                });
+
+            base.SaveChanges();
             Articles.AddRange(new List<Article>()
                 
                 { 
@@ -69,18 +87,14 @@ namespace Lanthanum.Web.Data
                     {
                         Name="Foks",
                         Location = "Tennesy",
-                        KindOfSport = new KindOfSport()
-                        {
-                            Name="Football"
-                        },
-                        Conference = "AFC North"
-                        
+                        KindOfSport = KindsOfSport.Find(1),
+                        Conference = "AFC South"
                     },
                         Alt = "img",
-                        ArticleStatus = ArticleStatus.Published
-                        
+                        ArticleStatus = ArticleStatus.Published,
+                        KindOfSport = KindsOfSport.Find(1)
                     },
-
+                    
                     new Article(){
 
                         LogoPath = "/images/mock_article_img.png",
@@ -90,16 +104,13 @@ namespace Lanthanum.Web.Data
                         {
                             Name="Jerks",
                             Location = "Tennesy",
-                            KindOfSport = new KindOfSport()
-                            {
-                                Name="Football"
-                            },
+                            KindOfSport = KindsOfSport.Find(2),
                             Conference = "AFC North"
 
                         },
                         Alt = "img",
-                        ArticleStatus = ArticleStatus.Unpublished
-
+                        ArticleStatus = ArticleStatus.Unpublished,
+                        KindOfSport = KindsOfSport.Find(2)
                     },
                     new Article(){
 
@@ -110,15 +121,13 @@ namespace Lanthanum.Web.Data
                         {
                             Name="Foks",
                             Location = "Tennesy",
-                            KindOfSport = new KindOfSport()
-                            {
-                                Name="Football"
-                            },
-                            Conference = "AFC North"
+                            KindOfSport = KindsOfSport.Find(2),
+                            Conference = "AFC West"
 
                         },
                         Alt = "img",
-                        ArticleStatus = ArticleStatus.Unpublished
+                        ArticleStatus = ArticleStatus.Unpublished,
+                        KindOfSport = KindsOfSport.Find(2)
                     },
                     new Article(){
 
@@ -129,15 +138,13 @@ namespace Lanthanum.Web.Data
                         {
                             Name="Jerks",
                             Location = "Tennesy",
-                            KindOfSport = new KindOfSport()
-                            {
-                                Name="Football"
-                            },
-                            Conference = "AFC North"
+                            KindOfSport = KindsOfSport.Find(3),
+                            Conference = "AFC South"
 
                         },
                         Alt = "img",
-                        ArticleStatus = ArticleStatus.Unpublished
+                        ArticleStatus = ArticleStatus.Unpublished,
+                        KindOfSport = KindsOfSport.Find(3)
 
                     },
                     new Article(){
@@ -149,16 +156,12 @@ namespace Lanthanum.Web.Data
                         {
                             Name="Goks",
                             Location = "Tennesy",
-                            KindOfSport = new KindOfSport()
-                            {
-                                Name="Football"
-                            },
+                            KindOfSport = KindsOfSport.Find(3),
                             Conference = "AFC North"
-
                         },
                         Alt = "img",
-                        ArticleStatus = ArticleStatus.Published
-
+                        ArticleStatus = ArticleStatus.Published,
+                        KindOfSport = KindsOfSport.Find(3)
                     },
                     new Article(){
 
@@ -169,16 +172,12 @@ namespace Lanthanum.Web.Data
                         {
                             Name="Goks",
                             Location = "Tennesy",
-                            KindOfSport = new KindOfSport()
-                            {
-                                Name="Football"
-                            },
-                            Conference = "AFC North"
-
+                            KindOfSport = KindsOfSport.Find(1),
+                            Conference = "AFC West"
                         },
                         Alt = "img",
-                        ArticleStatus = ArticleStatus.Unpublished
-
+                        ArticleStatus = ArticleStatus.Unpublished,
+                        KindOfSport = KindsOfSport.Find(1)
                     }
                 }
                 

@@ -40,10 +40,11 @@ namespace Lanthanum.Web.Controllers
                 if (filterConference != null) { TempData["FilterConference"] = filterConference; }
                 if (filterTeam != null) { TempData["FilterTeam"] = filterTeam; }
                 if (filterStatus != null) { TempData["FilterStatus"] = filterStatus; }
-                 TempData["SearchString"] = searchString;
+                TempData["SearchString"] = searchString;
 
                 ViewData["TeamNames"] = articlesToViewModels.Select(a => a.TeamName).Distinct();
                 ViewData["Conferences"] = articlesToViewModels.Select(a => a.TeamConference).Distinct();
+                ViewData["KindsOfSport"] = _adminService.GetAllKindsOfSportNamesAsync().Result;
 
                 _adminService.FilterArticles(
                     ref articlesToViewModels, 
@@ -65,7 +66,7 @@ namespace Lanthanum.Web.Controllers
             {
                 await _adminService.DeleteArticleByIdAsync(id);
                 return RedirectToAction("ArticlesList","Admin",
-                    new { searchString= TempData?.Peek("searchString")});
+                    new { searchString = TempData?.Peek("searchString")});
             }
             catch (Exception e)
             {
@@ -81,6 +82,22 @@ namespace Lanthanum.Web.Controllers
             try
             {
                 await _adminService.ChangeArticleStatusByIdAsync(id);
+                return RedirectToAction("ArticlesList", "Admin", new { searchString = TempData?.Peek("searchString") });
+            }
+            catch (Exception e)
+            {
+                //TODO Logging
+                return BadRequest("Something went wrong");
+            }
+        }
+
+        [Route("change-article-sport"), ActionName("ChangeArticleKindOfSport")]
+        [HttpPost]
+        public async Task<ActionResult> ChangeArticleKindOfSportByIdAsync(int articleId, int kindOfSportId)
+        {
+            try
+            {
+                await _adminService.ChangeArticleKindOfSportByIdAsync(articleId, kindOfSportId);
                 return RedirectToAction("ArticlesList", "Admin", new { searchString = TempData?.Peek("searchString") });
             }
             catch (Exception e)
