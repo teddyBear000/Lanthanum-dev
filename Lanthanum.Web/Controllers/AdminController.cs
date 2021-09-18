@@ -58,8 +58,8 @@ namespace Lanthanum.Web.Controllers
             return BadRequest("There are no articles");
         }
 
-        [HttpPost]
         [Route("delete-article"), ActionName("DeleteArticle")]
+        [HttpPost]
         public async Task<ActionResult> DeleteArticleAsync(int id)
         {
             try

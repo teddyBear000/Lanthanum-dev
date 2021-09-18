@@ -17,6 +17,7 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -127,7 +128,6 @@
                     </div>
                 </div>
                 <div class="articles-preview-container mt-3">
-                    @*<article-appender article-view-models="Model"></article-appender>*@ @*To Delete this line*@
                     @foreach (var mod in Model)
                     {
                         <div class="article-preview my-2">
@@ -187,7 +187,6 @@
                                             <p class="d-block m-0">@mod.ArticleStatus</p>
                                         </div>
                                     }
-
                                     else
                                     {
                                         <div class="status">
@@ -199,23 +198,8 @@
                             </div>
                         </div>
                     }
-                    
                 </div>
-                <script>
-                    search = document.querySelector(".search");
-                    search_img = document.querySelector(".search-img");
-
-                    search_img.onclick = function () {
-                        search.classList.toggle('active');
-                    }
-                </script>
-                <script>
-                    var box = document.getElementById('.dropdown');
-                    document.querySelectorAll("[data-link]").forEach(el => {
-                        el.addEventListener("click", () => window.location.href = "hello");
-                    });
-
-                </script>
+                <script src="~/js/articles-list.js"></script>
             </div>
         </div>
     </div>
