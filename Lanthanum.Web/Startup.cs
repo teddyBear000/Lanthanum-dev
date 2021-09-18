@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Data.SqlClient;
-using Lanthanum.Web.Controllers;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Services;
@@ -36,7 +35,8 @@ namespace Lanthanum.Web
                     options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
                     options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Users/Login");
                 });
-            
+
+            services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
             
             var builder = new SqlConnectionStringBuilder(
@@ -53,6 +53,7 @@ namespace Lanthanum.Web
                     x => x.MigrationsAssembly("Lanthanum.Data")
                 )
             );
+
 
             // DI
             services.AddTransient<DbRepository<User>>();
@@ -83,7 +84,7 @@ namespace Lanthanum.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            
             app.UseAuthentication();
             app.UseAuthorization();
 

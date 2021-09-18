@@ -1,12 +1,4 @@
-﻿using Lanthanum.Web.Data.Repositories;
-using Lanthanum.Web.Domain;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Lanthanum.Web.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using Lanthanum.Web.Services;
 using Microsoft.Extensions.Logging;
 

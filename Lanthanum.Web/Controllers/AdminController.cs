@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Lanthanum.Web.Domain;
+using AutoMapper;
 using Lanthanum.Web.Models;
 using Lanthanum.Web.Services.Interfaces;
-using Microsoft.AspNetCore.Routing;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -14,10 +13,12 @@ namespace Lanthanum.Web.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
+        private readonly IMapper _mapper;
 
-        public AdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService, IMapper mapper)
         {
             _adminService = adminService;
+            _mapper = mapper;
         }
 
         //[HttpGet]
@@ -28,29 +29,18 @@ namespace Lanthanum.Web.Controllers
 
         [HttpGet]
         [Route("articles-list")]
-        public async Task<ActionResult<IEnumerable<ArticleViewModel>>> ArticlesList(string filterConference,string filterTeam,string filterStatus)
+        public async Task<ActionResult<IEnumerable<ArticleViewModel>>> ArticlesList(string filterConference,string filterTeam,string filterStatus,string searchString)
         {
-            if(filterConference!=null) { TempData["FilterConference"] = filterConference; }
-            if (filterTeam!=null) { TempData["FilterTeam"] = filterTeam; }
-            if (filterStatus!=null) { TempData["FilterStatus"] = filterStatus; }
-
             var articles = await _adminService.GetAllArticlesAsync();
 
             if (articles != null)
             {
-                IEnumerable<ArticleViewModel> articlesToViewModels = articles.Select(article => new ArticleViewModel
-                {
-                    Id = article.Id,
-                    Alt = article.Alt,
-                    Headline = article.Headline,
-                    LogoPath = article.LogoPath,
-                    Caption = article.Caption,
-                    MainText = article.MainText,
-                    TeamConference = article.Team.Conference,
-                    TeamLocation = article.Team.Location,
-                    TeamName = article.Team.Name,
-                    ArticleStatus = article.ArticleStatus
-                });
+                IEnumerable<ArticleViewModel> articlesToViewModels = _mapper.Map<IEnumerable<ArticleViewModel>>(articles);
+
+                if (filterConference != null) { TempData["FilterConference"] = filterConference; }
+                if (filterTeam != null) { TempData["FilterTeam"] = filterTeam; }
+                if (filterStatus != null) { TempData["FilterStatus"] = filterStatus; }
+                 TempData["SearchString"] = searchString;
 
                 ViewData["TeamNames"] = articlesToViewModels.Select(a => a.TeamName).Distinct();
                 ViewData["Conferences"] = articlesToViewModels.Select(a => a.TeamConference).Distinct();
@@ -59,7 +49,9 @@ namespace Lanthanum.Web.Controllers
                     ref articlesToViewModels, 
                     (string)TempData?.Peek("FilterConference"),
                     (string)TempData?.Peek("FilterTeam"),
-                   (string) TempData?.Peek("FilterStatus"));
+                   (string)TempData?.Peek("FilterStatus"),
+                    (string)TempData?.Peek("SearchString"));
+
                 return View("articles_list",articlesToViewModels);
             }
             return BadRequest("There are no articles");
@@ -72,7 +64,8 @@ namespace Lanthanum.Web.Controllers
             try
             {
                 await _adminService.DeleteArticleByIdAsync(id);
-                return RedirectToAction("ArticlesList","Admin");
+                return RedirectToAction("ArticlesList","Admin",
+                    new { searchString= TempData?.Peek("searchString")});
             }
             catch (Exception e)
             {
@@ -88,7 +81,7 @@ namespace Lanthanum.Web.Controllers
             try
             {
                 await _adminService.ChangeArticleStatusByIdAsync(id);
-                return RedirectToAction("ArticlesList", "Admin");
+                return RedirectToAction("ArticlesList", "Admin", new { searchString = TempData?.Peek("searchString") });
             }
             catch (Exception e)
             {

@@ -290,3 +290,11 @@ dropdown-form option:hover {
     float: right;
     margin-top: 8px;
 }
+
+.search-container {
+    display: flex;
+    flex-direction: row;
+}
+.submit-search {
+
+}
