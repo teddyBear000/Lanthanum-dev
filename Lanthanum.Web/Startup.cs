@@ -43,7 +43,7 @@ namespace Lanthanum.Web
             // DI
             services.AddTransient<DbRepository<User>>();
             services.AddScoped<DbRepository<FooterTabItem>>();
-            services.AddScoped<FooterTabItemList>();
+            services.AddScoped<FooterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

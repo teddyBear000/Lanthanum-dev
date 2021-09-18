@@ -266,6 +266,11 @@ body {
     padding: 5px 0 0 15px;
 }
 
+textarea {
+    width: 100%;
+    height: 184px;
+}
+
 .contact-us-button {
     text-align: center;
     background: #D72130;

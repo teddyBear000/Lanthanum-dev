@@ -1,5 +1,5 @@
 ﻿@using Lanthanum.Web.Domain
-@inject FooterTabItemList footerTabItems
+@inject FooterService footerTabItems
 
 <!DOCTYPE html>
 <html lang="en">
@@ -44,7 +44,7 @@
             <div class="row py-4 justify-content-between">
                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Company Info</h6>
-                    @foreach (FooterTabItem footerTabItem in footerTabItems.GetItems())
+                    @foreach (FooterTabItem footerTabItem in footerTabItems.GetAllItems())
                     {
                         @if (@footerTabItem.Category == "CompanyInfo" && @footerTabItem.IsDisplaying == true)
                         {
@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Contributors</h6>
-                    @foreach (FooterTabItem footerTabItem in footerTabItems.GetItems())
+                    @foreach (FooterTabItem footerTabItem in footerTabItems.GetAllItems())
                     {
                         @if (@footerTabItem.Category == "Contributors" && @footerTabItem.IsDisplaying == true)
                         {
