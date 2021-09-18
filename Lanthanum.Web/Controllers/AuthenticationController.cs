@@ -101,7 +101,8 @@ namespace Lanthanum.Web.Controllers
                 Role = RoleStates.User,
                 Subscription = new Subscription(),
                 Subscribers = new List<Subscription>(),
-                PublishedArticles = new List<Article>()
+                PublishedArticles = new List<Article>(),
+                AvatarImagePath = "default.jpg"
             };
 
             try
