@@ -8,7 +8,7 @@ namespace Lanthanum.Web.MappingConfiguration
     {
         public ArticleProfile()
         {
-            CreateMap<Article, AdminArticleViewModel>()
+            CreateMap<Article, HelperAdminArticleViewModel>()
                 .ForMember(
                     dest => dest.TeamConference,
                     opt => opt.MapFrom(src => src.Team.Conference)
@@ -24,7 +24,9 @@ namespace Lanthanum.Web.MappingConfiguration
                 .ForMember(
                     dest => dest.KindOfSportName,
                     opt => opt.MapFrom(src => src.KindOfSport.Name)
-                );
+                )
+                .ForAllOtherMembers(
+                    opt=>opt.Ignore());
         }
     }
 }

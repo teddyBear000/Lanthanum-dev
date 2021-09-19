@@ -56,25 +56,25 @@ namespace Lanthanum.Web.Services
          params string[] filterParams - contains params to filter list of articles.
          Order of params is next: conferenceFilter, teamNameFilter, articleStatusFilter, searchString.
         */
-        public IEnumerable<AdminArticleViewModel> FilterArticles(ref IEnumerable<AdminArticleViewModel> articlesToViewModels, params string[] filterParams)
+        public AdminArticleViewModel FilterArticles(AdminArticleViewModel articlesToViewModels, params string[] filterParams)
         {
             if (!string.IsNullOrEmpty(filterParams[0]) && filterParams[0] != "All")
             {
-                articlesToViewModels = articlesToViewModels.Where(a => a.TeamConference == filterParams[0]);
+                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamConference == filterParams[0]);
             }
             if(!string.IsNullOrEmpty(filterParams[1]) && filterParams[1] != "All")
             {
-                articlesToViewModels = articlesToViewModels.Where(a => a.TeamName == filterParams[1]);
+                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamName == filterParams[1]);
             }
 
             if (!string.IsNullOrEmpty(filterParams[2]) && filterParams[2] != "All")
             {
-                articlesToViewModels = articlesToViewModels.Where(a => a.ArticleStatus.ToString() == filterParams[2]);
+                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.ArticleStatus.ToString() == filterParams[2]);
             }
 
             if (!string.IsNullOrEmpty(filterParams[3]))
             {
-                articlesToViewModels = articlesToViewModels.Where(
+                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(
                     a => a.Headline.Contains(filterParams[3])
                  || a.MainText.Contains(filterParams[3])
                  || a.TeamName.Contains(filterParams[3])

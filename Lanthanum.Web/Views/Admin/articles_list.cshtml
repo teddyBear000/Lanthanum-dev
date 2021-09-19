@@ -1,5 +1,5 @@
 ﻿@using Lanthanum.Web.Domain
-@model IEnumerable<Lanthanum.Web.Models.AdminArticleViewModel>
+@model Lanthanum.Web.Models.AdminArticleViewModel
 @{
     Layout = null;
 }
@@ -30,17 +30,20 @@
                     </a>
                     <div class="search ml-auto">
                         <img src="~/images/search.png" alt="search.png" class="search-img" />
-                        <form method="get" asp-action="ArticlesList">
-                            <input type="text" placeholder="Type here to search" name="searchString" value="@TempData.Peek("SearchString")"/>
+                        <form method="get" asp-action="ArticlesList"
+                              asp-route-filterTeam="@Model.FilterTeam" 
+                              asp-route-filterConference="@Model.FilterConference" 
+                              asp-route-filterStatus="@Model.FilterStatus">
+                            <input type="text" placeholder="Type here to search" name="searchString" value="@Model.SearchString"/>
                         </form>
                     </div>
                 </div>
                 <div class="sort-dropdown-container">
                     <div class="dropdown sort-dropdown">
                         <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (!string.IsNullOrEmpty((string)TempData.Peek("FilterConference")))
+                            @if (!string.IsNullOrEmpty(@Model.FilterConference))
                             {
-                                <text>@TempData.Peek("FilterConference")</text>
+                                <text>@Model.FilterConference</text>
                             }
                             else
                             {
@@ -49,18 +52,18 @@
 
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="All" asp-route-filterTeam="@TempData.Peek("FilterTeam")" asp-route-filterStatus="@TempData.Peek("FilterStatus")" asp-route-searchString="@TempData.Peek("SearchString")">All Conferences</a></li>
-                            @foreach (string conference in (IEnumerable<string>) ViewData["Conferences"])
+                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="All" asp-route-filterTeam="@Model.FilterTeam" asp-route-filterStatus="@Model.FilterStatus" asp-route-searchString="@Model.SearchString">All Conferences</a></li>
+                            @foreach (string conference in @Model.Conferences)
                             {
-                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="@conference" asp-route-filterTeam="@TempData.Peek("FilterTeam")" asp-route-filterStatus="@TempData.Peek("FilterStatus")" asp-route-searchString="@TempData.Peek("SearchString")">@conference</a></li>
+                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="@conference" asp-route-filterTeam="@Model.FilterTeam" asp-route-filterStatus="@Model.FilterStatus" asp-route-searchString="@Model.SearchString">@conference</a></li>
                             }
                         </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
                         <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (!string.IsNullOrEmpty((string)TempData.Peek("FilterTeam")))
+                            @if (!string.IsNullOrEmpty(Model.FilterTeam))
                             {
-                                <text>@TempData.Peek("FilterTeam")</text>
+                                <text>@Model.FilterTeam</text>
                             }
                             else
                             {
@@ -71,25 +74,25 @@
                             <li><a class="dropdown-item" 
                                    asp-action="ArticlesList" 
                                    asp-route-filterTeam="All" 
-                                   asp-route-filterConference="@TempData.Peek("FilterConference")" 
-                                   asp-route-filterStatus="@TempData.Peek("FilterStatus")"
-                                   asp-route-searchString="@TempData.Peek("SearchString")">All Teams</a></li>
-                            @foreach (string teamName in (IEnumerable<string>)ViewData["TeamNames"])
+                                   asp-route-filterConference="@Model.FilterConference" 
+                                   asp-route-filterStatus="@Model.FilterStatus"
+                                   asp-route-searchString="@Model.SearchString">All Teams</a></li>
+                            @foreach (string teamName in @Model.TeamNames)
                             {
                                 <li><a class="dropdown-item" 
                                        asp-action="ArticlesList" 
                                        asp-route-filterTeam="@teamName" 
-                                       asp-route-filterConference="@TempData.Peek("FilterConference")" 
-                                       asp-route-filterStatus="@TempData.Peek("FilterStatus")"
-                                       asp-route-searchString="@TempData.Peek("SearchString")">@teamName</a></li>
+                                       asp-route-filterConference="@Model.FilterConference" 
+                                       asp-route-filterStatus="@Model.FilterStatus"
+                                       asp-route-searchString="@Model.SearchString">@teamName</a></li>
                             }
                         </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
                         <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            @if (!string.IsNullOrEmpty((string)TempData.Peek("FilterStatus")))
+                            @if (!string.IsNullOrEmpty(Model.FilterStatus))
                             {
-                                <text>@TempData.Peek("FilterStatus")</text>
+                                <text>@Model.FilterStatus</text>
                             }
                             else
                             {
@@ -101,34 +104,34 @@
                                 <a class="dropdown-item" 
                                    asp-action="ArticlesList" 
                                    asp-route-filterStatus="All" 
-                                   asp-route-filterConference="@TempData.Peek("FilterConference")" 
-                                   asp-route-filterTeam="@TempData.Peek("FilterTeam")"
-                                   asp-route-searchString="@TempData.Peek("SearchString")">All
+                                   asp-route-filterConference="@Model.FilterConference" 
+                                   asp-route-filterTeam="@Model.FilterTeam"
+                                   asp-route-searchString="@Model.SearchString">All
                                 </a>
                                 </li>
                             <li>
                                 <a class="dropdown-item" 
                                    asp-action="ArticlesList" 
                                    asp-route-filterStatus="Published" 
-                                   asp-route-filterConference="@TempData.Peek("FilterConference")" 
-                                   asp-route-filterTeam="@TempData.Peek("FilterTeam")"
-                                   asp-route-searchString="@TempData.Peek("SearchString")">Published
+                                   asp-route-filterConference="@Model.FilterConference" 
+                                   asp-route-filterTeam="@Model.FilterTeam"
+                                   asp-route-searchString="@Model.SearchString">Published
                                 </a>
                                 </li>
                             <li>
                                 <a class="dropdown-item" 
                                    asp-action="ArticlesList" 
                                    asp-route-filterStatus="Unpublished" 
-                                   asp-route-filterConference="@TempData.Peek("FilterConference")" 
-                                   asp-route-filterTeam="@TempData.Peek("FilterTeam")"
-                                   asp-route-searchString="@TempData.Peek("SearchString")">Unpublished
+                                   asp-route-filterConference="@Model.FilterConference" 
+                                   asp-route-filterTeam="@Model.FilterTeam"
+                                   asp-route-searchString="@Model.SearchString">Unpublished
                                 </a>
                                 </li>
                         </ul>
                     </div>
                 </div>
                 <div class="articles-preview-container mt-3">
-                    @foreach (var mod in Model)
+                    @foreach (var mod in Model.SimpleModels)
                     {
                         <div class="article-preview my-2">
                             <a href="#" class="main-link"></a>
@@ -158,7 +161,7 @@
                                                     Move &raquo;
                                                 </a>
                                                 <ul class="dropdown-menu dropdown-submenu">
-                                                    @foreach (var kindOfSport in (Dictionary<int,string>) ViewData["KindsOfSport"])
+                                                    @foreach (var kindOfSport in @Model.KindsOfSport)
                                                     {
                                                         if (kindOfSport.Value != mod.KindOfSportName)
                                                         {
