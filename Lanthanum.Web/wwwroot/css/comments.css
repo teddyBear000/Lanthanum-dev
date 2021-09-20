@@ -96,6 +96,12 @@ a {
             .blog-comment .delete-edit-box button:hover {
                 color: #d54343;
             }
+
+.blog-comment .delete-edit-box{
+display: flex;
+}
+
+
     .blog-comment ul {
         list-style-type: none;
         padding: 0;

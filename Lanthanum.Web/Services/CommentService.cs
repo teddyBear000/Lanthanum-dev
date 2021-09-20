@@ -149,10 +149,12 @@ namespace Lanthanum.Web.Services
                         SingleOrDefaultAsync(x => x.Author == author && x.Comment == comment).Result).Wait();
                 }
             }
-
-
-
         }
 
+        public void EditComment(Comment comment, string newContent) 
+        {
+            comment.Content = newContent;
+            _commentRepository.UpdateAsync(comment).Wait();
+        }
     }
 }

@@ -94,5 +94,13 @@ namespace Lanthanum.Web.Controllers
             _commentService.ReactionManager(author, comment, reactionPoint);
             return RedirectToAction("Details", new { id = articleId });
         }
+        [Authorize]
+        public IActionResult EditComment(int articleId, int commentId, string commentNewContent) 
+        {
+            var comment = _commentRepository.GetByIdAsync(commentId).Result;
+            _commentService.EditComment(comment, commentNewContent);
+
+            return RedirectToAction("Details", new { id = articleId });
+        }
     }
 }

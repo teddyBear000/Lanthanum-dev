@@ -10,10 +10,10 @@
     var Reactions = Model.ReactionToComments;
 }
 @{
-    string CheckCurrentUserDeleteComment(Comment comment)
+    string CheckCurrentUserEditDeleteComment(Comment comment)
     {
         if (comment.Author.Email != User.Identity.Name) return "display:none";
-        return " ";
+        return "display: block";
     }
     string FormaUserCredits(Comment comment)
     {
@@ -71,6 +71,7 @@
     <link rel="stylesheet" href="~/css/details.css" />
     <link rel="stylesheet" href="~/css/comments.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/js/commentEdit.js"></script>
 </head>
 
 <body style="background: #fff">
@@ -155,11 +156,13 @@
                                     var сommentAuthorAvatarPath = FormatUserAvatarPath(Users.Find(x => x.Id == comment.Author.Id));
                                     @if (comment.ParentComment == null)
                                     {
+
                                         <li class="clearfix">
+
                                             <img src="@сommentAuthorAvatarPath" class="avatar">
                                             <div class="post-comments">
                                                 <p class="meta"><a class="nickname-link" href="#" style=" font-weight: bold">@FormaUserCredits(comment)</a> says : <i class="float-right mr-2"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
-                                                <p class="comment-content">
+                                                <p class="comment-content" id="CommentContent_@comment.Id">
                                                     @comment.Content
                                                 </p>
                                                 <div class="underpost">
@@ -190,10 +193,21 @@
                                                             <form method="post" action="/Articles/DeleteComment">
                                                                 <input type="hidden" name="articleId" value="@Article.Id" />
                                                                 <input type="hidden" name="commentId" value="@comment.Id" />
-                                                                <div class="delete-comment">
-                                                                    <button class="delete-comment-button" style="@CheckCurrentUserDeleteComment(comment)">Delete</button>
-                                                                </div>
+                                                                <button class="delete-comment-button" id="DeleteButton_@comment.Id" style="@CheckCurrentUserEditDeleteComment(comment)">Delete</button>
                                                             </form>
+
+                                                            <button class="edit-comment-button" onclick="Edit(@comment.Id)" id="EditButton_@comment.Id" style="@CheckCurrentUserEditDeleteComment(comment)">Edit</button>
+
+
+                                                            <button class="discard-edit-comment-button" onclick="DiscardEdit(@comment.Id)" id="DiscardEditButton_@comment.Id" style="display: none">Discard</button>
+
+                                                            <form method="post" action="/Articles/EditComment">
+                                                                <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                <input type="hidden" name="commentId" value="@comment.Id" />
+                                                                <input type="hidden" name="commentNewContent" id="commentNewContent_@comment.Id" value="" />
+                                                                <button class="save-edit-comment-button" onclick="SaveEdit(@comment.Id)" id="SaveEditButton_@comment.Id" style="display: none">Done</button>
+                                                            </form>
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -258,7 +272,7 @@
                                                                                 <input type="hidden" name="articleId" value="@Article.Id" />
                                                                                 <input type="hidden" name="commentId" value="@subComment.Id" />
                                                                                 <div class="delete-comment">
-                                                                                    <button class="delete-comment-button" style="@CheckCurrentUserDeleteComment(subComment)">Delete</button>
+                                                                                    <button class="delete-comment-button" style="@CheckCurrentUserEditDeleteComment(subComment)">Delete</button>
                                                                                 </div>
                                                                             </form>
                                                                         </div>
@@ -268,6 +282,7 @@
                                                         </li>
                                                     }
                                                 }
+
                                             </ul>
                                         </li>
                                     }
