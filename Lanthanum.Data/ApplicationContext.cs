@@ -1,6 +1,7 @@
 ﻿using Lanthanum.Web.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Lanthanum.Data.Configurations;
 
@@ -20,7 +21,9 @@ namespace Lanthanum.Web.Data
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
-            Database.EnsureCreated();
+            Database.EnsureDeleted();
+            Database.EnsureCreated(); // TODO: change
+            base.SaveChanges();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
