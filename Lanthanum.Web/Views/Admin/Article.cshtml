@@ -67,7 +67,62 @@
                         </div>
 
                         <div class="CommentSectionHide" id="hided2">
-                            <img src="/images/template.jpg" class="CommentTemplate">
+                            <div class="blog-comment">
+                                <h3>COMMENTS(2)</h3>
+
+                                <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
+                                    <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
+                                        <form method="post" action="/Articles/AddComment">
+                                            <div class="d-flex flex-row align-items-start ml-3 mr-5">
+                                                <img class="rounded-circle mr-2" src="~/images/default.jpg" width="55" />
+                                                <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
+                                                <input type="hidden" name="articleId" value="" />
+                                            </div>
+                                            <div class="mt-2 text-right mr-3">
+                                                <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white " type="reset">Cancel</button>
+                                                <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <ul class="comments">
+                                        @foreach (var element in new List<int>() { 1, 2})
+                                        {;
+                                            var сommentAuthorNickname = "John Bells";
+                                            @if (true)
+                                            {
+                                                <li class="clearfix">
+                                                    <img src="~/images/default.jpg" class="avatar">
+                                                    <div class="post-comments">
+                                                        <p class="meta"><a href="#" style=" font-weight: bold">@сommentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="">Reply</a></i></p>
+                                                        <p class="comment-content">
+                                                            Very interesting article!
+                                                        </p>
+                                                        <p class="underpost">19.09.2021</p>
+                                                    </div>
+
+                                                    <div class="bg-light p-2 collapse" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; " id="">
+                                                        <form method="post" action="/Articles/AddComment">
+                                                            <div class="d-flex flex-row align-items-start ml-3 mr-5">
+                                                                <img class="rounded-circle mr-2" src="~/images/default.jpg" width="55" />
+                                                                <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
+                                                                <input type="hidden" name="articleId" value="" />
+                                                                <input type="hidden" name="parentCommentId" value="" />
+                                                            </div>
+                                                            <div class="mt-2 text-right mr-3">
+                                                                <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" data-toggle="collapse" data-target="" type="reset">Cancel</button>
+                                                                <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="BorderOne">
