@@ -52,3 +52,135 @@ function ShowFile(file){
 function AddElement() {
     input.click();
 }
+
+function f1() {
+    document.getElementById("textarea1").style.fontWeight = "header1";
+}
+
+function f2() {
+    document.getElementById("textarea1").style.fontWeight = "header2";
+}
+
+function f3() {
+    document.getElementById("textarea1").style.fontWeight = "paragraph";;
+}
+
+var firstClickWeight = true;
+
+function f4() {
+    if (firstClickWeight) {
+        document.getElementById("textarea1").style.fontWeight = "bold";
+        firstClickWeight = false;
+    }
+    else {
+        document.getElementById("textarea1").style.fontWeight = "normal";
+        firstClickWeight = true;
+    }
+}
+
+var firstClickStyle = true;
+
+function f5() {
+    if (firstClickStyle) {
+        document.getElementById("textarea1").style.fontStyle = "italic";
+        firstClickStyle = false;
+    }
+    else {
+        document.getElementById("textarea1").style.fontStyle = "normal";
+        firstClickStyle = true;
+    }
+}
+
+function f6() {
+    replaceSelectedText('underline');
+}
+
+function f7() {
+    document.getElementById("textarea1").style.textAlign = "left";
+}
+
+function f8() {
+    document.getElementById("textarea1").style.textAlign = "center";
+}
+
+function f9() {
+    document.getElementById("textarea1").style.textAlign = "right";
+}
+
+var firstClickTransform = true;
+
+function f10() {
+    if (firstClickTransform) {
+        document.getElementById("textarea1").style.textTransform = "capitalize";
+        firstClickTransform = false;
+    }
+    else {
+        document.getElementById("textarea1").style.textTransform = "none";
+        firstClickTransform = true;
+    }
+}
+
+function f11() {
+    replaceSelectedText('color');
+}
+
+function replaceSelectedText(text) {
+    var txtArea = document.getElementById('textarea1');
+
+    if (txtArea.selectionStart != undefined) {
+        var startPos = txtArea.selectionStart;
+        var endPos = txtArea.selectionEnd;
+        selectedText = txtArea.value.substring(startPos, endPos);
+
+        if (text == 'underline') {
+            txtArea.innerHTML = txtArea.value.slice(0, startPos) + " &lt;u&gt;" + txtArea.value.slice(startPos, endPos) + "&lt;/u&gt; " + txtArea.value.slice(endPos);
+        }
+        else if (text == 'color') {
+            txtArea.innerHTML = txtArea.value.slice(0, startPos) + " &lt;font color='red'&gt;" + txtArea.value.slice(startPos, endPos) + "&lt;/font&gt;" + txtArea.value.slice(endPos);
+        }
+    }
+}
+
+function f12() {
+    var Header = document.getElementById('rHeader').value;
+    var Headline = document.getElementById('rHeadLine').value;
+    var MainText = document.getElementById('textarea1').value;
+
+    document.getElementById('Header').textContent = Header;
+    document.getElementById('Headline').textContent = Headline;
+    document.getElementById('MainText').textContent = MainText;
+
+    for (var i = 0; i < 6; i++) {
+        document.getElementById(('Header'+i)).textContent = Header;
+        document.getElementById(('Headline'+i)).textContent = Headline;
+    }
+
+    if (sliderBool) {
+        document.getElementById('hided2').style.display = "block";
+    }
+    else {
+        document.getElementById('hided2').style.display = "none";
+        document.getElementById('hided2').style.zIndex = "-1";
+    }
+
+    var element = document.getElementById('hided');
+    element.style.display = "block";
+    element.style.zIndex = "100";
+}
+
+function f13() {
+    var element = document.getElementById('hided');
+    element.style.display = "none";
+    element.style.zIndex = "-1";
+}
+
+var sliderBool = false;
+
+function f14() {
+    if (sliderBool) {
+        sliderBool = false;
+    }
+    else {
+        sliderBool = true;
+    }
+}

@@ -27,7 +27,7 @@
 
 .secondary-button {
     background-color: transparent;
-    color: rgb(315,33,48);
+    color: rgb(200,0,0);
 }
 .secondary-button::after :hover {
     text-decoration: underline;
@@ -87,10 +87,10 @@
     overflow-x: hidden;
 }
 
-.ArticleHeader {
+.ArticleHeader1 {
     margin-top: 2.8em;
-    margin-left: 18.5%;
-    width: 825px;
+    margin-left: 12.1%;
+    width: 816px;
 }
 
 .InputText {
