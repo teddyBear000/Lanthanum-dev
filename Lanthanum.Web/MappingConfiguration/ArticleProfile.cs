@@ -24,9 +24,7 @@ namespace Lanthanum.Web.MappingConfiguration
                 .ForMember(
                     dest => dest.KindOfSportName,
                     opt => opt.MapFrom(src => src.KindOfSport.Name)
-                )
-                .ForAllOtherMembers(
-                    opt=>opt.Ignore());
+                );
         }
     }
 }
