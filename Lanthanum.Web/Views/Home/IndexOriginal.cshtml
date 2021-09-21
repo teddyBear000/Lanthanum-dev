@@ -1,0 +1,60 @@
+﻿@using Lanthanum.Web.Controllers
+
+@{
+    ViewData["Title"] = "Home Page";
+    var data = MainPageArticlesController.GetMainArticles();
+}
+
+<style>
+    .blue {
+        top: 25%;
+        right: 10%;
+        position: absolute;
+    }
+
+    .div-class {
+        width: 30%;
+        color: white;
+        font-family: "Courier New", Courier, monospace;
+        text-align: left;
+        padding: 5px;
+        box-sizing: border-box;
+        display: block;
+        overflow: auto;
+    }
+</style>
+
+<!-- main article -->
+<div style="overflow: auto;">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" style="width: 70%; text-align: center; margin-top: 60px; z-index: -1;">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="~/images/download.jpg">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="~/images/download.jpg">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="~/images/download.jpg">
+            </div>
+        </div>
+    </div>
+
+    <div class="blue div-class">
+        <div style="background-color: #f6f6f6; ">
+            <div class="carousel-inner">
+                <div style="padding-top: 30px; padding-left: 25px; padding-right: 25px; padding-bottom: 30px;">
+                    <p style="font-weight: 600; color: #aba9a9; ">Published / 20.09.2019</p>
+                    <p style="font-weight: 700; color: #c94143; ">@data[0].Headline</p>
+                    <b style="font-weight: bold; color: #2f3347; font-size: 15px ">Register to receive the latest news on ticket sales for the four NFL London Games in 2019!</b>
+                </div>
+            </div>
+            <button style="width: 40%; height: 40px; background: #d72130; color: white; margin-bottom: 0px; border: none; font-size: 15px;" href="#">
+                More
+            </button>
+        </div>
+
+        <div style="float: right; width: 50%; height: 20px; text-align: center; margin-top: 20px;">
+        </div>
+    </div>
+</div>

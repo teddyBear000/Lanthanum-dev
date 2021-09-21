@@ -24,6 +24,9 @@ li {
     color: rgb(188, 188, 188);
     list-style-type: none;
     font-weight: bold;
+}
+
+.menu {
     margin-top: 8px;
 }
 
@@ -76,4 +79,10 @@ textarea:focus, input:focus {
     line-height: 50px;
     text-align: center;
     border: 2px;
+}
+
+#centerContent {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

@@ -42,7 +42,7 @@
             <div style="width: 215px;">
                 <nav>
                     <ul style="margin-left: 30px; margin-top: 50px;" data-tag="channelList">
-                        <li onclick="switchChannel(this)" class="selected">@HomeController.Categories[0]</li>
+                        <li onclick="switchChannel(this)" class="selected menu">@HomeController.Categories[0]</li>
                         @foreach (var item in HomeController.Categories.Skip(1))
                         {
                             <li onclick="switchChannel(this)">@item</li>
