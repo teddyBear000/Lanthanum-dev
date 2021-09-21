@@ -24,4 +24,8 @@
     <ProjectReference Include="..\Lanthanum.Data\Lanthanum.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\" />
+  </ItemGroup>
+
 </Project>

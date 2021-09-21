@@ -28,6 +28,8 @@
 
 <body>
 
+    <!-- Hiden Article -->
+
     <div class="SecretPage" id="hided">
         <div class="GeneralView">
             <div class="ArticleHeader1" style="position: absolute; width: 100%;">
@@ -66,6 +68,8 @@
                             <p id="MainText"> </p>
                         </div>
 
+                        <!-- Comments -->
+
                         <div class="CommentSectionHide" id="hided2">
                             <div class="blog-comment">
                                 <h3>COMMENTS(2)</h3>
@@ -86,8 +90,9 @@
                                     </div>
 
                                     <ul class="comments">
-                                        @foreach (var element in new List<int>() { 1, 2})
-                                        {;
+                                        @foreach (var element in new List<int>() { 1, 2 })
+                                        {
+                                            ;
                                             var сommentAuthorNickname = "John Bells";
                                             @if (true)
                                             {
@@ -122,8 +127,9 @@
                                     </ul>
                                 </div>
                             </div>
-
                         </div>
+
+                        <!-- After Comment Section -->
 
                         <div class="BorderOne">
                             <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
@@ -192,6 +198,8 @@
     </div>
 
 
+    <!-- Main Editor -->
+
     <form method="post" controller="admin" action="article">
         <div class="conteiner">
             <div class="row">
@@ -207,9 +215,12 @@
 
                 </div>
             </div>
+
+            <!-- List of Sports -->
+
             <div class="row">
-                <div class="col FlexTwo">
-                    <div class="Divider">
+                <div class="col FlexTwo" style="overflow-x: hidden">
+                    <div class="Divider" id="divider">
                         @for (int i = 0; i < 8; i++)
                         {
                             <div class="KindsText pull-left" onclick="AddElement()">
@@ -232,10 +243,10 @@
             <div class="ArticleHeader1">
                 <div class="row">
                     <div class="col pull-left" style="max-width: 25px; margin-top: 5px; margin-left: 86.35%;">
-                        <img src="~/images/Eye.png" onclick="f12()" height="19px">
+                        <img src="~/images/Eye.png" onclick="f15()" height="19px">
                     </div>
                     <div class="col" style="margin-left: 0; padding-left: 4px;">
-                        <button id="warn" class="allbuttons secondary-button" style="width: 0; margin-left: 0; " type="button" onclick="f12()">Preview</button>
+                        <button id="warn" class="allbuttons secondary-button" style="width: 0; margin-left: 0; " type="button" onclick="f15()">Preview</button>
                     </div>
                 </div>
                 <!-- DRAG & DROP CONTAINER BEGIN -->
@@ -249,7 +260,7 @@
                             <div class="IconText">
                                 <header><span class="hightlight" onclick="AddElement()">+Add picture</span> or drop it rigth there</header>
                                 <p>You can add next formats: png. jpg. jpeg. tif</p>
-                                <input id="getImage" type="file" name="LogoPath" hidden>
+                                <input id="getImage" type="file" name="Logo" hidden>
                             </div>
                         </div>
                     </div>
@@ -297,21 +308,21 @@
                     <div class="row">
                         <div class="col">
                             <p class="InputText">ALT *</p>
-                            <input class="InputData" style="padding-left: 10px" type="text" name="Headline" placeholder="Alternative text for picture">
+                            <input class="InputData" style="padding-left: 10px" type="text" name="Alt" placeholder="Alternative text for picture" required minlength="1" maxlength="20">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
                             <p class="InputText">ARTICLE HEADLINE *</p>
-                            <input class="InputData" style="padding-left: 10px" type="text" name="Headline" placeholder="Name" id="rHeadLine">
+                            <input class="InputData" style="padding-left: 10px" type="text" name="Headline" placeholder="Name" id="rHeadLine" required minlength="1" maxlength="29">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
                             <p class="InputText">CAPTION *</p>
-                            <input class="InputData" style="padding-left: 10px" type="text" name="Headline" placeholder="Write caption text here" id="rHeader">
+                            <input class="InputData" style="padding-left: 10px" type="text" name="Caption" placeholder="Write caption text here" id="rHeader" required minlength="1" maxlength="60">
                         </div>
                     </div>
 
@@ -320,6 +331,8 @@
                             <p class="InputText">CONTENT *</p>
                         </div>
                     </div>
+
+                    <!-- HTML Content field -->
 
                     <section class="" style=" padding: 5%; padding-top: 0; padding-bottom: 0%;">
                         <div class="flex-box" style="display: flex; justify-content: center;">
@@ -432,9 +445,9 @@
                             <div class="flex-box" style=" display: flex; justify-content: center;">
                                 <textarea id="textarea1"
                                           class="input shadow"
-                                          style="padding: 3%; border-color: #957dad; border-width: thick; height: 500px; resize: none;"
-                                          name="name"
-                                          placeholder="Please add your text here">
+                                          style="padding: 3%; border-color: #957dad; border-width: thick; height: 600px; resize: none;"
+                                          name="Content"
+                                          placeholder="Please add your text here" required minlength="1" maxlength="1200">
                                 </textarea>
                             </div>
                         </div>
@@ -444,6 +457,8 @@
                         <div class="pull-left" style="width: auto">
                             <p class="form-text InputTextLast" style="width: ">Comments:  Show  </p>
                         </div>
+
+                        <!-- Switcher -->
 
                         <div class="col" style="padding-top: 8.5px">
                             <label class="switch">

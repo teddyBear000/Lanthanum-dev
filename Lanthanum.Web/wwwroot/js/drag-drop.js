@@ -111,11 +111,9 @@ var firstClickTransform = true;
 
 function f10() {
     if (firstClickTransform) {
-        document.getElementById("textarea1").style.textTransform = "capitalize";
         firstClickTransform = false;
     }
     else {
-        document.getElementById("textarea1").style.textTransform = "none";
         firstClickTransform = true;
     }
 }
@@ -183,4 +181,12 @@ function f14() {
     else {
         sliderBool = true;
     }
+}
+
+var tempX = 0;
+function f15() {
+    tempX -= 70;
+    var element = document.getElementById('divider');
+    element.style.transform = "translateX(" + tempX + "px)";
+    element.style.transition = "0.5s";
 }

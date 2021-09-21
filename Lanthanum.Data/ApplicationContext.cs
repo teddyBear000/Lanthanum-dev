@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 using Lanthanum.Data.Configurations;
+using Microsoft.AspNetCore.Http;
 
 namespace Lanthanum.Web.Data
 {
