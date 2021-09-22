@@ -44,3 +44,13 @@ function DiscardEdit(commentId) {
     content = "";
     commentParagraph.style.backgroundColor = "#fff";
 }
+function ShowMoreComments() {
+    var comments = document.getElementsByClassName("clearfix");
+    var ShowMoreButton = document.getElementById("show-more-button");
+    for (var i = 0; i < comments.length; i++)
+    {
+        comments.item(i).style.display = "list-item";
+    }
+    ShowMoreButton.style.display = "none";
+
+}

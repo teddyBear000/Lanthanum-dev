@@ -207,3 +207,18 @@ display: flex;
     font-size: 20px;
     outline: none;
     }
+.show-more-box{
+    height: 50px;
+}
+    .show-more-box button {
+        width: 100%;
+        background-color: #d54343;
+        border: none;
+        color: #fff;
+        outline: none;
+        font-weight: 700;
+        height: 100%;
+    }
+        .show-more-box button:hover {
+            background-color: #d54343b3;
+        }

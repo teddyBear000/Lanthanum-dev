@@ -65,6 +65,13 @@
         }
         return "color: #c4c4c4;";
     }
+    int CommentsCount = 0;
+    string CheckCommentsShowMore(ref int CommentsCount)
+    {
+        CommentsCount++;
+        if (CommentsCount > 4) return "display:none";
+        return "";
+    }
 }
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -157,7 +164,7 @@
                                     @if (comment.ParentComment == null)
                                     {
 
-                                        <li class="clearfix">
+                                        <li class="clearfix" style="@CheckCommentsShowMore(ref CommentsCount)">
 
                                             <img src="@сommentAuthorAvatarPath" class="avatar">
                                             <div class="post-comments">
@@ -271,10 +278,21 @@
                                                                             <form method="post" action="/Articles/DeleteComment">
                                                                                 <input type="hidden" name="articleId" value="@Article.Id" />
                                                                                 <input type="hidden" name="commentId" value="@subComment.Id" />
-                                                                                <div class="delete-comment">
-                                                                                    <button class="delete-comment-button" style="@CheckCurrentUserEditDeleteComment(subComment)">Delete</button>
-                                                                                </div>
+                                                                                <button class="delete-comment-button" id="DeleteButton_@subComment.Id" style="@CheckCurrentUserEditDeleteComment(subComment)">Delete</button>
                                                                             </form>
+
+                                                                            <button class="edit-comment-button" onclick="Edit(@subComment.Id)" id="EditButton_@subComment.Id" style="@CheckCurrentUserEditDeleteComment(subComment)">Edit</button>
+
+
+                                                                            <button class="discard-edit-comment-button" onclick="DiscardEdit(@subComment.Id)" id="DiscardEditButton_@subComment.Id" style="display: none">Discard</button>
+
+                                                                            <form method="post" action="/Articles/EditComment">
+                                                                                <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                                <input type="hidden" name="commentId" value="@subComment.Id" />
+                                                                                <input type="hidden" name="commentNewContent" id="commentNewContent_@subComment.Id" value="" />
+                                                                                <button class="save-edit-comment-button" onclick="SaveEdit(@subComment.Id)" id="SaveEditButton_@subComment.Id" style="display: none">Done</button>
+                                                                            </form>
+
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -289,6 +307,10 @@
                                 }
 
                             </ul>
+
+                            <div class="show-more-box">
+                                <button id="show-more-button" onclick="ShowMoreComments()">SHOW MORE</button>
+                            </div>
                         </div>
                     </div>
 
