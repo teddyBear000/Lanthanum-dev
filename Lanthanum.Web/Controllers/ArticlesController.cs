@@ -15,18 +15,14 @@ namespace Lanthanum.Web.Controllers
     {
 
         private readonly ILogger<ArticlesController> _logger;
-        private readonly DbRepository<Comment> _commentRepository;
         private readonly DbRepository<User> _userRepository;
         private readonly DbRepository<Article> _articleRepository;
-        private readonly DbRepository<Reaction> _reactionRepository;
         private readonly CommentService _commentService;
         public ArticlesController(ILogger<ArticlesController> logger, DbRepository<Comment> commentRepository, DbRepository<User> userRepository, DbRepository<Article> articleRepository,DbRepository<Reaction>reactionRepository,CommentService commentService)
         {
             _logger = logger;
-            _commentRepository = commentRepository;
             _userRepository = userRepository;
             _articleRepository = articleRepository;
-            _reactionRepository = reactionRepository;
             _commentService = commentService;
         }
         public IActionResult Details(int id, string commentSortingMethod = " ")
@@ -81,8 +77,7 @@ namespace Lanthanum.Web.Controllers
         [Authorize]
         public IActionResult DeleteComment(int articleId, int commentId) 
         {
-            var commentToDelete = _commentRepository.GetByIdAsync(commentId).Result;
-            _commentService.DeleteComment(commentToDelete);
+            _commentService.DeleteComment(commentId);
             return RedirectToAction("Details", new { id = articleId });
         }
 
@@ -90,16 +85,14 @@ namespace Lanthanum.Web.Controllers
         public IActionResult ManageReaction(int articleId, int commentId, int reactionPoint)
         {
             var author = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result;
-            var comment = _commentRepository.GetByIdAsync(commentId).Result;
-            _commentService.ReactionManager(author, comment, reactionPoint);
+            _commentService.ReactionManager(author, commentId, reactionPoint);
             return RedirectToAction("Details", new { id = articleId });
         }
         [Authorize]
         public IActionResult EditComment(int articleId, int commentId, string commentNewContent) 
         {
-            var comment = _commentRepository.GetByIdAsync(commentId).Result;
-            _commentService.EditComment(comment, commentNewContent);
-
+            
+            _commentService.EditComment(commentId, commentNewContent);
             return RedirectToAction("Details", new { id = articleId });
         }
     }

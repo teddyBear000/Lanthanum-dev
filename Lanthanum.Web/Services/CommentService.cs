@@ -96,9 +96,9 @@ namespace Lanthanum.Web.Services
             _commentRepository.AddAsync(comment).Wait();
         }
 
-        public void DeleteComment(Comment commentToDelete) 
+        public void DeleteComment(int commentId) 
         {
-
+            var commentToDelete = _commentRepository.GetByIdAsync(commentId).Result;
             var comments = _commentRepository.GetAllAsync().Result;
             foreach (var comment in comments)
             {
@@ -107,8 +107,10 @@ namespace Lanthanum.Web.Services
             _commentRepository.RemoveAsync(commentToDelete).Wait();
         }
 
-        public void ReactionManager(User author, Comment comment, int reactionPoint) 
+        public void ReactionManager(User author, int commentId, int reactionPoint) 
         {
+            var comment = _commentRepository.GetByIdAsync(commentId).Result;
+
             //Check whether reaction exists, if not -> creating one
             if (_reactionRepository.SingleOrDefaultAsync(x => x.Author == author && x.Comment == comment).Result == null)
             {
@@ -151,8 +153,9 @@ namespace Lanthanum.Web.Services
             }
         }
 
-        public void EditComment(Comment comment, string newContent) 
+        public void EditComment(int commentId, string newContent) 
         {
+            var comment = _commentRepository.GetByIdAsync(commentId).Result;
             comment.Content = newContent;
             _commentRepository.UpdateAsync(comment).Wait();
         }
