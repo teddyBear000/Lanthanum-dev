@@ -122,27 +122,10 @@ function f11() {
     replaceSelectedText('color');
 }
 
-function replaceSelectedText(text) {
-    var txtArea = document.getElementById('textarea1');
-
-    if (txtArea.selectionStart != undefined) {
-        var startPos = txtArea.selectionStart;
-        var endPos = txtArea.selectionEnd;
-        selectedText = txtArea.value.substring(startPos, endPos);
-
-        if (text == 'underline') {
-            txtArea.innerHTML = txtArea.value.slice(0, startPos) + " &lt;u&gt;" + txtArea.value.slice(startPos, endPos) + "&lt;/u&gt; " + txtArea.value.slice(endPos);
-        }
-        else if (text == 'color') {
-            txtArea.innerHTML = txtArea.value.slice(0, startPos) + " &lt;font color='red'&gt;" + txtArea.value.slice(startPos, endPos) + "&lt;/font&gt;" + txtArea.value.slice(endPos);
-        }
-    }
-}
-
 function f12() {
     var Header = document.getElementById('rHeader').value;
     var Headline = document.getElementById('rHeadLine').value;
-    var MainText = document.getElementById('textarea1').value;
+    var MainText = tinymce.get("textarea1").getContent();
 
     document.getElementById('Header').textContent = Header;
     document.getElementById('Headline').textContent = Headline;
@@ -184,8 +167,18 @@ function f14() {
 }
 
 var tempX = 0;
-function f15() {
+
+function f16() {
     tempX -= 70;
+    var element = document.getElementById('divider');
+    element.style.transform = "translateX(" + tempX + "px)";
+    element.style.transition = "0.5s";
+}
+
+var tempX = 0;
+function f15() {
+    tempX += 70;
+    if (tempX >= 0) { tempX = 0;}
     var element = document.getElementById('divider');
     element.style.transform = "translateX(" + tempX + "px)";
     element.style.transition = "0.5s";

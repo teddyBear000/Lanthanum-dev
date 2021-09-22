@@ -73,7 +73,6 @@
 .FlexTwo {
     border-bottom: 1px solid #dee2e6 !important;
     padding-bottom: 0.35rem !important;
-    padding-left: 9.1%;
 }
 
 .KindsTextTwo {
@@ -84,7 +83,6 @@
     max-width: 93%;
     display: flex;
     flex-direction: row;
-    overflow-x: hidden;
 }
 
 .ArticleHeader1 {
@@ -141,6 +139,11 @@
     text-align: center;
     align-items: center;
     justify-content: center;
+}
+
+.ArrowContainer:hover {
+    height: 22px !important;
+
 }
 
 .switch {

@@ -24,8 +24,27 @@
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
           crossorigin="anonymous" />
     <title>Document</title>
-</head>
 
+    <script src="https://cdn.tiny.cloud/1/7vvvgt6qrnr0wyn4j126umosqc6ti0055lsi3j1reg6gjy39/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#textarea1',
+            height: 500,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar:'formatselect | ' +
+                'bold italic underline | forecolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+    </script>
+</head>
 <body>
 
     <!-- Hiden Article -->
@@ -64,8 +83,8 @@
 
                 <div class="BodyHead">
                     <div class="whiteBox">
-                        <div class="TextMain">
-                            <p id="MainText"> </p>
+                        <div class="TextMain" id="MainText">
+                            
                         </div>
 
                         <!-- Comments -->
@@ -218,8 +237,11 @@
 
             <!-- List of Sports -->
 
-            <div class="row">
-                <div class="col FlexTwo" style="overflow-x: hidden">
+            <div class="row" style="border-bottom: 1px solid #dee2e6 !important; padding-bottom: 0.35rem !important;">
+                <div class="col pull-left" style="padding-top: 11px; max-width: 8.1%; width:58px !important;">
+                    <img class="ArrowContainer" height="20" onclick="f15()" src='~/images/Arrow_L.png' />
+                </div>
+                <div class="col FlexTwo pull-left" style="overflow-x: hidden; border-bottom: 0px !important;">
                     <div class="Divider" id="divider">
                         @for (int i = 0; i < 8; i++)
                         {
@@ -238,15 +260,18 @@
                         }
                     </div>
                 </div>
+                <div class="col" style="padding-top: 11px; max-width: 8.1%; width: 58px !important;">
+                    <img class="ArrowContainer" height="20" onclick="f16()" src='~/images/Arrow_R.png' />
+                </div>
             </div>
 
             <div class="ArticleHeader1">
                 <div class="row">
                     <div class="col pull-left" style="max-width: 25px; margin-top: 5px; margin-left: 86.35%;">
-                        <img src="~/images/Eye.png" onclick="f15()" height="19px">
+                        <img src="~/images/Eye.png" onclick="f12()" height="19px">
                     </div>
                     <div class="col" style="margin-left: 0; padding-left: 4px;">
-                        <button id="warn" class="allbuttons secondary-button" style="width: 0; margin-left: 0; " type="button" onclick="f15()">Preview</button>
+                        <button id="warn" class="allbuttons secondary-button" style="width: 0; margin-left: 0; " type="button" onclick="f12()">Preview</button>
                     </div>
                 </div>
                 <!-- DRAG & DROP CONTAINER BEGIN -->
@@ -334,128 +359,17 @@
 
                     <!-- HTML Content field -->
 
-                    <section class="" style=" padding: 5%; padding-top: 0; padding-bottom: 0%;">
+                    <section class="" style="padding-top: 0; padding-bottom: 0%;">
                         <div class="flex-box" style="display: flex; justify-content: center;">
-                            <div class="row">
-                                <div class="col">
-                                    <button type="button"
-                                            onclick="f1()"
-                                            class="btn shadow-sm btn-outline-primary"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 0;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="H1">
-                                        H1
-                                    </button>
-                                    <button type="button"
-                                            onclick="f2()"
-                                            class="btn shadow-sm btn-outline-primary"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 0;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="H2">
-                                        H2
-                                    </button>
-                                    <button type="button"
-                                            onclick="f3()"
-                                            class="btn shadow-sm btn-outline-primary"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 0;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="P">
-                                        P
-                                    </button>
-                                    <button type="button"
-                                            onclick="f4()"
-                                            class=" shadow-sm btn btn-outline-warning"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 20px;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Bold Text">
-                                        B
-                                    </button>
-                                    <button type="button"
-                                            onclick="f5()"
-                                            class="shadow-sm btn btn-outline-warning"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 0;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Italic Text">
-                                        I
-                                    </button>
-                                    <button type="button"
-                                            onclick="f6()"
-                                            class="btn shadow-sm btn-outline-warning side"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 0;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Underline">
-                                        U
-                                    </button>
-                                    <button type="button"
-                                            onclick="f7()"
-                                            class=" shadow-sm btn btn-outline-secondary"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 20px;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Left Align">
-                                        <i class="fas fa-align-left"></i>
-                                    </button>
-                                    <button type="button"
-                                            onclick="f8()"
-                                            class="btn shadow-sm btn-outline-secondary"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 0;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Center Align">
-                                        <i class="fas fa-align-center"></i>
-                                    </button>
-                                    <button type="button"
-                                            onclick="f9()"
-                                            class="btn shadow-sm btn-outline-secondary"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 0;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Right Align">
-                                        <i class="fas fa-align-right"></i>
-                                    </button>
-                                    <button type="button"
-                                            onclick="f10()"
-                                            class="btn shadow-sm btn-outline-success side"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 20px;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Capitalize Text">
-                                        Capitalize
-                                    </button>
-                                    <button type="button"
-                                            onclick="f11()"
-                                            class="btn shadow-sm btn-outline-success side"
-                                            style=" margin: 10px; border-color: #957dad !important; color: #888888 !important; margin-bottom: 25px; margin-left: 0; margin-right: 0;"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            title="Color">
-                                        Color
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="flex-box" style=" display: flex; justify-content: center;">
-                                <textarea id="textarea1"
-                                          class="input shadow"
-                                          style="padding: 3%; border-color: #957dad; border-width: thick; height: 600px; resize: none;"
-                                          name="Content"
-                                          placeholder="Please add your text here" required minlength="1" maxlength="1200">
-                                </textarea>
-                            </div>
+                            <textarea id="textarea1" style="width: 100%">
+ 
+                            </textarea>
                         </div>
                     </section>
 
                     <div class="row" style="margin-bottom: 150px">
                         <div class="pull-left" style="width: auto">
-                            <p class="form-text InputTextLast" style="width: ">Comments:  Show  </p>
+                            <p class="form-text InputTextLast" style="">Comments:  Show  </p>
                         </div>
 
                         <!-- Switcher -->
