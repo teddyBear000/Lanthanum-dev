@@ -72,6 +72,11 @@
         if (CommentsCount > 4) return "display:none";
         return "";
     }
+    string CheckButtonShowMore(ref int CommentsCount)
+    {
+        if (CommentsCount <= 4) return "display:none";
+        return "";
+    }
 }
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
@@ -243,7 +248,7 @@
                                                     @if (subComment.ParentComment == comment)
                                                     {
 
-                                                        <li class="clearfix">
+                                                        <li class="clearfix" style="@CheckCommentsShowMore(ref CommentsCount)">
                                                             <img src="@subCommentAuthorAvatarPath" class="avatar">
                                                             <div class="post-comments">
                                                                 <p class="meta"><a href="#" class="nickname-link" style=" font-weight: bold">@FormaUserCredits(subComment)</a> says : </p>
@@ -308,8 +313,8 @@
 
                             </ul>
 
-                            <div class="show-more-box">
-                                <button id="show-more-button" onclick="ShowMoreComments()">SHOW MORE</button>
+                            <div class="show-more-box" style="@CheckButtonShowMore(ref CommentsCount)">
+                                <button id="show-more-button"style="@CheckButtonShowMore(ref CommentsCount)" onclick="ShowMoreComments()">SHOW MORE</button>
                             </div>
                         </div>
                     </div>

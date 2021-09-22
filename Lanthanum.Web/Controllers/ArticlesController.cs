@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lanthanum.Web.Services;
+using Lanthanum.Web.Services.Interfaces;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -15,44 +16,24 @@ namespace Lanthanum.Web.Controllers
     {
 
         private readonly ILogger<ArticlesController> _logger;
-        private readonly DbRepository<User> _userRepository;
         private readonly DbRepository<Article> _articleRepository;
-        private readonly CommentService _commentService;
-        public ArticlesController(ILogger<ArticlesController> logger, DbRepository<Comment> commentRepository, DbRepository<User> userRepository, DbRepository<Article> articleRepository,DbRepository<Reaction>reactionRepository,CommentService commentService)
+        private readonly ICommentService _commentService;
+        public ArticlesController(ILogger<ArticlesController> logger,DbRepository<Article> articleRepository, ICommentService commentService)
         {
             _logger = logger;
-            _userRepository = userRepository;
             _articleRepository = articleRepository;
             _commentService = commentService;
         }
+        
         public IActionResult Details(int id, string commentSortingMethod = " ")
         {
-            var article = _articleRepository.GetByIdAsync(id).Result;
-            var comments = _commentService.GetCurrentArticleComments(article);
-            var reactions = _commentService.GetCommentReactions(comments);
-            var users = _commentService.GetCommentAuthors(comments);
-            var sortedComments = _commentService.SortComments(comments, commentSortingMethod);
+            Article article = _articleRepository.GetByIdAsync(id).Result;
+            List<Comment> comments = _commentService.GetCurrentArticleComments(article);
+            List<Reaction> reactions = _commentService.GetCommentReactions(comments);
+            List<User> users = _commentService.GetCommentAuthors(comments);
+            List<Comment> sortedComments = _commentService.SortComments(comments, commentSortingMethod);
             List<Article> articleList = _articleRepository.GetAllAsync().Result.ToList();
-
-            var currentUserImage = "/content/userAvatars/";
-            try 
-            { 
-                var temp = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result; 
-
-                if (temp != null)
-                {
-                    currentUserImage += temp.AvatarImagePath;
-                }
-                else 
-                {
-                    throw new Exception("Not Authorized");
-                }
-            }
-            catch (Exception e)
-            { 
-                currentUserImage = "";
-            }
-
+            string currentUserImage = _commentService.GetCurrentUserImage(User.Identity.Name);
             var model = new ArticleViewModel
             {
                 ReactionToComments = reactions,
@@ -61,16 +42,14 @@ namespace Lanthanum.Web.Controllers
                 Users = users,
                 CurrentUserImage = currentUserImage,
                 MoreArticlesSection = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] }
-            };
-           
+            };  
             return View(model);
         }
 
         [Authorize]
         public IActionResult AddComment(string commentContent, int articleId, int parentCommentId = -1)
         {
-            var author = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result;
-            _commentService.AddComment(commentContent, articleId, author, parentCommentId);
+            _commentService.AddComment(commentContent, articleId, User.Identity.Name, parentCommentId);
             return RedirectToAction("Details", new { id = articleId });
         }
 
@@ -84,14 +63,13 @@ namespace Lanthanum.Web.Controllers
         [Authorize]
         public IActionResult ManageReaction(int articleId, int commentId, int reactionPoint)
         {
-            var author = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result;
-            _commentService.ReactionManager(author, commentId, reactionPoint);
+            _commentService.ReactionManager(User.Identity.Name, commentId, reactionPoint);
             return RedirectToAction("Details", new { id = articleId });
         }
+
         [Authorize]
         public IActionResult EditComment(int articleId, int commentId, string commentNewContent) 
         {
-            
             _commentService.EditComment(commentId, commentNewContent);
             return RedirectToAction("Details", new { id = articleId });
         }

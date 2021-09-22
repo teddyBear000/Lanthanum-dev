@@ -1,5 +1,6 @@
 ﻿using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
+using Lanthanum.Web.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Lanthanum.Web.Services
 {
-    public class CommentService
+    public class CommentService :ICommentService
     {
 
         private readonly DbRepository<Comment> _commentRepository;
@@ -84,8 +85,9 @@ namespace Lanthanum.Web.Services
             return comments;
         }
 
-        public void AddComment(string commentContent, int articleId, User author, int parentCommentId = -1 ) 
+        public void AddComment(string commentContent, int articleId, string currentUserEmail, int parentCommentId = -1 ) 
         {
+            User author = _userRepository.SingleOrDefaultAsync(x => x.Email == currentUserEmail).Result;
             var comment = new Comment
             {
                 Content = commentContent,
@@ -107,9 +109,10 @@ namespace Lanthanum.Web.Services
             _commentRepository.RemoveAsync(commentToDelete).Wait();
         }
 
-        public void ReactionManager(User author, int commentId, int reactionPoint) 
+        public void ReactionManager(string currentUserEmail, int commentId, int reactionPoint) 
         {
-            var comment = _commentRepository.GetByIdAsync(commentId).Result;
+            Comment comment = _commentRepository.GetByIdAsync(commentId).Result;
+            User author = _userRepository.SingleOrDefaultAsync(x => x.Email == currentUserEmail).Result;
 
             //Check whether reaction exists, if not -> creating one
             if (_reactionRepository.SingleOrDefaultAsync(x => x.Author == author && x.Comment == comment).Result == null)
@@ -158,6 +161,21 @@ namespace Lanthanum.Web.Services
             var comment = _commentRepository.GetByIdAsync(commentId).Result;
             comment.Content = newContent;
             _commentRepository.UpdateAsync(comment).Wait();
+        }
+
+        public string GetCurrentUserImage(string currentUserEmail) 
+        {
+            var currentUserImage = "/content/userAvatars/";
+            var temp = _userRepository.SingleOrDefaultAsync(x => x.Email == currentUserEmail).Result;
+            if (temp != null)
+            {
+                currentUserImage += temp.AvatarImagePath;
+            }
+            else
+            {
+                currentUserImage = string.Empty;
+            }
+            return currentUserImage;
         }
     }
 }

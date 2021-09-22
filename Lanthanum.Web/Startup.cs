@@ -14,6 +14,7 @@ using Lanthanum.Web.Options;
 using Lanthanum.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Lanthanum.Web.Services.Interfaces;
 
 namespace Lanthanum.Web
 {
@@ -71,7 +72,7 @@ namespace Lanthanum.Web
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<AuthService>();
             services.AddSingleton<IEmailSenderService, SendGridService>();
-            services.AddScoped<CommentService>();
+            services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<DbRepository<FooterTabItem>>();
             services.AddScoped<FooterService>();
         }
