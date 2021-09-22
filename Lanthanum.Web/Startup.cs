@@ -15,7 +15,6 @@ using Lanthanum.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
 
-
 namespace Lanthanum.Web
 {
     public class Startup
@@ -39,7 +38,7 @@ namespace Lanthanum.Web
                 });
             
             services.AddControllersWithViews();
-            
+
             var builder = new SqlConnectionStringBuilder(
                 Configuration.GetConnectionString("DefaultConnection"))
             {
@@ -73,6 +72,8 @@ namespace Lanthanum.Web
             services.AddSingleton<AuthService>();
             services.AddSingleton<IEmailSenderService, SendGridService>();
             services.AddScoped<CommentService>();
+            services.AddScoped<DbRepository<FooterTabItem>>();
+            services.AddScoped<FooterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -101,6 +102,7 @@ namespace Lanthanum.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
             
         }
