@@ -42,16 +42,12 @@ namespace Lanthanum.Web
 
             var builderT = new MySqlConnectionStringBuilder(Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb").ToString());
 
-            var builder = new MySqlConnectionStringBuilder("server=127.0.0.1;database=localdb;uid=azure;pwd=6#vWHD_$;port=49964")
-            {
-                UserID = "azure",
-                Password = "6#vWHD_$"
-            };
+            var builder = new MySqlConnectionStringBuilder("server=sporthubbd.mysql.database.azure.com;database=sporthubbd;uid=ignars3@sporthubbd;pwd=iyaHLkK9rN5C9jn;");
 
             services.AddDbContext<ApplicationContext>(
                 options => options.UseMySql(
                     builder.ConnectionString,
-                    new MySqlServerVersion(new Version(5, 7, 9)),
+                    new MySqlServerVersion(new Version(8, 0)),
                     x => x.MigrationsAssembly("Lanthanum.Data")
                 )
             );
