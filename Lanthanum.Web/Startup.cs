@@ -9,12 +9,12 @@ using System;
 using System.Data.SqlClient;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
+using Lanthanum.Web.Models;
 using Lanthanum.Web.Options;
 using Lanthanum.Web.Services;
 using Lanthanum.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-
 
 namespace Lanthanum.Web
 {
@@ -40,7 +40,7 @@ namespace Lanthanum.Web
 
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
-            
+
             var builder = new SqlConnectionStringBuilder(
                 Configuration.GetConnectionString("DefaultConnection"))
             {
@@ -83,6 +83,8 @@ namespace Lanthanum.Web
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+            services.AddScoped<DbRepository<FooterTabItem>>();
+            services.AddScoped<FooterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -113,6 +115,7 @@ namespace Lanthanum.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
             
         }

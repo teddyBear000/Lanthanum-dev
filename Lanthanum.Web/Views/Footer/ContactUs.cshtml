@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Contact Us";
+}
+
+<div class="container py-2">
+    <h2 class="contact-us-title text-center">How can we help you?</h2>
+</div>
+
+<div class="container contact-form py-2">
+    <form class="mx-5">
+        <div class="row mx-5">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="input-name" class="contact-us-user-info-field-title">Your name</label>
+                    <input type="text" class="form-control contact-us-input" id="input-name" placeholder="How should we call you?">
+                </div>
+                <div class="form-group">
+                    <label for="input-email" class="contact-us-user-info-field-title">Email</label>
+                    <input type="email" class="form-control contact-us-input" id="input-email" placeholder="We’ll get back to you within several hours or sooner.">
+                </div>
+                <div class="form-group">
+                    <label for="input-phone" class="contact-us-user-info-field-title">Phone number</label>
+                    <input type="text" class="form-control contact-us-input" id="input-phone" placeholder="How should we call you?">
+                </div>
+
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="inputLastname" class="contact-us-user-info-field-title">What we need to know</label>
+                    <textarea name="txtMsg" class="form-control contact-us-input-message" placeholder="Write us a message"></textarea>
+                </div>
+                <div class="form-group">
+                    <input type="submit" name="btnSubmit" class="contact-us-button float-right" value="Send message" />
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="container py-2">
+    <div class="mx-5">
+        <div class="mx-5">
+            <div class="col-md-6">
+                <h2 class="contact-us-title">Our contacts</h2>
+                <table>
+                    <tr>
+                        <td class="contact-us-table-key">Address</td>
+                        <td class="contact-us-table-value">2D Sadova Street Lviv 79021</td>
+                    </tr>
+                    <tr>
+                        <td class="contact-us-table-key">Tel.</td>
+                        <td class="contact-us-table-value">+380-32-222-2222</td>
+                    </tr>
+                    <tr>
+                        <td class="contact-us-table-key">Mail</td>
+                        <td class="contact-us-table-value">sports.hub@info.com</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

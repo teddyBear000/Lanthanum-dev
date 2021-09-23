@@ -23,12 +23,6 @@ namespace Lanthanum.Web.Controllers
 
         public IActionResult Index()
         {
-            AddAdmin();
-            return View();
-        } 
-
-        public IActionResult Privacy()
-        {
             return View();
         }
 
