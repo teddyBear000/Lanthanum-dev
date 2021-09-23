@@ -40,9 +40,7 @@ namespace Lanthanum.Web
             
             services.AddControllersWithViews();
 
-            var builderT = new MySqlConnectionStringBuilder(Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb").ToString());
-
-            var builder = new MySqlConnectionStringBuilder("server=sporthubbd.mysql.database.azure.com;database=sporthubbd;uid=ignars3@sporthubbd;pwd=iyaHLkK9rN5C9jn;");
+            var builder = new MySqlConnectionStringBuilder("");
 
             services.AddDbContext<ApplicationContext>(
                 options => options.UseMySql(
