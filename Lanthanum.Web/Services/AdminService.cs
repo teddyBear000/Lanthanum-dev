@@ -52,7 +52,7 @@ namespace Lanthanum.Web.Services
             var article = await _articleRepository.GetByIdAsync(id);
             article.ArticleStatus = article.ArticleStatus == ArticleStatus.Published ? 
                 (ArticleStatus.Unpublished) : (ArticleStatus.Published);
-            await _articleRepository.Context.SaveChangesAsync();
+            await _articleRepository.UpdateAsync(article);
 
         }
      
@@ -97,7 +97,7 @@ namespace Lanthanum.Web.Services
             var article = await GetArticleByIdAsync(articleId);
             var kindOfSport = await _kindOfSportRepository.GetByIdAsync(kindOfSportId);
             article.KindOfSport = kindOfSport;
-            await _articleRepository.Context.SaveChangesAsync();
+            await _articleRepository.UpdateAsync(article);
         }
 
         public async Task<AdminArticleViewModel> ViewModelInitializer(ISession session)

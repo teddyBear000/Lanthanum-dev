@@ -10,8 +10,7 @@ namespace Lanthanum.Web.Data.Repositories
 {
     public class DbRepository<TEntity> where TEntity : class, IEntity
     {
-        public readonly ApplicationContext Context;
-
+        protected readonly ApplicationContext Context;
         public DbRepository(ApplicationContext context)
         {
             Context = context;
