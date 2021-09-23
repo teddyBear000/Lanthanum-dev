@@ -14,6 +14,7 @@ using Lanthanum.Web.Options;
 using Lanthanum.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using MySqlConnector;
 
 namespace Lanthanum.Web
 {
@@ -39,17 +40,18 @@ namespace Lanthanum.Web
             
             services.AddControllersWithViews();
 
-            var builder = new SqlConnectionStringBuilder(
-                Configuration.GetConnectionString("DefaultConnection"))
+            var builderT = new MySqlConnectionStringBuilder(Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb").ToString());
+
+            var builder = new MySqlConnectionStringBuilder("server=127.0.0.1;database=localdb;uid=azure;pwd=6#vWHD_$;port=49964")
             {
-                UserID = Configuration["Database:User"],
-                Password = Configuration["Database:Password"]
+                UserID = "azure",
+                Password = "6#vWHD_$"
             };
 
             services.AddDbContext<ApplicationContext>(
                 options => options.UseMySql(
                     builder.ConnectionString,
-                    new MySqlServerVersion(new Version(8, 0, 26)),
+                    new MySqlServerVersion(new Version(5, 7, 9)),
                     x => x.MigrationsAssembly("Lanthanum.Data")
                 )
             );
