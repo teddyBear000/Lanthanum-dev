@@ -130,8 +130,6 @@ dropdown-form option:hover {
     height:100%;
     width: 100%;
     margin-left: 20px;
-    /*background: red;*/
-
 }
 
 .headline {
@@ -166,7 +164,6 @@ dropdown-form option:hover {
     max-width: 149px;
     -webkit-column-width: 200px;
     align-self: center;
-    /*May Have Another Content*/
 }
 
 .status {
@@ -295,7 +292,4 @@ dropdown-form option:hover {
 .search-container {
     display: flex;
     flex-direction: row;
-}
-.submit-search {
-
 }
