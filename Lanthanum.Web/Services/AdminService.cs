@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
 using Lanthanum.Web.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lanthanum.Web.Services
@@ -13,11 +15,13 @@ namespace Lanthanum.Web.Services
     {
         private readonly DbRepository<Article> _articleRepository;
         private readonly DbRepository<KindOfSport> _kindOfSportRepository;
+        private readonly IMapper _mapper;
 
-        public AdminService(DbRepository<Article> articleRepository, DbRepository<KindOfSport> kindOfSportRepository)
+        public AdminService(DbRepository<Article> articleRepository, DbRepository<KindOfSport> kindOfSportRepository, IMapper mapper)
         {
             _articleRepository = articleRepository;
             _kindOfSportRepository = kindOfSportRepository;
+            _mapper = mapper;
         }
 
         /*
@@ -51,37 +55,38 @@ namespace Lanthanum.Web.Services
             await _articleRepository.Context.SaveChangesAsync();
 
         }
-
-        /*
-         params string[] filterParams - contains params to filter list of articles.
-         Order of params is next: conferenceFilter, teamNameFilter, articleStatusFilter, searchString.
-        */
-        public AdminArticleViewModel FilterArticles(AdminArticleViewModel articlesToViewModels, params string[] filterParams)
+     
+        public AdminArticleViewModel FilterArticles(AdminArticleViewModel articlesToViewModels, ISession session)
         {
-            if (!string.IsNullOrEmpty(filterParams[0]) && filterParams[0] != "All")
+            if (!string.IsNullOrEmpty(session.GetString("FilterConference")) && session.GetString("FilterConference") != "All")
             {
-                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamConference == filterParams[0]);
+                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamConference == session.GetString("FilterConference"));
             }
-            if(!string.IsNullOrEmpty(filterParams[1]) && filterParams[1] != "All")
+            if(!string.IsNullOrEmpty(session.GetString("FilterTeam")) && session.GetString("FilterTeam") != "All")
             {
-                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamName == filterParams[1]);
-            }
-
-            if (!string.IsNullOrEmpty(filterParams[2]) && filterParams[2] != "All")
-            {
-                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.ArticleStatus.ToString() == filterParams[2]);
+                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamName == session.GetString("FilterTeam"));
             }
 
-            if (!string.IsNullOrEmpty(filterParams[3]))
+            if (!string.IsNullOrEmpty(session.GetString("FilterStatus")) && session.GetString("FilterStatus") != "All")
+            {
+                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.ArticleStatus.ToString() == session.GetString("FilterStatus"));
+            }
+
+            if (!string.IsNullOrEmpty(session.GetString("SearchString")))
             {
                 articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(
-                    a => a.Headline.Contains(filterParams[3])
-                 || a.MainText.Contains(filterParams[3])
-                 || a.TeamName.Contains(filterParams[3])
-                 || a.TeamConference.Contains(filterParams[3])
-                 || a.TeamLocation.Contains(filterParams[3]));
+                    a => a.Headline.Contains(session.GetString("SearchString"))
+                 || a.MainText.Contains(session.GetString("SearchString"))
+                 || a.TeamName.Contains(session.GetString("SearchString"))
+                 || a.TeamConference.Contains(session.GetString("SearchString"))
+                 || a.TeamLocation.Contains(session.GetString("SearchString")));
             }
             return articlesToViewModels;
+        }
+
+        public async Task<Article> GetArticleByIdAsync(int id)
+        {
+             return await _articleRepository.GetByIdAsync(id);
         }
         public async Task<Dictionary<int,string>> GetAllKindsOfSportNamesAsync()
         {
@@ -89,10 +94,44 @@ namespace Lanthanum.Web.Services
         }
         public async Task ChangeArticleKindOfSportByIdAsync(int articleId, int kindOfSportId)
         {
-            var article = await _articleRepository.GetByIdAsync(articleId);
+            var article = await GetArticleByIdAsync(articleId);
             var kindOfSport = await _kindOfSportRepository.GetByIdAsync(kindOfSportId);
             article.KindOfSport = kindOfSport;
             await _articleRepository.Context.SaveChangesAsync();
+        }
+
+        public async Task<AdminArticleViewModel> ViewModelInitializer(ISession session)
+        {
+            IEnumerable<Article> articles = await GetAllArticlesAsync();
+            IEnumerable<HelperAdminArticleViewModel> helperModels = _mapper.Map<IEnumerable<HelperAdminArticleViewModel>>(articles);
+            AdminArticleViewModel articlesToViewModels = new AdminArticleViewModel()
+            {
+                SimpleModels = helperModels,
+                FilterConference = session.GetString("FilterConference"),
+                FilterStatus = session.GetString("FilterStatus"),
+                FilterTeam = session.GetString("FilterTeam"),
+                SearchString = session.GetString("SearchString"),
+                Conferences = helperModels.Select(a => a.TeamConference).Distinct(),
+                TeamNames = helperModels.Select(a => a.TeamName).Distinct(),
+                KindsOfSport = GetAllKindsOfSportNamesAsync().Result
+            };
+            return articlesToViewModels;
+        }
+
+        /*
+         params string[] filterParams - contains params to filter list of articles.
+         Order of params is next: conferenceFilter, teamNameFilter, articleStatusFilter, searchString.
+        */
+        public async Task FilterInitializer(ISession session, params string[] filterParams)
+        {
+           await Task.Run(() =>
+                {
+                    if (!string.IsNullOrEmpty(filterParams[0])) {  session.SetString("FilterConference", filterParams[0]); }
+                    if (!string.IsNullOrEmpty(filterParams[1])) { session.SetString("FilterTeam", filterParams[1]); }
+                    if (!string.IsNullOrEmpty(filterParams[2])) { session.SetString("FilterStatus", filterParams[2]); }
+                    session.SetString("SearchString", !string.IsNullOrEmpty(filterParams[3]) ? filterParams[3] : "");
+                }
+            );
         }
     }
 }

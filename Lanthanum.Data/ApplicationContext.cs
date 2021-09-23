@@ -1,7 +1,5 @@
 ﻿using Lanthanum.Web.Domain;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Lanthanum.Data.Configurations;
@@ -23,7 +21,6 @@ namespace Lanthanum.Web.Data
         {
             //Database.EnsureDeleted();
             //Database.EnsureCreated(); // TODO: change
-            //AddMockedData(); // TODO: remove
             //base.SaveChanges();
         }
 
@@ -50,14 +47,14 @@ namespace Lanthanum.Web.Data
             return await base.SaveChangesAsync();
         }
 
-        private void AddMockedData()
+        private void AddMockedData() //TODO REMOVE LATER
         {
             Users.Add(new User()
             {
                 Email = "mail@gmail.com",
                 PasswordHash = "12345678"
             });
-
+            
             KindsOfSport.AddRange(
                 new List<KindOfSport>()
                 {
@@ -82,8 +79,8 @@ namespace Lanthanum.Web.Data
                     new Article(){
 
                     LogoPath = "/images/mock_article_img.png",
-                    Headline="ArticleHeadlineBlaBlaBla",
-                    MainText = "blablablablablablablablablablablablablablabla",
+                    Headline="ArticleHeadlineBlaBlaBlablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla",
+                    MainText = "The singer’s new engagement to Asghari is mentioned as one of the chief reasons Britney wants the co.213123123123;",
                                Team = new Team()
                     {
                         Name="Foks",

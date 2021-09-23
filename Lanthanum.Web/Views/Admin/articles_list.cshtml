@@ -24,23 +24,35 @@
         <div class="row">
             <div class="col-6 main-form-container">
                 <div class="preview-search-container justify-content-between my-3">
-                    <a class="text-decoration-none preview-wrapper" asp-action="Check">
-                        <img src="~/images/preview_eye.png" alt="preview_eye.png" class="preview-eye-img" />
+                    <a class="text-decoration-none preview-wrapper">
+                        <img src="~/images/preview_eye.png" 
+                             alt="preview_eye.png" 
+                             class="preview-eye-img" />
                         <p class="preview-text ml-1 mb-0">Preview</p>
                     </a>
                     <div class="search ml-auto">
-                        <img src="~/images/search.png" alt="search.png" class="search-img" />
+                        <img src="~/images/search.png" 
+                             alt="search.png" 
+                             class="search-img" />
                         <form method="get" asp-action="ArticlesList"
                               asp-route-filterTeam="@Model.FilterTeam" 
                               asp-route-filterConference="@Model.FilterConference" 
                               asp-route-filterStatus="@Model.FilterStatus">
-                            <input type="text" placeholder="Type here to search" name="searchString" value="@Model.SearchString"/>
+                            <input type="text" 
+                                   placeholder="Type here to search" 
+                                   name="searchString" 
+                                   value="@Model.SearchString"/>
                         </form>
                     </div>
                 </div>
                 <div class="sort-dropdown-container">
                     <div class="dropdown sort-dropdown">
-                        <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="dropdown-toggle btn btn-secondary" 
+                                type="button" 
+                                id="dropdownMenuButton" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false">
                             @if (!string.IsNullOrEmpty(@Model.FilterConference))
                             {
                                 <text>@Model.FilterConference</text>
@@ -52,15 +64,29 @@
 
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="All" asp-route-filterTeam="@Model.FilterTeam" asp-route-filterStatus="@Model.FilterStatus" asp-route-searchString="@Model.SearchString">All Conferences</a></li>
+                            <li><a class="dropdown-item" asp-action="ArticlesList" 
+                                   asp-route-filterConference="All" 
+                                   asp-route-filterTeam="@Model.FilterTeam" 
+                                   asp-route-filterStatus="@Model.FilterStatus" 
+                                   asp-route-searchString="@Model.SearchString">All Conferences</a></li>
                             @foreach (string conference in @Model.Conferences)
                             {
-                                <li><a class="dropdown-item" asp-action="ArticlesList" asp-route-filterConference="@conference" asp-route-filterTeam="@Model.FilterTeam" asp-route-filterStatus="@Model.FilterStatus" asp-route-searchString="@Model.SearchString">@conference</a></li>
+                                <li><a class="dropdown-item" 
+                                       asp-action="ArticlesList" 
+                                       asp-route-filterConference="@conference" 
+                                       asp-route-filterTeam="@Model.FilterTeam" 
+                                       asp-route-filterStatus="@Model.FilterStatus" 
+                                       asp-route-searchString="@Model.SearchString">@conference</a></li>
                             }
                         </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
-                        <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="dropdown-toggle btn btn-secondary" 
+                                type="button" 
+                                id="dropdownMenuButton" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false">
                             @if (!string.IsNullOrEmpty(Model.FilterTeam))
                             {
                                 <text>@Model.FilterTeam</text>
@@ -70,7 +96,8 @@
                                 <text>All Teams</text>
                             }
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <ul class="dropdown-menu" 
+                            aria-labelledby="dropdownMenuButton">
                             <li><a class="dropdown-item" 
                                    asp-action="ArticlesList" 
                                    asp-route-filterTeam="All" 
@@ -89,7 +116,11 @@
                         </ul>
                     </div>
                     <div class="dropdown sort-dropdown">
-                        <button class="dropdown-toggle btn btn-secondary" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="dropdown-toggle btn btn-secondary" 
+                                type="button" id="dropdownMenuButton" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false">
                             @if (!string.IsNullOrEmpty(Model.FilterStatus))
                             {
                                 <text>@Model.FilterStatus</text>
@@ -99,7 +130,8 @@
                                 <text>All</text>
                             }
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <ul class="dropdown-menu" 
+                            aria-labelledby="dropdownMenuButton">
                             <li>
                                 <a class="dropdown-item" 
                                    asp-action="ArticlesList" 
@@ -141,19 +173,37 @@
                                     <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <i class="fa fa-ellipsis-h fa-lg "></i>
                                     </a>
-                                    <form method="post">
                                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                             <li>
-                                                <button class="dropdown-item" asp-controller="Admin" asp-action="DeleteArticle" asp-route-id="@mod.Id">Delete</button>
+                                                <form method="post" 
+                                                      asp-controller="Admin" 
+                                                      asp-action="DeleteArticle" 
+                                                      asp-route-id="@mod.Id" 
+                                                      data-ajax="true" 
+                                                      data-ajax-complete="deleteItem(this)">
+                                                    <button class="dropdown-item" type="submit">Delete</button>
+                                                </form>
                                             </li>
                                             <li>
                                                 @if (@mod.ArticleStatus == ArticleStatus.Published)
                                                 {
-                                                    <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id">Unpublish</button>
+                                                    <form method="post" asp-controller="Admin" 
+                                                          asp-action="ChangeArticleStatus" 
+                                                          asp-route-id="@mod.Id" 
+                                                          data-ajax="true" 
+                                                          data-ajax-complete="unpublishItem(this)">
+                                                        <button class="dropdown-item">Unpublish</button>
+                                                    </form>
                                                 }
                                                 else
                                                 {
-                                                    <button class="dropdown-item" asp-controller="Admin" asp-action="ChangeArticleStatus" asp-route-id="@mod.Id">Publish</button>
+                                                    <form method="post" asp-controller="Admin" 
+                                                          asp-action="ChangeArticleStatus" 
+                                                          asp-route-id="@mod.Id" 
+                                                          data-ajax="true" 
+                                                          data-ajax-complete="publishItem(this)">
+                                                        <button class="dropdown-item">Publish</button>
+                                                    </form>
                                                 }
                                             </li>
                                             <li>
@@ -166,18 +216,20 @@
                                                         if (kindOfSport.Value != mod.KindOfSportName)
                                                         {
                                                             <li>
-                                                                <button class="dropdown-item" 
-                                                                   asp-action="ChangeArticleKindOfSport" 
-                                                                   asp-route-articleId="@mod.Id" 
-                                                                   asp-route-kindOfSportId="@kindOfSport.Key">@kindOfSport.Value
-                                                                </button>
+                                                                <form method="post" 
+                                                                  asp-action="ChangeArticleKindOfSport"
+                                                                  asp-route-articleId="@mod.Id"
+                                                                  asp-route-kindOfSportId="@kindOfSport.Key">
+                                                                    <button class="dropdown-item" type="submit">
+                                                                        @kindOfSport.Value
+                                                                    </button>
+                                                                </form>
                                                             </li>
                                                         }
                                                     }
                                                 </ul>
                                             </li>
                                         </ul>
-                                    </form>
                                 </div>
                                 <div class="headline">@mod.Headline</div>
                                 <div class="article-brief-start my-2">@mod.MainText</div>

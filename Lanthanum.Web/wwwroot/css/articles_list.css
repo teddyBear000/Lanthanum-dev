@@ -150,6 +150,7 @@ dropdown-form option:hover {
     color: #7f7b7b;
     overflow: hidden;
     column-width: 300px;
+    word-wrap: break-word;
     -webkit-column-width: 300px;
 }
 

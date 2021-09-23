@@ -1,6 +1,9 @@
-﻿using AutoMapper;
+﻿using System.Linq;
+using System.Text.RegularExpressions;
+using AutoMapper;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
+using Microsoft.Toolkit;
 
 namespace Lanthanum.Web.MappingConfiguration
 {
@@ -9,6 +12,11 @@ namespace Lanthanum.Web.MappingConfiguration
         public ArticleProfile()
         {
             CreateMap<Article, HelperAdminArticleViewModel>()
+                .ForMember(dest=>dest.MainText,
+                    opt=>opt.MapFrom(
+                        src=>Regex.Replace(src.MainText.Truncate(200), "[^a-z]*$","") + "..."
+                        )
+                )
                 .ForMember(
                     dest => dest.TeamConference,
                     opt => opt.MapFrom(src => src.Team.Conference)
