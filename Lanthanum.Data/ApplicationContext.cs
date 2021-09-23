@@ -20,6 +20,7 @@ namespace Lanthanum.Web.Data
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
             Database.EnsureCreated();
+            AddMockedData();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -47,10 +48,10 @@ namespace Lanthanum.Web.Data
 
         private void AddMockedData()
         {
-            Users.Add(new User()
+            Articles.Add(new Article()
             {
-                Email = "mail@gmail.com",
-                PasswordHash = "12345678"
+                Headline = "mail@gmail.com",
+                Header = "12345678"
             });
         }
     }

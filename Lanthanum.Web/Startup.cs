@@ -39,19 +39,16 @@ namespace Lanthanum.Web
             
             services.AddControllersWithViews();
             
-            var builder = new SqlConnectionStringBuilder(
-                Configuration.GetConnectionString("DefaultConnection"))
-            {
-                UserID = Configuration["Database:User"],
-                Password = Configuration["Database:Password"]
-            };
+            //string DefaultConnection = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb").ToString();
+            string DefaultConnection = string.Format("server=127.0.0.1:49964; database=localdb; uid=azure; pwd=6#vWHD_$");
+            var builder = new SqlConnectionStringBuilder(DefaultConnection);
 
-            WebApiOptions.ApiKey = Configuration["MailApi"];
+            WebApiOptions.ApiKey = "hello";
 
             services.AddDbContext<ApplicationContext>(
                 options => options.UseMySql(
                     builder.ConnectionString,
-                    new MySqlServerVersion(new Version(8, 0, 26)),
+                    new MySqlServerVersion(new Version(5, 7, 9)),
                     x => x.MigrationsAssembly("Lanthanum.Data")
                 )
             );
@@ -59,7 +56,6 @@ namespace Lanthanum.Web
             // DI
             services.AddTransient<DbRepository<User>>();
             services.AddTransient<DbRepository<Article>>();
-            services.AddTransient<DbRepository<Comment>>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<AuthService>();
         }
