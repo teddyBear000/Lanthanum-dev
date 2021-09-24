@@ -22,42 +22,49 @@ namespace Lanthanum.Web.Models
         public void AddItem(FooterTabItem toBeAdded)
         {
             _repository.AddAsync(toBeAdded).Wait();
-
         }
 
-        public void UpdateItem(string itemName, string attributeToChange, string change)
-
+        public void UpdateItem(string itemName, string change)
         {
             var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
-            switch (attributeToChange)
+            dataToBeUpdated.Name = change;
+            _repository.UpdateAsync(dataToBeUpdated).Wait();
+        }
+
+        public bool HideItem(string itemName)
+        {
+            var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
+            dataToBeUpdated.IsDisplaying = false;
+            _repository.UpdateAsync(dataToBeUpdated).Wait();
+            if (_repository.SingleOrDefaultAsync(x => x.Name == itemName).Result.IsDisplaying == false)
             {
-                case "Name":
-                    dataToBeUpdated.Name = change;
-                    _repository.UpdateAsync(dataToBeUpdated).Wait();
-                    break;
-
-                case "IsDisplaying":
-                    if (change == "True")
-                    {
-                        dataToBeUpdated.IsDisplaying = true;
-                    }
-                    else if (change == "False")
-                    {
-                        dataToBeUpdated.IsDisplaying = false;
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                    _repository.UpdateAsync(dataToBeUpdated).Wait();
-                    break;
+                return true;
             }
+            return true;
+
+        }
+        
+        public bool UnhideItem(string itemName)
+        {
+            var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
+            dataToBeUpdated.IsDisplaying = true;
+            _repository.UpdateAsync(dataToBeUpdated).Wait();
+            if(_repository.SingleOrDefaultAsync(x => x.Name == itemName).Result.IsDisplaying == true)
+            {
+                return true;   
+            }
+            return true;
+
         }
 
         public void RemoveItem(string itemName)
         {
             _repository.RemoveAsync(_repository.SingleOrDefaultAsync(x => x.Name == itemName).Result).Wait();
+        }
+
+        public IEnumerable<FooterTabItem> FindItem(string itemName)
+        {
+            return _repository.Find(x => x.Name == itemName);
         }
     }
 }

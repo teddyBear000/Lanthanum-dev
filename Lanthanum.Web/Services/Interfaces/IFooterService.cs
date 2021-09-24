@@ -7,7 +7,9 @@ namespace Lanthanum.Web.Services
     {
         public IEnumerable<FooterTabItem> GetAllItems();
         public void AddItem(FooterTabItem toBeAdded);
-        public void UpdateItem(string itemName, string attributeToChange, string change);
+        public void UpdateItem(string itemName, string change);
         public void RemoveItem(string itemName);
+        public bool HideItem(string itemName);
+        public bool UnhideItem(string itemName);
     }
 }
