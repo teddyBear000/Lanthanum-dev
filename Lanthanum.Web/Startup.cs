@@ -14,6 +14,7 @@ using Lanthanum.Web.Options;
 using Lanthanum.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Lanthanum.Web.Services.Interfaces;
 
 namespace Lanthanum.Web
 {
@@ -46,6 +47,8 @@ namespace Lanthanum.Web
                 Password = Configuration["Database:Password"]
             };
 
+            WebApiOptions.ApiKey = Configuration["MailApi"];
+
             services.AddDbContext<ApplicationContext>(
                 options => options.UseMySql(
                     builder.ConnectionString,
@@ -62,12 +65,14 @@ namespace Lanthanum.Web
             });
 
             // DI
+            services.AddTransient<DbRepository<User>>();
             services.AddTransient<DbRepository<Article>>();
             services.AddTransient<DbRepository<Comment>>();
-            services.AddScoped<DbRepository<User>>();
+            services.AddTransient<DbRepository<Reaction>>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<AuthService>();
             services.AddSingleton<IEmailSenderService, SendGridService>();
+            services.AddScoped<ICommentService, CommentService>();
             services.AddScoped<DbRepository<FooterTabItem>>();
             services.AddScoped<FooterService>();
         }

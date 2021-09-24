@@ -2,12 +2,13 @@
 using Microsoft.Extensions.Logging;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
+using Lanthanum.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lanthanum.Web.Models;
-using System.Threading.Tasks;
+using Lanthanum.Web.Services;
+using Lanthanum.Web.Services.Interfaces;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -15,83 +16,61 @@ namespace Lanthanum.Web.Controllers
     {
 
         private readonly ILogger<ArticlesController> _logger;
-        private readonly DbRepository<Comment> _commentRepository;
-        private readonly DbRepository<User> _userRepository;
         private readonly DbRepository<Article> _articleRepository;
-
-        public ArticlesController(ILogger<ArticlesController> logger, DbRepository<Comment> commentRepository, DbRepository<User> userRepository, DbRepository<Article> articleRepository)
+        private readonly ICommentService _commentService;
+        public ArticlesController(ILogger<ArticlesController> logger,DbRepository<Article> articleRepository, ICommentService commentService)
         {
             _logger = logger;
-            _commentRepository = commentRepository;
-            _userRepository = userRepository;
             _articleRepository = articleRepository;
+            _commentService = commentService;
         }
-
-        public IActionResult Details(int id)
+        
+        public IActionResult Details(int id, string commentSortingMethod = " ")
         {
-            var article =  _articleRepository.GetByIdAsync(id).Result;
-            var comments = _commentRepository
-                .Find(x => x.Article == _articleRepository.GetByIdAsync(id).Result)
-                .OrderByDescending(x => x.DateTimeOfCreation)
-                .ToList();
-
-            var users = new List<User>();
-            foreach(var userElement in _userRepository.GetAllAsync().Result)
-            {
-                foreach(var commentElement in comments)
-                {
-                    if (userElement == commentElement.Author)
-                    {
-                        users.Add(userElement);
-                    }
-                }
-            }
-
+            Article article = _articleRepository.GetByIdAsync(id).Result;
+            List<Comment> comments = _commentService.GetCurrentArticleComments(article);
+            List<Reaction> reactions = _commentService.GetCommentReactions(comments);
+            List<User> users = _commentService.GetCommentAuthors(comments);
+            List<Comment> sortedComments = _commentService.SortComments(comments, commentSortingMethod);
             List<Article> articleList = _articleRepository.GetAllAsync().Result.ToList();
-            var currentUserImage = "/content/userAvatars/";
-
-            try 
-            { 
-                var temp = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result; 
-
-                if (temp != null)
-                {
-                    currentUserImage += temp.AvatarImagePath;
-                }
-                else 
-                {
-                    throw new Exception("Not Authorized");
-                }
-            }
-            catch (Exception)
-            { 
-                currentUserImage = "";
-            }
-
+            string currentUserImage = _commentService.GetCurrentUserImage(User.Identity.Name);
             var model = new ArticleViewModel
             {
+                ReactionToComments = reactions,
                 MainArticle = article,
-                Comments = comments,
+                Comments = sortedComments,
                 Users = users,
                 CurrentUserImage = currentUserImage,
                 MoreArticlesSection = new List<Article>() { articleList[0], articleList[0], articleList[0], articleList[0], articleList[0], articleList[0] }
-            };
-           
+            };  
             return View(model);
         }
-        
 
         [Authorize]
-        public IActionResult AddComment(string commentContent, int articleId,int parentCommentId=-1)
+        public IActionResult AddComment(string commentContent, int articleId, int parentCommentId = -1)
         {
-            var comment = new Comment
-            {
-                Content = commentContent,
-                Author = _userRepository.SingleOrDefaultAsync(x => x.Email == User.Identity.Name).Result,
-                Article = _articleRepository.GetByIdAsync(articleId).Result,
-                ParentComment = _commentRepository.GetByIdAsync(parentCommentId).Result
-            };
-            _commentRepository.AddAsync(comment).Wait();
+            _commentService.AddComment(commentContent, articleId, User.Identity.Name, parentCommentId);
+            return RedirectToAction("Details", new { id = articleId });
+        }
+
+        [Authorize]
+        public IActionResult DeleteComment(int articleId, int commentId) 
+        {
+            _commentService.DeleteComment(commentId);
+            return RedirectToAction("Details", new { id = articleId });
+        }
+
+        [Authorize]
+        public IActionResult ManageReaction(int articleId, int commentId, int reactionPoint)
+        {
+            _commentService.ReactionManager(User.Identity.Name, commentId, reactionPoint);
+            return RedirectToAction("Details", new { id = articleId });
+        }
+
+        [Authorize]
+        public IActionResult EditComment(int articleId, int commentId, string commentNewContent) 
+        {
+            _commentService.EditComment(commentId, commentNewContent);
             return RedirectToAction("Details", new { id = articleId });
         }
     }
