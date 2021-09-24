@@ -11,12 +11,12 @@ namespace Lanthanum.Web.Services.Interfaces
         public Task<IEnumerable<Article>> GetAllArticlesAsync();
         public Task DeleteArticleByIdAsync(int id);
         public Task ChangeArticleStatusByIdAsync(int id);
-        public AdminArticleViewModel FilterArticles(AdminArticleViewModel articlesToViewModels,
+        public Task<AdminArticleViewModel> FilterArticlesAsync(AdminArticleViewModel articlesToViewModels,
             ISession session);
         public Task<Article> GetArticleByIdAsync(int id);
         public Task<Dictionary<int, string>> GetAllKindsOfSportNamesAsync();
         public Task ChangeArticleKindOfSportByIdAsync(int articleId, int kindOfSportId);
-        public Task<AdminArticleViewModel> ViewModelInitializer(ISession session);
-        public Task FilterInitializer(ISession session, params string[] filterParams);
+        public Task<AdminArticleViewModel> ViewModelInitializerAsync(ISession session);
+        public Task FilterInitializerAsync(ISession session, params string[] filterParams);
     }
 }

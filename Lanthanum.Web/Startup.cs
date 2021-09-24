@@ -75,16 +75,16 @@ namespace Lanthanum.Web
             services.AddTransient<DbRepository<Comment>>();
             services.AddTransient<DbRepository<User>>();
             services.AddTransient<DbRepository<KindOfSport>>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<DbRepository<FooterTabItem>>();
             services.AddSingleton<AuthService>();
+            services.AddScoped<FooterService>();
             services.AddSingleton<IEmailSenderService, SendGridService>();
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<IAdminService, AdminService>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
-            services.AddScoped<DbRepository<FooterTabItem>>();
-            services.AddScoped<FooterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

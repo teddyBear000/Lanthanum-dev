@@ -18,13 +18,13 @@ namespace Lanthanum.Web.Controllers
 
         [HttpGet]
         [Route("articles-list")]
-        public async Task<ActionResult<AdminArticleViewModel>> ArticlesList(string filterConference, string filterTeam, string filterStatus, string searchString)
+        public async Task<ActionResult<AdminArticleViewModel>> ArticlesListAsync(string filterConference, string filterTeam, string filterStatus, string searchString)
         {
             try
             {
-                await _adminService.FilterInitializer(HttpContext.Session, filterConference, filterTeam, filterStatus, searchString);
-                AdminArticleViewModel articlesToViewModels = _adminService.ViewModelInitializer(HttpContext.Session).Result;
-                _adminService.FilterArticles(articlesToViewModels, HttpContext.Session);
+                await _adminService.FilterInitializerAsync(HttpContext.Session, filterConference, filterTeam, filterStatus, searchString);
+                AdminArticleViewModel articlesToViewModels = _adminService.ViewModelInitializerAsync(HttpContext.Session).Result;
+                await _adminService.FilterArticlesAsync(articlesToViewModels, HttpContext.Session);
                 return View("articles_list", articlesToViewModels);
             }
             catch (Exception e)

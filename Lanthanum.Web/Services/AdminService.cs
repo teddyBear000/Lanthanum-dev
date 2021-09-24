@@ -56,31 +56,34 @@ namespace Lanthanum.Web.Services
 
         }
      
-        public AdminArticleViewModel FilterArticles(AdminArticleViewModel articlesToViewModels, ISession session)
+        public async Task<AdminArticleViewModel> FilterArticlesAsync(AdminArticleViewModel articlesToViewModels, ISession session)
         {
-            if (!string.IsNullOrEmpty(session.GetString("FilterConference")) && session.GetString("FilterConference") != "All")
+            await Task.Run(() =>
             {
-                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamConference == session.GetString("FilterConference"));
-            }
-            if(!string.IsNullOrEmpty(session.GetString("FilterTeam")) && session.GetString("FilterTeam") != "All")
-            {
-                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamName == session.GetString("FilterTeam"));
-            }
+                if (!string.IsNullOrEmpty(session.GetString("FilterConference")) && session.GetString("FilterConference") != "All")
+                {
+                    articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamConference == session.GetString("FilterConference"));
+                }
+                if (!string.IsNullOrEmpty(session.GetString("FilterTeam")) && session.GetString("FilterTeam") != "All")
+                {
+                    articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.TeamName == session.GetString("FilterTeam"));
+                }
 
-            if (!string.IsNullOrEmpty(session.GetString("FilterStatus")) && session.GetString("FilterStatus") != "All")
-            {
-                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.ArticleStatus.ToString() == session.GetString("FilterStatus"));
-            }
+                if (!string.IsNullOrEmpty(session.GetString("FilterStatus")) && session.GetString("FilterStatus") != "All")
+                {
+                    articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(a => a.ArticleStatus.ToString() == session.GetString("FilterStatus"));
+                }
 
-            if (!string.IsNullOrEmpty(session.GetString("SearchString")))
-            {
-                articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(
-                    a => a.Headline.Contains(session.GetString("SearchString"))
-                 || a.MainText.Contains(session.GetString("SearchString"))
-                 || a.TeamName.Contains(session.GetString("SearchString"))
-                 || a.TeamConference.Contains(session.GetString("SearchString"))
-                 || a.TeamLocation.Contains(session.GetString("SearchString")));
-            }
+                if (!string.IsNullOrEmpty(session.GetString("SearchString")))
+                {
+                    articlesToViewModels.SimpleModels = articlesToViewModels.SimpleModels.Where(
+                        a => a.Headline.Contains(session.GetString("SearchString"))
+                             || a.MainText.Contains(session.GetString("SearchString"))
+                             || a.TeamName.Contains(session.GetString("SearchString"))
+                             || a.TeamConference.Contains(session.GetString("SearchString"))
+                             || a.TeamLocation.Contains(session.GetString("SearchString")));
+                }
+            });
             return articlesToViewModels;
         }
 
@@ -100,7 +103,7 @@ namespace Lanthanum.Web.Services
             await _articleRepository.UpdateAsync(article);
         }
 
-        public async Task<AdminArticleViewModel> ViewModelInitializer(ISession session)
+        public async Task<AdminArticleViewModel> ViewModelInitializerAsync(ISession session)
         {
             IEnumerable<Article> articles = await GetAllArticlesAsync();
             IEnumerable<HelperAdminArticleViewModel> helperModels = _mapper.Map<IEnumerable<HelperAdminArticleViewModel>>(articles);
@@ -122,7 +125,7 @@ namespace Lanthanum.Web.Services
          params string[] filterParams - contains params to filter list of articles.
          Order of params is next: conferenceFilter, teamNameFilter, articleStatusFilter, searchString.
         */
-        public async Task FilterInitializer(ISession session, params string[] filterParams)
+        public async Task FilterInitializerAsync(ISession session, params string[] filterParams)
         {
            await Task.Run(() =>
                 {

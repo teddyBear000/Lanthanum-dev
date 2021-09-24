@@ -3,7 +3,7 @@ search_img = document.querySelector(".search-img");
 
 search_img.onclick = function () {
         search.classList.toggle('active');
-    }
+}
 
 var box = document.getElementById('.dropdown');
 document.querySelectorAll("[data-link]").forEach(el => {
@@ -20,7 +20,6 @@ function publishItem(form) {
     $(form).closest("div.article-preview").find("button.dropdown-item:contains('Publish')").text('Unpublish');
     $(form).attr("data-ajax-complete", "unpublishItem(this)");
 }
-
 
 function unpublishItem(form) {
     $(form).closest("div.article-preview").find("p.d-block").text("Unpublished");
