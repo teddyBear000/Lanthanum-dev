@@ -3,9 +3,11 @@ using System;
 using System.Threading.Tasks;
 using Lanthanum.Web.Models;
 using Lanthanum.Web.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lanthanum.Web.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Route("[controller]")]
     public class AdminController : Controller
     {

@@ -8,7 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lanthanum.Web.Models;
-using System.Threading.Tasks;
 
 namespace Lanthanum.Web.Controllers
 {

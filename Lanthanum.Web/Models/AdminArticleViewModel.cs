@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using Lanthanum.Web.Domain;
 
 namespace Lanthanum.Web.Models
 {
@@ -14,6 +12,5 @@ namespace Lanthanum.Web.Models
         public IEnumerable<string> TeamNames { get; set; }
         public IEnumerable<string> Conferences { get; set; }
         public Dictionary<int,string> KindsOfSport { get; set; }
-
     }
 }

@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 using AutoMapper;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
