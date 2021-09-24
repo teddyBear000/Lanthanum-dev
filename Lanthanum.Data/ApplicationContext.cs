@@ -1,6 +1,7 @@
 ﻿using Lanthanum.Web.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Lanthanum.Data.Configurations;
 
@@ -16,10 +17,13 @@ namespace Lanthanum.Web.Data
         public DbSet<Reaction> Reactions { get; set; }
         public DbSet<Ban> Bans { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<FooterTabItem> FooterTabItems { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
-            Database.EnsureCreated(); // change
+            Database.EnsureDeleted();
+            Database.EnsureCreated(); // TODO: change
+            base.SaveChanges();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

@@ -16,8 +16,9 @@ namespace Lanthanum.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly DbRepository<User> _userRepository;
-
-        public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository)
+        private readonly DbRepository<Article> _articleRepository;
+        private readonly DbRepository<Comment> _commentRepository;
+        public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository, DbRepository<Article> articleRepository, DbRepository<Comment> commentRepository)
         {
             _logger = logger;
             _userRepository = userRepository;
@@ -26,20 +27,11 @@ namespace Lanthanum.Web.Controllers
                 "Home", "NBA", "NFL", "MLB", "CBB", "NASCAR", "GOLF", "SOCCER", "TEAM HUB", "LIFESTYLE", "DEALBOOK",
                 "VIDEO"
             };
-        }
-        
-        public IActionResult Index()
-        {
-            _userRepository.AddAsync(new User()
-            {
-                Email = "mail@gmail.com",
-                FirstName = "name"
-            });
-            
-            return View();
+            _articleRepository = articleRepository;
+            _commentRepository = commentRepository;
         }
 
-        public IActionResult Privacy()
+        public IActionResult Index()
         {
             return View();
         }
@@ -48,6 +40,21 @@ namespace Lanthanum.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        
+        // TODO: Move
+        private void AddAdmin()
+        {
+            const string email = "mail@gmail.com"; // admin email
+            if (_userRepository.SingleOrDefaultAsync(x => x.Email == email).Result == null)
+            {
+                _userRepository.AddAsync(new User
+                {
+                    Email = email,
+                    PasswordHash = BCrypt.Net.BCrypt.HashPassword("12345678"),
+                    Role = RoleStates.Admin
+                }).Wait();
+            }
         }
 
         public static List<string> Categories { get; set; }

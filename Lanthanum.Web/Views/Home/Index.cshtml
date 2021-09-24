@@ -1,4 +1,6 @@
-﻿@using Lanthanum.Web.Controllers
+@using Lanthanum.Web.Services
+
+@using Lanthanum.Web.Controllers
 
 @{
     ViewData["Title"] = "Home Page";
@@ -223,4 +225,9 @@
 
         <div id="rightArrow" class="circle">&raquo;</div>
     </div>
+@inject AuthService _authService
+
+<div class="text-center">
+    <h1 class="display-4">@User.Identity.Name</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

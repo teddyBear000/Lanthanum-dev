@@ -9,6 +9,11 @@ using System;
 using System.Data.SqlClient;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
+using Lanthanum.Web.Models;
+using Lanthanum.Web.Options;
+using Lanthanum.Web.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Http;
 
 namespace Lanthanum.Web
 {
@@ -24,12 +29,22 @@ namespace Lanthanum.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            // Auth
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(options =>
+                {
+                    options.LoginPath = new PathString("/Authentication/LogIn");
+                    options.AccessDeniedPath = new PathString("/Authentication/LogIn");
+                });
             
+            services.AddControllersWithViews();
+
             var builder = new SqlConnectionStringBuilder(
-                Configuration.GetConnectionString("DefaultConnection"));
-            builder.UserID = Configuration["Database:User"];
-            builder.Password = Configuration["Database:Password"];
+                Configuration.GetConnectionString("DefaultConnection"))
+            {
+                UserID = Configuration["Database:User"],
+                Password = Configuration["Database:Password"]
+            };
 
             services.AddDbContext<ApplicationContext>(
                 options => options.UseMySql(
@@ -39,8 +54,22 @@ namespace Lanthanum.Web
                 )
             );
             
+            // Email sender service configuration
+            services.Configure<SendGridOptions>(Configuration.GetSection("SendGridOptions"));
+            services.Configure<SendGridOptions>(options =>
+            {
+                options.ApiKey = Configuration["SendGridApiKey"];
+            });
+
             // DI
-            services.AddTransient<DbRepository<User>>();
+            services.AddTransient<DbRepository<Article>>();
+            services.AddTransient<DbRepository<Comment>>();
+            services.AddScoped<DbRepository<User>>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<AuthService>();
+            services.AddSingleton<IEmailSenderService, SendGridService>();
+            services.AddScoped<DbRepository<FooterTabItem>>();
+            services.AddScoped<FooterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,6 +90,7 @@ namespace Lanthanum.Web
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -68,7 +98,9 @@ namespace Lanthanum.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
             });
+            
         }
     }
 }
