@@ -10,5 +10,6 @@ namespace Lanthanum.Web.Models
         public List<User> Users { get; set; }
         public string CurrentUserImage { get; set; }
         public List<Article> MoreArticlesSection { get; set; }
+        public List <Reaction> ReactionToComments { get; set; }
     }
 }

@@ -20,7 +20,6 @@ namespace Lanthanum.Web.Controllers
             _articleRepository = articleRepository;
             _commentRepository = commentRepository;
         }
-
         public IActionResult Index()
         {
             return View();

@@ -15,6 +15,7 @@ using Lanthanum.Web.Services;
 using Lanthanum.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Lanthanum.Web.Services.Interfaces;
 
 namespace Lanthanum.Web
 {
@@ -48,6 +49,8 @@ namespace Lanthanum.Web
                 Password = Configuration["Database:Password"]
             };
 
+            WebApiOptions.ApiKey = Configuration["MailApi"];
+
             services.AddDbContext<ApplicationContext>(
                 options => options.UseMySql(
                     builder.ConnectionString,
@@ -71,13 +74,13 @@ namespace Lanthanum.Web
             });
 
             // DI
+            services.AddTransient<DbRepository<User>>();
             services.AddTransient<DbRepository<Article>>();
             services.AddTransient<DbRepository<Comment>>();
-            services.AddTransient<DbRepository<User>>();
+            services.AddTransient<DbRepository<Reaction>>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<DbRepository<KindOfSport>>();
-            services.AddScoped<DbRepository<FooterTabItem>>();
             services.AddSingleton<AuthService>();
-            services.AddScoped<FooterService>();
             services.AddSingleton<IEmailSenderService, SendGridService>();
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<IAdminService, AdminService>();
@@ -85,6 +88,9 @@ namespace Lanthanum.Web
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+            services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<DbRepository<FooterTabItem>>();
+            services.AddScoped<FooterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

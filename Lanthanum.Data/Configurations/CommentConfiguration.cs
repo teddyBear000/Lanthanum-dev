@@ -10,6 +10,12 @@ namespace Lanthanum.Data.Configurations
             builder
                 .Property(c => c.DateTimeOfCreation)
                 .ValueGeneratedOnAdd();
+            builder
+                .HasMany(a => a.Reactions)
+                .WithOne(c => c.Comment)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder
+                .Ignore(c => c.Rate);
         }
     }
 }

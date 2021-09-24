@@ -1,17 +1,89 @@
-﻿@model Lanthanum.Web.Models.ArticleViewModel
+﻿@using Lanthanum.Web.Domain
+@model Lanthanum.Web.Models.ArticleViewModel
 @{
     var Article = Model.MainArticle;
     var Comments = Model.Comments;
     var Users = Model.Users;
     var CurrentUserImage = Model.CurrentUserImage;
-    if (CurrentUserImage == "") { CurrentUserImage = "/content/userAvatars/standart.jpg"; };
+    if (CurrentUserImage == "") { CurrentUserImage = "/content/userAvatars/default.jpg"; };
     var Articles = Model.MoreArticlesSection;
+    var Reactions = Model.ReactionToComments;
 }
-
+@{
+    string CheckCurrentUserEditDeleteComment(Comment comment)
+    {
+        if (comment.Author.Email != User.Identity.Name) return "display:none";
+        return "display: block";
+    }
+    string FormaUserCredits(Comment comment)
+    {
+        var FirstName = Users.Find(x => x.Id == comment.Author.Id).FirstName;
+        var LastName = Users.Find(x => x.Id == comment.Author.Id).LastName;
+        return FirstName + " " + LastName;
+    }
+    string FormatUserAvatarPath(User user)
+    {
+        return "/content/userAvatars/" + user.AvatarImagePath;
+    }
+    string CountLikes(Comment comment)
+    {
+        var countOfLikes = 0;
+        foreach (var reaction in Reactions)
+        {
+            if (comment == reaction.Comment && reaction.TypeOfReaction == ReactionType.Like) countOfLikes++;
+        }
+        return countOfLikes.ToString();
+    }
+    string CountDislikes(Comment comment)
+    {
+        var countOfDislikes = 0;
+        foreach (var reaction in Reactions)
+        {
+            if (comment == reaction.Comment && reaction.TypeOfReaction == ReactionType.Dislike) countOfDislikes++;
+        }
+        return countOfDislikes.ToString();
+    }
+    string CheckCurrentReactionLike(Comment comment)
+    {
+        foreach (var reaction in Reactions)
+        {
+            if (comment == reaction.Comment && reaction.Author.Email == User.Identity.Name && reaction.TypeOfReaction == ReactionType.Like)
+            {
+                return "color: #d54343;";
+            }
+        }
+        return "color: #c4c4c4;";
+    }
+    string CheckCurrentReactionDislike(Comment comment)
+    {
+        foreach (var reaction in Reactions)
+        {
+            if (comment == reaction.Comment && reaction.Author.Email == User.Identity.Name && reaction.TypeOfReaction == ReactionType.Dislike)
+            {
+                return "color: #d54343;";
+            }
+        }
+        return "color: #c4c4c4;";
+    }
+    int CommentsCount = 0;
+    string CheckCommentsShowMore(ref int CommentsCount)
+    {
+        CommentsCount++;
+        if (CommentsCount > 4) return "display:none";
+        return "";
+    }
+    string CheckButtonShowMore(ref int CommentsCount)
+    {
+        if (CommentsCount <= 4) return "display:none";
+        return "";
+    }
+}
 <head>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/details.css" />
     <link rel="stylesheet" href="~/css/comments.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/js/commentEdit.js"></script>
 </head>
 
 <body style="background: #fff">
@@ -42,11 +114,40 @@
                     <div class="TextMain">
                         <p>@Article.MainText</p>
                     </div>
-
+                    <!---Comment section-->
                     <div class="blog-comment">
-                        <h3>COMMENTS(@Comments.Count)</h3>
-
-                        <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
+                        <div class="headings">
+                            <h3>COMMENTS(@Comments.Count)</h3>
+                            <div class="sort-comments-dropdown">
+                                <!---Comment sorting-->
+                                <div class="sort-comments-dropdown-start"><button class="sort-comments-button">Sorting order:</button></div>
+                                <div class="sort-comments-dropdown-content">
+                                    <div class="sort-comments-dropdown-content-element">
+                                        <form method="post" action="/Articles/Details">
+                                            <input type="hidden" name="Id" value="@Article.Id" />
+                                            <input type="hidden" name="commentSortingMethod" value="SortingMethodNewest" />
+                                            <button class="sort-comments-dropdown-content-button" type="submit">Newest</button>
+                                        </form>
+                                    </div>
+                                    <div class="sort-comments-dropdown-content-element">
+                                        <form method="post" action="/Articles/Details">
+                                            <input type="hidden" name="Id" value="@Article.Id" />
+                                            <input type="hidden" name="commentSortingMethod" value="SortingMethodOldest" />
+                                            <button class="sort-comments-dropdown-content-button" type="submit">Oldest</button>
+                                        </form>
+                                    </div>
+                                    <div class="sort-comments-dropdown-content-element">
+                                        <form method="post" action="/Articles/Details">
+                                            <input type="hidden" name="Id" value="@Article.Id" />
+                                            <input type="hidden" name="commentSortingMethod" value="SortingMethodPopularity" />
+                                            <button class="sort-comments-dropdown-content-button" type="submit">Top-rated</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!---Comment input-->
+                        <div class="comment-section">
                             <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
                                 <form method="post" action="/Articles/AddComment">
                                     <div class="d-flex flex-row align-items-start ml-3 mr-5">
@@ -60,24 +161,71 @@
                                     </div>
                                 </form>
                             </div>
-
+                            <!---Cycle of displayed comments-->
                             <ul class="comments">
                                 @foreach (var comment in Comments)
                                 {
-                                    var сommentAuthorAvatarPath = "/content/userAvatars/" + Users.Find(x => x.Id == comment.Author.Id).AvatarImagePath;
-                                    var сommentAuthorNickname = Users.Find(x => x.Id == comment.Author.Id).Nickname;
+                                    var сommentAuthorAvatarPath = FormatUserAvatarPath(Users.Find(x => x.Id == comment.Author.Id));
                                     @if (comment.ParentComment == null)
                                     {
-                                        <li class="clearfix">
+
+                                        <li class="clearfix" style="@CheckCommentsShowMore(ref CommentsCount)">
+
                                             <img src="@сommentAuthorAvatarPath" class="avatar">
                                             <div class="post-comments">
-                                                <p class="meta"><a href="#" style=" font-weight: bold">@сommentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
-                                                <p class="comment-content">
+                                                <p class="meta"><a class="nickname-link" href="#" style=" font-weight: bold">@FormaUserCredits(comment)</a> says : <i class="float-right mr-2"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="#replyComment_@comment.Id">Reply</a></i></p>
+                                                <p class="comment-content" id="CommentContent_@comment.Id">
                                                     @comment.Content
                                                 </p>
-                                                <p class="underpost">@comment.DateTimeOfCreation.Date.ToShortDateString() </p>
-                                            </div>
+                                                <div class="underpost">
+                                                    <p>@comment.DateTimeOfCreation.Date.ToShortDateString()</p>
+                                                    <!---Section of actions with comments: like, dislike, edit, delete-->
+                                                    <div class="red-section">
+                                                        <div class="reaction-box">
+                                                            <div class="like-box">
+                                                                <form method="post" action="/Articles/ManageReaction">
+                                                                    <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                    <input type="hidden" name="commentId" value="@comment.Id" />
+                                                                    <input type="hidden" name="reactionPoint" value="1" />
+                                                                    <div class="comment-like"><button class="fa fa-thumbs-up" style="@CheckCurrentReactionLike(comment)" type="submit"></button>@CountLikes(comment)</div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="dislike-box">
+                                                                <form method="post" action="/Articles/ManageReaction">
+                                                                    <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                    <input type="hidden" name="commentId" value="@comment.Id" />
+                                                                    <input type="hidden" name="reactionPoint" value="0" />
+                                                                    <div class="comment-dislike">
+                                                                        <button class="fa fa-thumbs-down" type="submit" style="@CheckCurrentReactionDislike(comment)"></button>@CountDislikes(comment)
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                        <div class="delete-edit-box">
+                                                            <form method="post" action="/Articles/DeleteComment">
+                                                                <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                <input type="hidden" name="commentId" value="@comment.Id" />
+                                                                <button class="delete-comment-button" id="DeleteButton_@comment.Id" style="@CheckCurrentUserEditDeleteComment(comment)">Delete</button>
+                                                            </form>
 
+                                                            <button class="edit-comment-button" onclick="Edit(@comment.Id)" id="EditButton_@comment.Id" style="@CheckCurrentUserEditDeleteComment(comment)">Edit</button>
+
+
+                                                            <button class="discard-edit-comment-button" onclick="DiscardEdit(@comment.Id)" id="DiscardEditButton_@comment.Id" style="display: none">Discard</button>
+
+                                                            <form method="post" action="/Articles/EditComment">
+                                                                <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                <input type="hidden" name="commentId" value="@comment.Id" />
+                                                                <input type="hidden" name="commentNewContent" id="commentNewContent_@comment.Id" value="" />
+                                                                <button class="save-edit-comment-button" onclick="SaveEdit(@comment.Id)" id="SaveEditButton_@comment.Id" style="display: none">Done</button>
+                                                            </form>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!---Comment input-->
                                             <div class="bg-light p-2 collapse" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; " id="replyComment_@comment.Id">
                                                 <form method="post" action="/Articles/AddComment">
                                                     <div class="d-flex flex-row align-items-start ml-3 mr-5">
@@ -92,33 +240,82 @@
                                                     </div>
                                                 </form>
                                             </div>
-
+                                            <!---Cycle of displayed subcomments-->
                                             <ul class="comments">
                                                 @foreach (var subComment in Comments)
                                                 {
-                                                    var subCommentAuthorAvatarPath = "/content/userAvatars/"+Users.Find(x=>x.Id == subComment.Author.Id).AvatarImagePath;
-                                                    var subCommentAuthorNickname = Users.Find(x => x.Id == subComment.Author.Id).Nickname;
+                                                    var subCommentAuthorAvatarPath = FormatUserAvatarPath(Users.Find(x => x.Id == subComment.Author.Id));
                                                     @if (subComment.ParentComment == comment)
                                                     {
 
-                                                        <li class="clearfix">
+                                                        <li class="clearfix" style="@CheckCommentsShowMore(ref CommentsCount)">
                                                             <img src="@subCommentAuthorAvatarPath" class="avatar">
                                                             <div class="post-comments">
-                                                                <p class="meta"><a href="#" style=" font-weight: bold">@subCommentAuthorNickname</a> says : </p>
-                                                                <p class="comment-content">
+                                                                <p class="meta"><a href="#" class="nickname-link" style=" font-weight: bold">@FormaUserCredits(subComment)</a> says : </p>
+                                                                <p class="comment-content" id="CommentContent_@subComment.Id">
                                                                     @subComment.Content
                                                                 </p>
-                                                                <p class="underpost">@subComment.DateTimeOfCreation.Date.ToShortDateString() </p>
+                                                                <div class="underpost">
+                                                                    <p>@subComment.DateTimeOfCreation.Date.ToShortDateString()</p>
+                                                                    <!---Section of actions with subcomments: like, dislike, edit, delete-->
+                                                                    <div class="red-section">
+                                                                        <div class="reaction-box">
+                                                                            <div class="like-box">
+                                                                                <form method="post" action="/Articles/ManageReaction">
+                                                                                    <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                                    <input type="hidden" name="commentId" value="@subComment.Id" />
+                                                                                    <input type="hidden" name="reactionPoint" value="1" />
+                                                                                    <div class="comment-like"><button class="fa fa-thumbs-up" style="@CheckCurrentReactionLike(subComment)" type="submit"></button>@CountLikes(subComment)</div>
+                                                                                </form>
+                                                                            </div>
+                                                                            <div class="dislike-box">
+                                                                                <form method="post" action="/Articles/ManageReaction">
+                                                                                    <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                                    <input type="hidden" name="commentId" value="@subComment.Id" />
+                                                                                    <input type="hidden" name="reactionPoint" value="0" />
+                                                                                    <div class="comment-dislike">
+                                                                                        <button class="fa fa-thumbs-down " style="@CheckCurrentReactionDislike(subComment)" type="submit"></button>@CountDislikes(subComment)
+                                                                                    </div>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="delete-edit-box">
+                                                                            <form method="post" action="/Articles/DeleteComment">
+                                                                                <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                                <input type="hidden" name="commentId" value="@subComment.Id" />
+                                                                                <button class="delete-comment-button" id="DeleteButton_@subComment.Id" style="@CheckCurrentUserEditDeleteComment(subComment)">Delete</button>
+                                                                            </form>
+
+                                                                            <button class="edit-comment-button" onclick="Edit(@subComment.Id)" id="EditButton_@subComment.Id" style="@CheckCurrentUserEditDeleteComment(subComment)">Edit</button>
+
+
+                                                                            <button class="discard-edit-comment-button" onclick="DiscardEdit(@subComment.Id)" id="DiscardEditButton_@subComment.Id" style="display: none">Discard</button>
+
+                                                                            <form method="post" action="/Articles/EditComment">
+                                                                                <input type="hidden" name="articleId" value="@Article.Id" />
+                                                                                <input type="hidden" name="commentId" value="@subComment.Id" />
+                                                                                <input type="hidden" name="commentNewContent" id="commentNewContent_@subComment.Id" value="" />
+                                                                                <button class="save-edit-comment-button" onclick="SaveEdit(@subComment.Id)" id="SaveEditButton_@subComment.Id" style="display: none">Done</button>
+                                                                            </form>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </li>
                                                     }
                                                 }
+
                                             </ul>
                                         </li>
                                     }
                                 }
 
                             </ul>
+
+                            <div class="show-more-box" style="@CheckButtonShowMore(ref CommentsCount)">
+                                <button id="show-more-button"style="@CheckButtonShowMore(ref CommentsCount)" onclick="ShowMoreComments()">SHOW MORE</button>
+                            </div>
                         </div>
                     </div>
 
