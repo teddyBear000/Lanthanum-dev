@@ -32,11 +32,17 @@ namespace Lanthanum.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // Auth
-            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            services
+                .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>
                 {
                     options.LoginPath = new PathString("/Authentication/LogIn");
                     options.AccessDeniedPath = new PathString("/Authentication/LogIn");
+                })
+                .AddGoogle(options =>
+                {
+                    options.ClientId = Configuration["Authentication:Google:ClientId"];
+                    options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
                 });
 
             services.AddAutoMapper(typeof(Startup));

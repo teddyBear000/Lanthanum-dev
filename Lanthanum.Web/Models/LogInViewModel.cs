@@ -9,5 +9,8 @@ namespace Lanthanum.Web.Models
         
         [Required(ErrorMessage = "Input your password")]
         public string Password { get; set; }
+        public string ReturnUrl { get; set; }
+        public ExternalProvider ExternalProvider { get; set; }
     }
+
 }

@@ -1,10 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
 using Lanthanum.Web.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 
 namespace Lanthanum.Web.Controllers
@@ -28,11 +35,66 @@ namespace Lanthanum.Web.Controllers
             _service = service;
             _emailSenderService = emailSenderService;
         }
-        
-        [HttpGet]
-        public IActionResult LogIn()
+
+        /// <summary>
+        /// Challenges consent screen of external provider(e.g google, facebook)
+        /// and then redirects of ExternalLoginResponse.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public IActionResult ExternalLogin(LogInViewModel model)
         {
-            return View();
+            var redirectUri = Url.Action("ExternalLoginResponse", new
+            {
+                ReturnUrl = model.ReturnUrl
+            });
+            var properties = new AuthenticationProperties
+            {
+                RedirectUri = redirectUri
+            };
+            var provider = model.ExternalProvider.ToString();
+            return new ChallengeResult(provider,properties);
+        }
+
+        public async Task<IActionResult> ExternalLoginResponse()
+        {
+
+            AuthenticateResult result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            //var claims = result.Principal.Identities
+            //    .FirstOrDefault().Claims.Select(claim => new
+            //    {
+            //        claim.Issuer,
+            //        claim.OriginalIssuer,
+            //        claim.Type,
+            //        claim.Value
+            //    });
+
+            var issuer = result.Principal.Identity.AuthenticationType;
+            var userIdentifier = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
+            var email = result.Principal.FindFirstValue(ClaimTypes.Email);
+            //var firstName = result.Principal.FindFirstValue(ClaimTypes.g)
+            var fname = result.Principal.FindFirstValue(ClaimTypes.GivenName);
+
+
+            var user = _repository
+                .SingleOrDefaultAsync(u => u.Email == email)
+                .Result;
+
+            return Json("halahala");
+        }
+
+        /// <param name="returnUrl">Preserves url which we tried to access before being authenticated.
+        /// For example: trying to access admin/articles-list when not authenticated, we go to authentication/login,
+        /// but preserving admin/articles-list, therefore we can be directed to this url.</param>.
+        [HttpGet]
+        public IActionResult LogIn(string returnUrl)
+        {
+            LogInViewModel model = new LogInViewModel
+            {
+                ReturnUrl = returnUrl
+            };
+            return View(model);
         }
         
         [HttpPost]
@@ -117,7 +179,6 @@ namespace Lanthanum.Web.Controllers
             }
             
             _logger.LogInformation($"User {newUser.Email} registered successfully, role {newUser.Role}.");
-            
             _emailSenderService.SendWelcomeEmailAsync(newUser);
 
             return RedirectToAction("LogIn", "Authentication");
