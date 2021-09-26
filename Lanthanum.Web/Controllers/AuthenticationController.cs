@@ -61,25 +61,54 @@ namespace Lanthanum.Web.Controllers
 
             AuthenticateResult result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 
-            //var claims = result.Principal.Identities
-            //    .FirstOrDefault().Claims.Select(claim => new
-            //    {
-            //        claim.Issuer,
-            //        claim.OriginalIssuer,
-            //        claim.Type,
-            //        claim.Value
-            //    });
 
             var issuer = result.Principal.Identity.AuthenticationType;
             var userIdentifier = result.Principal.FindFirstValue(ClaimTypes.NameIdentifier);
             var email = result.Principal.FindFirstValue(ClaimTypes.Email);
             //var firstName = result.Principal.FindFirstValue(ClaimTypes.g)
             var fname = result.Principal.FindFirstValue(ClaimTypes.GivenName);
+            var lname = result.Principal.FindFirstValue(ClaimTypes.Surname);
 
 
             var user = _repository
                 .SingleOrDefaultAsync(u => u.Email == email)
                 .Result;
+
+            if (user != null)
+            {
+                _service.Authenticate(user).Wait();
+                user.CurrentState = CurrentStates.Online;
+            }
+            else
+            {
+                var newUser = new User
+                {
+                    FirstName = fname,
+                    LastName = lname,
+                    Email = email,
+                    IsBanned = false,
+                    CurrentState = CurrentStates.Offline,
+                    Role = RoleStates.User,
+                    Subscription = new Subscription(),
+                    Subscribers = new List<Subscription>(),
+                    PublishedArticles = new List<Article>(),
+                    AvatarImagePath = "default.jpg"
+                };
+
+                try
+                {
+                    _repository.AddAsync(newUser).Wait();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError($"User {newUser.Email} not registered. {ex.Message}");
+
+                    return RedirectToAction("Error", "Home");
+                }
+
+                _logger.LogInformation($"User {newUser.Email} registered successfully, role {newUser.Role}.");
+                _emailSenderService.SendWelcomeEmailAsync(newUser);
+            }
 
             return Json("halahala");
         }
