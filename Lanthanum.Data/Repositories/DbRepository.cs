@@ -11,7 +11,6 @@ namespace Lanthanum.Web.Data.Repositories
     public class DbRepository<TEntity> where TEntity : class, IEntity
     {
         protected readonly ApplicationContext Context;
-
         public DbRepository(ApplicationContext context)
         {
             Context = context;
@@ -21,12 +20,15 @@ namespace Lanthanum.Web.Data.Repositories
         {
             return await Context.Set<TEntity>().FindAsync(id);
         }
-        
+        public DbSet<TEntity> GetEntity()
+        {
+            return Context.Set<TEntity>();
+        }
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await Context.Set<TEntity>().ToListAsync();
         }
-        
+
         public IEnumerable<TEntity> Find(Expression<Func<TEntity, bool>> predicate)
         {
             return Context.Set<TEntity>().Where(predicate);

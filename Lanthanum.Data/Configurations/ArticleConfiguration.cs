@@ -16,16 +16,14 @@ namespace Lanthanum.Data.Configurations
                 .WithOne(c => c.Article);
             
             builder
-                .HasMany(a => a.Teams)
+                .HasOne(a => a.Team)
                 .WithMany(t => t.Articles);
-            
             builder
-                .HasMany(a => a.KindsOfSport)
-                .WithMany(k => k.Articles);
-
+                .HasOne(a => a.KindOfSport)
+                .WithMany(s => s.Articles);
             builder
                 .Property(a => a.DateTimeOfCreation)
                 .ValueGeneratedOnAdd();
         }
-    }
+    }   
 }
