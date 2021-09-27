@@ -69,7 +69,7 @@ namespace Lanthanum.Web
             services.AddSingleton<AuthService>();
             services.AddSingleton<IEmailSenderService, SendGridService>();
             services.AddTransient<IFooterService, FooterService>();
-            services.AddScoped<DbRepository<FooterTabItem>>();
+            services.AddScoped<DbRepository<FooterItem>>();
             
         }
 

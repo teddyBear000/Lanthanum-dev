@@ -1,5 +1,6 @@
 ﻿@using Lanthanum.Web.Domain
-@model IEnumerable<FooterTabItem>
+@using Lanthanum.Web.Services
+@inject IFooterService footerItemsForConfiguration
 @{
     ViewData["Title"] = "FooterConfiguration";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,13 +8,15 @@
 
 <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
     <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Company Info</h6>
-    @foreach (FooterTabItem footerTabItemForConfiguration in Model)
+    @foreach (FooterItem footerItemForConfiguration in footerItemsForConfiguration.GetAllItems())
     {
-        @if (@footerTabItemForConfiguration.Category == "CompanyInfo")
+        @if (@footerItemForConfiguration.Category == "CompanyInfo")
         {
 <ul class="list-unstyled mb-0">
     @*<li class="mb-2"><a href="@footerTabItemForConfiguration.Link" class="footer-tab-link text-muted">@footerTabItemForConfiguration.Name</a></li>*@
-    <li asp-area="" asp-controller="FooterConfiguration" asp-action="GetPage" asp-route-itemName=@footerTabItemForConfiguration.Name>@footerTabItemForConfiguration.Name</li>
+    @*<li asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName=@footerItemForConfiguration.Name>@footerItemForConfiguration.Name</li>*@
+    <li><a asp-area="" asp-controller="Footer" asp-action="HideItem" asp-route-itemName=@footerItemForConfiguration.Name>Hide</a></li>
+    <li><a asp-area="" asp-controller="Footer" asp-action="UnhideItem" asp-route-itemName=@footerItemForConfiguration.Name>Unhide</a></li>
 </ul>
         }
     }

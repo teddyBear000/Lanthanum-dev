@@ -8,19 +8,19 @@ namespace Lanthanum.Web.Models
 {
     public class FooterService: IFooterService 
     {
-        public readonly DbRepository<FooterTabItem> _repository;
+        public readonly DbRepository<FooterItem> _repository;
 
-        public FooterService(DbRepository<FooterTabItem> repository)
+        public FooterService(DbRepository<FooterItem> repository)
         {
             _repository = repository;
         }
 
-        public IEnumerable<FooterTabItem> GetAllItems()
+        public IEnumerable<FooterItem> GetAllItems()
         {
             return _repository.GetAllAsync().Result;
         }
 
-        public void AddItem(FooterTabItem toBeAdded)
+        public void AddItem(FooterItem toBeAdded)
         {
             _repository.AddAsync(toBeAdded).Wait();
         }
@@ -63,7 +63,7 @@ namespace Lanthanum.Web.Models
             _repository.RemoveAsync(_repository.SingleOrDefaultAsync(x => x.Name == itemName).Result).Wait();
         }
 
-        public FooterTabItem GetSingleItem(string itemName)
+        public FooterItem GetSingleItem(string itemName)
         {
             return _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
         }

@@ -9,47 +9,45 @@ using System;
 
 namespace Lanthanum.Web.Controllers
 {
-    public class FooterConfigurationController : Controller
+    public class FooterController : Controller
     {
-        private readonly ILogger<FooterConfigurationController> _logger;
+        private readonly ILogger<FooterController> _logger;
         private readonly IFooterService _footerService;
 
-        public FooterConfigurationController(ILogger<FooterConfigurationController> logger, IFooterService footerService)
+        public FooterController(ILogger<FooterController> logger, IFooterService footerService)
         {
             _logger = logger;
             _footerService = footerService;
         }
 
-        [Route("FooterConfiguration")]
         public IActionResult FooterConfiguration()
         {
-            return View(_footerService.GetAllItems());
+            return View("FooterConfiguration", _footerService.GetAllItems());
         }
 
         public IActionResult RemoveItem(string itemName)
         {
             _footerService.RemoveItem(itemName);
-            return RedirectToActionPermanent("FooterConfiguration");
+            return View("FooterConfiguration");
         }
 
         public IActionResult HideItem(string itemName)
         {
             _footerService.HideItem(itemName);
-            return RedirectToActionPermanent("FooterConfiguration");
+            return View("FooterConfiguration");
         }
 
         public IActionResult UnhideItem(string itemName)
         {
             _footerService.UnhideItem(itemName);
-            return RedirectToActionPermanent("FooterConfiguration");
+            return View("FooterConfiguration");
         }
 
+        [Route("FooterPage/{itemName}")]
         public IActionResult GetPage(string itemName)
         {
-            ViewBag.FooterTabItem = _footerService.GetSingleItem(itemName);
-            return View("FooterPage");
+            return View("FooterPage", _footerService.GetSingleItem(itemName));
         }
-
 
         [Route("About")]
         public IActionResult About()

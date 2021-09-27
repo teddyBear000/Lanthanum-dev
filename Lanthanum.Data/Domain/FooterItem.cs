@@ -2,7 +2,7 @@
 
 namespace Lanthanum.Web.Domain
 {
-    public class FooterTabItem : IEntity
+    public class FooterItem : IEntity
     {
         public int Id { get; init; }
         public string Name { get; set; }

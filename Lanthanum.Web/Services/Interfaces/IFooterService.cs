@@ -6,12 +6,12 @@ namespace Lanthanum.Web.Services
 {
     public interface IFooterService
     {
-        public IEnumerable<FooterTabItem> GetAllItems();
-        public void AddItem(FooterTabItem toBeAdded);
+        public IEnumerable<FooterItem> GetAllItems();
+        public void AddItem(FooterItem toBeAdded);
         public void UpdateItem(string itemName, string change);
         public void RemoveItem(string itemName);
         public bool HideItem(string itemName);
         public bool UnhideItem(string itemName);
-        public FooterTabItem GetSingleItem(string itemName);
+        public FooterItem GetSingleItem(string itemName);
     }
 }
