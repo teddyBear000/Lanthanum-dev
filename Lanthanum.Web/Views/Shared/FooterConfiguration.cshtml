@@ -11,12 +11,10 @@
     {
         @if (@footerTabItemForConfiguration.Category == "CompanyInfo")
         {
-            <ul class="list-unstyled mb-0">
-                <li class="mb-2"><a href="@footerTabItemForConfiguration.Link" class="footer-tab-link text-muted">@footerTabItemForConfiguration.Name</a></li>
-                @Html.ActionLink("Delete", "RemoveItem", "FooterConfiguration", new { itemName = @footerTabItemForConfiguration.Name })
-                @Html.ActionLink("UnShow", "HideItem", "FooterConfiguration", new { itemName = @footerTabItemForConfiguration.Name })
-                @Html.ActionLink("Show", "UnhideItem", "FooterConfiguration", new { itemName = @footerTabItemForConfiguration.Name })
-            </ul>
+<ul class="list-unstyled mb-0">
+    @*<li class="mb-2"><a href="@footerTabItemForConfiguration.Link" class="footer-tab-link text-muted">@footerTabItemForConfiguration.Name</a></li>*@
+    <li asp-area="" asp-controller="FooterConfiguration" asp-action="GetPage" asp-route-itemName=@footerTabItemForConfiguration.Name>@footerTabItemForConfiguration.Name</li>
+</ul>
         }
     }
 </div>

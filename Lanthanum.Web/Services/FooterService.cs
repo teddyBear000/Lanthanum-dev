@@ -2,10 +2,11 @@
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Services;
 using Lanthanum.Web.Domain;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Lanthanum.Web.Models
 {
-    public class FooterService: IFooterService
+    public class FooterService: IFooterService 
     {
         public readonly DbRepository<FooterTabItem> _repository;
 
@@ -62,9 +63,11 @@ namespace Lanthanum.Web.Models
             _repository.RemoveAsync(_repository.SingleOrDefaultAsync(x => x.Name == itemName).Result).Wait();
         }
 
-        public IEnumerable<FooterTabItem> FindItem(string itemName)
+        public FooterTabItem GetSingleItem(string itemName)
         {
-            return _repository.Find(x => x.Name == itemName);
+            return _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
         }
+
+        
     }
 }

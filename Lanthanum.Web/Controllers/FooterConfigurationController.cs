@@ -21,7 +21,6 @@ namespace Lanthanum.Web.Controllers
         }
 
         [Route("FooterConfiguration")]
-        
         public IActionResult FooterConfiguration()
         {
             return View(_footerService.GetAllItems());
@@ -43,6 +42,12 @@ namespace Lanthanum.Web.Controllers
         {
             _footerService.UnhideItem(itemName);
             return RedirectToActionPermanent("FooterConfiguration");
+        }
+
+        public IActionResult GetPage(string itemName)
+        {
+            ViewBag.FooterTabItem = _footerService.GetSingleItem(itemName);
+            return View("FooterPage");
         }
 
 

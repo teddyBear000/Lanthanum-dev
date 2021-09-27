@@ -21,6 +21,7 @@ namespace Lanthanum.Web.Data
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
+            Database.EnsureDeleted();
             Database.EnsureCreated(); // TODO: change
             base.SaveChanges();
         }
