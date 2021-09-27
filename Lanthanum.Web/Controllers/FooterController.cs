@@ -3,9 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
 using Lanthanum.Web.Services;
-using System.Collections.Generic;
 using Lanthanum.Web.Domain;
-using System;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -20,49 +18,56 @@ namespace Lanthanum.Web.Controllers
             _footerService = footerService;
         }
 
-        public IActionResult FooterConfiguration()
-        {
-            return View("FooterConfiguration", _footerService.GetAllItems());
-        }
-
-        public IActionResult RemoveItem(string itemName)
-        {
-            _footerService.RemoveItem(itemName);
-            return View("FooterConfiguration");
-        }
-
-        public IActionResult HideItem(string itemName)
-        {
-            _footerService.HideItem(itemName);
-            return View("FooterConfiguration");
-        }
-
-        public IActionResult UnhideItem(string itemName)
-        {
-            _footerService.UnhideItem(itemName);
-            return View("FooterConfiguration");
-        }
-
         [Route("FooterPage/{itemName}")]
         public IActionResult GetPage(string itemName)
         {
             return View("FooterPage", _footerService.GetSingleItem(itemName));
         }
 
-        [Route("About")]
-        public IActionResult About()
+        [Route("Footer")]
+        public IActionResult FooterConfiguration(string currentTab = "CompanyInfo")
         {
-            return View();
+            ViewBag.currentTab = currentTab;
+            return View("FooterConfiguration"+currentTab, _footerService.GetAllItems());
+        }
+
+        public IActionResult AddItem(string itemName, string currentTab)
+        {
+            ViewBag.currentTab = currentTab;
+            _footerService.AddItem(new FooterItem { Name = itemName, Category = currentTab, Content = "", IsDisplaying = true });
+            return View("FooterConfiguration" + currentTab);
+        }
+
+        public IActionResult UpdateItem(string itemName, string currentTab, string attributeToChange, string change)
+        {
+            ViewBag.currentTab = currentTab;
+            _footerService.UpdateItem(itemName, attributeToChange, change);
+            return View("FooterConfiguration" + currentTab);
+        }
+
+        public IActionResult RemoveItem(string itemName, string currentTab)
+        {
+            ViewBag.currentTab = currentTab;
+            _footerService.RemoveItem(itemName);
+            return View("FooterConfiguration"+currentTab);
+        }
+
+        public IActionResult HideItem(string itemName, string currentTab)
+        {
+            ViewBag.currentTab = currentTab;
+            _footerService.HideItem(itemName);
+            return View("FooterConfiguration" + currentTab);
+        }
+
+        public IActionResult UnhideItem(string itemName, string currentTab)
+        {
+            ViewBag.currentTab = currentTab;
+            _footerService.UnhideItem(itemName);
+            return View("FooterConfiguration" + currentTab);
         }
 
         [Route("ContactUs")]
         public IActionResult ContactUs()
-        {
-            return View();
-        }
-
-        [Route("Privacy")]
-        public IActionResult Privacy()
         {
             return View();
         }

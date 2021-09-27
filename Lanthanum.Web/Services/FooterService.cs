@@ -25,37 +25,26 @@ namespace Lanthanum.Web.Models
             _repository.AddAsync(toBeAdded).Wait();
         }
 
-        public void UpdateItem(string itemName, string change)
+        public void UpdateItem(string itemName, string attributeToChange, string change)
         {
             var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
-            dataToBeUpdated.Name = change;
+            if (attributeToChange == "Name") dataToBeUpdated.Name = change;
+            else if (attributeToChange == "Content") dataToBeUpdated.Content = change;
             _repository.UpdateAsync(dataToBeUpdated).Wait();
         }
 
-        public bool HideItem(string itemName)
+        public void HideItem(string itemName)
         {
             var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
             dataToBeUpdated.IsDisplaying = false;
             _repository.UpdateAsync(dataToBeUpdated).Wait();
-            if (_repository.SingleOrDefaultAsync(x => x.Name == itemName).Result.IsDisplaying == false)
-            {
-                return true;
-            }
-            return true;
-
         }
         
-        public bool UnhideItem(string itemName)
+        public void UnhideItem(string itemName)
         {
             var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
             dataToBeUpdated.IsDisplaying = true;
             _repository.UpdateAsync(dataToBeUpdated).Wait();
-            if(_repository.SingleOrDefaultAsync(x => x.Name == itemName).Result.IsDisplaying == true)
-            {
-                return true;   
-            }
-            return true;
-
         }
 
         public void RemoveItem(string itemName)

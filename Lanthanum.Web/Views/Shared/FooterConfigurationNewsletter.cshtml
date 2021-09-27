@@ -1,0 +1,172 @@
+﻿@using Lanthanum.Web.Domain
+@using Lanthanum.Web.Services
+@inject IFooterService footerItemsForConfiguration
+@{
+    ViewData["Title"] = "Footer Configuration";
+    var currentTab = ViewBag.currentTab;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Newsletter</h6>
+    @foreach (FooterItem footerItemForConfiguration in footerItemsForConfiguration.GetAllItems())
+    {
+        @if (@footerItemForConfiguration.Category == currentTab)
+        {
+<ul class="list-unstyled mb-0">
+    <li class="mb-2">@footerItemForConfiguration.Name</li>
+    @*<li asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName=@footerItemForConfiguration.Name>@footerItemForConfiguration.Name</li>*@
+    <li><a asp-area="" asp-controller="Footer" asp-action="HideItem" asp-route-itemName=@footerItemForConfiguration.Name asp-route-currentTab=@currentTab>Hide</a></li>
+    <li><a asp-area="" asp-controller="Footer" asp-action="UnhideItem" asp-route-itemName=@footerItemForConfiguration.Name asp-route-currentTab=@currentTab>Unhide</a></li>
+</ul>
+        }
+    }
+</div>
+
+<div id="main_place">
+    main
+</div>
+
+<button onclick="show('operation1')">Replace to operation 1</button>
+<button onclick="show('operation2')">Replace to operation 2</button>
+<button onclick="show('operation3')">Replace to operation 3</button>
+
+
+<div id=operation1 style=display:none>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td><a onclick="show_editor('editor2')"><p>TestCompanyInfo1</p></a></td>
+                <td>Otto</td>
+                <td>mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob3</td>
+                <td>Thornton</td>
+                <td>fat</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry3</td>
+                <td>the Bird</td>
+                <td>twitter</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id=operation2 style=display:none>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+                <td>mdo</td>
+            </tr>
+            <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+                <td>fat</td>
+            </tr>
+            <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+                <td>twitter</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id=operation3 style=display:none>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">First</th>
+                <th scope="col">Last</th>
+                <th scope="col">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">1</th>
+                <td>Mark2</td>
+                <td>Otto</td>
+                <td>mdo</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div id=editor>
+    </div>
+
+    <div id=editor2 style=display:none>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark2</td>
+                    <td>Otto</td>
+                    <td>mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob2</td>
+                    <td>Thornton</td>
+                    <td>fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry2</td>
+                    <td>the Bird</td>
+                    <td>twitter</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+        function show_editor(param_div_id) {
+            document.getElementById('editor').innerHTML = document.getElementById(param_div_id).innerHTML;
+        }
+    </script>
+    <script>
+        function show(param_div_id) {
+            document.getElementById('main_place').innerHTML = document.getElementById(param_div_id).innerHTML;
+        }
+    </script>
+
+
+
+
