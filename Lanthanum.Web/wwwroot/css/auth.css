@@ -122,29 +122,6 @@ nav.navbar {
     justify-content: flex-start;
 }
 
-.fb-img {
-    display: flex;
-    background: url(../images/facebook.svg) center no-repeat;
-    width: 7%;
-    height: 3.5vh;
-    align-self: flex-start;
-    margin-right: 1vw;
-    margin-bottom: 1vw;
-    min-width: 35px;
-    min-height: 34px;
-}
-
-.google-img {
-    display: flex;
-    background: url(../images/google.svg) center no-repeat;
-    width: 7%;
-    height: 3.5vh;
-    align-self: flex-start;
-    margin-right: 1vw;
-    margin-bottom: 1vw;
-    min-width: 35px;
-    min-height: 34px;
-}
 
 .plain-line {
     font-family: 'Open Sans', sans-serif;
@@ -218,6 +195,29 @@ input::placeholder {
     border-radius: 0;
 }
 
+button.fb-img[type="submit"] {
+    display: flex;
+    background: url(../images/facebook.svg) center no-repeat;
+    width: 7%;
+    height: 3.5vh;
+    align-self: flex-start;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+    min-width: 35px;
+    min-height: 34px;
+}
+
+button.google-img[type="submit"] {
+    display: flex;
+    background: url(../images/google.svg) center no-repeat;
+    width: 7%;
+    height: 3.5vh;
+    align-self: flex-start;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+    min-width: 35px;
+    min-height: 34px;
+}
 .fname-lname-container {
     display: flex;
     flex-direction: row;

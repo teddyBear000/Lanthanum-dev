@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Lanthanum.Web.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize] //TODO: Change to [Authorize(Role="Admin")]
     [Route("[controller]")]
     public class AdminController : Controller
     {

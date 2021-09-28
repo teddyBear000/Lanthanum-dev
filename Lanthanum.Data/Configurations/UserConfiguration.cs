@@ -1,3 +1,4 @@
+using Lanthanum.Web.Data.Domain;
 using Lanthanum.Web.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -19,6 +20,10 @@ namespace Lanthanum.Data.Configurations
             builder
                 .Property(u => u.RegistrationDate)
                 .ValueGeneratedOnAdd();
+
+            builder
+                .HasOne(u => u.ExternalProvider)
+                .WithOne(p => p.User).HasForeignKey<ExternalProviderUserInfo>(p=>p.UserId);
         }
     }
 }

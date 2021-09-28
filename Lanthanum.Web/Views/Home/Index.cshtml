@@ -7,6 +7,9 @@
 @inject AuthService _authService
 
 <div class="text-center">
+    <form method="post">
+        <button asp-action="LogOut" asp-controller="Authentication">LOGOUT</button>
+    </form>
     <h1 class="display-4">@User.Identity.Name</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

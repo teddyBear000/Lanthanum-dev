@@ -16,12 +16,12 @@
 <div class="px-3">
     <div class="input-container">
         <div class="social-network-container">
-            <form method="post" asp-controller="Authentication" asp-action="ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl">
+            <form method="post" class="d-flex" asp-controller="Authentication" asp-action="ExternalLogin" asp-route-returnUrl="@Model?.ReturnUrl" asp-route-viewName="Login">
                 <button type="submit" class="google-img" name="provider" value="Google"></button>
-                <a href="#" class="fb-img"></a>
+                <button type="submit" class="fb-img" name="provider" value="Facebook"></button>
             </form>
         </div>
-        <form method="post">
+        <form method="post" asp-controller="Authentication" asp-action="LogIn">    
             <div>@Html.ValidationSummary(false)</div>
             <div class="plain-line">
                 <div class="float-left">

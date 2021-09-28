@@ -15,7 +15,6 @@ using Lanthanum.Web.Services;
 using Lanthanum.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
-using Lanthanum.Web.Services.Interfaces;
 
 namespace Lanthanum.Web
 {
@@ -43,6 +42,11 @@ namespace Lanthanum.Web
                 {
                     options.ClientId = Configuration["Authentication:Google:ClientId"];
                     options.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                })
+                .AddFacebook(options =>
+                {
+                    options.AppId = Configuration["Authentication:Facebook:AppId"];
+                    options.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
                 });
 
             services.AddAutoMapper(typeof(Startup));
@@ -86,7 +90,7 @@ namespace Lanthanum.Web
             services.AddTransient<DbRepository<Reaction>>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<DbRepository<KindOfSport>>();
-            services.AddSingleton<AuthService>();
+            services.AddScoped<AuthService>();
             services.AddSingleton<IEmailSenderService, SendGridService>();
             services.AddTransient<IArticleService, ArticleService>();
             services.AddTransient<IAdminService, AdminService>();
