@@ -39,12 +39,25 @@
             </div>
         </nav>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
-
+    <main>
+        <div class="row">
+            <div style="width: 215px;">
+                <nav>
+                    <ul style="margin-left: 30px; margin-top: 50px;" data-tag="channelList">
+                        <li onclick="switchChannel(this)" class="selected menu">@HomeController.Categories[0]</li>
+                        @foreach (var item in HomeController.Categories.Skip(1))
+                        {
+                            <li onclick="switchChannel(this)">@item</li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+    <!--
     <footer class="bg-white" id="footer">
         <div class="container py-5">
             <hr id="footer-divider" />
@@ -88,25 +101,6 @@
             </div>
         </div>
 
-    <main>
-        <div class="row">
-            <div style="width: 215px;">
-                <nav>
-                    <ul style="margin-left: 30px; margin-top: 50px;" data-tag="channelList">
-                        <li onclick="switchChannel(this)" class="selected menu">@HomeController.Categories[0]</li>
-                        @foreach (var item in HomeController.Categories.Skip(1))
-                        {
-                            <li onclick="switchChannel(this)">@item</li>
-                        }
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-sm">
-                @RenderBody()
-            </div>
-        </div>
-    </main>
-
         @* Copyrights *@
 
         <div class="footer-copyright py-4 row m-0">
@@ -127,6 +121,8 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    @RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)-->
+
+    <script src="~/js/site.js"></script>
 </body>
 </html>
