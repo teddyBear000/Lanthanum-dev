@@ -25,25 +25,19 @@ namespace Lanthanum.Web.Models
             _repository.AddAsync(toBeAdded).Wait();
         }
 
-        public void UpdateItem(string itemName, string attributeToChange, string change)
+        public void UpdateItem(string itemNameForUpdate, string nameChangeForUpdate, string contentChangeForUpdate)
         {
-            var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
-            if (attributeToChange == "Name") dataToBeUpdated.Name = change;
-            else if (attributeToChange == "Content") dataToBeUpdated.Content = change;
+            var currentId = _repository.SingleOrDefaultAsync(x => x.Name == itemNameForUpdate).Result.Id;
+            var dataToBeUpdated = _repository.GetByIdAsync(currentId).Result;
+            dataToBeUpdated.Content = contentChangeForUpdate;
+            dataToBeUpdated.Name = nameChangeForUpdate;
             _repository.UpdateAsync(dataToBeUpdated).Wait();
         }
 
-        public void HideItem(string itemName)
+        public void HideUnhideItem(string itemName)
         {
             var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
-            dataToBeUpdated.IsDisplaying = false;
-            _repository.UpdateAsync(dataToBeUpdated).Wait();
-        }
-        
-        public void UnhideItem(string itemName)
-        {
-            var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
-            dataToBeUpdated.IsDisplaying = true;
+            dataToBeUpdated.IsDisplaying = !dataToBeUpdated.IsDisplaying;
             _repository.UpdateAsync(dataToBeUpdated).Wait();
         }
 
@@ -57,6 +51,11 @@ namespace Lanthanum.Web.Models
             return _repository.SingleOrDefaultAsync(x => x.Name == itemName).Result;
         }
 
-        
+        public void HideUnhideAllItemsInCategory(string currentTab)
+        {
+            var dataToBeUpdated = _repository.SingleOrDefaultAsync(x => x.Name == currentTab && x.Category== currentTab).Result;
+            dataToBeUpdated.IsDisplaying = !dataToBeUpdated.IsDisplaying;
+            _repository.UpdateAsync(dataToBeUpdated).Wait();
+        }
     }
 }

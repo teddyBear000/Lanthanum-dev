@@ -16,6 +16,11 @@
         footerItems.AddItem(new FooterItem { Name = "TestNewsletter001", Category = "Newsletter", Content = "", IsDisplaying = true });
     }*@
 
+@*@{
+        footerItems.AddItem(new FooterItem { Name = "About Sports Hub", Category = "CompanyInfo", Content = "", IsDisplaying = true });
+        footerItems.AddItem(new FooterItem { Name = "Contact Us", Category = "CompanyInfo", Content = "", IsDisplaying = true });
+    }*@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,49 +62,70 @@
         <div class="container py-5">
             <hr id="footer-divider" />
             <div class="row py-4 justify-content-between">
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Company Info</h6>
-                    @foreach (FooterItem footerItem in footerItems.GetAllItems())
+                @{
+                    if (footerItems.GetAllItems().Where(x => x.Category == "CompanyInfo").Any(x => x.IsDisplaying == true) && footerItems.GetAllItems().Where(x => (x.Name == "CompanyInfo" && x.Name == x.Category)).FirstOrDefault().IsDisplaying == true)
                     {
-                        @if (@footerItem.Category == "CompanyInfo" && @footerItem.IsDisplaying == true)
-                        {
-                            <ul class="list-unstyled mb-0">
+                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                            <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Company Info</h6>
+                            @foreach (FooterItem footerItem in footerItems.GetAllItems())
+                            {
+                                @if (@footerItem.Category == "CompanyInfo" && @footerItem.IsDisplaying == true && footerItem.Name != footerItem.Category)
+                                {
+                                    <ul class="list-unstyled mb-0">
 
-                                @*<li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>*@
-                                <li class="mb-2"><a asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName=@footerItem.Name>@footerItem.Name</a></li>
-                            </ul>
-                        }
+                                        @*<li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>*@
+                                        <li class="mb-2"><a asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName=@footerItem.Name>@footerItem.Name</a></li>
+                                    </ul>
+                                }
 
+                            }
+                        </div>
                     }
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Contributors</h6>
-                    @foreach (FooterItem footerItem in footerItems.GetAllItems())
+
+                }
+
+                @{
+                    if (footerItems.GetAllItems().Where(x => x.Category == "Contributors").Any(x => x.IsDisplaying == true) && footerItems.GetAllItems().Where(x => (x.Name == "Contributors" && x.Name == x.Category)).FirstOrDefault().IsDisplaying == true)
                     {
-                        @if (@footerItem.Category == "Contributors" && @footerItem.IsDisplaying == true)
-                        {
-                            <ul class="list-unstyled mb-0">
+                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                            <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Contributors</h6>
+                            @foreach (FooterItem footerItem in footerItems.GetAllItems())
+                            {
+                                @if (@footerItem.Category == "Contributors" && @footerItem.IsDisplaying == true && footerItem.Name != footerItem.Category)
+                                {
+                                    <ul class="list-unstyled mb-0">
 
-                                @*<li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>*@
-                                <li class="mb-2"><a asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName=@footerItem.Name>@footerItem.Name</a></li>
-                            </ul>
-                        }
+                                        @*<li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>*@
+                                        <li class="mb-2"><a asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName=@footerItem.Name>@footerItem.Name</a></li>
+                                    </ul>
+                                }
+                            }
+                        </div>
                     }
-                </div>
-                <div class="col-lg-4 col-md-6 mb-lg-0">
-                    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Newsletter</h6>
-                    <p class="text-muted mb-1" id="footer-newsletter-description">Sign up to receive the latest sports news</p>
-                    <div class="p-1">
-                        <div class="input-group" id="footer-newsletter-form">
-                            <input type="email" placeholder="Your email address" class="form-control shadow-none shadow-0" aria-describedby="footer-newsletter-subscribe-button" id="footer-newsletter-email-input">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-outline-danger shadow-none shadow-0" id="footer-newsletter-subscribe-button">Subscribe</button>
+
+                }
+
+                @{
+                    if (footerItems.GetAllItems().Where(x => x.Category == "Newsletter").Any(x => x.IsDisplaying == true) && footerItems.GetAllItems().Where(x => (x.Name == "Newsletter" && x.Name == x.Category)).FirstOrDefault().IsDisplaying == true )
+                    {
+                        <div class="col-lg-4 col-md-6 mb-lg-0">
+                            <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Newsletter</h6>
+                            <p class="text-muted mb-1" id="footer-newsletter-description">Sign up to receive the latest sports news</p>
+                            <div class="p-1">
+                                <div class="input-group" id="footer-newsletter-form">
+                                    <input type="email" placeholder="Your email address" class="form-control shadow-none shadow-0" aria-describedby="footer-newsletter-subscribe-button" id="footer-newsletter-email-input">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-outline-danger shadow-none shadow-0" id="footer-newsletter-subscribe-button">Subscribe</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    }
+
+                }
             </div>
-            
+
+
         </div>
 
 
