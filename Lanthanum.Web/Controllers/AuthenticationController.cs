@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using Lanthanum.Data.Domain;
 using Microsoft.AspNetCore.Mvc;
-using Lanthanum.Web.Data.Repositories;
-using Lanthanum.Web.Domain;
+using Lanthanum.Data.Repositories;
 using Lanthanum.Web.Models;
 using Lanthanum.Web.Services;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Logging;
 
 namespace Lanthanum.Web.Controllers
 {
     public class AuthenticationController : Controller
     {
+        private readonly ActionRequestService _actionRequestService;
         private readonly ILogger<HomeController> _logger;
         private readonly DbRepository<User> _repository;
         private readonly AuthService _service;
@@ -20,9 +22,10 @@ namespace Lanthanum.Web.Controllers
             ILogger<HomeController> logger, 
             DbRepository<User> repository, 
             AuthService service,
-            IEmailSenderService emailSenderService
-        )
+            IEmailSenderService emailSenderService, 
+            ActionRequestService actionRequestService)
         {
+            _actionRequestService = actionRequestService;
             _logger = logger;
             _repository = repository;
             _service = service;
@@ -107,7 +110,7 @@ namespace Lanthanum.Web.Controllers
 
             try
             {
-                _repository.AddAsync(newUser).Wait();
+                _repository.AddAsync(newUser);
             }
             catch(Exception ex)
             {
@@ -118,9 +121,47 @@ namespace Lanthanum.Web.Controllers
             
             _logger.LogInformation($"User {newUser.Email} registered successfully, role {newUser.Role}.");
             
-            _emailSenderService.SendWelcomeEmailAsync(newUser);
+            _emailSenderService.SendWelcomeEmailAsync(newUser, Url.Action("Index", "Home"));
 
             return RedirectToAction("LogIn", "Authentication");
         }
+
+        [HttpGet]
+        public IActionResult ResetPassword(string requestCode)
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult ResetPassword()
+        {
+            return View();
+        }
+        
+        [HttpGet]
+        public IActionResult ResetPasswordRequest()
+        {
+            return View();
+        }
+        
+        [HttpGet]
+        public IActionResult SuccessfulResetPasswordRequest(string email)
+        {
+            ViewBag.Email = email;
+            return View();
+        }
+        
+        [HttpPost]
+        public IActionResult ResetPasswordRequest(ResetPasswordRequestModel model)
+        {
+            var user = _repository.SingleOrDefaultAsync(u => u.Email == model.Email).Result;
+            var request  = _actionRequestService.CreateActionRequestCodeAsync(user).Result;
+
+            var url = Url.Action("ResetPassword", "Authentication", 
+                new { requestCode = request.RequestCode });
+            _emailSenderService.SendResetPasswordRequestAsync(user, url);
+            return RedirectToAction("SuccessfulResetPasswordRequest", "Authentication", new { email = user.Email });
+        }
+
     }
 }

@@ -70,7 +70,7 @@ nav.navbar {
     border-color: #d72130;
     text-align: center;
     padding: 1vh 4vh 1vh 4vh;
-    font-size: 14px;
+    font-size: 12px;
     max-width: 500px;
     margin: 1.1vw 3vw 1.1vw 1.1vw;
 }
@@ -81,10 +81,14 @@ nav.navbar {
     text-decoration: none;
 }
 
+.submit-button {
+    font-size: 12px;
+}
+
 .header-question {
     font-family: 'Open Sans', sans-serif;
     color: gray;
-    font-size: 14px;
+    font-size: 12px;
     max-width: 500px;
     padding: 1vh 0 1vh 2vh;
     margin: 1.1vw 0.5vw 1.1vw 1.1vw;
@@ -106,12 +110,20 @@ nav.navbar {
     min-height: 100vh;
 }
 
-.infinity-form h4 {
+.infinity-form h1 {
     font-family: 'Open Sans', sans-serif;
-    font-weight: bold;
     color: black;
     max-width: 500px;
     margin: 0 auto;
+}
+
+.page-name {
+    font-weight: bold; !important;
+    font-size: 24px; !important;
+}
+
+.check-mail-icon {
+    height: 64px;
 }
 
 .social-network-container {
@@ -148,12 +160,23 @@ nav.navbar {
 
 .plain-line {
     font-family: 'Open Sans', sans-serif;
-    color: gray;
-    font-size: 0.8rem;
-    font-weight: 700;
+    color: #434C5D;
+    font-size: 10px;
+    font-weight: 500;
     display: block;
     max-width: 500px;
     margin: 5px 0;
+}
+
+.additional-info {
+    font-size: 14px;
+    font-weight: 600;
+    color: #596377;
+}
+
+.email-registration-caption {
+    font-size: 14px;
+    color: #434C5D;
 }
 
 .forget-link {
@@ -191,7 +214,8 @@ nav.navbar {
 }
 
 input::placeholder {
-    color: #c6ccd7ed;
+    font-size: 12px;
+    color: #C6CCD7;
 }
 
 .infinity-form .form-input span {
@@ -230,6 +254,14 @@ input::placeholder {
     width: 100%;
 }
 
+.back-link {
+    display: block;
+    font-size: 12px;
+    margin-top: 12px;
+    text-decoration: none;
+    color: black;
+}
+
 @media (max-width: 768px) {
     .infinity-form-container {
         background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(../images/auth-basketball.jpg) center no-repeat;
@@ -241,9 +273,10 @@ input::placeholder {
     .header-question {
         color: white;
         text-shadow: black 0 0 90px;
+        
     }
 
-    .infinity-form h4 {
+    .infinity-form h1 {
         color: white;
         text-shadow: 5px 5px 10px black;
     }

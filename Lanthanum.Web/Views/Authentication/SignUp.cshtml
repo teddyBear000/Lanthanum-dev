@@ -11,51 +11,38 @@
 }
 
 <div class="text-left mb-4 px-3">
-    <h4>Create Account</h4>
+    <h1 class="page-name">Create Account</h1>
 </div>
 <form class="px-3" method="post">
     <div class="input-container">
         <div class="social-network-container">
-                <a href="#" class="fb-img"></a>
-                <a href="#" class="google-img"></a>
+            <a href="#" class="fb-img"></a>
+            <a href="#" class="google-img"></a>
+        </div>
+        <div class="text-left plain-line mb-3 email-registration-caption">Or use your email for registration:</div>
+        <div>@Html.ValidationSummary(false)</div>
+        <div class="fname-lname-container">
+            <div class="form-input name-item mr-2">
+                <div class="plain-line mb-1">FIRST NAME</div>
+                @Html.TextBoxFor(m => m.FirstName, new { placeholder = "John" })
             </div>
-            <div class="text-left plain-line mb-3">Or use your email for registration:</div>
-            <div>@Html.ValidationSummary(false)</div>
-            <div class="fname-lname-container">
-                <div class="form-input name-item mr-2">
-                    <div class="plain-line mb-1">FIRST NAME</div>
-                    @Html.TextBoxFor(m => m.FirstName, new { placeholder = "John" })
-                </div>
-                <div class="form-input name-item ml-2">
-                    <div class="plain-line mb-1">LAST NAME</div>
-                    @Html.TextBoxFor(m => m.LastName, new { placeholder = "Doe" })
-                </div>
+            <div class="form-input name-item ml-2">
+                <div class="plain-line mb-1">LAST NAME</div>
+                @Html.TextBoxFor(m => m.LastName, new { placeholder = "Doe" })
             </div>
+        </div>
         
-            <div class="plain-line">
-                <div class="float-left">
-                    EMAIL
-                </div>
-                <br/>
-            </div>
-            <div class="form-input">
-                @Html.TextBoxFor(m => m.Email, new { placeholder = "johndoe@gmail.com" })
-            </div>
+        <div class="plain-line mb-1 float-left">EMAIL</div>
+        <div class="form-input">
+            @Html.TextBoxFor(m => m.Email, new { placeholder = "johndoe@gmail.com" })
+        </div>
         
-            <div class="plain-line">
-                <div class="float-left">
-                    PASSWORD
-                </div>
-                <div class="text-right">
-                    <a href="reset.html" class="forget-link">Forgot password?</a>
-                </div>
-            </div>
-            <div class="form-input">
-                @Html.TextBoxFor(m => m.Password, new { placeholder = "8+ characters(letters and numbers)", type = "password" })
-            </div>
-            <div class="mb-3">
-                <button type="submit" class="btn btn-block">SIGN UP</button>
-            </div>
+        <div class="plain-line float-left mb-1">PASSWORD</div>
+        <div class="form-input">
+            @Html.TextBoxFor(m => m.Password, new { placeholder = "8+ characters(letters and numbers)", type = "password" })
+        </div>
+        <div class="mb-3">
+            <button type="submit" class="btn btn-block submit-button">SIGN UP</button>
+        </div>
     </div>
-    
 </form>

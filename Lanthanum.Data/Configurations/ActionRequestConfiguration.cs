@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Lanthanum.Data.Configurations
 {
-    public class BanConfiguration : IEntityTypeConfiguration<Ban>
+    public class ActionRequestConfiguration: IEntityTypeConfiguration<ActionRequest>
     {
-        public void Configure(EntityTypeBuilder<Ban> builder)
+        public void Configure(EntityTypeBuilder<ActionRequest> builder)
         {
             builder
-                .Property(b => b.DateOfBan)
+                .Property(a => a.DateTimeOfCreation)
                 .ValueGeneratedOnAdd();
         }
     }

@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Lanthanum.Web.Data.Repositories;
-using Lanthanum.Web.Domain;
+using Lanthanum.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Lanthanum.Web.Models;
 using System.Threading.Tasks;
+using Lanthanum.Data.Domain;
 
 namespace Lanthanum.Web.Controllers
 {

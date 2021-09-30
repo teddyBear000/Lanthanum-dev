@@ -1,7 +1,6 @@
 ﻿using System;
-using Lanthanum.Data;
 
-namespace Lanthanum.Web.Domain
+namespace Lanthanum.Data.Domain
 {
     public class Ban: IEntity
     {

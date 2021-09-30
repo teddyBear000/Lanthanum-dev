@@ -1,11 +1,12 @@
+using Lanthanum.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Lanthanum.Data.Configurations
 {
-    public class ArticleConfiguration : IEntityTypeConfiguration<Web.Domain.Article>
+    public class ArticleConfiguration : IEntityTypeConfiguration<Article>
     {
-        public void Configure(EntityTypeBuilder<Web.Domain.Article> builder)
+        public void Configure(EntityTypeBuilder<Article> builder)
         {
             builder
                 .HasMany(a => a.Authors)

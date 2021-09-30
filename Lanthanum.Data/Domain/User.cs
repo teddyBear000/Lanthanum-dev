@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lanthanum.Data;
 
-namespace Lanthanum.Web.Domain
+namespace Lanthanum.Data.Domain
 {
     public class User: IEntity
     {
@@ -20,13 +19,13 @@ namespace Lanthanum.Web.Domain
         public Subscription Subscription { get; set; }
         public List<Subscription> Subscribers { get; set; }
         public List<Article> PublishedArticles { get; set; }
+        public List<ActionRequest> Requests { get; set; }
 
     }
 
     public enum RoleStates
     {
         User,
-        Editor,
         Admin
     }
 

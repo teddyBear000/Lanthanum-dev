@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using Lanthanum.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Lanthanum.Web.Data.Repositories
+namespace Lanthanum.Data.Repositories
 {
     public class DbRepository<TEntity> where TEntity : class, IEntity
     {

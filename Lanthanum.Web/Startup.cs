@@ -1,4 +1,3 @@
-using Lanthanum.Web.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -7,8 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Data.SqlClient;
-using Lanthanum.Web.Data.Repositories;
-using Lanthanum.Web.Domain;
+using Lanthanum.Data;
+using Lanthanum.Data.Domain;
+using Lanthanum.Data.Repositories;
 using Lanthanum.Web.Options;
 using Lanthanum.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -68,6 +68,9 @@ namespace Lanthanum.Web
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddSingleton<AuthService>();
             services.AddSingleton<IEmailSenderService, SendGridService>();
+            services.AddScoped<UserService>();
+            services.AddScoped<ActionRequestService>();
+            services.AddScoped<DbRepository<ActionRequest>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

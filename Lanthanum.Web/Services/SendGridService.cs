@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Policy;
 using System.Threading.Tasks;
-using Lanthanum.Web.Domain;
+using Lanthanum.Data.Domain;
 using Lanthanum.Web.Options;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -25,16 +28,12 @@ namespace Lanthanum.Web.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task SendWelcomeEmailAsync(User user)
+        public async Task SendWelcomeEmailAsync(User user, string callbackUrl)
         {
-            var baseUrl =
-                $"{_httpContextAccessor.HttpContext?.Request.Scheme}://" +
-                $"{_httpContextAccessor.HttpContext?.Request.Host.ToUriComponent()}";
-            
             var dynamicTemplateData = new Dictionary<string, string>
             {
                 {"date", DateTime.Today.ToString("dd MMMM yyyy")},
-                {"site-link", baseUrl}
+                {"site-link", callbackUrl}
             };
 
             var message = MailHelper.CreateSingleTemplateEmail(
@@ -44,7 +43,22 @@ namespace Lanthanum.Web.Services
                 dynamicTemplateData
                 );
             
-            await _client.SendEmailAsync(message);
+            var response = await _client.SendEmailAsync(message);
+            if (response.IsSuccessStatusCode)
+            {
+                // TODO: Add logging
+            }
+        }
+
+        public async Task SendResetPasswordRequestAsync(User user, string resetUrl)
+        {
+            //
+        }
+
+        private string GetBaseUrl()
+        {
+            return $"{_httpContextAccessor.HttpContext?.Request.Scheme}://" +
+                   $"{_httpContextAccessor.HttpContext?.Request.Host.ToUriComponent()}";
         }
     }
 }

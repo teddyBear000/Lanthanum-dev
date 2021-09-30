@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using Lanthanum.Web.Data.Repositories;
-using Lanthanum.Web.Domain;
+using Lanthanum.Data.Domain;
+using Lanthanum.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace Lanthanum.Web.Controllers

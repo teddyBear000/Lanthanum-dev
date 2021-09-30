@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Lanthanum.Data;
 
-namespace Lanthanum.Web.Domain
+namespace Lanthanum.Data.Domain
 {
     public class Team: IEntity
     {

@@ -1,11 +1,9 @@
-﻿using Lanthanum.Web.Domain;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Lanthanum.Data.Configurations;
+using Lanthanum.Data.Domain;
+using Microsoft.EntityFrameworkCore;
 
-namespace Lanthanum.Web.Data
+namespace Lanthanum.Data
 {
     public class ApplicationContext : DbContext
     {
@@ -17,10 +15,10 @@ namespace Lanthanum.Web.Data
         public DbSet<Reaction> Reactions { get; set; }
         public DbSet<Ban> Bans { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
+        public DbSet<ActionRequest> ActionRequests { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
-            Database.EnsureDeleted();
             Database.EnsureCreated(); // TODO: change
             base.SaveChanges();
         }
@@ -41,6 +39,9 @@ namespace Lanthanum.Web.Data
 
             builder
                 .ApplyConfiguration(new CommentConfiguration());
+
+            builder
+                .ApplyConfiguration(new ActionRequestConfiguration());
         }
         
         public async Task<int> SaveChangesAsync()

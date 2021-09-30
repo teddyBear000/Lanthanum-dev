@@ -1,7 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Svg Vector Icons : http://www.onlinewebfonts.com/icon -->
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 1000 1000" enable-background="new 0 0 1000 1000" xml:space="preserve">
-<metadata> Svg Vector Icons : http://www.onlinewebfonts.com/icon </metadata>
-<g><g><path d="M500,10C229.4,10,10,229.4,10,500s219.4,490,490,490s490-219.4,490-490S770.6,10,500,10z M507.3,867.5c-203.1,0-367.5-164.4-367.5-367.5s164.4-367.5,367.5-367.5c99.1,0,182.2,36.2,246.1,96.1l-99.7,96.1c-27.4-26.2-75-56.7-146.4-56.7c-125.6,0-227.8,103.9-227.8,232s102.4,232,227.8,232c145.5,0,200-104.5,208.4-158.5H507.3V447.6h347c3.1,18.4,5.7,36.8,5.7,60.9C860.2,718.4,719.5,867.5,507.3,867.5L507.3,867.5z"/></g></g>
+<svg width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M16.7988 33C25.6354 33 32.7988 25.8366 32.7988 17C32.7988 8.16344 25.6354 1 16.7988 1C7.96227 1 0.798828 8.16344 0.798828 17C0.798828 25.8366 7.96227 33 16.7988 33Z" stroke="black"/>
+    <g clip-path="url(#clip0)">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M12.4483 17.001C12.4483 16.4814 12.5345 15.9832 12.6886 15.5159L9.9924 13.457C9.4669 14.5239 9.1709 15.7262 9.1709 17.001C9.1709 18.2749 9.46665 19.4763 9.99127 20.5425L12.686 18.4797C12.5334 18.0145 12.4483 17.5182 12.4483 17.001Z" fill="black"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1821 12.2727C18.3109 12.2727 19.3306 12.6727 20.1317 13.3273L22.4622 11C21.0421 9.76363 19.2213 9 17.1821 9C14.0161 9 11.2951 10.8105 9.99219 13.456L12.6883 15.5149C13.3096 13.6291 15.0804 12.2727 17.1821 12.2727Z" fill="black"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M17.1821 21.7265C15.0806 21.7265 13.3097 20.3701 12.6884 18.4844L9.99219 20.5429C11.2951 23.1888 14.0161 24.9993 17.1821 24.9993C19.1361 24.9993 21.0017 24.3054 22.4018 23.0054L19.8426 21.0269C19.1204 21.4818 18.2111 21.7265 17.1821 21.7265Z" fill="black"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M24.8293 16.9994C24.8293 16.5267 24.7564 16.0175 24.6471 15.5449H17.1821V18.6358H21.4791C21.2643 19.6897 20.6795 20.4998 19.8426 21.027L22.4019 23.0055C23.8726 21.6405 24.8293 19.607 24.8293 16.9994Z" fill="black"/>
+    </g>
+    <defs>
+        <clipPath id="clip0">
+            <rect width="16" height="16" fill="white" transform="translate(9 9)"/>
+        </clipPath>
+    </defs>
 </svg>

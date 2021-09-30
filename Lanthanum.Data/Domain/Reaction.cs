@@ -1,6 +1,4 @@
-﻿using Lanthanum.Data;
-
-namespace Lanthanum.Web.Domain
+﻿namespace Lanthanum.Data.Domain
 {
     public enum ReactionStates
     {
