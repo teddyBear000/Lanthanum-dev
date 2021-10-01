@@ -41,6 +41,9 @@ namespace Lanthanum.Web
             
             // DI
             services.AddTransient<DbRepository<User>>();
+            services.AddTransient<DbRepository<Article>>();
+            services.AddTransient<DbRepository<Team>>();
+            services.AddTransient<DbRepository<KindOfSport>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

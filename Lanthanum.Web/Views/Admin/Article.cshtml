@@ -45,13 +45,13 @@
         });
     </script>
 </head>
-<body>
+<body onload="f17()">
 
     <!-- Hiden Article -->
 
-    <div class="SecretPage" id="hided">
-        <div class="GeneralView">
-            <div class="ArticleHeader1" style="position: absolute; width: 100%;">
+    <div class="secret-page" id="hided">
+        <div class="general-view">
+            <div class="article-header-one" style="position: absolute; width: 100%;">
                 <div class="row" style="margin-top: 45px;">
                     <div class="col pull-left" style="max-width: 25px; margin-top: 5px; margin-left: 60%;">
                         <img src="~/images/Eye.png" onclick="f13()" height="19px">
@@ -162,7 +162,7 @@
                                     @for (int i = 0; i < 3; i++)
                                     {
                                         <div class="containerFirst">
-                                            <div class="row">
+                                            <div class="row" style="overflow: hidden">
 
                                                 <div class="col NoMerge pull-left" style="padding-left: 0;">
                                                     <div class="imgAbt NoMerge">
@@ -186,7 +186,7 @@
                                     @for (int i = 3; i < 6; i++)
                                     {
                                         <div class="containerFirst">
-                                            <div class="row">
+                                            <div class="row" style="overflow: hidden">
 
                                                 <div class="col NoMerge pull-left" style="padding-left: 0;">
                                                     <div class="imgAbt NoMerge">
@@ -219,12 +219,13 @@
 
     <!-- Main Editor -->
 
-    <form method="post" controller="admin" action="article">
+    <form method="post" controller="admin" action="article" enctype="multipart/form-data">
         <div class="conteiner">
             <div class="row">
-                <div class="col Flex">
-                    <div class="KindText pull-left">
-                        <h3>NBA</h3>
+                <div class="col flex-one">
+                    <div class="kind-text pull-left">
+                        <h3 id="kind_hidden_text">NBA</h3>
+                        <input type="hidden" id="kind_hidden" name="Kindofsport"/>
                     </div>
 
                     <div class="offset-7">
@@ -239,33 +240,33 @@
 
             <div class="row" style="border-bottom: 1px solid #dee2e6 !important; padding-bottom: 0.35rem !important;">
                 <div class="col pull-left" style="padding-top: 11px; max-width: 8.1%; width:58px !important;">
-                    <img class="ArrowContainer" height="20" onclick="f15()" src='~/images/Arrow_L.png' />
+                    <img class="arrow-container" height="20" onclick="f15()" src='~/images/Arrow_L.png' />
                 </div>
-                <div class="col FlexTwo pull-left" style="overflow-x: hidden; border-bottom: 0px !important;">
-                    <div class="Divider" id="divider">
+                <div class="col flex-two pull-left" style="overflow-x: hidden; border-bottom: 0px !important;">
+                    <div class="divider-one" id="divider">
                         @for (int i = 0; i < 8; i++)
                         {
-                            <div class="KindsText pull-left" onclick="AddElement()">
+                            <div class="kinds-text pull-left" onclick="AddElement()">
                                 Home
                             </div>
                         }
-                        <div class="KindsText KindsTextSelected pull-left">
+                        <div class="kinds-text kinds-text-selected pull-left">
                             GOLF
                         </div>
                         @for (int i = 0; i < 8; i++)
                         {
-                            <div class="KindsText pull-left" onclick="AddElement()">
+                            <div class="kinds-text pull-left" onclick="AddElement()">
                                 NBA
                             </div>
                         }
                     </div>
                 </div>
                 <div class="col" style="padding-top: 11px; max-width: 8.1%; width: 58px !important;">
-                    <img class="ArrowContainer" height="20" onclick="f16()" src='~/images/Arrow_R.png' />
+                    <img class="arrow-container" height="20" onclick="f16()" src='~/images/Arrow_R.png' />
                 </div>
             </div>
 
-            <div class="ArticleHeader1">
+            <div class="article-header-one">
                 <div class="row">
                     <div class="col pull-left" style="max-width: 25px; margin-top: 5px; margin-left: 86.35%;">
                         <img src="~/images/Eye.png" onclick="f12()" height="19px">
@@ -276,55 +277,55 @@
                 </div>
                 <!-- DRAG & DROP CONTAINER BEGIN -->
                 <div class="row">
-                    <div class="col">
-                        <p class="form-text InputText">PICTURE *</p>
+                    <div class="col drag-area-file">
+                        <p class="form-text input-text">PICTURE *</p>
                         <div class="drag-area">
-                            <div class="icon IconForm">
+                            <div class="icon icon-form">
                                 <img src="~/images/PhotoIco.png" height="80px">
                             </div>
-                            <div class="IconText">
+                            <div class="icon-text">
                                 <header><span class="hightlight" onclick="AddElement()">+Add picture</span> or drop it rigth there</header>
                                 <p>You can add next formats: png. jpg. jpeg. tif</p>
-                                <input id="getImage" type="file" name="Logo" hidden>
                             </div>
                         </div>
+                        <input name="Logo" id="getImage" type="file" hidden>
                     </div>
                 </div>
                 <!-- DRAG & DROP CONTAINER END -->
-                <div class="InputText">
+                <div class="input-text">
                     <div class="row">
                         <div class="col pull-left">
-                            <p class="InputText">CONFERENCE</p>
+                            <p class="input-text">CONFERENCE</p>
                             <p>
-                                <select class="InputData" style="padding-left: 10px" name="conferences">
-                                    <option value="r0">Not Selected</option>
-                                    <option value="r1">NBA</option>
-                                    <option value="r2">GOLF</option>
+                                <select class="input-data" style="padding-left: 10px" name="Conference">
+                                    <option value="NBA">Not Selected</option>
+                                    <option value="NBA">NBA</option>
+                                    <option value="GOLF">GOLF</option>
                                 </select>
                             </p>
                         </div>
 
                         <div class="col pull-left">
-                            <p class="InputText">TEAM</p>
+                            <p class="input-text">TEAM</p>
                             <p>
-                                <select class="InputData" style="padding-left: 10px" name="teams">
-                                    <option value="r0">Not Selected</option>
-                                    <option value="r1">Lakers</option>
-                                    <option value="r2">Barcelona</option>
-                                    <option value="r3">Warriors</option>
+                                <select class="input-data" style="padding-left: 10px" name="Team">
+                                    <option value="Lakers">Not Selected</option>
+                                    <option value="Lakers">Lakers</option>
+                                    <option value="Barcelona">Barcelona</option>
+                                    <option value="Warriors">Warriors</option>
                                 </select>
                             </p>
                         </div>
 
                         <div class="col pull-left">
-                            <p class="InputText">LOCATION</p>
+                            <p class="input-text">LOCATION</p>
                             <p>
-                                <select class="InputData" style="padding-left: 10px" name="location">
-                                    <option value="r0">Not Selected</option>
-                                    <option value="r1">Los Angeles</option>
-                                    <option value="r2">New York</option>
-                                    <option value="r3">Lviv</option>
-                                    <option value="r4">London</option>
+                                <select class="input-data" style="padding-left: 10px" name="Location">
+                                    <option value="Los Angeles">Not Selected</option>
+                                    <option value="Los Angeles">Los Angeles</option>
+                                    <option value="New York">New York</option>
+                                    <option value="Lviv">Lviv</option>
+                                    <option value="London">London</option>
                                 </select>
                             </p>
                         </div>
@@ -332,28 +333,28 @@
 
                     <div class="row">
                         <div class="col">
-                            <p class="InputText">ALT *</p>
-                            <input class="InputData" style="padding-left: 10px" type="text" name="Alt" placeholder="Alternative text for picture" required minlength="1" maxlength="20">
+                            <p class="input-text">ALT *</p>
+                            <input class="input-data" style="padding-left: 10px" type="text" name="Alt" placeholder="Alternative text for picture" required minlength="1" maxlength="20">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <p class="InputText">ARTICLE HEADLINE *</p>
-                            <input class="InputData" style="padding-left: 10px" type="text" name="Headline" placeholder="Name" id="rHeadLine" required minlength="1" maxlength="29">
+                            <p class="input-text">ARTICLE HEADLINE *</p>
+                            <input class="input-data" style="padding-left: 10px" type="text" name="Headline" placeholder="Name" id="rHeadLine" required minlength="1" maxlength="29">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <p class="InputText">CAPTION *</p>
-                            <input class="InputData" style="padding-left: 10px" type="text" name="Caption" placeholder="Write caption text here" id="rHeader" required minlength="1" maxlength="60">
+                            <p class="input-text">CAPTION *</p>
+                            <input class="input-data" style="padding-left: 10px" type="text" name="Caption" placeholder="Write caption text here" id="rHeader" required minlength="1" maxlength="60">
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col">
-                            <p class="InputText">CONTENT *</p>
+                            <p class="input-text">CONTENT *</p>
                         </div>
                     </div>
 
@@ -361,7 +362,7 @@
 
                     <section class="" style="padding-top: 0; padding-bottom: 0%;">
                         <div class="flex-box" style="display: flex; justify-content: center;">
-                            <textarea id="textarea1" style="width: 100%">
+                            <textarea id="textarea1" name ="Content" style="width: 100%">
  
                             </textarea>
                         </div>
@@ -369,7 +370,7 @@
 
                     <div class="row" style="margin-bottom: 150px">
                         <div class="pull-left" style="width: auto">
-                            <p class="form-text InputTextLast" style="">Comments:  Show  </p>
+                            <p class="form-text input-text-last" style="">Comments:  Show  </p>
                         </div>
 
                         <!-- Switcher -->

@@ -33,14 +33,14 @@
     text-decoration: underline;
 }
 
-.KindText {
+.kind-text {
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
     margin-top: 12px;
     margin-left: 8.3%;
 }
 
-.KindsText {
+.kinds-text{
     font-family: 'Open Sans', sans-serif;
     color: rgb(180, 180, 180);
     font-size: 1rem;
@@ -51,47 +51,47 @@
     margin-bottom: 6px;
     cursor: pointer;
 }
-    .KindsText:hover {
+    .kinds-text:hover {
         text-decoration: underline;
     }
 
-.KindsTextSelected {
+.kinds-text-selected {
     color: rgb(215,33,48);
     cursor: default;
 }
-    .KindsTextSelected:hover {
+    .kinds-text-selected:hover {
         text-decoration: none;
     }
 
-.Flex {
+.flex-one {
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid #dee2e6 !important;
     padding-bottom: 0.35rem !important;
 }
 
-.FlexTwo {
+.flex-two {
     border-bottom: 1px solid #dee2e6 !important;
     padding-bottom: 0.35rem !important;
 }
 
-.KindsTextTwo {
+.kinds-text-two {
     margin-left: 8.35%;
 }
 
-.Divider {
+.divider-one {
     max-width: 93%;
     display: flex;
     flex-direction: row;
 }
 
-.ArticleHeader1 {
+.article-header-one {
     margin-top: 2.8em;
     margin-left: 12.1%;
     width: 816px;
 }
 
-.InputText {
+.input-text {
     font-family: 'Open Sans', sans-serif;
     color: rgb(131, 140, 157) !important;
     font-size: 0.85rem;
@@ -100,25 +100,25 @@
     margin-bottom: 4px;
 }
 
-.InputDataOther {
+.input-data-other {
     width: 96.5%;
     height: 30px;
     margin-bottom: 18px;
 }
 
-.InputData {
+.input-data {
     width: 100%;
     height: 38px;
     margin-bottom: 18px;
 }
 
-.ContentData {
+.content-data {
     width: 100%;
     height: 400px;
     margin-bottom: 18px;
 }
 
-.FieldText {
+.field-text {
     font-family: 'Open Sans', sans-serif;
     color: rgb(205, 210, 220) !important;
     font-size: 0.85rem;
@@ -126,7 +126,7 @@
     line-height: 1.5;
 }
 
-.InputTextLast {
+.input-text-last {
     font-family: 'Open Sans', sans-serif;
     color: rgb(61, 66, 80) !important;
     font-size: 1.1rem;
@@ -141,7 +141,7 @@
     justify-content: center;
 }
 
-.ArrowContainer:hover {
+.arrow-container:hover {
     height: 22px !important;
 
 }

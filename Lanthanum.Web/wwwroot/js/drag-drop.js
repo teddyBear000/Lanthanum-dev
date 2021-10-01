@@ -1,6 +1,7 @@
 const dropArea = document.querySelector('.drag-area');
+const dropAreaFile = document.querySelector('.drag-area-file');
 const fileTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/tif'];
-input = dropArea.querySelector('#getImage');
+input = dropAreaFile.querySelector('#getImage');
 
 input.addEventListener(
     'change', function(){
@@ -34,12 +35,13 @@ dropArea.addEventListener(
 );
 
 function ShowFile(file){
-    if(fileTypes.includes(file.type)){
-        console.log("if begin: value = " + input.value)
+    if (fileTypes.includes(file.type)) {
         let fileReader = new FileReader();
+
         fileReader.onload = () => {
-            dropArea.innerHTML= `<img id="inserted" src="${fileReader.result}" height=459px>`;
+            dropArea.innerHTML = `<img id="inserted" src="${fileReader.result}" height=459px>`;
         }
+
         fileReader.readAsDataURL(file);
         dropArea.classList.add("active");
     }
@@ -182,4 +184,13 @@ function f15() {
     var element = document.getElementById('divider');
     element.style.transform = "translateX(" + tempX + "px)";
     element.style.transition = "0.5s";
+}
+
+function f17() {
+    var element = document.getElementsByClassName('tox-statusbar')[0];
+    element.style.display = "none";
+    element.style.zIndex = "-2";
+
+    var elementTwo = document.getElementById('kind_hidden');
+    elementTwo.value = document.getElementById('kind_hidden_text').textContent;
 }
