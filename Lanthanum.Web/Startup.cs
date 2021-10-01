@@ -89,6 +89,7 @@ namespace Lanthanum.Web
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
             services.AddScoped<ICommentService, CommentService>();
+            services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<DbRepository<FooterTabItem>>();
             services.AddScoped<FooterService>();
         }

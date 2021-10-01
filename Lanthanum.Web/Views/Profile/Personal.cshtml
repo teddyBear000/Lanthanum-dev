@@ -1,0 +1,57 @@
+﻿@using Lanthanum.Web.Domain
+@model Lanthanum.Web.Models.ProfileViewModel
+@{
+    var User = Model.User;
+}
+<head>
+    <link rel="stylesheet" href="~/css/profile.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body>
+    
+        <div class="profile-section-row">
+            <div class="profile-section-element">
+                <button class="profile-section-button">Personal</button>
+            </div>
+            <div class="profile-section-element">
+                <button class="profile-section-button">Change password</button>
+            </div>
+            <div class="profile-section-element">
+                <button class="profile-section-button">My surveys</button>
+            </div>
+            <div class="profile-section-element">
+                <button class="profile-section-button">Team hub</button>
+            </div>
+        </div>
+
+    <div class="profile-container">
+        <div class="profile-content">
+            <form method="post" class="update-profile-form" action="/Profile/UpdateProfile">
+                <div class="avatar-change-box">
+                    <img src="/content/userAvatars/@User.AvatarImagePath" class="avatar">
+                </div>
+                <div class="input-section">
+                    <p>FIRST NAME</p>
+                    <input type="text" class="input-section-field" name="firstName" value="@User.FirstName" />
+                </div>
+
+                <div class="input-section">
+                    <p>LAST NAME</p>
+                    <input type="text" name="lastName" class="input-section-field" value="@User.LastName" />
+                </div>
+                <div class="input-section">
+                    <p>EMAIL</p>
+                    <input type="text" name="email" class="input-section-field" value="@User.Email" />
+                </div>
+
+                <div class="update-profile-button-box">
+                    <button class="update-profile-button" type="submit">UPDATE PROFILE</button>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+
+
+</body>
