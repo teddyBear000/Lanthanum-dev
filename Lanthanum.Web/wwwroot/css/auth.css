@@ -262,6 +262,11 @@ input::placeholder {
     color: black;
 }
 
+.message {
+    color: #57A902;
+    font-size: 14px;
+}
+
 @media (max-width: 768px) {
     .infinity-form-container {
         background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(../images/auth-basketball.jpg) center no-repeat;

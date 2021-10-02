@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using Lanthanum.Data.Domain;
 using Lanthanum.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Lanthanum.Web.Services
 {
@@ -18,6 +19,8 @@ namespace Lanthanum.Web.Services
         public async Task<ActionRequest> GetThenRemoveActionRequestAsync(string code)
         {
             var actionRequest = await _repository
+                .GetEntity()
+                .Include(x => x.RequestOwner)
                 .SingleOrDefaultAsync(x => x.RequestCode == code);
             
             if (actionRequest == null)
@@ -32,6 +35,7 @@ namespace Lanthanum.Web.Services
 
         public async Task<ActionRequest> CreateActionRequestCodeAsync(User requestOwner)
         {
+            if (requestOwner.PasswordHash == null) throw new ArgumentException("User do not have password");
             var actionRequest = await _repository
                 .SingleOrDefaultAsync(x => x.RequestOwner == requestOwner);
             if (actionRequest != null) await _repository.RemoveAsync(actionRequest);
@@ -45,7 +49,7 @@ namespace Lanthanum.Web.Services
                 bytesBase64Url = Convert.ToBase64String( bytes ).Replace( '+', '-' ).Replace( '/', '_' );
             }
 
-            actionRequest = new ActionRequest()
+            actionRequest = new ActionRequest
             {
                 RequestCode = bytesBase64Url,
                 RequestOwner = requestOwner

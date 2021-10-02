@@ -8,20 +8,22 @@ namespace Lanthanum.Web.Services
     {
         private readonly DbRepository<User> _repository;
 
-        public UserService(DbRepository<User> repository, DbRepository<ActionRequest> actionRequestRepository)
+        public UserService(DbRepository<User> repository)
         {
             _repository = repository;
         }
 
-        public void ChangePassword(User user, string newPassword)
+        public async Task ChangePasswordAsync(User user, string newPassword)
         {
             user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            await _repository.UpdateAsync(user);
         }
 
-        public async Task ChangePassword(int userId, string newPassword)
+        public async Task ChangePasswordAsync(int userId, string newPassword)
         {
-            var requestOwner = await _repository.GetByIdAsync(userId);
-            requestOwner.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            var user = await _repository.GetByIdAsync(userId);
+            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newPassword);
+            await _repository.UpdateAsync(user);
         }
     }
 }

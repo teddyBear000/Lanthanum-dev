@@ -5,7 +5,7 @@ namespace Lanthanum.Web.Services
 {
     public interface IEmailSenderService
     {
-        public Task SendWelcomeEmailAsync(User user, string callbackUrl);
-        public Task SendResetPasswordRequestAsync(User user, string resetUrl);
+        public Task SendWelcomeEmailAsync(string recipientEmail, string callbackUrl);
+        public Task SendResetPasswordRequestAsync(string recipientEmail, string resetUrl);
     }
 }

@@ -21,6 +21,11 @@ namespace Lanthanum.Data.Repositories
             return await Context.Set<TEntity>().FindAsync(id);
         }
         
+        public DbSet<TEntity> GetEntity()
+        {
+            return Context.Set<TEntity>();
+        }
+        
         public async Task<IEnumerable<TEntity>> GetAllAsync()
         {
             return await Context.Set<TEntity>().ToListAsync();

@@ -19,7 +19,7 @@ namespace Lanthanum.Data
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
-            Database.EnsureCreated(); // TODO: change
+            // Database.EnsureCreated(); // TODO: change
             base.SaveChanges();
         }
 

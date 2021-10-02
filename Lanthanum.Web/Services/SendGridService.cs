@@ -1,12 +1,9 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
-using System.Security.Policy;
 using System.Threading.Tasks;
-using Lanthanum.Data.Domain;
 using Lanthanum.Web.Options;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Routing;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
@@ -28,7 +25,7 @@ namespace Lanthanum.Web.Services
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public async Task SendWelcomeEmailAsync(User user, string callbackUrl)
+        public async Task SendWelcomeEmailAsync(string recipientEmail, string callbackUrl)
         {
             var dynamicTemplateData = new Dictionary<string, string>
             {
@@ -38,27 +35,44 @@ namespace Lanthanum.Web.Services
 
             var message = MailHelper.CreateSingleTemplateEmail(
                 _senderEmail,
-                new EmailAddress(user.Email), 
-                _options.Value.WelcomeMailTemplateId, 
+                new EmailAddress(recipientEmail), 
+                _options.Value.WelcomeEmailTemplateId, 
                 dynamicTemplateData
                 );
             
             var response = await _client.SendEmailAsync(message);
             if (response.IsSuccessStatusCode)
             {
-                // TODO: Add logging
+                throw new SendGridException("Email not sent successfully. Not success status code.");
             }
         }
 
-        public async Task SendResetPasswordRequestAsync(User user, string resetUrl)
+        public async Task SendResetPasswordRequestAsync(string recipientEmail, string resetUrl)
         {
-            //
+            var dynamicTemplateData = new Dictionary<string, string>
+            {
+                {"site-link", resetUrl}
+            };
+            
+            var message = MailHelper.CreateSingleTemplateEmail(
+                _senderEmail,
+                new EmailAddress(recipientEmail), 
+                _options.Value.ResetPasswordTemplateId, 
+                dynamicTemplateData
+            );
+            
+            var response = await _client.SendEmailAsync(message);
+            if (response.IsSuccessStatusCode)
+            {
+                throw new SendGridException("Email not sent successfully. Not success status code.");
+            }
         }
+    }
 
-        private string GetBaseUrl()
+    class SendGridException : Exception
+    {
+        public SendGridException(string? message) : base(message)
         {
-            return $"{_httpContextAccessor.HttpContext?.Request.Scheme}://" +
-                   $"{_httpContextAccessor.HttpContext?.Request.Host.ToUriComponent()}";
         }
     }
 }
