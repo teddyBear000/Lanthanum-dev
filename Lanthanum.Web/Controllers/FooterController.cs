@@ -73,8 +73,8 @@ namespace Lanthanum.Web.Controllers
         {
             var itemNameForUpdate = "Contact Us";
             var currentTabForUpdate = "CompanyInfo";
-            ViewBag.currentTab = itemNameForUpdate;
-            ViewBag.itemName = currentTabForUpdate;
+            ViewBag.currentTab = currentTabForUpdate;
+            ViewBag.itemName = itemNameForUpdate;
             var contentChangeForUpdate = addressForUpdate+","+telForUpdate+","+emailForUpdate;
             _footerService.UpdateItem(itemNameForUpdate, itemNameForUpdate, contentChangeForUpdate);
             return RedirectToAction("FooterConfiguration", new { itemName = itemNameForUpdate, currentTab = currentTabForUpdate });

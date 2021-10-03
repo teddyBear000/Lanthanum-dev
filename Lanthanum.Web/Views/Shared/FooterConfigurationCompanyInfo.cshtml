@@ -13,30 +13,30 @@
 <div class="container">
     <div class="up">
         <div class="row justify-content-between">
-            <h2>Footer</h2>
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">+ New footer page</button>
+            <h2 class="footer-configuration-header">Footer</h2>
+            <button type="button" class="footer-configuration-button btn btn-danger" data-toggle="modal" data-target="#exampleModal">+ New footer page</button>
         </div>
         <div class="row">
-            <a class="p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="CompanyInfo">Company Info</a>
-            <a class="p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="Contributors">Contributors</a>
-            <a class="p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="Newsletter">Newsletter</a>
+            <a class="footer-configuration-active-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="CompanyInfo"><u>Company Info</u></a>
+            <a class="footer-configuration-unactive-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="Contributors">Contributors</a>
+            <a class="footer-configuration-unactive-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="Newsletter">Newsletter</a>
         </div>
     </div>
     <div class="modal-body row">
         <div class="col-md-6">
-            <table class="table">
-                <thead class="thead-light">
+            <table class="table table-bordered-outside">
+                <thead class="thead-light footer-configuration-table-text-bold">
                     <tr>
                         <th scope="col">Footer menu names</th>
                         <th scope="col">Hide/Show</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="footer-configuration-table-text">
                     <tr>
                         <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = "About Sports Hub", currentTab = @CurrentTab })'">About Sports Hub</td>
                         <td class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" checked=@footerItemsForConfiguration.GetSingleItem("About Sports Hub").IsDisplaying id="About Sports Hub" +"Switch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = "About Sports Hub", currentTab = @CurrentTab })'">
+                            <input type="checkbox" class="custom-control-input danger" checked=@footerItemsForConfiguration.GetSingleItem("About Sports Hub").IsDisplaying id="About Sports Hub" +"Switch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = "About Sports Hub", currentTab = @CurrentTab })'">
                             @if (@footerItemsForConfiguration.GetSingleItem("About Sports Hub").IsDisplaying == true)
                             {
                                 <label class="custom-control-label" for="About Sports Hub" +"Switch">Show</label>
@@ -65,7 +65,7 @@
                                         <label class="custom-control-label" for=@footerItemForConfiguration.Name +"Switch">Hide</label>
                                     }
                                 </td>
-                                <td><a asp-area="" asp-controller="Footer" asp-action="RemoveItem" asp-route-itemName=@footerItemForConfiguration.Name asp-route-currentTab=@CurrentTab>Remove</a></td>
+                                <td><a asp-area="" asp-controller="Footer" asp-action="RemoveItem" asp-route-itemName=@footerItemForConfiguration.Name asp-route-currentTab=@CurrentTab><img src="/content/delete-icon.png"></a></td>
                             </tr>
                         }
                     }
@@ -73,7 +73,14 @@
                         <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = "Contact Us", currentTab = @CurrentTab })'">Contact Us</td>
                         <td class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" checked=@footerItemsForConfiguration.GetSingleItem("Contact Us").IsDisplaying id="Contact Us" +"Switch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = "Contact Us", currentTab = @CurrentTab })'">
-                            <label class="custom-control-label" for="Contact Us" +"Switch">Show</label>
+                            @if (@footerItemsForConfiguration.GetSingleItem("Contact Us").IsDisplaying == true)
+                            {
+                                <label class="custom-control-label" for="Contact Us" +"Switch">Show</label>
+                            }
+                            else
+                            {
+                                <label class="custom-control-label" for="Contact Us" +"Switch">Hide</label>
+                            }
                         </td>
                         <td></td>
                     </tr>
@@ -81,15 +88,15 @@
             </table>
             <div class="custom-control custom-switch p-4">
                 <input type="checkbox" class="custom-control-input" checked=@footerItemsForConfiguration.GetSingleItem("CompanyInfo").IsDisplaying id="Company InfoSwitch" onchange="location.href='@Url.Action("HideUnhideAllItemsInCategory", "Footer", new { currentTab = @CurrentTab })'">
-                <label class="custom-control-label" for="Company InfoSwitch">Show section</label>
+                <label class="custom-control-label footer-configuration-table-text" for="Company InfoSwitch">Show section</label>
             </div>
-            <table class="table">
-                <thead class="thead-light">
+            <table class="table table-bordered-outside">
+                <thead class="thead-light footer-configuration-table-text-bold">
                     <tr>
                         <th scope="col">Privacy and terms</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="footer-configuration-table-text">
                     <tr>
                         <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = "Privacy policy", currentTab = @CurrentTab })'">Privacy policy</td>
                     </tr>
@@ -105,84 +112,66 @@
                 @using (Html.BeginForm("UpdateContactUs", "Footer", FormMethod.Post))
                 {
                     string[] words = footerItemsForConfiguration.GetSingleItem(@ItemName).Content.Split(',');
-                    <div class="bg-light p-4">
-                        <h1>@ItemName</h1>
-                        <div class="form-group">
-                            <label for="input-name" class="contact-us-user-info-field-title" name="ra" id="random2">Address</label>
-                            <input type="text" class="form-control contact-us-input" placeholder="Name your footer page" value="@words[0]" name="addressForUpdate" id="addressForUpdate" />
-                            <label for="input-name" class="contact-us-user-info-field-title" name="ra" id="random2">Tel.</label>
-                            <input type="text" class="form-control contact-us-input" placeholder="Name your footer page" value="@words[1]" name="telForUpdate" id="telForUpdate" />
-                            <label for="input-name" class="contact-us-user-info-field-title" name="ra" id="random2">E-mail</label>
-                            <input type="text" class="form-control contact-us-input" placeholder="Name your footer page" value="@words[2]" name="emailForUpdate" id="emailForUpdate" />
-                        </div>
-                        <textarea id="contentChangeForUpdate" style="width: 100%" name="contentChangeForUpdate">
+            <div class="bg-light p-4">
+                <p class="footer-configuration-table-text-bold">@ItemName</p>
+                <div class="form-group">
+                    <label for="input-name" class="footer-configuration-label" name="ra" id="random2">Address</label>
+                    <input type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" value="@words[0]" name="addressForUpdate" id="addressForUpdate" />
+                    <label for="input-name" class="footer-configuration-label" name="ra" id="random2">Tel.</label>
+                    <input type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" value="@words[1]" name="telForUpdate" id="telForUpdate" />
+                    <label for="input-name" class="footer-configuration-label" name="ra" id="random2">E-mail</label>
+                    <input type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" value="@words[2]" name="emailForUpdate" id="emailForUpdate" />
+                </div>
 
-                    </textarea>
-                        <button type="submit" class="btn btn-primary" value="Save">Save</button>
+                <div class="row justify-content-between p-1 m-1">
+                    <div class="row col align-middle">
+                        <p class="col align-middle my-auto footer-configuration-required">All fields are required<sup>*</sup></p>
                     </div>
+                    <div class="row col align-middle">
+                        <a class="col footer-configuration-cancel-link align-middle" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-itemName=@ItemName asp-route-currentTab=@CurrentTab>Cancel</a>
+                        <button type="submit" class="btn btn-danger col footer-configuration-button align-middle" value="Save">Save</button>
+                    </div>
+                </div>
+            </div>
                 }
             }
             else
             {
                 @using (Html.BeginForm("UpdateItem", "Footer", FormMethod.Post))
                 {
-                    <div class="bg-light p-4">
-                        <h1>@ItemName</h1>
-                        <div class="form-group">
-                            <label for="input-name" class="contact-us-user-info-field-title" name="ra" id="random2">Name</label>
-                            @if (@ItemName == "About Sports Hub" || @ItemName == "Privacy policy" || @ItemName == "Terms and conditions")
-                            {
-                                <input disabled type="text" class="form-control contact-us-input" placeholder="Name your footer page" name="nameChangeForUpdate" id="nameChangeForUpdate" value="@ItemName" />
-                            }
-                            else
-                            {
-                                <input type="text" class="form-control contact-us-input" placeholder="Name your footer page" name="nameChangeForUpdate" id="nameChangeForUpdate" value="@ItemName" />
-                            }
-                            <input type="hidden" class="form-control contact-us-input" placeholder="Name your footer page" name="itemNameForUpdate" id="itemNameForUpdate" value="@ItemName" />
-                            <input type="hidden" class="form-control contact-us-input" placeholder="Name your footer page" name="currentTabForUpdate" id="currentTabForUpdate" value=@CurrentTab>
-                        </div>
-                        <textarea id="contentChangeForUpdate" style="width: 100%" name="contentChangeForUpdate">
+        <div class="bg-light p-4">
+            <p class="footer-configuration-table-text-bold">@ItemName</p>
+            <div class="form-group">
+                <label for="input-name" class="footer-configuration-label" name="ra" id="random2">Name</label>
+                @if (@ItemName != "About Sports Hub" && @ItemName != "Privacy policy" && @ItemName != "Terms and conditions")
+                {
+                    <input type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" name="nameChangeForUpdate" id="nameChangeForUpdate" value="@ItemName" />
+                }
+                @if (@ItemName == "About Sports Hub" || @ItemName == "Privacy policy" || @ItemName == "Terms and conditions")
+                {
+                    <input disabled type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" name="nameChangeForUpdateForDislay" id="nameChangeForUpdateForDislay" value="@ItemName" />
+                    <input hidden type="text" class="form-control" placeholder="Name your footer page" name="nameChangeForUpdate" id="nameChangeForUpdate" value="@ItemName" />
+                }
+                <input type="hidden" class="form-control contact-us-input" placeholder="Name your footer page" name="itemNameForUpdate" id="itemNameForUpdate" value="@ItemName" />
+                <input type="hidden" class="form-control contact-us-input" placeholder="Name your footer page" name="currentTabForUpdate" id="currentTabForUpdate" value=@CurrentTab>
+            </div>
+            <label for="input-name" class="footer-configuration-label" name="rar" id="random3">Content</label>
+            <textarea id="contentChangeForUpdate" style="width: 100%" name="contentChangeForUpdate">
  
                 </textarea>
-                        <button type="submit" class="btn btn-primary" value="Save">Save</button>
-                    </div>
-                }
-            }
+            <div class="row justify-content-between p-1 m-1">
+                <div class="row col align-middle">
+                    <p class="col align-middle my-auto footer-configuration-required">All fields are required<sup>*</sup></p>
+                </div>
+                <div class="row col align-middle">
+                    <a class="col footer-configuration-cancel-link" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-itemName=@ItemName asp-route-currentTab=@CurrentTab>Cancel</a>
+                    <button type="submit" class="btn btn-danger col footer-configuration-button" value="Save">Save</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+                    <script src="https://cdn.tiny.cloud/1/7vvvgt6qrnr0wyn4j126umosqc6ti0055lsi3j1reg6gjy39/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
-@* Pop-up for adding item *@
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            @using (Html.BeginForm("AddItem", "Footer", FormMethod.Post))
-            {
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add new footer page</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="input-name" class="contact-us-user-info-field-title">Name</label>
-                        <input type="text" class="form-control contact-us-input" placeholder="Name your footer page" name="itemNameForAdd" id="itemNameForAdd">
-                        <input type="hidden" class="form-control contact-us-input" placeholder="Name your footer page" name="currentTabForAdd" id="currentTabForAdd" value=@CurrentTab>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary" value="Add">Add</button>
-                </div>
-            }
-        </div>
-    </div>
-</div>
-
-<script src="https://cdn.tiny.cloud/1/7vvvgt6qrnr0wyn4j126umosqc6ti0055lsi3j1reg6gjy39/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
-
-<script>
+                    <script>
     tinymce.init({
         selector: 'textarea#contentChangeForUpdate',
         setup: function (editor) {
@@ -190,7 +179,7 @@
                 editor.setContent('@Html.Raw(@footerItemsForConfiguration.GetSingleItem(ItemName).Content)');
             })
         },
-        height: 500,
+        height: 426,
         menubar: false,
         plugins: [
             'advlist autolink lists link image charmap print preview anchor',
@@ -204,4 +193,33 @@
         content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
 
     });
-</script>
+                    </script>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@* Pop-up for adding item *@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            @using (Html.BeginForm("AddItem", "Footer", FormMethod.Post))
+            {
+                <div class="modal-body">
+                    <h5 class="modal-title footer-configuration-modal-header text-center" id="exampleModalLabel">Add new footer page</h5>
+                    <div class="form-group">
+                        <label for="input-name" class="footer-configuration-modal-label">Name</label>
+                        <input type="text" class="form-control footer-configuration-modal-input" placeholder="Name your footer page" name="itemNameForAdd" id="itemNameForAdd">
+                        <input type="hidden" class="form-control" placeholder="Name your footer page" name="currentTabForAdd" id="currentTabForAdd" value=@CurrentTab>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a class="footer-configuration-cancel-link" data-dismiss="modal" href="#">Cancel</a>
+                    <button type="submit" class="btn btn-danger footer-configuration-button" value="Add">Add</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
