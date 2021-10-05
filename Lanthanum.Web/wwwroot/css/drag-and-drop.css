@@ -63,14 +63,13 @@
 
 .secret-page {
     width: 100%;
-    height: 100%;
+    height: auto;
     overflow: hidden;
     display: none;
-    position: absolute;
-    left: 0%;
+    position: relative;
+    left: 5%;
     top: 0%;
     z-index: -1;
-    background-color: white;
 }
 
 .general-view {

@@ -2,6 +2,7 @@ const dropArea = document.querySelector('.drag-area');
 const dropAreaFile = document.querySelector('.drag-area-file');
 const fileTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/tif'];
 input = dropAreaFile.querySelector('#getImage');
+image = "/images/background_image.jpg";
 
 input.addEventListener(
     'change', function(){
@@ -40,6 +41,7 @@ function ShowFile(file){
 
         fileReader.onload = () => {
             dropArea.innerHTML = `<img id="inserted" src="${fileReader.result}" height=459px>`;
+            image = fileReader.result;
         }
 
         fileReader.readAsDataURL(file);
@@ -125,13 +127,18 @@ function f11() {
 }
 
 function f12() {
+    document.getElementById("PrevPhoto").src = image;
+    var elementFill = document.getElementById("mainContainer");
+    elementFill.style.display = "none";
+    elementFill.style.zIndex = "-1";
+
     var Header = document.getElementById('rHeader').value;
     var Headline = document.getElementById('rHeadLine').value;
     var MainText = tinymce.get("textarea1").getContent();
 
     document.getElementById('Header').textContent = Header;
     document.getElementById('Headline').textContent = Headline;
-    document.getElementById('MainText').textContent = MainText;
+    document.getElementById('contextChange').innerHTML = MainText;
 
     for (var i = 0; i < 6; i++) {
         document.getElementById(('Header'+i)).textContent = Header;
@@ -155,6 +162,10 @@ function f13() {
     var element = document.getElementById('hided');
     element.style.display = "none";
     element.style.zIndex = "-1";
+
+    var elementFill = document.getElementById("mainContainer");
+    elementFill.style.display = "block";
+    elementFill.style.zIndex = "10";
 }
 
 var sliderBool = false;

@@ -62,11 +62,15 @@ namespace Lanthanum.Web.Controllers
                 LogoPath = logoPath,
                 CommentsCount = 0,
                 DateTimeOfCreation = new DateTime(2021, 09, 13),
-                //KindsOfSports = new List<KindOfSport>() { kindOfSport },
-                //Teams = new List<Team>() { team },
+                KindsOfSports = new List<KindOfSport>() { kindOfSport },
+                Teams = new List<Team>() { team },
             }).Wait();
-
             return RedirectToAction("Article");
         }
+        public IActionResult PreviewArticle()
+        {
+            return View();
+        }
+
     }
 }
