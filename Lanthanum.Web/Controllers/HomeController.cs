@@ -8,8 +8,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
-using Microsoft.EntityFrameworkCore;
-using Lanthanum.Web.Services;
 
 namespace Lanthanum.Web.Controllers
 {
