@@ -13,35 +13,23 @@
     <link rel="stylesheet" href="~/css/layout.css" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-light justify-content-between" style="padding: 0; border-bottom: solid; border-bottom-color: #e0e0e0; border-width: 1px; ">
-            <div class="navbar" style="width: 52%; padding: 0;">
-                <a href="#" class="navbar-brand center" style=" background: #d72130; width: 200px; padding: 16px; color: white; font-size: 1.3em; font-weight: 400; cursor: pointer; height: 80px;">Sports Hub</a>
-                <span style="width: 50px; text-align: center">
-                    <i class="material-icons"></i>
-                </span>
-                <div class="searchField" style="height: 100%">
-                    <input placeholder="Search by" style="height: 100%; text-color: dark-gray; border-width: 0" type="text">
+
+    <header id="mainNav">
+        <div class="container">
+            <div id="logo">
+                <div id="logo_text">
+                    Sports Hub
                 </div>
             </div>
-            <div class="navbar" style="width: 23%; height: 80px; border-left: solid; border-right: solid; border-right-color: #e0e0e0; border-left-color: #e0e0e0; border-width: 1px;"></div>
-            <div class="navbar" style="width: 250px">
-                <a href="#" style="color: #d72130; width: 50%; text-align: center">Sign up</a>
-                <button href="#" style="        color: #d72130;
-        border: solid;
-        border-color: #d72130; border-width: 2px;
-        padding: 2px;
-        width: 50%;
-        text-align: center;
-        background: transparent">
-                    Log in
-                </button>
+            <div class="col">
+                @RenderSection("elements_in_header", required: true)
             </div>
-        </nav>
+        </div>
     </header>
+
     <main>
         <div class="row">
-            <div style="width: 215px;">
+            <div style="width: 253px;">
                 <nav>
                     <ul style="margin-left: 30px; margin-top: 50px;" data-tag="channelList">
                         <li onclick="switchChannel(this)" class="selected menu">@HomeController.Categories[0]</li>
@@ -57,71 +45,6 @@
             </div>
         </div>
     </main>
-    <!--
-    <footer class="bg-white" id="footer">
-        <div class="container py-5">
-            <hr id="footer-divider" />
-            <div class="row py-4 justify-content-between">
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Company Info</h6>
-                    @foreach (FooterTabItem footerTabItem in footerTabItems.GetAllItems())
-                    {
-                        @if (@footerTabItem.Category == "CompanyInfo" && @footerTabItem.IsDisplaying == true)
-                        {
-                            <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>
-                            </ul>
-                        }
-                    }
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-                    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Contributors</h6>
-                    @foreach (FooterTabItem footerTabItem in footerTabItems.GetAllItems())
-                    {
-                        @if (@footerTabItem.Category == "Contributors" && @footerTabItem.IsDisplaying == true)
-                        {
-                            <ul class="list-unstyled mb-0">
-                                <li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>
-                            </ul>
-                        }
-                    }
-                </div>
-                <div class="col-lg-4 col-md-6 mb-lg-0">
-                    <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Newsletter</h6>
-                    <p class="text-muted mb-1" id="footer-newsletter-description">Sign up to receive the latest sports news</p>
-                    <div class="p-1">
-                        <div class="input-group" id="footer-newsletter-form">
-                            <input type="email" placeholder="Your email address" class="form-control shadow-none shadow-0" aria-describedby="footer-newsletter-subscribe-button" id="footer-newsletter-email-input">
-                            <div class="input-group-append">
-                                <button type="submit" class="btn btn-outline-danger shadow-none shadow-0" id="footer-newsletter-subscribe-button">Subscribe</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @* Copyrights *@
-
-        <div class="footer-copyright py-4 row m-0">
-            <div class="container flex-row col-4">
-                <p class="mb-0 py-2" id="footer-copyright-logo"><a class="text-white" asp-area="" asp-controller="Home" asp-action="Index">Sports Hub</a></p>
-            </div>
-            <div class="container flex-row col-4">
-                <p class="footer-copyright-text mb-0 py-1">Copyright ©2019 Sports Hub</p>
-                <p class="footer-copyright-text mb-0 py-1"><a class="text-white" asp-area="" asp-controller="Footer" asp-action="Privacy">Privacy / Terms</a></p>
-            </div>
-    <footer class="border-top footer text-muted">
-        <div class="container" style="text-align: left">
-            &copy; 2021 - Sports Hub
-        </div>
-    </footer>
-
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-
-    @RenderSection("Scripts", required: false)-->
 
     <script src="~/js/site.js"></script>
 </body>

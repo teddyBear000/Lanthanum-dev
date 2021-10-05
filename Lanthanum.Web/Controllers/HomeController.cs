@@ -30,6 +30,62 @@ namespace Lanthanum.Web.Controllers
             };
             _articleRepository = articleRepository;
             _commentRepository = commentRepository;
+
+
+            var task1 = _articleRepository.AddAsync(new Domain.Article
+            {
+                Authors = new List<Domain.User>{
+                        new Domain.User { Nickname = "nick" }
+                    },
+                Headline = "London Games return in 2019",
+                DateTimeOfCreation = new DateTime(2019, 09, 20),
+                LogoPath = "/images/download2.jpg",
+                MainText = "Register to receive the latest news on ticket sales for the four NFL London Games in 2019!"
+
+            });
+            task1.Wait();
+
+            var task2 = _articleRepository.AddAsync(
+                new Article
+                {
+                    Authors = new List<Domain.User>{
+                        new Domain.User { Nickname = "nick1" }
+                    },
+                    Headline = "London Games return in 2020",
+                    DateTimeOfCreation = new DateTime(2019, 12, 15),
+                    LogoPath = "/images/auth-basketball.jpg",
+                    MainText = "Text2"
+                }
+                );
+            task2.Wait();
+
+            var task3 = _articleRepository.AddAsync(
+            new Domain.Article
+            {
+                Authors = new List<Domain.User>{
+                        new Domain.User { Nickname = "nick1" }
+                    },
+                Headline = "London Games return in 2021",
+                DateTimeOfCreation = new DateTime(2020, 01, 11),
+                LogoPath = "/images/download2.jpg",
+                MainText = "BLABLALBA BLA bAL bBLA"
+            });
+
+            task3.Wait();
+
+            var task4 = _articleRepository.AddAsync(
+            new Domain.Article
+            {
+                Authors = new List<Domain.User>{
+                        new Domain.User { Nickname = "nick1" }
+                    },
+                Headline = "London Games return in 2021",
+                DateTimeOfCreation = new DateTime(2020, 01, 11),
+                LogoPath = "/images/download2.jpg",
+                MainText = "BLABLALBA BLA bAL bBLA"
+            });
+
+            task4.Wait();
         }
 
         public IActionResult Index()

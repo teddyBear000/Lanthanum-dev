@@ -4,7 +4,7 @@
 }
 
 html {
-    min-width: 1015px;
+    min-width: 1320px;
 }
 
 button:hover span {
@@ -51,30 +51,6 @@ textarea:focus, input:focus {
     outline: none;
 }
 
-@media screen and (max-width: 1150px) {
-     .searchField {
-         width: 250px;
-     }
- }
-
-@media screen and (min-width: 1150px) {
-     .searchField {
-         width: 330px;
-     }
- }
-
-@media screen and (min-width: 1290px) {
-    .searchField {
-        width: 400px;
-    }
-}
-
-@media screen and (min-width: 1480px) {
-     .searchField {
-         width: 500px;
-     }
- }
-
 .center {
     line-height: 50px;
     text-align: center;
@@ -85,4 +61,52 @@ textarea:focus, input:focus {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+#mainNav {
+    height: 83px;
+    width: 100%;
+    border-bottom: solid;
+    border-bottom-width: 1px;
+    border-color: #EDEDED;
+}
+
+#logo {
+    background-color: #D72130;
+    width: 253px;
+    height: 100%;
+    display: inline-block;
+    *display: inline;
+    vertical-align: top;
+}
+
+#logo_text {
+    position: absolute;
+    left: 68px;
+    top: 27px;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 28px;
+    color: #FFFBFB;
+}
+
+.navItems {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+    *display: inline;
+    vertical-align: top;
+}
+
+.container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    max-width: 100%;
+    padding-left: 0px;
+}
+
+.col {
+    padding-left: 0px;
+    padding-right: 0px;
 }
