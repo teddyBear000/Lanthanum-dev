@@ -538,4 +538,9 @@ textarea {
 table.table.table-bordered-outside {
     border: 1px solid #D4D9E2;
 }
+
+.footer-configuration-modal {
+    border-radius: 0;
+}
+
 /* Footer configuration styles end*/
