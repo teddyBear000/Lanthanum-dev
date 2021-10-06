@@ -10,6 +10,8 @@ using Microsoft.Extensions.Logging;
 using Lanthanum.Web.Data.Repositories;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
+using Lanthanum.Web.Data.Domain;
+using Lanthanum.Web.Models;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -18,10 +20,12 @@ namespace Lanthanum.Web.Controllers
         private readonly DbRepository<Article> _articleRepository;
         private readonly DbRepository<Team> _teamRepository;
         private readonly DbRepository<KindOfSport> _kindsRepository;
+        private readonly DbRepository<Picture> _pictureRepository;
         private readonly IWebHostEnvironment _appEnvironment;
 
-        public AdminController(IWebHostEnvironment appEnvironment, DbRepository<Article> articleRepository, DbRepository<Team> teamRepository, DbRepository<KindOfSport> kindsRepository)
+        public AdminController(IWebHostEnvironment appEnvironment, DbRepository<Picture> pictureRepository, DbRepository<Article> articleRepository, DbRepository<Team> teamRepository, DbRepository<KindOfSport> kindsRepository)
         {
+            _pictureRepository = pictureRepository;
             _articleRepository = articleRepository;
             _teamRepository = teamRepository;
             _kindsRepository = kindsRepository;
@@ -29,10 +33,27 @@ namespace Lanthanum.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Article() => View();
+        public IActionResult Article(string selected="none") 
+        {
+            var sport = "NBA";
+
+            if (selected != "none")
+            {
+                sport = selected;
+            }
+
+            var model = new AddingArticleViewModel 
+            {
+                SelectedSport = sport,
+                Teams = _teamRepository.GetAllAsync().Result.ToList()
+            };
+
+            return View(model); 
+        }
+
 
         [HttpPost]
-        public IActionResult Article(string Conference, string Location, string Kindofsport, string Team, string Alt, string Headline, string Caption, string Content, IFormFile Logo)
+        public IActionResult Article(string Conference, string Location, string Kindofsport, string Team, string Alt, string Headline, string Caption, string Content, string Filter, string Size, string Crop, IFormFile Logo)
         {
             var kindOfSport = _kindsRepository.Find(x => x.Name == Kindofsport).First();
             var team = _teamRepository.Find(x => x.Name == Team).First();
@@ -51,6 +72,16 @@ namespace Lanthanum.Web.Controllers
 
             }
 
+            _pictureRepository.AddAsync(new Picture
+            {
+                LogoPath = logoPath,
+                Filter = Filter,
+                Size = Size,
+                Crop = Crop
+            }).Wait();
+
+            Picture picture = _pictureRepository.Find(x => logoPath == x.LogoPath).First();
+
             _articleRepository.AddAsync(new Article
             {
                 Headline = Headline,
@@ -64,13 +95,11 @@ namespace Lanthanum.Web.Controllers
                 DateTimeOfCreation = new DateTime(2021, 09, 13),
                 KindsOfSports = new List<KindOfSport>() { kindOfSport },
                 Teams = new List<Team>() { team },
+                LogoPicture = picture
             }).Wait();
+
+
             return RedirectToAction("Article");
         }
-        public IActionResult PreviewArticle()
-        {
-            return View();
-        }
-
     }
 }

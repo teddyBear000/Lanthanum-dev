@@ -75,3 +75,68 @@
 .general-view {
     position: relative;
 }
+
+.inserted-img {
+    z-index: 6;
+}
+
+.button-form {
+    float: right;
+    width: 57px;
+}
+
+.button-form:hover {
+    width: 58.5px;
+}
+
+.view-buttons {
+    z-index: 5
+}
+
+.hided-icon {
+    display: none;
+    z-index: 5;
+}
+
+.filter-container {
+    display: none;
+    z-index: -1;
+}
+
+.resize-container {
+    display: none;
+    z-index: -1;
+}
+
+.crop-container {
+    display: none;
+    z-index: -1;
+}
+
+.slidecontainer-f {
+    width: 100%;
+}
+
+.slider-f {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 5px;
+    background: #d3d3d3;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+    .slider-f:hover {
+        opacity: 1;
+    }
+
+    .slider-f::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgb(215,33,48);
+        cursor: pointer;
+    }

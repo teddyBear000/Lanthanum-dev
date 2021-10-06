@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model Lanthanum.Web.Models.AddingArticleViewModel
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,7 +39,7 @@
                 'searchreplace visualblocks code fullscreen',
                 'insertdatetime media table paste code help wordcount'
             ],
-            toolbar:'formatselect | ' +
+            toolbar: 'formatselect | ' +
                 'bold italic underline | forecolor | alignleft aligncenter ' +
                 'alignright alignjustify | bullist numlist outdent indent | ' +
                 'removeformat',
@@ -62,7 +64,9 @@
                 </div>
             </div>
             <div class="ArticleHeader">
-                <img src="/images/background_image.jpg" alt="Photo Of Event" class="ImageContainer" id="PrevPhoto">
+                <div class="ImageContainerF" id="image-container">
+                    <img src="/images/background_image.jpg" alt="Photo Of Event" class="ImageContainer" id="PrevPhoto">
+                </div>
                 <img src="/images/background_image.jpg" class="BackgroundContainer">
 
                 <div class="greyBox">
@@ -225,7 +229,7 @@
                 <div class="col flex-one">
                     <div class="kind-text pull-left">
                         <h3 id="kind_hidden_text">NBA</h3>
-                        <input type="hidden" id="kind_hidden" name="Kindofsport"/>
+                        <input type="hidden" id="kind_hidden" name="Kindofsport" />
                     </div>
 
                     <div class="offset-7">
@@ -250,8 +254,11 @@
                                 Home
                             </div>
                         }
-                        <div class="kinds-text kinds-text-selected pull-left">
+                        <div class="kinds-text pull-left" onclick="AddElement()"> 
                             GOLF
+                        </div>
+                        <div class="kinds-text kinds-text-selected pull-left" onclick="AddElement()">
+                            NBA
                         </div>
                         @for (int i = 0; i < 8; i++)
                         {
@@ -279,19 +286,88 @@
                 <div class="row">
                     <div class="col drag-area-file">
                         <p class="form-text input-text">PICTURE *</p>
-                        <div class="drag-area">
-                            <div class="icon icon-form">
-                                <img src="~/images/PhotoIco.png" height="80px">
-                            </div>
-                            <div class="icon-text">
-                                <header><span class="hightlight" onclick="AddElement()">+Add picture</span> or drop it rigth there</header>
-                                <p>You can add next formats: png. jpg. jpeg. tif</p>
+                        <div class="fix-image">
+                            <div class="drag-area" onmouseover="ShowButtons()" onmouseout="HideButtons()">
+                                <div class="icon icon-form">
+                                    <img src="~/images/PhotoIco.png" height="80px">
+                                </div>
+                                <div class="icon-text">
+                                    <header><span class="hightlight" onclick="AddElement()">+Add picture</span> or drop it rigth there</header>
+                                    <p>You can add next formats: png. jpg. jpeg. tif</p>
+                                </div>
                             </div>
                         </div>
                         <input name="Logo" id="getImage" type="file" hidden>
+                        <input name="Filter" id="getFilter" type="text" hidden>
+                        <input name="Size" id="getSize" type="text" hidden>
+                        <input name="Crop" id="getCrop" type="text" hidden>
                     </div>
                 </div>
-                <!-- DRAG & DROP CONTAINER END -->
+
+                <!-- Filter -->
+                <div class="filter-container" id="filter-container">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col pull-left">
+                            <p class="input-data red-select" style="padding-top: 20px; margin-left: 33%; color: rgb(215,33,48)">ORIGINAL</p>
+                            <p style="padding-left: 4px">
+                                <img class="filter-photo" width="176" height="99" src="~/images/" onclick="FilterOne()">
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="input-data red-select" style="padding-top: 20px; margin-left: 39%">VVID</p>
+                            <p>
+                                <img class="filter-photo" width="176" height="99" src="~/images/" onclick="FilterTwo()">
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="input-data red-select" style="padding-top: 20px; margin-left: 29%">VVID COOL</p>
+                            <p>
+                                <img class="filter-photo" width="176" height="99" src="~/images/" onclick="FilterThree()">
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="input-data red-select" style="padding-top: 20px; margin-left: 35%">MONO</p>
+                            <p>
+                                <img class="filter-photo" width="176" height="99" src="~/images/" onclick="FilterFour()">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row offset-10" style="margin-bottom: 25px">
+                        <button class="allbuttons primary-button" type="button" onclick="HideFunc(1)">Hide</button>
+                    </div>
+                </div>
+
+                <!-- Resize -->
+                <div class="resize-container" id="resize-container">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
+                            <img width="27" height="20" src="~/images/small-vector.png" />
+                        </div>
+                        <div class="col pull-left" style="max-width: 35%">
+                            <div class="slidecontainer-f">
+                                <input oninput="ResizeImage()" type="range" min="-200" max="0" value="0" class="slider-f" id="myRange">
+                            </div>
+                        </div>
+                        <div class="col" style="max-width:5%; padding-left: 5px">
+                            <img width="41" height="30" src="~/images/big-vector.png" />
+                        </div>
+                    </div>
+
+                    <div class="row offset-10" style="margin-bottom: 25px">
+                        <button class="allbuttons primary-button" type="button" onclick="HideFunc(2)">Hide</button>
+                    </div>
+                </div>
+
+                <!-- Crop -->
+                <div class="crop-container" id="crop-container">
+                    <div class="row offset-10" style="margin-bottom: 25px">
+                        <button class="allbuttons primary-button" type="button" onclick="HideFunc(3)">Hide</button>
+                    </div>
+                </div>
+
                 <div class="input-text">
                     <div class="row">
                         <div class="col pull-left">
@@ -309,10 +385,11 @@
                             <p class="input-text">TEAM</p>
                             <p>
                                 <select class="input-data" style="padding-left: 10px" name="Team">
-                                    <option value="Lakers">Not Selected</option>
-                                    <option value="Lakers">Lakers</option>
-                                    <option value="Barcelona">Barcelona</option>
-                                    <option value="Warriors">Warriors</option>
+                                    <option value="UsSelected">Not Selected</option>
+                                    @for (int i = 0; i < Model.Teams.Count; i++)
+                                    {
+                                        <option value=@Model.Teams[i]>@Model.Teams[i]</option>
+                                    }
                                 </select>
                             </p>
                         </div>
@@ -362,7 +439,7 @@
 
                     <section class="" style="padding-top: 0; padding-bottom: 0%;">
                         <div class="flex-box" style="display: flex; justify-content: center;">
-                            <textarea id="textarea1" name ="Content" style="width: 100%">
+                            <textarea id="textarea1" name="Content" style="width: 100%">
  
                             </textarea>
                         </div>
@@ -388,7 +465,7 @@
     </form>
 
     <!-- POP UP CONTAINER BEGIN -->
-    <div class="warning-container" id="warning-container">
+    <div class="warning-container" id="warning-container" style="z-index: 20">
         <div class="image">
             <img src="~/images/WarningIco.png" height="100px" />
         </div>

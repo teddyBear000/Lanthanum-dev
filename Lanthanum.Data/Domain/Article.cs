@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Lanthanum.Data;
+using Lanthanum.Web.Data.Domain;
 
 namespace Lanthanum.Web.Domain
 {
@@ -20,5 +21,6 @@ namespace Lanthanum.Web.Domain
         public int ViewsCount { get; set; }
         public int CommentsCount { get; set; }
         public DateTime DateTimeOfCreation { get; set; }
+        public Picture LogoPicture { get; set; }
     }
 }

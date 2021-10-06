@@ -1,3 +1,4 @@
+using Lanthanum.Web.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -22,6 +23,11 @@ namespace Lanthanum.Data.Configurations
             builder
                 .HasMany(a => a.KindsOfSports)
                 .WithMany(k => k.Articles);
+
+            builder
+                .HasOne(a => a.LogoPicture)
+                .WithOne(m => m.ForArticle)
+                .HasForeignKey<Picture>(s => s.ForArticleId);
 
             builder
                 .Property(a => a.DateTimeOfCreation)

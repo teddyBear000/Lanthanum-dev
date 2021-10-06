@@ -54,6 +54,11 @@
 }
 
 img.ImageContainer {
+    width: 816px;
+    height: 459px;
+}
+
+.ImageContainerF {
     position: relative;
     left: 3.5%;
     z-index: -1;
@@ -85,7 +90,6 @@ img.BackgroundContainer {
     font-family: arial;
     font-size: 1.15rem;
     font-weight: lighter;
-    color: rgb(315,33,48);
     padding-left: 10px;
     padding-bottom: 2em;
 }
