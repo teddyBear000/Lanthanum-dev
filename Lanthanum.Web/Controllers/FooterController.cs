@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Lanthanum.Web.Controllers
 {
-    //[Authorize]
+    //[Authorize(Role = "Admin")]
     public class FooterController : Controller
     {
         private readonly ILogger<FooterController> _logger;
@@ -20,14 +20,19 @@ namespace Lanthanum.Web.Controllers
             _footerService = footerService;
         }
 
+        [AllowAnonymous]
         [Route("Footer/Page/{itemName}")]
         public IActionResult GetPage(string itemName)
         {
+            if (itemName == "Contact Us")
+            {
+                return View("ContactUs", _footerService.GetSingleItem("Contact Us"));
+            }
             return View("FooterPage", _footerService.GetSingleItem(itemName));
         }
 
         [Route("Footer")]
-        public IActionResult FooterConfiguration(string itemName = "About Sports Hub", string currentTab = "CompanyInfo")
+        public IActionResult FooterConfiguration(string itemName = "", string currentTab = "CompanyInfo")
         {
             ViewBag.currentTab = currentTab;
             if (itemName == "")
@@ -46,7 +51,6 @@ namespace Lanthanum.Web.Controllers
                 }
             }
             else { ViewBag.itemName = itemName; }
-            
             return View("FooterConfiguration" + currentTab, _footerService.GetAllItems());
         }
 
@@ -82,21 +86,28 @@ namespace Lanthanum.Web.Controllers
 
         public IActionResult RemoveItem(string itemName, string currentTab)
         {
-            ViewBag.currentTab = currentTab;
-            switch (currentTab)
+            try
             {
-                case "CompanyInfo":
-                    ViewBag.itemName = "About Sports Hub";
-                    break;
-                case "Contributors":
-                    ViewBag.itemName = "Featured Writers Program";
-                    break;
-                case "Newsletter":
-                    ViewBag.itemName = "Sign up to receive the latest sports news";
-                    break;
+                ViewBag.currentTab = currentTab;
+                switch (currentTab)
+                {
+                    case "CompanyInfo":
+                        ViewBag.itemName = "About Sports Hub";
+                        break;
+                    case "Contributors":
+                        ViewBag.itemName = "Featured Writers Program";
+                        break;
+                    case "Newsletter":
+                        ViewBag.itemName = "Sign up to receive the latest sports news";
+                        break;
+                }
+                _footerService.RemoveItem(itemName);
+                return View("FooterConfiguration" + currentTab);
             }
-            _footerService.RemoveItem(itemName);
-            return View("FooterConfiguration" + currentTab);
+            catch
+            {
+                return NotFound();
+            }
         }
 
         public IActionResult HideUnhideItem(string itemName, string currentTab)
@@ -124,24 +135,6 @@ namespace Lanthanum.Web.Controllers
             }
             _footerService.HideUnhideAllItemsInCategory(currentTab);
             return View("FooterConfiguration" + currentTab);
-        }
-
-        [Route("ContactUs")]
-        public IActionResult ContactUs()
-        {
-            return View();
-        }
-
-        [Route("Privacy")]
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [Route("Terms")]
-        public IActionResult Terms()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

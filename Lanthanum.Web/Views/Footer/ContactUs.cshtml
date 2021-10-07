@@ -2,6 +2,13 @@
     ViewData["Title"] = "Contact Us";
 }
 
+@using Lanthanum.Web.Services
+@inject IFooterService footerItems
+
+@{
+    string[] ContactUsDetails = footerItems.GetSingleItem("Contact Us").Content.Split(',');
+}
+
 <div class="container py-2">
     <h2 class="contact-us-title text-center">How can we help you?</h2>
 </div>
@@ -27,7 +34,7 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label for="inputLastname" class="contact-us-user-info-field-title">What we need to know</label>
-                    <textarea name="txtMsg" class="form-control contact-us-input-message" placeholder="Write us a message"></textarea>
+                    <textarea name="txtMsg" class="form-control contact-us-input-message" placeholder="Write us a message" style="height:185px"></textarea>
                 </div>
                 <div class="form-group">
                     <input type="submit" name="btnSubmit" class="contact-us-button float-right" value="Send message" />
@@ -45,19 +52,18 @@
                 <table>
                     <tr>
                         <td class="contact-us-table-key">Address</td>
-                        <td class="contact-us-table-value">2D Sadova Street Lviv 79021</td>
+                        <td class="contact-us-table-value">@ContactUsDetails[0]</td>
                     </tr>
                     <tr>
                         <td class="contact-us-table-key">Tel.</td>
-                        <td class="contact-us-table-value">+380-32-222-2222</td>
+                        <td class="contact-us-table-value">@ContactUsDetails[1]</td>
                     </tr>
                     <tr>
                         <td class="contact-us-table-key">Mail</td>
-                        <td class="contact-us-table-value">sports.hub@info.com</td>
+                        <td class="contact-us-table-value">@ContactUsDetails[2]</td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
 </div>
-

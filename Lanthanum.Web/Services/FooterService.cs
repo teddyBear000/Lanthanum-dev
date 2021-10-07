@@ -2,7 +2,6 @@
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Services;
 using Lanthanum.Web.Domain;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Lanthanum.Web.Models
 {

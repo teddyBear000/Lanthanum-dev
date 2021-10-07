@@ -15,7 +15,7 @@
         <div class="up">
             <div class="row justify-content-between">
                 <h2 class="footer-configuration-header">Footer</h2>
-                <button type="button" class="footer-configuration-button btn btn-danger" data-toggle="modal" data-target="#exampleModal">+ New footer page</button>
+                <button type="button" class="btn btn-danger footer-configuration-button" data-toggle="modal" data-target="#Modal">+ New footer page</button>
             </div>
             <div class="row">
                 <a class="footer-configuration-active-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="CompanyInfo"><u>Company Info</u></a>
@@ -37,21 +37,21 @@
                         <tr>
                             <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = "About Sports Hub", currentTab = @CurrentTab })'">About Sports Hub</td>
                             <td class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input danger" checked=@footerItemsForConfiguration.GetSingleItem("About Sports Hub").IsDisplaying id="About Sports Hub" +"Switch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = "About Sports Hub", currentTab = @CurrentTab })'">
+                                <input type="checkbox" class="custom-control-input danger" checked=@footerItemsForConfiguration.GetSingleItem("About Sports Hub").IsDisplaying id="About Sports HubSwitch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = "About Sports Hub", currentTab = @CurrentTab })'">
                                 @if (@footerItemsForConfiguration.GetSingleItem("About Sports Hub").IsDisplaying == true)
                                 {
-                                    <label class="custom-control-label" for="About Sports Hub" +"Switch">Show</label>
+                                    <label class="custom-control-label" for="About Sports HubSwitch">Show</label>
                                 }
                                 else
                                 {
-                                    <label class="custom-control-label" for="About Sports Hub" +"Switch">Hide</label>
+                                    <label class="custom-control-label" for="About Sports HubSwitch">Hide</label>
                                 }
                             </td>
                             <td></td>
                         </tr>
-                        @foreach (FooterItem footerItemForConfiguration in footerItemsForConfiguration.GetAllItems())
+                        @foreach (FooterItem footerItemForConfiguration in footerItemsForConfiguration.GetAllItems().Where(x => x.Category == @CurrentTab))
                         {
-                            @if (@footerItemForConfiguration.Category == CurrentTab && @footerItemForConfiguration.Name != "About Sports Hub" && @footerItemForConfiguration.Name != "Contact Us" && footerItemForConfiguration.Name != footerItemForConfiguration.Category)
+                            @if (@footerItemForConfiguration.Name != "About Sports Hub" && @footerItemForConfiguration.Name != "Contact Us" && footerItemForConfiguration.Name != footerItemForConfiguration.Category)
                             {
                                 <tr>
                                     <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = @footerItemForConfiguration.Name, currentTab = @CurrentTab })'">@footerItemForConfiguration.Name</td>
@@ -73,14 +73,14 @@
                         <tr>
                             <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = "Contact Us", currentTab = @CurrentTab })'">Contact Us</td>
                             <td class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" checked=@footerItemsForConfiguration.GetSingleItem("Contact Us").IsDisplaying id="Contact Us" +"Switch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = "Contact Us", currentTab = @CurrentTab })'">
+                                <input type="checkbox" class="custom-control-input" checked=@footerItemsForConfiguration.GetSingleItem("Contact Us").IsDisplaying id="Contact UsSwitch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = "Contact Us", currentTab = @CurrentTab })'">
                                 @if (@footerItemsForConfiguration.GetSingleItem("Contact Us").IsDisplaying == true)
                                 {
-                                    <label class="custom-control-label" for="Contact Us" +"Switch">Show</label>
+                                    <label class="custom-control-label" for="Contact UsSwitch">Show</label>
                                 }
                                 else
                                 {
-                                    <label class="custom-control-label" for="Contact Us" +"Switch">Hide</label>
+                                    <label class="custom-control-label" for="Contact UsSwitch">Hide</label>
                                 }
                             </td>
                             <td></td>
@@ -88,8 +88,8 @@
                     </tbody>
                 </table>
                 <div class="custom-control custom-switch mx-2 mt-1 mb-4">
-                    <input type="checkbox" class="custom-control-input" checked=@footerItemsForConfiguration.GetSingleItem("CompanyInfo").IsDisplaying id="Company InfoSwitch" onchange="location.href='@Url.Action("HideUnhideAllItemsInCategory", "Footer", new { currentTab = @CurrentTab })'">
-                    <label class="custom-control-label p-2 footer-configuration-table-text" for="Company InfoSwitch">Show section</label>
+                    <input type="checkbox" class="custom-control-input" checked=@footerItemsForConfiguration.GetSingleItem(@CurrentTab).IsDisplaying id="Company InfoSwitch" onchange="location.href='@Url.Action("HideUnhideAllItemsInCategory", "Footer", new { currentTab = @CurrentTab })'">
+                    <label class="custom-control-label footer-configuration-table-text p-2" for="Company InfoSwitch">Show section</label>
                 </div>
                 <table class="table table-bordered-outside">
                     <thead class="thead-light footer-configuration-table-text-bold">
@@ -112,20 +112,18 @@
                 {
                     @using (Html.BeginForm("UpdateContactUs", "Footer", FormMethod.Post))
                     {
-                        string[] words = footerItemsForConfiguration.GetSingleItem(@ItemName).Content.Split(',');
+                        string[] contactUsDetails = footerItemsForConfiguration.GetSingleItem(@ItemName).Content.Split(',');
                         <div class="bg-light p-4">
                             <p class="footer-configuration-table-text-bold">@ItemName</p>
                             <div class="form-group">
-                                <label for="input-name" class="footer-configuration-label" name="ra" id="random2">Address</label>
-                                <input type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" value="@words[0]" name="addressForUpdate" id="addressForUpdate" />
-                                <label for="input-name" class="footer-configuration-label" name="ra" id="random2">Tel.</label>
-                                <input type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" value="@words[1]" name="telForUpdate" id="telForUpdate" />
-                                <label for="input-name" class="footer-configuration-label" name="ra" id="random2">E-mail</label>
-                                <input type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" value="@words[2]" name="emailForUpdate" id="emailForUpdate" />
+                                <label class="footer-configuration-label" name="addressLabel" id="addressLabel">Address</label>
+                                <input type="text" class="form-control footer-configuration-input" value="@contactUsDetails[0]" name="addressForUpdate" id="addressForUpdate" />
+                                <label class="footer-configuration-label" name="telLabel" id="telLabel">Tel.</label>
+                                <input type="text" class="form-control footer-configuration-input" value="@contactUsDetails[1]" name="telForUpdate" id="telForUpdate" />
+                                <label class="footer-configuration-label" name="emailLabel" id="emailLabel">E-mail</label>
+                                <input type="text" class="form-control footer-configuration-input" value="@contactUsDetails[2]" name="emailForUpdate" id="emailForUpdate" />
                             </div>
-
                             <div class="row justify-content-between align-items-center p-3">
-
                                 <p class="col footer-configuration-required align-self-center">All fields are required<sup>*</sup></p>
                                 <div class="col row align-items-center">
                                     <a class="col footer-configuration-cancel-link" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-itemName=@ItemName asp-route-currentTab=@CurrentTab>Cancel</a>
@@ -142,25 +140,24 @@
                         <div class="bg-light p-4">
                             <p class="footer-configuration-table-text-bold">@ItemName</p>
                             <div class="form-group">
-                                <label for="input-name" class="footer-configuration-label" name="ra" id="random2">Headline</label>
+                                <label class="footer-configuration-label" name="headlineLabel" id="headlineLabel">Headline</label>
                                 @if (@ItemName != "About Sports Hub" && @ItemName != "Privacy policy" && @ItemName != "Terms and conditions")
                                 {
                                     <input type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" name="nameChangeForUpdate" id="nameChangeForUpdate" value="@ItemName" />
                                 }
                                 @if (@ItemName == "About Sports Hub" || @ItemName == "Privacy policy" || @ItemName == "Terms and conditions")
                                 {
-                                    <input disabled type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" name="nameChangeForUpdateForDislay" id="nameChangeForUpdateForDislay" value="@ItemName" />
+                                    <input disabled type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" name="nameChangeForDisplay" id="nameChangeForDisplay" value="@ItemName" />
                                     <input hidden type="text" class="form-control" placeholder="Name your footer page" name="nameChangeForUpdate" id="nameChangeForUpdate" value="@ItemName" />
                                 }
                                 <input type="hidden" class="form-control contact-us-input" placeholder="Name your footer page" name="itemNameForUpdate" id="itemNameForUpdate" value="@ItemName" />
                                 <input type="hidden" class="form-control contact-us-input" placeholder="Name your footer page" name="currentTabForUpdate" id="currentTabForUpdate" value=@CurrentTab>
                             </div>
-                            <label for="input-name" class="footer-configuration-label" name="rar" id="random3">Content</label>
-                            <textarea id="contentChangeForUpdate" style="width: 100%" name="contentChangeForUpdate" >
+                            <label class="footer-configuration-label" name="contentLabel" id="contentLabel">Content</label>
+                            <textarea id="contentChangeForUpdate" name="contentChangeForUpdate">
  
                 </textarea>
                             <div class="row justify-content-between align-items-center p-3">
-
                                 <p class="col footer-configuration-required align-self-center">All fields are required<sup>*</sup></p>
                                 <div class="col row align-items-center">
                                     <a class="col footer-configuration-cancel-link" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-itemName=@ItemName asp-route-currentTab=@CurrentTab>Cancel</a>
@@ -200,15 +197,15 @@
     </div>
 
     @* Pop-up for adding item *@
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content rounded-0 p-4">
                 @using (Html.BeginForm("AddItem", "Footer", FormMethod.Post))
                 {
                     <div class="modal-body">
-                        <h5 class="modal-title footer-configuration-modal-header text-center" id="exampleModalLabel">Add new footer page</h5>
+                        <h5 class="modal-title text-center footer-configuration-modal-header" id="ModalLabel">Add new footer page</h5>
                         <div class="form-group">
-                            <label for="input-name" class="footer-configuration-modal-label">Name</label>
+                            <label class="footer-configuration-modal-label">Name</label>
                             <input type="text" class="form-control footer-configuration-modal-input" placeholder="Name your footer page" name="itemNameForAdd" id="itemNameForAdd">
                             <input type="hidden" class="form-control" placeholder="Name your footer page" name="currentTabForAdd" id="currentTabForAdd" value=@CurrentTab>
                         </div>
@@ -230,4 +227,3 @@
         }
     </script>
 </body>
-

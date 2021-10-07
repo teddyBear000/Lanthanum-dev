@@ -1,0 +1,58 @@
+﻿@using Lanthanum.Web.Domain
+@using Lanthanum.Web.Services
+
+@inject IFooterService footerItemsForConfiguration
+
+@{
+    ViewData["Title"] = "Footer Configuration";
+    var CurrentTab = ViewBag.currentTab;
+    var ItemName = ViewBag.itemName;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body>
+    <div class="container">
+        <div class="up">
+            <div class="row justify-content-between">
+                <h2 class="footer-configuration-header">Footer</h2>
+            </div>
+            <div class="row">
+                <a class="footer-configuration-unactive-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="CompanyInfo">Company Info</a>
+                <a class="footer-configuration-unactive-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="Contributors">Contributors</a>
+                <a class="footer-configuration-active-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="Newsletter"><u>Newsletter</u></a>
+            </div>
+        </div>
+        <div class="modal-body row">
+            <div class="col-md-6">
+                <table class="table table-bordered-outside">
+                    <thead class="thead-light footer-configuration-table-text-bold">
+                        <tr>
+                            <th scope="col">Footer menu names</th>
+                            <th scope="col">Hide/Show</th>
+                        </tr>
+                    </thead>
+                    <tbody class="footer-configuration-table-text">
+                        <tr>
+                            <td scope="row">Sign up to receive the latest sports news</td>
+                            <td class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input danger" checked=@footerItemsForConfiguration.GetSingleItem("Sign up to receive the latest sports news").IsDisplaying id="Sign up to receive the latest sports newsSwitch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = "Sign up to receive the latest sports news", currentTab = @CurrentTab })'">
+                                @if (@footerItemsForConfiguration.GetSingleItem("Sign up to receive the latest sports news").IsDisplaying == true)
+                                {
+                                    <label class="custom-control-label" for="Sign up to receive the latest sports newsSwitch">Show</label>
+                                }
+                                else
+                                {
+                                    <label class="custom-control-label" for="Sign up to receive the latest sports newsSwitch">Hide</label>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="custom-control custom-switch mx-2 mt-1 mb-4">
+                    <input type="checkbox" class="custom-control-input" checked=@footerItemsForConfiguration.GetSingleItem("Newsletter").IsDisplaying id="NewsletterSwitch" onchange="location.href='@Url.Action("HideUnhideAllItemsInCategory", "Footer", new { currentTab = @CurrentTab })'">
+                    <label class="custom-control-label p-2 footer-configuration-table-text" for="NewsletterSwitch">Show section</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

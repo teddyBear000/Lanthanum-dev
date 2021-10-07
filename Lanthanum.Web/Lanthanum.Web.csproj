@@ -30,7 +30,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Articles\" />
-    <Folder Include="Views\Footer\" />
   </ItemGroup>
 
 </Project>

@@ -9,3 +9,5 @@
 > dotnet dotnet user-secrets set "DataBase:Password" "password" --project Lantanum.Web
 > dotnet user-secrets set "DataBase:User" "user" --project Lanthanum.Web
 ```
+## How to setup footer and its configuration
+Run commented code from _Layout.cshtml once to add all required entities to database.
