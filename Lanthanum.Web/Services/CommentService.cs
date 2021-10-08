@@ -1,10 +1,8 @@
 ﻿using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Services.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lanthanum.Web.Services
 {

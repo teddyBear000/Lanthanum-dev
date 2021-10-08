@@ -4,10 +4,8 @@ using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using Lanthanum.Web.Models;
 using Microsoft.AspNetCore.Authorization;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Lanthanum.Web.Services;
 using Lanthanum.Web.Services.Interfaces;
 
 namespace Lanthanum.Web.Controllers

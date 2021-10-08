@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Lanthanum.Data;
+using Lanthanum.Web.Data.Domain;
 
 namespace Lanthanum.Web.Domain
 {
@@ -18,6 +19,7 @@ namespace Lanthanum.Web.Domain
         public string PasswordHash { get; set; }
         public RoleStates Role { get; set; }
         public Subscription Subscription { get; set; }
+        public ExternalProviderUserInfo ExternalProvider { get; set; }
         public List<Subscription> Subscribers { get; set; }
         public List<Article> PublishedArticles { get; set; }
 

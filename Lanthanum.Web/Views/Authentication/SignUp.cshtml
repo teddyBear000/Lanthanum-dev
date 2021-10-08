@@ -13,12 +13,15 @@
 <div class="text-left mb-4 px-3">
     <h4>Create Account</h4>
 </div>
-<form class="px-3" method="post">
+<div class="px-3">
     <div class="input-container">
         <div class="social-network-container">
-                <a href="#" class="fb-img"></a>
-                <a href="#" class="google-img"></a>
-            </div>
+            <form method="post" class="d-flex" asp-controller="Authentication" asp-action="ExternalLogin" asp-route-returnUrl="@Model?.ReturnUrl" asp-route-viewName="Signup">
+                <button type="submit" class="google-img" name="provider" value="Google"></button>
+                <button type="submit" class="fb-img" name="provider" value="Facebook"></button>
+            </form>
+        </div>
+        <form method="post" asp-controller="Authentication" asp-action="SignUp">
             <div class="text-left plain-line mb-3">Or use your email for registration:</div>
             <div>@Html.ValidationSummary(false)</div>
             <div class="fname-lname-container">
@@ -31,17 +34,17 @@
                     @Html.TextBoxFor(m => m.LastName, new { placeholder = "Doe" })
                 </div>
             </div>
-        
+
             <div class="plain-line">
                 <div class="float-left">
                     EMAIL
                 </div>
-                <br/>
+                <br />
             </div>
             <div class="form-input">
                 @Html.TextBoxFor(m => m.Email, new { placeholder = "johndoe@gmail.com" })
             </div>
-        
+
             <div class="plain-line">
                 <div class="float-left">
                     PASSWORD
@@ -56,6 +59,6 @@
             <div class="mb-3">
                 <button type="submit" class="btn btn-block">SIGN UP</button>
             </div>
+        </form>
     </div>
-    
-</form>
+</div>
