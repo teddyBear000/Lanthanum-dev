@@ -361,15 +361,45 @@
                 <!-- Crop -->
                 <div class="crop-container" id="crop-container">
                     <div class="row" style="margin-bottom: 10px">
+
                         <div class="col pull-left" style="margin-left: 26%; max-width:5%">
-                            <img width="50" height="40" src="/images/ArrowL.png" onclick="MakeCrop()">
+                            <img width="30" height="20" src="/images/ArrowL.png" onclick="MakeCrop(4, false)">
                         </div>
+
+                        <div class="col pull-left" style="max-width:5%">
+                            <img width="30" height="20" src="/images/ArrowR.png" onclick="MakeCrop(4, true)">
+                        </div>
+
                         <div class="col pull-left" style="margin-left: 26%; max-width:5%">
-                            <img width="50" height="40" src="/images/ArrowR.png" onclick="DeleteCrop()">
+                            <img width="30" height="20" src="/images/ArrowL.png" onclick="MakeCrop(2, true)">
                         </div>
+
+                        <div class="col pull-left" style="max-width:5%">
+                            <img width="30" height="20" src="/images/ArrowR.png" onclick="MakeCrop(2, false)">
+                        </div>
+
+                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
+                            <img width="20" height="30" src="/images/ArrowU.png" onclick="MakeCrop(1, false)">
+                        </div>
+
+                        <div class="col pull-left" style="max-width:5%">
+                            <img width="20" height="30" src="/images/ArrowD.png" onclick="MakeCrop(1, true)">
+                        </div>
+
+                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
+                            <img width="20" height="30" src="/images/ArrowU.png" onclick="MakeCrop(3, true)">
+                        </div>
+
+                        <div class="col pull-left" style="max-width:5%">
+                            <img width="20" height="30" src="/images/ArrowD.png" onclick="MakeCrop(3, false)">
+                        </div>
+
                     </div>
-                    <div class="row offset-10" style="margin-bottom: 25px">
-                        <button class="allbuttons primary-button" type="button" onclick="HideFunc(3)">Hide</button>
+                    <div class="row offset-9" style="margin-bottom: 25px">
+                        <div class="col">
+                            <button onclick="DeleteCrop()" class="allbuttons secondary-button" type="button">Cancel All</button>
+                            <button class="allbuttons primary-button" type="button" onclick="HideFunc(3)">Hide</button>
+                        </div>
                     </div>
                 </div>
 

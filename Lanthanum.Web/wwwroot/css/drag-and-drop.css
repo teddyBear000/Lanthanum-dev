@@ -22,6 +22,7 @@
     .drag-area.active {
         display: flex;
         border: 0px solid gray;
+        overflow: hidden;
     }
 
 .drag-area img #inserted {
@@ -141,9 +142,37 @@
         cursor: pointer;
     }
 
-.crop-image {
+.crop-one {
+    top: 29px;
     position: absolute;
     width: 816px;
+    height: 0px;
+    background-color: #fff;
+    z-index: 10;
+}
+
+.crop-two {
+    position: absolute;
+    left: 831px;
+    width: 0px;
     height: 459px;
-    overflow: hidden;
+    background-color: #fff;
+    z-index: 10;
+}
+
+.crop-three {
+    position: absolute;
+    top: 459px;
+    width: 816px;
+    height: 0px;
+    background-color: #fff;
+    z-index: 10;
+}
+
+.crop-four {
+    position: absolute;
+    width: 0px;
+    height: 459px;
+    background-color: #fff;
+    z-index: 10;
 }

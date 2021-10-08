@@ -63,9 +63,11 @@ function ShowFile(file){
                                 <img onclick="ResizeF()" class="button-form" src="/images/resize-ph.png">
                             </div>
                             </div>
-                            <div class="crop-image">
-                            <img class="inserted-img" id="inserted" src="${fileReader.result}" height=459px>
-                            </div>` ;
+                            <div class="crop-one" style="height: 0px;" id="c-one"> </div>
+                            <div class="crop-two" style="width: 0px; left: 831px;" id="c-two"> </div>
+                            <div class="crop-three" style="height: 0px; top: 489px;" id="c-three"> </div>
+                            <div class="crop-four" style="width: 0px;" id="c-four"> </div>
+                            <img class="inserted-img" id="inserted" src="${fileReader.result}" height=459px>`;
 
             image = fileReader.result;
         }
@@ -355,14 +357,76 @@ function CropF()
     elementFill.style.zIndex = "4";
 }
 
-function MakeCrop()
+function MakeCrop(num, reverse)
 {
-    var element = document.querySelector('.inserted-img');
+    if (num == 1) {
+        var element = document.getElementById('c-one');
+        console.log(200);
 
+        if (reverse) {
+            element.style.height = (parseInt(element.style.height, 10) + 10).toString() + "px";
+        }
+        else {
+            element.style.height = (parseInt(element.style.height, 10) - 10).toString() + "px";
+        }
+
+        if (parseInt(element.style.height) >= 459)
+        {
+            element.style.height = "459px";
+        }
+    }
+    else if (num == 2) {
+        var element = document.querySelector('.crop-two');
+
+        if (reverse) {
+            element.style.width = (parseInt(element.style.width, 10) + 10).toString() + "px";
+            element.style.left = (parseInt(element.style.left, 10) - 10).toString() + "px";
+        }
+        else if (parseInt(element.style.width, 10) > 0){
+            element.style.width = (parseInt(element.style.width, 10) - 10).toString() + "px";
+            element.style.left = (parseInt(element.style.left, 10) + 10).toString() + "px";
+        }
+    }
+    else if (num == 3) {
+        var element = document.querySelector('.crop-three');
+
+        if (reverse) {
+            element.style.height = (parseInt(element.style.height, 10) + 10).toString() + "px";
+            element.style.top = (parseInt(element.style.top, 10) - 10).toString() + "px";
+        }
+        else if (parseInt(element.style.height, 10) > 0){
+            element.style.height = (parseInt(element.style.height, 10) - 10).toString() + "px";
+            element.style.top = (parseInt(element.style.top, 10) + 10).toString() + "px";
+        }
+    }
+    else if (num == 4) {
+        var element = document.querySelector('.crop-four');
+
+        if (reverse) {
+            element.style.width = (parseInt(element.style.width, 10) + 10).toString() + "px";
+        }
+        else{
+            element.style.width = (parseInt(element.style.width, 10) - 10).toString() + "px";
+        }
+
+        if (parseInt(element.style.width) >= 816)
+        {
+            element.style.width = "816px";
+        }
+    }
 }
 
 function DeleteCrop() {
-    var element = document.querySelector('.inserted-img');
+    document.querySelector('.crop-one').style.height = "0";
+    document.querySelector('.crop-four').style.width = "0";
+
+    var elementTwo = document.querySelector('.crop-two');
+    elementTwo.style.width = "0";
+    elementTwo.style.left = "831px";
+
+    var elementThree = document.querySelector('.crop-three');
+    elementThree.style.height = "0";
+    elementThree.style.top = "489px";
 
 }
 
