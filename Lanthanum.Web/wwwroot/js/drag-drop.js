@@ -63,7 +63,10 @@ function ShowFile(file){
                                 <img onclick="ResizeF()" class="button-form" src="/images/resize-ph.png">
                             </div>
                             </div>
-                            <img class="inserted-img" id="inserted" src="${fileReader.result}" height=459px>`;
+                            <div class="crop-image">
+                            <img class="inserted-img" id="inserted" src="${fileReader.result}" height=459px>
+                            </div>` ;
+
             image = fileReader.result;
         }
 
@@ -352,6 +355,17 @@ function CropF()
     elementFill.style.zIndex = "4";
 }
 
+function MakeCrop()
+{
+    var element = document.querySelector('.inserted-img');
+
+}
+
+function DeleteCrop() {
+    var element = document.querySelector('.inserted-img');
+
+}
+
 function DeleteF()
 {
     HideFunc(1);
@@ -416,4 +430,23 @@ function ResizeImage()
     document.getElementById('image-container').style.paddingTop = ((459 - parseInt(elementTwo.style.height)) / 2).toString() + "px";
 
     document.getElementById("getSize").value = element.style.height + " " + element.style.width;
+}
+
+function ChangeElement(valu)
+{
+    var elements = document.getElementsByClassName('kinds-text');
+
+    for (var i = 0; i < elements.length; i++)
+    {
+        if (elements.item(i).textContent == valu)
+        {
+            elements.item(i).style.color = "rgb(215, 33, 48)";
+            elements.item(i).style.cursor = "default";
+        }
+        else
+        {
+            elements.item(i).style.color = 'rgb(180, 180, 180)';
+            elements.item(i).style.cursor = "pointer";
+        }
+    }
 }

@@ -59,9 +59,6 @@
     color: rgb(215,33,48);
     cursor: default;
 }
-    .kinds-text-selected:hover {
-        text-decoration: none;
-    }
 
 .flex-one {
     display: flex;

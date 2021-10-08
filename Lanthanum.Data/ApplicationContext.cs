@@ -20,9 +20,8 @@ namespace Lanthanum.Web.Data
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
-
-            Database.EnsureDeleted();
-            Database.EnsureCreated(); // change
+            //Database.EnsureDeleted(); // change
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder builder)

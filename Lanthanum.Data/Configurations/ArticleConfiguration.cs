@@ -25,11 +25,6 @@ namespace Lanthanum.Data.Configurations
                 .WithMany(k => k.Articles);
 
             builder
-                .HasOne(a => a.LogoPicture)
-                .WithOne(m => m.ForArticle)
-                .HasForeignKey<Picture>(s => s.ForArticleId);
-
-            builder
                 .Property(a => a.DateTimeOfCreation)
                 .ValueGeneratedOnAdd();
         }

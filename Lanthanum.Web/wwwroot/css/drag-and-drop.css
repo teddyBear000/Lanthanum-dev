@@ -140,3 +140,10 @@
         background: rgb(215,33,48);
         cursor: pointer;
     }
+
+.crop-image {
+    position: absolute;
+    width: 816px;
+    height: 459px;
+    overflow: hidden;
+}

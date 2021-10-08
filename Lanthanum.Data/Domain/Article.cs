@@ -22,5 +22,6 @@ namespace Lanthanum.Web.Domain
         public int CommentsCount { get; set; }
         public DateTime DateTimeOfCreation { get; set; }
         public Picture LogoPicture { get; set; }
+        public Conference Conference { get; set; }
     }
 }

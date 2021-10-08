@@ -21,15 +21,17 @@ namespace Lanthanum.Web.Controllers
         private readonly DbRepository<Team> _teamRepository;
         private readonly DbRepository<KindOfSport> _kindsRepository;
         private readonly DbRepository<Picture> _pictureRepository;
+        private readonly DbRepository<Conference> _conferenceRepository;
         private readonly IWebHostEnvironment _appEnvironment;
 
-        public AdminController(IWebHostEnvironment appEnvironment, DbRepository<Picture> pictureRepository, DbRepository<Article> articleRepository, DbRepository<Team> teamRepository, DbRepository<KindOfSport> kindsRepository)
+        public AdminController(IWebHostEnvironment appEnvironment, DbRepository<Picture> pictureRepository, DbRepository<Article> articleRepository, DbRepository<Team> teamRepository, DbRepository<KindOfSport> kindsRepository, DbRepository<Conference> conferenceRepository)
         {
             _pictureRepository = pictureRepository;
             _articleRepository = articleRepository;
             _teamRepository = teamRepository;
             _kindsRepository = kindsRepository;
             _appEnvironment = appEnvironment;
+            _conferenceRepository = conferenceRepository;
         }
 
         [HttpGet]
@@ -45,7 +47,9 @@ namespace Lanthanum.Web.Controllers
             var model = new AddingArticleViewModel 
             {
                 SelectedSport = sport,
-                Teams = _teamRepository.GetAllAsync().Result.ToList()
+                Teams = _teamRepository.GetAllAsync().Result.ToList(),
+                Conferences = _conferenceRepository.GetAllAsync().Result.ToList(),
+                KindsOfSport = _kindsRepository.GetAllAsync().Result.ToList()
             };
 
             return View(model); 
@@ -57,6 +61,7 @@ namespace Lanthanum.Web.Controllers
         {
             var kindOfSport = _kindsRepository.Find(x => x.Name == Kindofsport).First();
             var team = _teamRepository.Find(x => x.Name == Team).First();
+            var conference = _conferenceRepository.Find(x => x.Name == Conference).First();
 
             var logoPath = " ";
 
@@ -95,7 +100,8 @@ namespace Lanthanum.Web.Controllers
                 DateTimeOfCreation = new DateTime(2021, 09, 13),
                 KindsOfSports = new List<KindOfSport>() { kindOfSport },
                 Teams = new List<Team>() { team },
-                LogoPicture = picture
+                LogoPicture = picture,
+                Conference = conference
             }).Wait();
 
 

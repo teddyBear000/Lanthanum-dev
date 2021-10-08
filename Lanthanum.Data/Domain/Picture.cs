@@ -15,8 +15,5 @@ namespace Lanthanum.Web.Data.Domain
         public string Filter { get; set; }
         public string Size { get; set; }
         public string Crop { get; set; }
-
-        public int ForArticleId { get; set; }
-        public Article ForArticle { get; set; }
     }
 }

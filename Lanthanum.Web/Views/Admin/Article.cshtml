@@ -229,7 +229,7 @@
                 <div class="col flex-one">
                     <div class="kind-text pull-left">
                         <h3 id="kind_hidden_text">NBA</h3>
-                        <input type="hidden" id="kind_hidden" name="Kindofsport" />
+                        <input type="hidden" id="kind_hidden" value="NBA" name="Kindofsport"/>
                     </div>
 
                     <div class="offset-7">
@@ -248,23 +248,20 @@
                 </div>
                 <div class="col flex-two pull-left" style="overflow-x: hidden; border-bottom: 0px !important;">
                     <div class="divider-one" id="divider">
-                        @for (int i = 0; i < 8; i++)
+                        @for (int i = 0; i < Model.KindsOfSport.Count; i++)
                         {
-                            <div class="kinds-text pull-left" onclick="AddElement()">
-                                Home
-                            </div>
-                        }
-                        <div class="kinds-text pull-left" onclick="AddElement()"> 
-                            GOLF
-                        </div>
-                        <div class="kinds-text kinds-text-selected pull-left" onclick="AddElement()">
-                            NBA
-                        </div>
-                        @for (int i = 0; i < 8; i++)
-                        {
-                            <div class="kinds-text pull-left" onclick="AddElement()">
-                                NBA
-                            </div>
+                            if ((Model.SelectedSport == Model.KindsOfSport[i].Name))
+                            {
+                                <div class="kinds-text pull-left" style="color: rgb(215,33,48); cursor: default;">
+                                    @Model.KindsOfSport[i].Name
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="kinds-text pull-left" onclick="">
+                                    @Model.KindsOfSport[i].Name
+                                </div>
+                            }
                         }
                     </div>
                 </div>
@@ -363,6 +360,14 @@
 
                 <!-- Crop -->
                 <div class="crop-container" id="crop-container">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
+                            <img width="50" height="40" src="/images/ArrowL.png" onclick="MakeCrop()">
+                        </div>
+                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
+                            <img width="50" height="40" src="/images/ArrowR.png" onclick="DeleteCrop()">
+                        </div>
+                    </div>
                     <div class="row offset-10" style="margin-bottom: 25px">
                         <button class="allbuttons primary-button" type="button" onclick="HideFunc(3)">Hide</button>
                     </div>
@@ -374,9 +379,11 @@
                             <p class="input-text">CONFERENCE</p>
                             <p>
                                 <select class="input-data" style="padding-left: 10px" name="Conference">
-                                    <option value="NBA">Not Selected</option>
-                                    <option value="NBA">NBA</option>
-                                    <option value="GOLF">GOLF</option>
+                                    <option value="UnSelected">Not Selected</option>
+                                    @for (int i = 0; i < Model.Conferences.Count; i++)
+                                    {
+                                        <option value=@Model.Conferences[i].Name>@Model.Conferences[i].Name</option>
+                                    }
                                 </select>
                             </p>
                         </div>
@@ -385,10 +392,10 @@
                             <p class="input-text">TEAM</p>
                             <p>
                                 <select class="input-data" style="padding-left: 10px" name="Team">
-                                    <option value="UsSelected">Not Selected</option>
+                                    <option value="UnSelected">Not Selected</option>
                                     @for (int i = 0; i < Model.Teams.Count; i++)
                                     {
-                                        <option value=@Model.Teams[i]>@Model.Teams[i]</option>
+                                        <option value=@Model.Teams[i].Name>@Model.Teams[i].Name</option>
                                     }
                                 </select>
                             </p>
@@ -398,11 +405,11 @@
                             <p class="input-text">LOCATION</p>
                             <p>
                                 <select class="input-data" style="padding-left: 10px" name="Location">
-                                    <option value="Los Angeles">Not Selected</option>
-                                    <option value="Los Angeles">Los Angeles</option>
-                                    <option value="New York">New York</option>
-                                    <option value="Lviv">Lviv</option>
-                                    <option value="London">London</option>
+                                    <option value="UnSelected">Not Selected</option>
+                                    @for (int i = 0; i < Model.Locations.Count; i++)
+                                    {
+                                        <option value=@Model.Locations[i]>@Model.Locations[i]</option>
+                                    }
                                 </select>
                             </p>
                         </div>
