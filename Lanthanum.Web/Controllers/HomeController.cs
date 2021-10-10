@@ -1,14 +1,9 @@
 ﻿using Lanthanum.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -22,13 +17,37 @@ namespace Lanthanum.Web.Controllers
         {
             _logger = logger;
             _userRepository = userRepository;
+            Categories = new List<string>
+            {
+                "Home", "NBA", "NFL", "MLB", "CBB", "NASCAR", "GOLF", "SOCCER", "TEAM HUB", "LIFESTYLE", "DEALBOOK",
+                "VIDEO"
+            };
             _articleRepository = articleRepository;
             _commentRepository = commentRepository;
-        }
 
+        }
         public IActionResult Index()
         {
-            return View();
+
+
+            var articles = new List<Article>();
+            foreach (var articleElement in _articleRepository.GetAllAsync().Result)
+            {
+                articles.Add(articleElement);
+            }
+
+            var additionalArticles = new List<Article>();
+            foreach (var additionalArticleElement in _articleRepository.GetAllAsync().Result)
+            {
+                additionalArticles.Add(additionalArticleElement);
+            }
+
+            var model = new MainPageArticlesViewModel
+            {
+                MainArticles = articles,
+                AdditionalArticles = additionalArticles
+            };
+            return View(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -51,5 +70,7 @@ namespace Lanthanum.Web.Controllers
                 }).Wait();
             }
         }
+
+        public static List<string> Categories { get; set; }
     }
 }

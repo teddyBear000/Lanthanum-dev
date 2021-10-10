@@ -1,12 +1,115 @@
-@using Lanthanum.Web.Services
-
+@model Lanthanum.Web.Models.MainPageArticlesViewModel
 @{
     ViewData["Title"] = "Home Page";
+    var data = Model.MainArticles;
+    var additionalData = Model.AdditionalArticles;
+}
+<head>
+    <link rel="stylesheet" href="~/css/mainpage.css" />
+</head>
+
+@section elements_in_header{
+    <div class="container">
+        <div class="col-8">
+            <div class="searchField" style="height: 100%">
+                <input id="searchFieldSection" placeholder="Search by" type="text">
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="navbar">
+                <a href="#" id="signUpButton">
+                    Sign up
+                </a>
+                <button href="#" id="logInButton">
+                    Log in
+                </button>
+            </div>
+        </div>
+    </div>
 }
 
-@inject AuthService _authService
+<div>
+    <div id="allNote" class="backNote">ALL</div>
+    <div id="newsNote" class="backNote">NEWS</div>
 
-<div class="text-center">
-    <h1 class="display-4">@User.Identity.Name</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div id="photoKindOfSport">
+        <p id="photoKindOfSportText">NBA</p>
+    </div>
+
+    <div class="slide" data-ride="carousel">
+        <div id="photo" class="carousel-inner main-carousel">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src=@data[0].LogoPath>
+            </div>
+            @for (int i = 1; i < data.Count; i++)
+            {
+                <div class="carousel-item">
+                    <img class="d-block w-100" src=@data[i].LogoPath>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div id="shadow"></div>
+
+    <div data-interval="false">
+        <div id="photoCard" class="carousel-inner additional-carousel">
+            <div class="carousel-item active">
+                <div>
+                    <p id="dateCardPosition" class="dateFormat">Published / @data[0].DateTimeOfCreation.ToString("dd.MM.yyyy")</p>
+                    <p id="headerCardPosition" class="headerFormat">@data[0].Headline</p>
+                    <p id="articlePartTextCardPosition" class="articlePartTextFormat">@data[0].MainText</p>
+                    <button class="moreButton">More</button>
+                </div>
+            </div>
+            @for (int i = 1; i < data.Count; i++)
+            {
+                <div class="carousel-item">
+                    <div>
+                        <p id="dateCardPosition" class="dateFormat">Published / @data[i].DateTimeOfCreation.ToString("dd.MM.yyyy")</p>
+                        <p id="headerCardPosition" class="headerFormat">@data[i].Headline</p>
+                        <p id="articlePartTextCardPosition" class="articlePartTextFormat">@data[i].MainText</p>
+                        <button class="moreButton">More</button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+    <div>
+        <div id="leftArrow" class="circle">&laquo;</div>
+        <ul id="numberedList" data-tag="articleNumberList">
+            <li class="activePageNumber" onclick="switchMainArticle(this)">01</li>
+            <li onclick="switchMainArticle(this)">02</li>
+            <li onclick="switchMainArticle(this)">03</li>
+            <li onclick="switchMainArticle(this)">04</li>
+        </ul>
+
+        <div id="rightArrow" class="circle">&raquo;</div>
+    </div>
+
+
+
+    <!-- Additional cards -->
+    <div id="firstCardPosition" class="additionalNewsItem">
+        <img class="additionalCardPhoto" src=@additionalData[0].LogoPath>
+        <p class="additionalCardHeadline">@additionalData[0].Headline</p>
+        <p class="additionalCardText">@additionalData[0].MainText</p>
+    </div>
+    <div id="secondCardPosition" class="additionalNewsItem">
+        <img class="additionalCardPhoto" src=@additionalData[1].LogoPath>
+        <p class="additionalCardHeadline">@additionalData[1].Headline</p>
+        <p class="additionalCardText">@additionalData[1].MainText</p>
+    </div>
+    <div id="thirdCardPosition" class="additionalNewsItem">
+        <img class="additionalCardPhoto" src=@additionalData[2].LogoPath>
+        <p class="additionalCardHeadline">@additionalData[2].Headline</p>
+        <p class="additionalCardText">@additionalData[2].MainText</p>
+    </div>
+    <div id="fourthCardPosition" class="additionalNewsItem">
+        <img class="additionalCardPhoto" src=@additionalData[3].LogoPath>
+        <p class="additionalCardHeadline">@additionalData[3].Headline</p>
+        <p class="additionalCardText">@additionalData[3].MainText</p>
+    </div>
 </div>

@@ -1,0 +1,262 @@
+﻿@using Lanthanum.Web.Domain
+@model Lanthanum.Web.Models.AdminArticleViewModel
+@{
+    Layout = null;
+}
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ArticlesList</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/articles_list.css" />
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 main-form-container">
+                <div class="preview-search-container justify-content-between my-3">
+                    <a class="text-decoration-none preview-wrapper">
+                        <img src="~/images/preview_eye.png" 
+                             alt="preview_eye.png" 
+                             class="preview-eye-img" />
+                        <p class="preview-text ml-1 mb-0">Preview</p>
+                    </a>
+                    <div class="search ml-auto">
+                        <img src="~/images/search.png" 
+                             alt="search.png" 
+                             class="search-img" />
+                        <form method="get" asp-action="ArticlesList"
+                              asp-route-filterTeam="@Model.FilterTeam" 
+                              asp-route-filterConference="@Model.FilterConference" 
+                              asp-route-filterStatus="@Model.FilterStatus">
+                            <input type="text" 
+                                   placeholder="Type here to search" 
+                                   name="searchString" 
+                                   value="@Model.SearchString"/>
+                        </form>
+                    </div>
+                </div>
+                <div class="sort-dropdown-container">
+                    <div class="dropdown sort-dropdown">
+                        <button class="dropdown-toggle btn btn-secondary" 
+                                type="button" 
+                                id="dropdownMenuButton" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false">
+                            @if (!string.IsNullOrEmpty(@Model.FilterConference))
+                            {
+                                <text>@Model.FilterConference</text>
+                            }
+                            else
+                            {
+                                <text>All Conferences</text>
+                            }
+   
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" asp-action="ArticlesList" 
+                                   asp-route-filterConference="All" 
+                                   asp-route-filterTeam="@Model.FilterTeam" 
+                                   asp-route-filterStatus="@Model.FilterStatus" 
+                                   asp-route-searchString="@Model.SearchString">All Conferences</a></li>
+                            @foreach (string conference in @Model.Conferences)
+                            {
+                                <li><a class="dropdown-item" 
+                                       asp-action="ArticlesList" 
+                                       asp-route-filterConference="@conference" 
+                                       asp-route-filterTeam="@Model.FilterTeam" 
+                                       asp-route-filterStatus="@Model.FilterStatus" 
+                                       asp-route-searchString="@Model.SearchString">@conference</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="dropdown sort-dropdown">
+                        <button class="dropdown-toggle btn btn-secondary" 
+                                type="button" 
+                                id="dropdownMenuButton" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false">
+                            @if (!string.IsNullOrEmpty(Model.FilterTeam))
+                            {
+                                <text>@Model.FilterTeam</text>
+                            }
+                            else
+                            {
+                                <text>All Teams</text>
+                            }
+                        </button>
+                        <ul class="dropdown-menu" 
+                            aria-labelledby="dropdownMenuButton">
+                            <li><a class="dropdown-item" 
+                                   asp-action="ArticlesList" 
+                                   asp-route-filterTeam="All" 
+                                   asp-route-filterConference="@Model.FilterConference" 
+                                   asp-route-filterStatus="@Model.FilterStatus"
+                                   asp-route-searchString="@Model.SearchString">All Teams</a></li>
+                            @foreach (string teamName in @Model.TeamNames)
+                            {
+                                <li><a class="dropdown-item" 
+                                       asp-action="ArticlesList" 
+                                       asp-route-filterTeam="@teamName" 
+                                       asp-route-filterConference="@Model.FilterConference" 
+                                       asp-route-filterStatus="@Model.FilterStatus"
+                                       asp-route-searchString="@Model.SearchString">@teamName</a></li>
+                            }
+                        </ul>
+                    </div>
+                    <div class="dropdown sort-dropdown">
+                        <button class="dropdown-toggle btn btn-secondary" 
+                                type="button" id="dropdownMenuButton" 
+                                data-toggle="dropdown" 
+                                aria-haspopup="true" 
+                                aria-expanded="false">
+                            @if (!string.IsNullOrEmpty(Model.FilterStatus))
+                            {
+                                <text>@Model.FilterStatus</text>
+                            }
+                            else
+                            {
+                                <text>All</text>
+                            }
+                        </button>
+                        <ul class="dropdown-menu" 
+                            aria-labelledby="dropdownMenuButton">
+                            <li>
+                                <a class="dropdown-item" 
+                                   asp-action="ArticlesList" 
+                                   asp-route-filterStatus="All" 
+                                   asp-route-filterConference="@Model.FilterConference" 
+                                   asp-route-filterTeam="@Model.FilterTeam"
+                                   asp-route-searchString="@Model.SearchString">All
+                                </a>
+                                </li>
+                            <li>
+                                <a class="dropdown-item" 
+                                   asp-action="ArticlesList" 
+                                   asp-route-filterStatus="Published" 
+                                   asp-route-filterConference="@Model.FilterConference" 
+                                   asp-route-filterTeam="@Model.FilterTeam"
+                                   asp-route-searchString="@Model.SearchString">Published
+                                </a>
+                                </li>
+                            <li>
+                                <a class="dropdown-item" 
+                                   asp-action="ArticlesList" 
+                                   asp-route-filterStatus="Unpublished" 
+                                   asp-route-filterConference="@Model.FilterConference" 
+                                   asp-route-filterTeam="@Model.FilterTeam"
+                                   asp-route-searchString="@Model.SearchString">Unpublished
+                                </a>
+                                </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="articles-preview-container mt-3">
+                    @foreach (var mod in Model.SimpleModels)
+                    {
+                        <div class="article-preview my-2">
+                            <a href="#" class="main-link"></a>
+                            <img src="~/images/mock_article_img.png" alt="sample_img" />
+                            <div class="text-container">
+                                <div class="dropdown">
+                                    <a id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fa fa-ellipsis-h fa-lg "></i>
+                                    </a>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <li>
+                                                <form method="post" 
+                                                      asp-controller="Admin" 
+                                                      asp-action="DeleteArticle" 
+                                                      asp-route-id="@mod.Id" 
+                                                      data-ajax="true" 
+                                                      data-ajax-complete="deleteItem(this)">
+                                                    <button class="dropdown-item" type="submit">Delete</button>
+                                                </form>
+                                            </li>
+                                            <li>
+                                                @if (@mod.ArticleStatus == ArticleStatus.Published)
+                                                {
+                                                    <form method="post" asp-controller="Admin" 
+                                                          asp-action="ChangeArticleStatus" 
+                                                          asp-route-id="@mod.Id" 
+                                                          data-ajax="true" 
+                                                          data-ajax-complete="unpublishItem(this)">
+                                                        <button class="dropdown-item">Unpublish</button>
+                                                    </form>
+                                                }
+                                                else
+                                                {
+                                                    <form method="post" asp-controller="Admin" 
+                                                          asp-action="ChangeArticleStatus" 
+                                                          asp-route-id="@mod.Id" 
+                                                          data-ajax="true" 
+                                                          data-ajax-complete="publishItem(this)">
+                                                        <button class="dropdown-item">Publish</button>
+                                                    </form>
+                                                }
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">
+                                                    Move &raquo;
+                                                </a>
+                                                <ul class="dropdown-menu dropdown-submenu">
+                                                    @foreach (var kindOfSport in @Model.KindsOfSport)
+                                                    {
+                                                        if (kindOfSport.Value != mod.KindOfSportName)
+                                                        {
+                                                            <li>
+                                                                <form method="post" 
+                                                                  asp-action="ChangeArticleKindOfSport"
+                                                                  asp-route-articleId="@mod.Id"
+                                                                  asp-route-kindOfSportId="@kindOfSport.Key">
+                                                                    <button class="dropdown-item" type="submit">
+                                                                        @kindOfSport.Value
+                                                                    </button>
+                                                                </form>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </li>
+                                        </ul>
+                                </div>
+                                <div class="headline">@mod.Headline</div>
+                                <div class="article-brief-start my-2">@mod.MainText</div>
+                                <div class="location-status-container d-flex justify-content-between">
+                                    <span class="location">@String.Format("{0} / {1}", mod.TeamConference, mod.TeamLocation)</span>
+                                    @if (mod.ArticleStatus == ArticleStatus.Published)
+                                    {
+                                        <div class="status">
+                                            <img class="circle" src="~/images/green_circle.png" alt="green_circle" />
+                                            <p class="d-block m-0">@mod.ArticleStatus</p>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="status">
+                                            <img class="circle" src="~/images/yellow_circle.png" alt="yellow_circle" />
+                                            <p class="d-block m-0">@mod.ArticleStatus</p>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <script src="~/js/articles-list.js"></script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

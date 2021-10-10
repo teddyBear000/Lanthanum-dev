@@ -1,0 +1,283 @@
+﻿#photo {
+    position: absolute;
+    width: 814px;
+    height: 460px;
+    left: 11px;
+    top: 83px;
+    z-index: -1;
+}
+
+#photoKindOfSport {
+    position: absolute;
+    width: 134px;
+    height: 39px;
+    left: 11px;
+    top: 83px;
+    background: #2F2F2F;
+}
+
+#photoKindOfSportText {
+    text-align: center;
+    margin-top: 10px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 19px;
+    color: #FFFFFF;
+}
+
+#photoCard {
+    position: absolute;
+    width: 421px;
+    height: 291px;
+    left: 651px;
+    top: 169px;
+    background: #F6F6F6;
+}
+
+.dateFormat {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 16px;
+    color: #7F7B7B;
+}
+
+#dateCardPosition {
+    position: absolute;
+    width: 331px;
+    height: 17px;
+    left: 44px;
+    top: 50px;
+}
+
+.headerFormat {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    color: #C63638;
+}
+
+#headerCardPosition {
+    position: absolute;
+    height: 22px;
+    left: 41px;
+    top: 86px;
+}
+
+.articlePartTextFormat {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 30px;
+    color: #2B2F43;
+}
+
+#articlePartTextCardPosition {
+    position: absolute;
+    left: 44px;
+    right: 14px;
+    top: 118px;
+    bottom: 83px;
+}
+
+.moreButton {
+    position: absolute;
+    width: 175px;
+    height: 42px;
+    background: #d72130;
+    color: white;
+    bottom: -291px;
+    border: none;
+    font-size: 15px;
+}
+
+#shadow {
+    position: absolute;
+    width: 312px;
+    height: 185px;
+    left: 702px;
+    top: 291px;
+    background: rgba(116, 114, 114, 0.170291);
+    box-shadow: 0px 0px 0px rgba(255, 255, 255, 0.266472), inset 0px 1px 3px rgba(0, 0, 0, 0.5);
+    filter: blur(35.3377px);
+    z-index: -1;
+}
+
+.circle {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border-width: 2px;
+    border: solid;
+    border-color: red;
+    border-radius: 50%;
+    line-height: 19px;
+    text-align: center;
+    color: #C63638;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+#leftArrow {
+    top: 490px;
+    left: 861px;
+}
+
+#rightArrow {
+    top: 490px;
+    left: 1044px;
+}
+
+#numberedList {
+    position: absolute;
+    top: 462px;
+    left: 911px;
+    width: 110px;
+    height: 21px;
+    padding-inline-start: 0px;
+    font-size: 43px;
+    font-weight: bold;
+}
+
+.activePageNumber {
+    color: #C63638 !important;
+}
+
+#numberedList > li {
+    display: inline-block;
+    /* You can also add some margins here to make it look prettier */
+    zoom: 1;
+    *display: inline;
+    /* this fix is needed for IE7- */
+    color: #B2B2B2;
+}
+
+#allNote {
+    position: absolute;
+    width: 223px;
+    height: 192px;
+    left: -129px;
+    top: 23px;
+}
+
+#newsNote {
+    position: absolute;
+    width: 343px;
+    height: 192px;
+    left: 800px;
+    top: 600px;
+}
+
+.backNote {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 141px;
+    line-height: 192px;
+    letter-spacing: 1.25893px;
+    color: rgba(204, 211, 224, 0.301628);
+    transform: rotate(90deg);
+    z-index: -2;
+}
+
+
+.additionalNewsItem {
+    cursor: pointer;
+    position: absolute;
+    width: 202px;
+    height: 294px;
+}
+
+    .additionalNewsItem:hover {
+        background: #FFFFFF;
+        box-shadow: 0px 2px 24px rgba(0, 0, 0, 0.110932);
+    }
+
+#firstCardPosition {
+    left: 0px;
+    top: 574px;
+}
+
+#secondCardPosition {
+    left: 225px;
+    top: 574px;
+}
+
+#thirdCardPosition {
+    left: 450px;
+    top: 574px;
+}
+
+#fourthCardPosition {
+    left: 675px;
+    top: 574px;
+}
+
+.additionalCardPhoto {
+    position: absolute;
+    width: 177px;
+    height: 128px;
+    left: 12px;
+    top: 11px;
+}
+
+.additionalCardHeadline {
+    position: absolute;
+    left: 12px;
+    top: 153px;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    color: #2B2F43;
+}
+
+.additionalCardText {
+    position: absolute;
+    font-size: 14px;
+    line-height: 19px;
+    color: #7F7B7B;
+    top: 200px;
+    left: 12px;
+}
+
+#logInButton {
+    color: #d72130;
+    border: solid;
+    border-color: #d72130;
+    border-width: 2px;
+    padding: 2px;
+    width: 50%;
+    text-align: center;
+    background: transparent;
+}
+
+#signUpButton {
+    color: #d72130;
+    width: 50%;
+    text-align: center;
+}
+
+.navbar {
+    width: 250px;
+    position: absolute;
+    top: 20px;
+    right: 10px;
+}
+
+.col {
+    border-left: solid;
+    border-left-width: 1px;
+    border-color: #EDEDED;
+}
+
+#searchFieldSection {
+    height: 100%;
+    border-width: 0;
+}
