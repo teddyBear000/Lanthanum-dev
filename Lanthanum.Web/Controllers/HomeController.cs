@@ -1,11 +1,7 @@
 ﻿using Lanthanum.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 
@@ -30,7 +26,6 @@ namespace Lanthanum.Web.Controllers
             _commentRepository = commentRepository;
 
         }
-
         public IActionResult Index()
         {
 

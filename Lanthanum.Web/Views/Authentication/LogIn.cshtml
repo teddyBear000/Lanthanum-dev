@@ -13,12 +13,15 @@
 <div class="text-left mb-4 px-3">
     <h4>Log in To Sports Hub</h4>
 </div>
-<form class="px-3" method="post">
+<div class="px-3">
     <div class="input-container">
         <div class="social-network-container">
-                <a href="#" class="fb-img"></a>
-                <a href="#" class="google-img"></a>
-            </div>
+            <form method="post" class="d-flex" asp-controller="Authentication" asp-action="ExternalLogin" asp-route-returnUrl="@Model?.ReturnUrl" asp-route-viewName="Login">
+                <button type="submit" class="google-img" name="provider" value="Google"></button>
+                <button type="submit" class="fb-img" name="provider" value="Facebook"></button>
+            </form>
+        </div>
+        <form method="post" asp-controller="Authentication" asp-action="LogIn">    
             <div>@Html.ValidationSummary(false)</div>
             <div class="plain-line">
                 <div class="float-left">
@@ -43,5 +46,6 @@
             <div class="mb-3">
                 <button type="submit" class="btn btn-block">LOG IN</button>
             </div>
+        </form>
     </div>
-</form>
+</div>

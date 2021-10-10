@@ -1,8 +1,5 @@
 ﻿using Lanthanum.Web.Domain;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lanthanum.Web.Models
 {
@@ -13,5 +10,6 @@ namespace Lanthanum.Web.Models
         public List<User> Users { get; set; }
         public string CurrentUserImage { get; set; }
         public List<Article> MoreArticlesSection { get; set; }
+        public List <Reaction> ReactionToComments { get; set; }
     }
 }

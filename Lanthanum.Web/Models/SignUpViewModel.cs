@@ -16,5 +16,6 @@ namespace Lanthanum.Web.Models
         [MinLength(8, ErrorMessage = "Password must contain at least 8 characters")]
         [RegularExpression("^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$", ErrorMessage = "Password must contain letters and digits")]
         public string Password { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }

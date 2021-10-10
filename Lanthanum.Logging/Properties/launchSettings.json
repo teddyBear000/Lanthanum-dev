@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Lanthanum.Logging": {
+      "commandName": "Project",
+      "remoteDebugEnabled": false,
+      "sqlDebugging": false,
+      "nativeDebugging": false,
+      "jsWebView2Debugging": false
+    }
+  }
+}
