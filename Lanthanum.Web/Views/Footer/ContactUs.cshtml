@@ -1,11 +1,9 @@
-﻿@{
-    ViewData["Title"] = "Contact Us";
-}
-
-@using Lanthanum.Web.Services
+﻿@using Lanthanum.Web.Services
 @inject IFooterService footerItems
 
 @{
+    ViewData["Title"] = "Contact Us";
+    Layout = "~/Views/Shared/_LayoutMin.cshtml";
     string[] ContactUsDetails = footerItems.GetSingleItem("Contact Us").Content.Split(',');
 }
 

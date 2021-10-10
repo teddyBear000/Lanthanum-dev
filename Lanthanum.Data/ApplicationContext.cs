@@ -18,7 +18,7 @@ namespace Lanthanum.Web.Data
         public DbSet<Subscription> Subscriptions { get; set; }
         public DbSet<FooterItem> FooterItems { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
+        public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
             //Database.EnsureDeleted();
             //Database.EnsureCreated(); // TODO: change
@@ -43,7 +43,7 @@ namespace Lanthanum.Web.Data
             builder
                 .ApplyConfiguration(new CommentConfiguration());
         }
-        
+
         public async Task<int> SaveChangesAsync()
         {
             return await base.SaveChangesAsync();
@@ -56,7 +56,7 @@ namespace Lanthanum.Web.Data
                 Email = "mail@gmail.com",
                 PasswordHash = "12345678"
             });
-            
+
             KindsOfSport.AddRange(
                 new List<KindOfSport>()
                 {
@@ -76,12 +76,12 @@ namespace Lanthanum.Web.Data
 
             base.SaveChanges();
             Articles.AddRange(new List<Article>()
-                
-                { 
+
+                {
                     new Article(){
 
                     LogoPath = "/images/mock_article_img.png",
-                    Headline="ArticleHeadlineBlaBlaBlablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablablabla",
+                    Headline="Article1",
                     MainText = "The singer’s new engagement to Asghari is mentioned as one of the chief reasons Britney wants the co.213123123123;",
                                Team = new Team()
                     {
@@ -94,11 +94,11 @@ namespace Lanthanum.Web.Data
                         ArticleStatus = ArticleStatus.Published,
                         KindOfSport = KindsOfSport.Find(1)
                     },
-                    
+
                     new Article(){
 
                         LogoPath = "/images/mock_article_img.png",
-                        Headline="ArticleHeadlineBlaBlaBla",
+                        Headline="Article2",
                         MainText = "dasdasbla",
                         Team = new Team()
                         {
@@ -115,7 +115,7 @@ namespace Lanthanum.Web.Data
                     new Article(){
 
                         LogoPath = "/images/mock_article_img.png",
-                        Headline="ArticleHeadlineBlaBlaBla",
+                        Headline="Article3",
                         MainText = "asd",
                         Team = new Team()
                         {
@@ -132,7 +132,7 @@ namespace Lanthanum.Web.Data
                     new Article(){
 
                         LogoPath = "/images/mock_article_img.png",
-                        Headline="ArticleHeadlineBlaBlaBla",
+                        Headline="Article4",
                         MainText = "a",
                         Team = new Team()
                         {
@@ -150,7 +150,7 @@ namespace Lanthanum.Web.Data
                     new Article(){
 
                         LogoPath = "/images/mock_article_img.png",
-                        Headline="ArticleHeadlineBlaBlaBla",
+                        Headline="Article5",
                         MainText = "b",
                         Team = new Team()
                         {
@@ -166,7 +166,7 @@ namespace Lanthanum.Web.Data
                     new Article(){
 
                         LogoPath = "/images/mock_article_img.png",
-                        Headline="ArticleHeadlineBlaBlaBla",
+                        Headline="Article6",
                         MainText = "f",
                         Team = new Team()
                         {
@@ -180,7 +180,7 @@ namespace Lanthanum.Web.Data
                         KindOfSport = KindsOfSport.Find(1)
                     }
                 }
-                
+
             );
         }
     }

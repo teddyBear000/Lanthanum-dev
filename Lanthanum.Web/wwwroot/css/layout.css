@@ -1,7 +1,4 @@
-﻿/* Costumer styles */
-* {
-    font-size: 16px;
-}
+﻿/* Customer styles */
 
 html {
     min-width: 1320px;
@@ -13,16 +10,20 @@ button:hover span {
     color: #d72130;
 }
 
-.selected {
-    color: #d72130;
-    list-style-type: disc;
-    font-weight: bold;
-}
-
-li {
+.left-panel-unselected {
     font-weight: lighter;
     color: rgb(188, 188, 188);
     list-style-type: none;
+    font-weight: bold;
+}
+
+.left-panel-selected {
+    font-weight: lighter;
+    color: rgb(188, 188, 188);
+    list-style-type: none;
+    font-weight: bold;
+    color: #d72130;
+    list-style-type: disc;
     font-weight: bold;
 }
 
@@ -98,7 +99,7 @@ textarea:focus, input:focus {
     vertical-align: top;
 }
 
-.container {
+.main-container {
     height: 100%;
     width: 100%;
     display: flex;
@@ -106,7 +107,7 @@ textarea:focus, input:focus {
     padding-left: 0px;
 }
 
-.col {
+.main-col {
     padding-left: 0px;
     padding-right: 0px;
 }

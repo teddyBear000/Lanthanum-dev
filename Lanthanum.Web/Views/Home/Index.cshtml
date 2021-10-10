@@ -1,4 +1,5 @@
 @model Lanthanum.Web.Models.MainPageArticlesViewModel
+
 @{
     ViewData["Title"] = "Home Page";
     var data = Model.MainArticles;
@@ -9,14 +10,14 @@
 </head>
 
 @section elements_in_header{
-    <div class="container">
+    <div class="main-container">
         <div class="col-8">
             <div class="searchField" style="height: 100%">
                 <input id="searchFieldSection" placeholder="Search by" type="text">
             </div>
         </div>
 
-        <div class="col">
+        <div class="main-col">
             <div class="navbar">
                 <a href="#" id="signUpButton">
                     Sign up
@@ -29,7 +30,7 @@
     </div>
 }
 
-<div>
+<div style="height:1000px">
     <div id="allNote" class="backNote">ALL</div>
     <div id="newsNote" class="backNote">NEWS</div>
 

@@ -156,6 +156,7 @@
     *display: inline;
     /* this fix is needed for IE7- */
     color: #B2B2B2;
+    font-size: 16px;
 }
 
 #allNote {

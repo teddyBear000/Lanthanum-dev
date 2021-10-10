@@ -1,6 +1,7 @@
 ﻿@using Lanthanum.Web.Domain
 @using Lanthanum.Web.Services
 @inject IFooterService footerItems
+
 @* Default data for footer *@
 
 @*@{
@@ -45,30 +46,17 @@
                     Sports Hub
                 </div>
             </div>
-            <div class="main-col ">
+            <div class="main-col">
                 @RenderSection("elements_in_header", required: false)
             </div>
         </div>
     </header>
 
-    <main>
-        <div class="row m-0">
-            <div style="width: 253px;">
-                <nav>
-                    <ul style="margin-left: 30px; margin-top: 50px;" data-tag="channelList">
-                        <li onclick="switchChannel(this)" class="selected menu left-panel-selected">@HomeController.Categories[0]</li>
-                        @foreach (var item in HomeController.Categories.Skip(1))
-                        {
-                            <li class="left-panel-unselected" onclick="switchChannel(this)">@item</li>
-                        }
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-sm">
-                @RenderBody()
-            </div>
-        </div>
-    </main>
+    <div class="container">
+        <main role="main" class="py-lg-5">
+            @RenderBody()
+        </main>
+    </div>
 
 
     <footer class="bg-white" id="footer">
