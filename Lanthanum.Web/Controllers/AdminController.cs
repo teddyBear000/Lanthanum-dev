@@ -91,21 +91,43 @@ namespace Lanthanum.Web.Controllers
             {
                 Headline = Headline,
                 Header = Caption,
-                MainText = Content,
+                HTMLText = Content,
+                MainText = HtmlEditor(Content),
                 Location = Location,
                 Alternative = Alt,
                 ViewsCount = 0,
-                LogoPath = logoPath,
                 CommentsCount = 0,
-                DateTimeOfCreation = new DateTime(2021, 09, 13),
                 KindsOfSports = new List<KindOfSport>() { kindOfSport },
                 Teams = new List<Team>() { team },
                 LogoPicture = picture,
                 Conference = conference
             }).Wait();
 
-
             return RedirectToAction("Article");
+        }
+
+        private static string HtmlEditor(string text)
+        {
+            string result = "";
+
+            bool IsExtra = false;
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (text[i] == '<')
+                {
+                    IsExtra = true;
+                }
+                else if (text[i] == '>')
+                {
+                    IsExtra = false;
+                }
+                else if (!IsExtra)
+                {
+                    result += text[i];
+                }
+            }
+
+            return result;
         }
     }
 }

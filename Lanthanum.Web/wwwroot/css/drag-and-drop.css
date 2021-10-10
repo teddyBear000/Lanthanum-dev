@@ -79,6 +79,8 @@
 
 .inserted-img {
     z-index: 6;
+    display: block;
+    max-width: 100%;
 }
 
 .button-form {

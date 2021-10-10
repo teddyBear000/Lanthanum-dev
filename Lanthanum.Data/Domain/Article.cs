@@ -11,7 +11,7 @@ namespace Lanthanum.Web.Domain
         public List<User> Authors { get; set; }
         public string Headline { get; set; }
         public string Header { get; set; }
-        public string LogoPath { get; set; }
+        public string HTMLText { get; set; }
         public string MainText { get; set; }
         public string Location { get; set; }
         public string Alternative { get; set; }
