@@ -14,3 +14,5 @@
 > dotnet user-secrets set "Authentication:Facebook:AppId" "369918684828323" --project Lanthanum.Web
 > dotnet user-secrets set "Authentication:Facebook:AppSecret" "4e16edc9fedd3f210d6dae4b48dc21b5" --project Lanthanum.Web
 ```
+## How to setup footer and its configuration
+Run commented code from _Layout.cshtml once to add all required entities to database.

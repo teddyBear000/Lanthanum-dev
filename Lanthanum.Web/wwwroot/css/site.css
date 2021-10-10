@@ -337,3 +337,178 @@ textarea {
 }
 
 /* About Sports Hub styles end */
+
+/* Footer configuration styles start*/
+
+.footer-configuration-header {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 41px;
+    text-transform: capitalize;
+    color: #000000;
+}
+
+.footer-configuration-button {
+    background: #D72130;
+    border: 1px solid #C63638;
+    box-sizing: border-box;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #FFFFFF;
+    width: 134px;
+    height: 32px;
+    box-shadow: none;
+    outline: none;
+    border-radius:0;
+}
+
+.footer-configuration-active-tab-text {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #D72130;
+}
+
+.footer-configuration-unactive-tab-text {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #7F8899;
+}
+
+.footer-configuration-table-text-bold {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #434C5D;
+}
+
+.footer-configuration-table-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    color: #2B2F43;
+}
+
+.table th {
+    border: none;
+}
+
+table.table.table-bordered-outside {
+    border: 1px solid #D4D9E2;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    background-color: #D72130;
+    border-color: #D72130;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.footer-configuration-label {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #7F8899;
+}
+
+.footer-configuration-input {
+    background: #FFFFFF;
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: #2B2F43;
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+}
+
+.footer-configuration-required {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 14px;
+    color: #000000;
+}
+
+.footer-configuration-cancel-link {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #D72130;
+}
+
+.footer-configuration-modal {
+    border-radius: 0;
+}
+
+.footer-configuration-modal-header {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 33px;
+    text-align: center;
+    color: #000000;
+}
+
+.footer-configuration-modal-label {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #434C5D;
+}
+
+.footer-configuration-modal-input {
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    color: #C6CCD7
+}
+
+/* Footer configuration styles end*/

@@ -99,8 +99,8 @@ namespace Lanthanum.Web
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
             services.AddScoped<ICommentService, CommentService>();
-            services.AddScoped<DbRepository<FooterTabItem>>();
-            services.AddScoped<FooterService>();
+            services.AddTransient<IFooterService, FooterService>();
+            services.AddScoped<DbRepository<FooterItem>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

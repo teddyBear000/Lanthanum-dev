@@ -16,7 +16,7 @@ namespace Lanthanum.Web.Data
         public DbSet<Reaction> Reactions { get; set; }
         public DbSet<Ban> Bans { get; set; }
         public DbSet<Subscription> Subscriptions { get; set; }
-        public DbSet<FooterTabItem> FooterTabItems { get; set; }
+        public DbSet<FooterItem> FooterItems { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options): base(options)
         {
