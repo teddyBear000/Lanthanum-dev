@@ -1,4 +1,4 @@
-﻿.greyBox {
+﻿.p-grey-box {
     float: left;
     width: 420px;
     height: 290px;
@@ -13,20 +13,20 @@
     overflow: visible;
 }
 
-.Article-Header-One {
+.p-article-header-one {
     margin-top: 1.05em;
     margin-left: 23%;
     width: 816px;
 }
 
 
-.Devider {
+.p-devider {
     position: absolute;
     left: 25.5%;
     top: 69%;
 }
 
-.DateTime {
+.p-date-time {
     z-index: 5;
     font-family: arial;
     font-size: 0.85rem;
@@ -35,7 +35,7 @@
     padding-left: 10px;
 }
 
-.HeadLine {
+.p-head-line {
     z-index: 5;
     font-family: arial;
     font-size: 1.15rem;
@@ -44,7 +44,7 @@
     padding-left: 10px;
 }
 
-.HeaderText {
+.p-header-text {
     z-index: 5;
     font-family: Tahoma;
     font-size: 1.4rem;
@@ -53,12 +53,12 @@
     padding-left: 10px;
 }
 
-img.ImageContainer {
+img.p-image-container {
     width: 816px;
     height: 459px;
 }
 
-.ImageContainerF {
+.p-image-container-f {
     position: relative;
     left: 3.5%;
     z-index: -1;
@@ -66,7 +66,7 @@ img.ImageContainer {
     height: 459px;
 }
 
-img.BackgroundContainer {
+img.p-background-container {
     width: 420px;
     height: 290px;
     position: absolute;
@@ -75,7 +75,7 @@ img.BackgroundContainer {
     z-index: 1;
 }
 
-.whiteBox {
+.p-white-box {
     position: relative;
     left: 2.8%;
     float: left;
@@ -85,7 +85,7 @@ img.BackgroundContainer {
     z-index: 10;
 }
 
-.TextMain {
+.p-text-main {
     z-index: 1;
     font-family: arial;
     font-size: 1.15rem;
@@ -94,11 +94,11 @@ img.BackgroundContainer {
     padding-bottom: 2em;
 }
 
-.BorderOne {
+.p-border-one {
     height: 100px;
 }
 
-.GeneralContainer {
+.p-general-container {
     width: 420px;
     height: 300px;
     display: inline-block;
@@ -107,11 +107,11 @@ img.BackgroundContainer {
     padding-top: 2em;
 }
 
-.SectionFixed {
+.p-section-fixed {
     width: 840px;
 }
 
-.GeneralContainerTwo {
+.p-general-container-two {
     width: 420px;
     height: 300px;
     display: inline-block;
@@ -120,24 +120,24 @@ img.BackgroundContainer {
     padding-left: 1.6em;
 }
 
-.ArticleHeader {
+.p-article-header {
     position: relative;
     top: 5.8em;
     margin-bottom: 2em;
 }
 
-.BodyHead {
+.p-body-head {
     margin-top: 2.4em;
     width: 825px;
 }
 
-.containerFirst {
+.p-container-first {
     width: 400px;
     height: 101px;
     border: 1px solid rgba(0,0,0,.125);
 }
 
-.MiniText {
+.p-mini-text {
     width: 215px;
     max-height: 80px;
     font-family: arial;
@@ -146,7 +146,7 @@ img.BackgroundContainer {
     text-align: left;
 }
 
-.HeadMiniText {
+.p-head-mini-text {
     max-height: 20px;
     font-family: arial;
     font-size: 0.9rem;
@@ -156,12 +156,12 @@ img.BackgroundContainer {
     padding-top: 4px;
 }
 
-.NoMerge {
+.p-no-merge {
     padding: 0;
     max-width: 44% !important;
 }
 
-.NoMergeText {
+.p-no-merge-text {
     padding: 0;
     margin-bottom: 0.1rem;
 }

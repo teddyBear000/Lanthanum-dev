@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/preview.css" />
     <link rel="stylesheet" href="~/css/comments.css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
           integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
@@ -26,9 +27,8 @@
           integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
           crossorigin="anonymous" />
     <title>Document</title>
-
-    <link href="/path/to/cropper.css" rel="stylesheet">
-    <script src="/path/to/cropper.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
     <script src="https://cdn.tiny.cloud/1/7vvvgt6qrnr0wyn4j126umosqc6ti0055lsi3j1reg6gjy39/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
@@ -55,8 +55,8 @@
     <!-- Hiden Article -->
 
     <div class="secret-page" id="hided">
-        <div class="general-view">
-            <div class="Article-Header-One" style="position: absolute; width: 100%;">
+        <div class="p-general-view">
+            <div class="p-article-header-one" style="position: absolute; width: 100%;">
                 <div class="row">
                     <div class="col pull-left" style="max-width: 25px; margin-top: 5px; margin-left: 60%;">
                         <img src="~/images/Eye.png" onclick="f13()" height="19px">
@@ -66,31 +66,31 @@
                     </div>
                 </div>
             </div>
-            <div class="ArticleHeader">
-                <div class="ImageContainerF" id="image-container">
-                    <img src="/images/background_image.jpg" alt="Photo Of Event" class="ImageContainer" id="PrevPhoto">
+            <div class="p-article-header">
+                <div class="p-image-container-f" id="image-container">
+                    <img src="/images/background_image.jpg" alt="Photo Of Event" class="p-image-container" id="PrevPhoto">
                 </div>
-                <img src="/images/background_image.jpg" class="BackgroundContainer">
+                <img src="/images/background_image.jpg" class="p-background-container">
 
-                <div class="greyBox">
+                <div class="p-grey-box">
 
-                    <div class="DateTime">
+                    <div class="p-date-time">
                         <p>Published / 12.05.2002<p>
                     </div>
 
-                    <div class="HeadLine">
+                    <div class="p-head-line">
                         <p id="Headline"> </p>
                     </div>
 
-                    <div class="HeaderText">
+                    <div class="p-header-text">
                         <p id="Header"> </p>
                     </div>
 
                 </div>
 
-                <div class="BodyHead">
-                    <div class="whiteBox">
-                        <div class="TextMain" id="MainText">
+                <div class="p-body-head">
+                    <div class="p-white-box">
+                        <div class="p-text-main" id="MainText">
                             <span id="contextChange"> </span>
                         </div>
 
@@ -157,29 +157,29 @@
 
                         <!-- After Comment Section -->
 
-                        <div class="BorderOne">
+                        <div class="p-border-one">
                             <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
                                 <span style="font-size: 20px; background-color: #ffffff; font-weight: 680; padding: 0 10px; ">
                                     MORE ARTICLES
                                 </span>
                             </div>
 
-                            <div class="SectionFixed">
-                                <div class="GeneralContainer">
+                            <div class="p-section-fixed">
+                                <div class="p-general-container">
                                     @for (int i = 0; i < 3; i++)
                                     {
-                                        <div class="containerFirst">
+                                        <div class="p-container-first">
                                             <div class="row" style="overflow: hidden">
 
-                                                <div class="col NoMerge pull-left" style="padding-left: 0;">
-                                                    <div class="imgAbt NoMerge">
+                                                <div class="col p-no-merge pull-left" style="padding-left: 0;">
+                                                    <div class="imgAbt p-no-merge">
                                                         <img width="176" height="99" src='https://cdn.londonandpartners.com/asset/nfl-london-games_jacksonville-jaguars-play-the-houston-texans-during-the-nfl-london-games-2019-image-courtesy-of-hamish-jordan-and-nfl-uk_6988b3828b833960c041194a1e904937.jpg' />
                                                     </div>
                                                 </div>
 
-                                                <div class="col HeadMiniText" style="padding-right: 22px; padding-left: 0;">
-                                                    <a class="NoMergeText" id=@("Headline"+i)> </a>
-                                                    <div class="MiniText">
+                                                <div class="col p-head-mini-text" style="padding-right: 22px; padding-left: 0;">
+                                                    <a class="p-no-merge-text" id=@("Headline"+i)> </a>
+                                                    <div class="mini-text">
                                                         <p id=@("Header"+i)> </p>
                                                     </div>
                                                 </div>
@@ -189,21 +189,21 @@
                                     }
                                 </div>
 
-                                <div class="GeneralContainerTwo" style="margin-bottom: 100%;">
+                                <div class="p-general-container-two" style="margin-bottom: 100%;">
                                     @for (int i = 3; i < 6; i++)
                                     {
-                                        <div class="containerFirst">
+                                        <div class="p-container-first">
                                             <div class="row" style="overflow: hidden">
 
-                                                <div class="col NoMerge pull-left" style="padding-left: 0;">
-                                                    <div class="imgAbt NoMerge">
+                                                <div class="col p-no-merge pull-left" style="padding-left: 0;">
+                                                    <div class="imgAbt p-no-merge">
                                                         <img width="176" height="99" src='https://cdn.londonandpartners.com/asset/nfl-london-games_jacksonville-jaguars-play-the-houston-texans-during-the-nfl-london-games-2019-image-courtesy-of-hamish-jordan-and-nfl-uk_6988b3828b833960c041194a1e904937.jpg' />
                                                     </div>
                                                 </div>
 
-                                                <div class="col HeadMiniText" style="padding-right: 22px; padding-left: 0;">
-                                                    <a class="NoMergeText" id=@("Headline"+i)> </a>
-                                                    <div class="MiniText">
+                                                <div class="col p-head-mini-text" style="padding-right: 22px; padding-left: 0;">
+                                                    <a class="p-no-merge-text" id=@("Headline"+i)> </a>
+                                                    <div class="p-mini-text">
                                                         <p id=@("Header"+i)> </p>
                                                     </div>
                                                 </div>
@@ -232,7 +232,7 @@
                 <div class="col flex-one">
                     <div class="kind-text pull-left">
                         <h3 id="kind_hidden_text">NBA</h3>
-                        <input type="hidden" id="kind_hidden" value="NBA" name="Kindofsport"/>
+                        <input type="hidden" id="kind_hidden" value="NBA" name="Kindofsport" />
                     </div>
 
                     <div class="offset-7">
@@ -287,6 +287,11 @@
                     <div class="col drag-area-file">
                         <p class="form-text input-text">PICTURE *</p>
                         <div class="fix-image">
+                            <div id='taken' class='c-resizable'>
+                                <div class='c-resizers'>
+                                    <div id='toHide' class='c-resizer c-bottom-right'></div>
+                                </div>
+                            </div>
                             <div class="drag-area" onmouseover="ShowButtons()" onmouseout="HideButtons()">
                                 <div class="icon icon-form">
                                     <img src="~/images/PhotoIco.png" height="80px">
@@ -363,44 +368,14 @@
 
                 <!-- Crop -->
                 <div class="crop-container" id="crop-container">
-                    <div class="row" style="margin-bottom: 10px">
-
-                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
-                            <img width="30" height="20" src="/images/ArrowL.png" onclick="MakeCrop(4, false)">
+                    <div class="row offset-5" style="margin-bottom: 25px">
+                        <div class="col pull-left">
+                            <button id="cButton" onclick="removeTo()" class="allbuttons secondary-button" type="button">Change Position</button>
                         </div>
-
-                        <div class="col pull-left" style="max-width:5%">
-                            <img width="30" height="20" src="/images/ArrowR.png" onclick="MakeCrop(4, true)">
-                        </div>
-
-                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
-                            <img width="30" height="20" src="/images/ArrowL.png" onclick="MakeCrop(2, true)">
-                        </div>
-
-                        <div class="col pull-left" style="max-width:5%">
-                            <img width="30" height="20" src="/images/ArrowR.png" onclick="MakeCrop(2, false)">
-                        </div>
-
-                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
-                            <img width="20" height="30" src="/images/ArrowU.png" onclick="MakeCrop(1, false)">
-                        </div>
-
-                        <div class="col pull-left" style="max-width:5%">
-                            <img width="20" height="30" src="/images/ArrowD.png" onclick="MakeCrop(1, true)">
-                        </div>
-
-                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
-                            <img width="20" height="30" src="/images/ArrowU.png" onclick="MakeCrop(3, true)">
-                        </div>
-
-                        <div class="col pull-left" style="max-width:5%">
-                            <img width="20" height="30" src="/images/ArrowD.png" onclick="MakeCrop(3, false)">
-                        </div>
-
-                    </div>
-                    <div class="row offset-9" style="margin-bottom: 25px">
-                        <div class="col">
+                        <div class="col pull-left">
                             <button onclick="DeleteCrop()" class="allbuttons secondary-button" type="button">Cancel All</button>
+                        </div>
+                        <div class="col">
                             <button class="allbuttons primary-button" type="button" onclick="HideFunc(3)">Hide</button>
                         </div>
                     </div>

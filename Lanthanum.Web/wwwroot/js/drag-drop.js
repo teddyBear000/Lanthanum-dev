@@ -74,6 +74,8 @@ function ShowFile(file){
 
         fileReader.readAsDataURL(file);
         dropArea.classList.add("active");
+
+        makeResizableDiv('.c-resizable');
     }
     else{
         alert("It is not an acceptable image format");
@@ -280,7 +282,7 @@ function FilterOne()
     document.getElementById("getFilter").value = "none";;
 
     document.querySelector('.inserted-img').style.filter = "none";
-    document.querySelector('.ImageContainer').style.filter = "none";
+    document.querySelector('.p-image-container').style.filter = "none";
 
     for (var i = 0; i < elements.length; i++) {
         if (i == 0) {
@@ -298,7 +300,7 @@ function FilterTwo()
     document.getElementById("getFilter").value = "sepia(50%)";
 
     document.querySelector('.inserted-img').style.filter = "sepia(50%)";
-    document.querySelector('.ImageContainer').style.filter = "sepia(50%)";
+    document.querySelector('.p-image-container').style.filter = "sepia(50%)";
 
     for (var i = 0; i < elements.length; i++) {
         if (i == 1) {
@@ -316,7 +318,7 @@ function FilterThree()
     document.getElementById("getFilter").value = "sepia(1%) hue-rotate(190deg) saturate(90%)";
 
     document.querySelector('.inserted-img').style.filter = "sepia(1%) hue-rotate(190deg) saturate(90%)";
-    document.querySelector('.ImageContainer').style.filter = "sepia(1%) hue-rotate(190deg) saturate(90%)";
+    document.querySelector('.p-image-container').style.filter = "sepia(1%) hue-rotate(190deg) saturate(90%)";
 
     for (var i = 0; i < elements.length; i++) {
         if (i == 2) {
@@ -334,7 +336,7 @@ function FilterFour()
     document.getElementById("getFilter").value = "grayscale(100%)";
 
     document.querySelector('.inserted-img').style.filter = "grayscale(100%)";
-    document.querySelector('.ImageContainer').style.filter = "grayscale(100%)";
+    document.querySelector('.p-image-container').style.filter = "grayscale(100%)";
 
     for (var i = 0; i < elements.length; i++) {
         if (i == 3) {
@@ -355,6 +357,10 @@ function CropF()
     var elementFill = document.getElementById("crop-container");
     elementFill.style.display = "block";
     elementFill.style.zIndex = "4";
+
+    var elementFillTwo = document.getElementById("taken");
+    elementFillTwo.style.display = "block";
+    elementFillTwo.style.zIndex = "12";
 }
 
 function MakeCrop(num, reverse)
@@ -428,6 +434,12 @@ function DeleteCrop() {
     elementThree.style.height = "0";
     elementThree.style.top = "489px";
 
+    var elementFillTwo = document.getElementById("taken");
+    elementFillTwo.style.height = "459px";
+    elementFillTwo.style.width = "816px";
+    elementFillTwo.style.left = "14.5px";
+    elementFillTwo.style.top = "29px";
+
 }
 
 function DeleteF()
@@ -476,6 +488,10 @@ function HideFunc(id)
         var elementFill = document.getElementById("crop-container");
         elementFill.style.display = "none";
         elementFill.style.zIndex = "-2";
+
+        var elementFillTwo = document.getElementById("taken");
+        elementFillTwo.style.display = "none";
+        elementFillTwo.style.zIndex = "-2";
     }
 }
 
@@ -483,7 +499,7 @@ function ResizeImage()
 {
     var elementValue = document.getElementById("myRange").value;
     var element = document.querySelector('.inserted-img');
-    var elementTwo = document.querySelector('.ImageContainer');
+    var elementTwo = document.querySelector('.p-image-container');
 
     element.style.height = (459 + parseInt(elementValue, 10)).toString() + "px";
     element.style.width = (816 * parseInt(element.style.height, 10) / 459).toString() + "px";
@@ -512,5 +528,67 @@ function ChangeElement(valu)
             elements.item(i).style.color = 'rgb(180, 180, 180)';
             elements.item(i).style.cursor = "pointer";
         }
+    }
+}
+
+function makeResizableDiv(div) {
+    const element = document.querySelector(div);
+    const resizers = document.querySelectorAll(div + ' .c-resizer')
+    const minimum_size = 0;
+    let original_width = 0;
+    let original_height = 0;
+    let original_x = 0;
+    let original_y = 0;
+    let original_mouse_x = 0;
+    let original_mouse_y = 0;
+    for (let i = 0; i < resizers.length; i++) {
+        const currentResizer = resizers[i];
+        currentResizer.addEventListener('mousedown', function (e) {
+            e.preventDefault()
+            original_width = parseFloat(getComputedStyle(element, null).getPropertyValue('width').replace('px', ''));
+            original_height = parseFloat(getComputedStyle(element, null).getPropertyValue('height').replace('px', ''));
+            original_x = element.getBoundingClientRect().left;
+            original_y = element.getBoundingClientRect().top;
+            original_mouse_x = e.pageX;
+            original_mouse_y = e.pageY;
+            window.addEventListener('mousemove', resize)
+            window.addEventListener('mouseup', stopResize)
+        })
+
+        function resize(e) {
+            if (currentResizer.classList.contains('c-bottom-right')) {
+                const width = original_width + (e.pageX - original_mouse_x);
+                const height = original_height + (e.pageY - original_mouse_y)
+                if (width > minimum_size) {
+                    element.style.width = width + 'px'
+                }
+                if (height > minimum_size) {
+                    element.style.height = height + 'px'
+                }
+            }
+
+        }
+
+        function stopResize() {
+            window.removeEventListener('mousemove', resize)
+        }
+    }
+}
+
+var movable = false;
+function removeTo() {
+    movable = !movable;
+
+    if (movable) {
+        $('.c-resizable').draggable({
+            containment: "parent"
+        });
+        document.getElementById('toHide').style.display = 'none';
+        document.getElementById('cButton').value = "Change Size";
+    }
+    else {
+        $('.c-resizable').draggable("destroy");
+        document.getElementById('toHide').style.display = 'block';
+        document.getElementById('cButton').value = "Change Position";
     }
 }

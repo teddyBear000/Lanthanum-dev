@@ -80,9 +80,9 @@ namespace Lanthanum.Web.Controllers
             _pictureRepository.AddAsync(new Picture
             {
                 LogoPath = logoPath,
-                Filter = Filter,
-                Size = Size,
-                Crop = Crop
+                Filter = "filter: " + Filter + ";",
+                Size = "height: " + Size.Split(" ")[0] + "; width: " + Size.Split(" ")[1] + ";",
+                Crop = Crop,
             }).Wait();
 
             Picture picture = _pictureRepository.Find(x => logoPath == x.LogoPath).First();
