@@ -1,9 +1,7 @@
-﻿using Lanthanum.Web.Domain;
+using Lanthanum.Web.Domain;
 using Microsoft.AspNetCore.Mvc;
 using System.Web;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
@@ -12,6 +10,9 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Lanthanum.Web.Data.Domain;
 using Lanthanum.Web.Models;
+using Lanthanum.Web.Models;
+using Lanthanum.Web.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Lanthanum.Web.Controllers
 {
@@ -23,8 +24,9 @@ namespace Lanthanum.Web.Controllers
         private readonly DbRepository<Picture> _pictureRepository;
         private readonly DbRepository<Conference> _conferenceRepository;
         private readonly IWebHostEnvironment _appEnvironment;
+        private readonly IAdminService _adminService;
 
-        public AdminController(IWebHostEnvironment appEnvironment, DbRepository<Picture> pictureRepository, DbRepository<Article> articleRepository, DbRepository<Team> teamRepository, DbRepository<KindOfSport> kindsRepository, DbRepository<Conference> conferenceRepository)
+        public AdminController(IAdminService adminService, IWebHostEnvironment appEnvironment, DbRepository<Picture> pictureRepository, DbRepository<Article> articleRepository, DbRepository<Team> teamRepository, DbRepository<KindOfSport> kindsRepository, DbRepository<Conference> conferenceRepository)
         {
             _pictureRepository = pictureRepository;
             _articleRepository = articleRepository;
@@ -32,6 +34,7 @@ namespace Lanthanum.Web.Controllers
             _kindsRepository = kindsRepository;
             _appEnvironment = appEnvironment;
             _conferenceRepository = conferenceRepository;
+            _adminService = adminService;
         }
 
         [HttpGet]
@@ -128,6 +131,72 @@ namespace Lanthanum.Web.Controllers
             }
 
             return result;
+        }
+
+        [HttpGet]
+        [Route("articles-list")]
+        public async Task<ActionResult<AdminArticleViewModel>> ArticlesListAsync(string filterConference, string filterTeam, string filterStatus, string searchString)
+        {
+            try
+            {
+                await _adminService.FilterInitializerAsync(HttpContext.Session, filterConference, filterTeam, filterStatus, searchString);
+                AdminArticleViewModel articlesToViewModels = _adminService.ViewModelInitializerAsync(HttpContext.Session).Result;
+                await _adminService.FilterArticlesAsync(articlesToViewModels, HttpContext.Session);
+                return View("articles_list", articlesToViewModels);
+            }
+            catch (Exception e)
+            {
+                //TODO Logging
+                throw;
+            }
+        }
+
+        [Route("delete-article"), ActionName("DeleteArticle")]
+        [HttpPost]
+        public async Task<ActionResult> DeleteArticleAsync(int id)
+        {
+            try
+            {
+                await _adminService.DeleteArticleByIdAsync(id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                //TODO Logging
+                return BadRequest("There are no article to delete for such id");
+            }
+        }
+
+        [Route("change-article-status"), ActionName("ChangeArticleStatus")]
+        [HttpPost]
+        public async Task<ActionResult> ChangeArticleStatusAsync(int id)
+        {
+            try
+            {
+                await _adminService.ChangeArticleStatusByIdAsync(id);
+                return RedirectToAction("ArticlesList", "Admin");
+            }
+            catch (Exception e)
+            {
+                //TODO Logging
+                return BadRequest("Something went wrong");
+            }
+        }
+
+        [Route("change-article-sport"), ActionName("ChangeArticleKindOfSport")]
+        [HttpPost]
+        public async Task<ActionResult> ChangeArticleKindOfSportByIdAsync(int articleId, int kindOfSportId)
+        {
+            try
+            {
+                await _adminService.ChangeArticleKindOfSportByIdAsync(articleId, kindOfSportId);
+                return RedirectToAction("ArticlesList", "Admin");
+            }
+            catch (Exception e)
+            {
+                //TODO Logging
+                return BadRequest("Something went wrong");
+            }
         }
     }
 }

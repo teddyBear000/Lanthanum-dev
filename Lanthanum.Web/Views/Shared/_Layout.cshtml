@@ -1,48 +1,160 @@
-﻿<!DOCTYPE html>
+﻿@using Lanthanum.Web.Domain
+@using Lanthanum.Web.Services
+@inject IFooterService footerItems
+@* Default data for footer *@
+
+@*@{
+        footerItems.AddItem(new FooterItem { Name = "CompanyInfo", Category = "CompanyInfo", Content="", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "Contributors", Category = "Contributors", Content="", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "Newsletter", Category = "Newsletter", Content="", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "About Sports Hub", Category = "CompanyInfo", Content= "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "Contact Us", Category = "CompanyInfo", Content= "2D Sadova Street Lviv 79021,+380-32-222-2222,sports.hub@info.com", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "News And In the Press", Category = "CompanyInfo", Content="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "Advertising And Sports Blogger Ad Network", Category = "CompanyInfo", Content= "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "Events", Category = "CompanyInfo", Content="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+
+        footerItems.AddItem(new FooterItem { Name = "Featured Writers Program", Category = "Contributors", Content= "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "Featured Team Writers Program", Category = "Contributors", Content= "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "Internship Program", Category = "Contributors", Content= "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+
+        footerItems.AddItem(new FooterItem { Name = "Sign up to receive the latest sports news", Category = "Newsletter", Content="<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+
+        footerItems.AddItem(new FooterItem { Name = "Privacy policy", Category = "", Content= "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+        footerItems.AddItem(new FooterItem { Name = "Terms and conditions", Category = "", Content= "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Venenatis posuere neque tristique est scelerisque. Eu consectetur vel gravida nulla sed diam amet. Ut aliquet ultricies odio est integer. Justo gravida mattis fermentum, mattis. Mollis elit vitae pulvinar venenatis eu pretium lectus. Nibh nam faucibus orci in. Erat magna mi vitae tellus faucibus. Elit lacus bibendum amet, bibendum et quam non. Augue sagittis nunc, cursus nunc dolor sit ornare. Viverra a orci feugiat viverra. Id integer integer etiam mattis tristique neque nisl rhoncus vel. Ac lacus eget in eget auctor neque purus tristique risus. Feugiat porttitor dui, enim commodo gravida diam sed nisl, imperdiet. Eu venenatis quam nunc donec eros orci morbi enim egestas. Ut nunc, suspendisse purus risus pharetra. Tortor ac elit nunc adipiscing nec purus egestas odio quis. Libero mi consectetur cursus rhoncus ut commodo maecenas platea viverra. Ut volutpat interdum dignissim amet potenti a at elementum nisl. Odio vel, condimentum tortor sodales sed ac. Viverra sodales laoreet eu feugiat congue. Vitae orci, id porttitor faucibus vulputate. Ac egestas non ullamcorper massa. Habitant dolor lacus, tincidunt nisi, amet in amet. Risus, scelerisque tortor, lorem suspendisse auctor augue. Pretium faucibus cras massa semper sit nisl. Ipsum, pellentesque semper turpis quis. In feugiat nulla at etiam. Quis et non sem ultrices risus luctus pellentesque.</p>", IsDisplaying = true});
+    }*@
+
+@using Lanthanum.Web.Controllers
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Lanthanum.Web</title>
+    <title>@ViewData["Title"] - Lanthanum_web</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/layout.css" />
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Lanthanum.Web</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+
+    <header id="mainNav">
+        <div class="main-container">
+            <div id="logo">
+                <div id="logo_text">
+                    Sports Hub
                 </div>
             </div>
-        </nav>
+            <div class="main-col ">
+                @RenderSection("elements_in_header", required: false)
+            </div>
+        </div>
     </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2021 - Lanthanum.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+    <main>
+        <div class="row m-0">
+            <div style="width: 253px;">
+                <nav>
+                    <ul style="margin-left: 30px; margin-top: 50px;" data-tag="channelList">
+                        <li onclick="switchChannel(this)" class="selected menu left-panel-selected">@HomeController.Categories[0]</li>
+                        @foreach (var item in HomeController.Categories.Skip(1))
+                        {
+                            <li class="left-panel-unselected" onclick="switchChannel(this)">@item</li>
+                        }
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-sm">
+                @RenderBody()
+            </div>
+        </div>
+    </main>
+
+
+    <footer class="bg-white" id="footer">
+        <div class="container py-5">
+            <hr id="footer-divider" />
+            <div class="row py-4 justify-content-between">
+                @{
+                    if (footerItems.GetAllItems().Where(x => x.Category == "CompanyInfo").Any(x => x.IsDisplaying == true) && footerItems.GetAllItems().Where(x => (x.Name == "CompanyInfo" && x.Name == x.Category)).FirstOrDefault().IsDisplaying == true)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                            <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Company Info</h6>
+                            @foreach (FooterItem footerItem in footerItems.GetAllItems())
+                            {
+                                @if (@footerItem.Category == "CompanyInfo" && @footerItem.IsDisplaying == true && footerItem.Name != footerItem.Category)
+                                {
+                                    <ul class="list-unstyled mb-0">
+
+                                        @*<li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>*@
+                                        <li class="mb-2"><a asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName=@footerItem.Name>@footerItem.Name</a></li>
+                                    </ul>
+                                }
+
+                            }
+                        </div>
+                    }
+
+                }
+
+                @{
+                    if (footerItems.GetAllItems().Where(x => x.Category == "Contributors").Any(x => x.IsDisplaying == true) && footerItems.GetAllItems().Where(x => (x.Name == "Contributors" && x.Name == x.Category)).FirstOrDefault().IsDisplaying == true)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                            <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Contributors</h6>
+                            @foreach (FooterItem footerItem in footerItems.GetAllItems())
+                            {
+                                @if (@footerItem.Category == "Contributors" && @footerItem.IsDisplaying == true && footerItem.Name != footerItem.Category)
+                                {
+                                    <ul class="list-unstyled mb-0">
+
+                                        @*<li class="mb-2"><a href="@footerTabItem.Link" class="footer-tab-link text-muted">@footerTabItem.Name</a></li>*@
+                                        <li class="mb-2"><a asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName=@footerItem.Name>@footerItem.Name</a></li>
+                                    </ul>
+                                }
+                            }
+                        </div>
+                    }
+                }
+
+                @{
+                    if (footerItems.GetAllItems().Where(x => x.Category == "Newsletter").Any(x => x.IsDisplaying == true) && footerItems.GetAllItems().Where(x => (x.Name == "Newsletter" && x.Name == x.Category)).FirstOrDefault().IsDisplaying == true)
+                    {
+                        <div class="col-lg-4 col-md-6 mb-lg-0">
+                            <h6 class="footer-tab-title text-uppercase font-weight-bold mb-4">Newsletter</h6>
+                            @if (footerItems.GetSingleItem("Sign up to receive the latest sports news").IsDisplaying == true)
+                            {
+                                <p class="text-muted mb-1" id="footer-newsletter-description">Sign up to receive the latest sports news</p>
+                                <div class="p-1">
+                                    <div class="input-group" id="footer-newsletter-form">
+                                        <input type="email" placeholder="Your email address" class="form-control shadow-none shadow-0" aria-describedby="footer-newsletter-subscribe-button" id="footer-newsletter-email-input">
+                                        <div class="input-group-append">
+                                            <button type="submit" class="btn btn-outline-danger shadow-none shadow-0" id="footer-newsletter-subscribe-button">Subscribe</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    }
+                }
+            </div>
+
+
+        </div>
+
+        @*Copyrights*@
+
+        <div class="footer-copyright py-4 row m-0">
+            <div class="container flex-row col-4">
+                <p class="mb-0 py-2" id="footer-copyright-logo"><a class="text-white" asp-area="" asp-controller="Home" asp-action="Index">Sports Hub</a></p>
+            </div>
+            <div class="container flex-row col-4">
+                <p class="footer-copyright-text mb-0 py-1">Copyright ©2019 Sports Hub</p>
+                <p class="footer-copyright-text mb-0 py-1"><a class="text-white" asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName="Privacy policy">Privacy</a> / <a class="text-white" asp-area="" asp-controller="Footer" asp-action="GetPage" asp-route-itemName="Terms and conditions">Terms</a></p>
+            </div>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    <script src="~/js/site.js"></script>
 </body>
 </html>

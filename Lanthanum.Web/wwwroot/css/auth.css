@@ -8,6 +8,27 @@ header {
     left: 0;
 }
 
+.validation-summary-errors ul {
+    color: #d72130;
+    list-style: none;
+    font-weight: normal;
+    padding: 0;
+    margin: 10px 0 10px 0;
+    font-size: 0.8rem;
+}
+
+.input-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+input.input-validation-error {
+    border: 1px solid #d72130 !important;
+    background: url(../images/validation-error.svg) no-repeat 98% 50% !important;
+    background-size: 10px !important;
+    padding-right: 10px !important;
+}
+
 nav.navbar {
     padding: 0;
     height: 100%;
@@ -15,10 +36,11 @@ nav.navbar {
 
 .navbar-brand {
     background-color: #d72130;
-    width: 12%;
+    width: 14%;
     min-width: 80px;
     height: 100%;
     align-self: flex-start;
+    padding: 20px 50px;
 }
 
 .navbar-brand p {
@@ -28,7 +50,7 @@ nav.navbar {
     align-self: center;
     white-space: initial;
     color: white;
-    font-size: 1.7rem;
+    font-size: 1.1rem;
     font-weight: 400;
     vertical-align: middle;
 }
@@ -61,11 +83,10 @@ nav.navbar {
 
 .header-question {
     font-family: 'Open Sans', sans-serif;
-    color: #434c5d;
+    color: gray;
     font-size: 14px;
     max-width: 500px;
-    padding: 1vh 2vh 1vh 2vh;
-    margin: 3vw 3vw 1.1vw 1.1vw;
+    padding: 1vh 0 1vh 2vh;
     margin: 1.1vw 0.5vw 1.1vw 1.1vw;
 }
 
@@ -101,43 +122,24 @@ nav.navbar {
     justify-content: flex-start;
 }
 
-.fb-img {
-    display: flex;
-    background: url(../images/facebook.svg) center no-repeat;
-    width: 7%;
-    height: 3.5vh;
-    align-self: flex-start;
-    margin-right: 1vw;
-    margin-bottom: 1vw;
-    min-width: 35px;
-    min-height: 34px;
-}
-
-.google-img {
-    display: flex;
-    background: url(../images/google.svg) center no-repeat;
-    width: 7%;
-    height: 3.5vh;
-    align-self: flex-start;
-    margin-right: 1vw;
-    margin-bottom: 1vw;
-    min-width: 35px;
-    min-height: 34px;
-}
 
 .plain-line {
     font-family: 'Open Sans', sans-serif;
-    color: #434c5d;
-    font-size: 14px;
+    color: gray;
+    font-size: 0.8rem;
+    font-weight: 700;
     display: block;
     max-width: 500px;
-    margin: 0 auto;
+    width: 100%;
+    margin: 0 auto 15px;
+    margin-bottom: 5px;
 }
 
 .forget-link {
     font-family: 'Open Sans', sans-serif;
     color: #709de8;
-    font-size: 14px;
+    font-size: 0.7rem;
+    font-weight: 600;
     display: block;
     max-width: 500px;
 }
@@ -163,9 +165,8 @@ nav.navbar {
     font-weight: 400;
     color: black;
     display: block;
-    margin: 0 auto;
     padding: 2%;
-    margin-bottom: 15px;
+    margin: 0 auto 15px;
 }
 
 input::placeholder {
@@ -181,18 +182,42 @@ input::placeholder {
 
 .infinity-form button[type="submit"] {
     font-family: 'Open Sans', sans-serif;
-    margin-top: 10px;
     border: none;
     cursor: pointer;
     background-color: #d72130; /*Button Color*/
     color: #fff;
-    font-weight: 550;
+    font-weight: 500;
+    font-size: 0.8rem;
     max-width: 500px;
     width: 100%;
-    margin: 0 auto;
-    padding: 10px;
+    margin: 30px auto 0 auto;
+    padding: 12px;
+    border-radius: 0;
 }
 
+button.fb-img[type="submit"] {
+    display: flex;
+    background: url(../images/facebook.svg) center no-repeat;
+    width: 7%;
+    height: 3.5vh;
+    align-self: flex-start;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+    min-width: 35px;
+    min-height: 34px;
+}
+
+button.google-img[type="submit"] {
+    display: flex;
+    background: url(../images/google.svg) center no-repeat;
+    width: 7%;
+    height: 3.5vh;
+    align-self: flex-start;
+    margin-right: 1vw;
+    margin-bottom: 1vw;
+    min-width: 35px;
+    min-height: 34px;
+}
 .fname-lname-container {
     display: flex;
     flex-direction: row;
@@ -217,7 +242,7 @@ input::placeholder {
 
     .header-question {
         color: white;
-        text-shadow: black 0px 0px 90px;
+        text-shadow: black 0 0 90px;
     }
 
     .infinity-form h4 {

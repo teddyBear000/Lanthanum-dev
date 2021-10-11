@@ -1,71 +1,514 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
 
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap');
+
 a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #fff;
+    background-color: #1b6ec2;
+    border-color: #1861ac;
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
+
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    font-size: 1rem;
+    /*    line-height: inherit;*/
 }
 
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
+    /* Margin bottom by footer height */
+    margin-bottom: 60px;
+    min-height: 100vh;
 }
+
+/* Footer styles start */
+
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px; /* Vertically center the text there */
+    position: absolute;
+    bottom: 0;
+    white-space: nowrap;
+    line-height: 60px; /*Vertically center the text there*/
 }
+
+#footer {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    height: 1rem;
+}
+
+#footer-divider {
+    background: #D8D8D8;
+    border: 1px solid #B2B2B2;
+}
+
+.footer-tab-title {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    /* identical to box height, or 119% */
+    color: #000000;
+}
+
+.footer-tab-link {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    /* identical to box height */
+    color: #7F7B7B;
+}
+
+#footer-newsletter-description {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    /* identical to box height */
+    /* Text color */
+    color: #434C5D;
+}
+
+.form-control::placeholder {
+    font-size: 0.95rem;
+    color: #aaa;
+    box-shadow: none;
+    outline: none;
+}
+
+.form-control.shadow-0:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+#footer-newsletter-form {
+    width: 284px;
+    height: 32px;
+    box-shadow: none;
+    outline: none;
+}
+
+#footer-newsletter-email-input {
+    border-radius: 0;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    /* identical to box height, or 142% */
+    box-shadow: none;
+    color: #B2B2B2;
+    outline: none;
+}
+
+#footer-newsletter-subscribe-button {
+    border-radius: 0;
+    background: #D72130;
+    width: 97px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 17px;
+    /* identical to box height, or 142% */
+    box-shadow: none;
+    color: #FFF5F5;
+    outline: none;
+}
+
+.footer-copyright {
+    background-color: #D72130;
+    color: #FFFBFB;
+}
+
+#footer-copyright-logo {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 28px;
+    /* identical to box height, or 127% */
+    color: #FFFBFB;
+}
+
+.footer-copyright-text {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    /* identical to box height */
+    text-align: right;
+    color: #FFFBFB;
+}
+
+/* Footer styles end */
+
+/* Privacy styles start */
+
+.privacy-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+    color: #000000;
+}
+
+.privacy-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+}
+
+/* Privacy styles end */
+
+/* Contact Us styles start */
+
+.contact-us-title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+    font-variant: small-caps;
+}
+
+.contact-us-user-info-field-title {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    /* identical to box height, or 110% */
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    /* Lable name */
+    color: #7F8899;
+}
+
+.contact-us-input {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: #C6CCD7;
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    padding: 0 0 0 15px;
+}
+
+.contact-us-input-message {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: #C6CCD7;
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    padding: 5px 0 0 15px;
+}
+
+textarea {
+    width: 100%;
+    height: 184px;
+}
+
+.contact-us-button {
+    text-align: center;
+    background: #D72130;
+    border: 1px solid #C63638;
+    box-sizing: border-box;
+    width: 178px;
+    height: 32px;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    /* identical to box height */
+    color: #FFFFFF;
+}
+
+.contact-us-table-key {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    /* identical to box height, or 110% */
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    /* Lable name */
+    color: #7F8899;
+    padding: 1px;
+}
+
+.contact-us-table-value {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #2B2F43;
+    padding: 8px;
+}
+
+/* Contact Us styles end */
+
+/* About Sports Hub styles start */
+
+.about-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 33px;
+    /* identical to box height */
+    color: #000000;
+}
+
+.about-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    color: #000000;
+}
+
+/* About Sports Hub styles end */
+
+/* Footer configuration styles start*/
+
+.footer-configuration-header {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 41px;
+    text-transform: capitalize;
+    color: #000000;
+}
+
+.footer-configuration-button {
+    background: #D72130;
+    border: 1px solid #C63638;
+    box-sizing: border-box;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+    color: #FFFFFF;
+    width: 134px;
+    height: 32px;
+    box-shadow: none;
+    outline: none;
+    border-radius: 0;
+}
+
+.footer-configuration-active-tab-text {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #D72130;
+}
+
+.footer-configuration-unactive-tab-text {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #7F8899;
+}
+
+.footer-configuration-table-text-bold {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #434C5D;
+}
+
+.footer-configuration-table-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 18px;
+    color: #2B2F43;
+}
+
+.table th {
+    border: none;
+}
+
+table.table.table-bordered-outside {
+    border: 1px solid #D4D9E2;
+}
+
+.custom-control-input:checked ~ .custom-control-label::before {
+    color: #fff;
+    background-color: #D72130;
+    border-color: #D72130;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.footer-configuration-label {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #7F8899;
+}
+
+.footer-configuration-input {
+    background: #FFFFFF;
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    color: #2B2F43;
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+}
+
+.footer-configuration-required {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 14px;
+    color: #000000;
+}
+
+.footer-configuration-cancel-link {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: #D72130;
+}
+
+.footer-configuration-modal {
+    border-radius: 0;
+}
+
+.footer-configuration-modal-header {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 33px;
+    text-align: center;
+    color: #000000;
+}
+
+.footer-configuration-modal-label {
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 11px;
+    letter-spacing: 0.9px;
+    text-transform: uppercase;
+    color: #434C5D;
+}
+
+.footer-configuration-modal-input {
+    border: 1px solid #D4D9E2;
+    box-sizing: border-box;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 16px;
+    border-radius: 0;
+    box-shadow: none;
+    outline: none;
+    color: #C6CCD7
+}
+
+/* Footer configuration styles end*/

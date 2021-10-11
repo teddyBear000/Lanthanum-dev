@@ -1,0 +1,12 @@
+﻿@using Lanthanum.Web.Domain;
+@model FooterItem
+
+@{
+    Layout = "~/Views/Shared/_LayoutMin.cshtml";
+}
+
+<div class="container">
+    <h2>@Model.Name</h2>
+    <div class="p-1 m-1"></div>
+    @Html.Raw(@Model.Content)
+</div>

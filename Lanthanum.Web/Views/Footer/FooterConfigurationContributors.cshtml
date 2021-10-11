@@ -1,0 +1,186 @@
+﻿@using Lanthanum.Web.Domain
+@using Lanthanum.Web.Services
+
+@inject IFooterService footerItemsForConfiguration
+
+@{
+    ViewData["Title"] = "Footer Configuration";
+    var CurrentTab = ViewBag.currentTab;
+    var ItemName = ViewBag.itemName;
+    Layout = "~/Views/Shared/_LayoutMin.cshtml";
+}
+
+<body onload="f17()">
+    <div class="container">
+        <div class="up">
+            <div class="row justify-content-between">
+                <h2 class="footer-configuration-header">Footer</h2>
+                <button type="button" class="btn btn-danger footer-configuration-button" data-toggle="modal" data-target="#Modal">+ New footer page</button>
+            </div>
+            <div class="row">
+                <a class="footer-configuration-unactive-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="CompanyInfo">Company Info</a>
+                <a class="footer-configuration-active-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="Contributors"><u>Contributors</u></a>
+                <a class="footer-configuration-unactive-tab-text p-4" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-currentTab="Newsletter">Newsletter</a>
+            </div>
+        </div>
+        <div class="modal-body row">
+            <div class="col-md-6">
+                <table class="table table-bordered-outside">
+                    <thead class="thead-light footer-configuration-table-text-bold">
+                        <tr>
+                            <th scope="col">Footer menu names</th>
+                            <th scope="col">Hide/Show</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="footer-configuration-table-text">
+                        <tr>
+                            <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = "Featured Writers Program", currentTab = @CurrentTab })'">Featured Writers Program</td>
+                            <td class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input danger" checked=@footerItemsForConfiguration.GetSingleItem("Featured Writers Program").IsDisplaying id="Featured Writers ProgramSwitch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = "Featured Writers Program", currentTab = @CurrentTab })'">
+                                @if (@footerItemsForConfiguration.GetSingleItem("Featured Writers Program").IsDisplaying == true)
+                                {
+                                    <label class="custom-control-label" for="Featured Writers ProgramSwitch">Show</label>
+                                }
+                                else
+                                {
+                                    <label class="custom-control-label" for="Featured Writers ProgramSwitch">Hide</label>
+                                }
+                            </td>
+                            <td></td>
+                        </tr>
+                        @foreach (FooterItem footerItemForConfiguration in footerItemsForConfiguration.GetAllItems().Where(x => x.Category == @CurrentTab))
+                        {
+                            @if (footerItemForConfiguration.Name != "Featured Writers Program" && footerItemForConfiguration.Name != footerItemForConfiguration.Category)
+                            {
+                                <tr>
+                                    <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = @footerItemForConfiguration.Name, currentTab = @CurrentTab })'">@footerItemForConfiguration.Name</td>
+                                    <td class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" checked=@footerItemForConfiguration.IsDisplaying id=@footerItemForConfiguration.Name +"Switch" onchange="location.href='@Url.Action("HideUnhideItem", "Footer", new { itemName = @footerItemForConfiguration.Name, currentTab = @CurrentTab })'">
+                                        @if (@footerItemForConfiguration.IsDisplaying == true)
+                                        {
+                                            <label class="custom-control-label" for=@footerItemForConfiguration.Name +"Switch">Show</label>
+                                        }
+                                        else
+                                        {
+                                            <label class="custom-control-label" for=@footerItemForConfiguration.Name +"Switch">Hide</label>
+                                        }
+                                    </td>
+                                    <td><a asp-area="" asp-controller="Footer" asp-action="RemoveItem" asp-route-itemName=@footerItemForConfiguration.Name asp-route-currentTab=@CurrentTab><img src="/content/delete-icon.png"></a></td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+                <div class="custom-control custom-switch mx-2 mt-1 mb-4">
+                    <input type="checkbox" class="custom-control-input" checked=@footerItemsForConfiguration.GetSingleItem("Contributors").IsDisplaying id="ContributorsSwitch" onchange="location.href='@Url.Action("HideUnhideAllItemsInCategory", "Footer", new { currentTab = @CurrentTab })'">
+                    <label class="custom-control-label footer-configuration-table-text p-2" for="ContributorsSwitch">Show section</label>
+                </div>
+                <table class="table table-bordered-outside">
+                    <thead class="thead-light footer-configuration-table-text-bold">
+                        <tr>
+                            <th scope="col">Privacy and terms</th>
+                        </tr>
+                    </thead>
+                    <tbody class="footer-configuration-table-text">
+                        <tr>
+                            <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = "Privacy policy", currentTab = @CurrentTab })'">Privacy policy</td>
+                        </tr>
+                        <tr>
+                            <td scope="row" onclick="location.href='@Url.Action("FooterConfiguration", "Footer", new { itemName = "Terms and conditions", currentTab = @CurrentTab })'">Terms and conditions</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-6">
+                @using (Html.BeginForm("UpdateItem", "Footer", FormMethod.Post))
+                {
+                    <div class="bg-light p-4">
+                        <p class="footer-configuration-table-text-bold">@ItemName</p>
+                        <div class="form-group">
+                            <label class="footer-configuration-label" name="headlineLabel" id="headlineLabel">Headline</label>
+                            @if (@ItemName != "Featured Writers Program" && @ItemName != "Privacy policy" && @ItemName != "Terms and conditions")
+                            {
+                                <input type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" name="nameChangeForUpdate" id="nameChangeForUpdate" value="@ItemName" />
+                            }
+                            @if (@ItemName == "Featured Writers Program" || @ItemName == "Privacy policy" || @ItemName == "Terms and conditions")
+                            {
+                                <input disabled type="text" class="form-control footer-configuration-input" placeholder="Name your footer page" name="nameChangeForDisplay" id="nameChangeForDisplay" value="@ItemName" />
+                                <input hidden type="text" class="form-control" placeholder="Name your footer page" name="nameChangeForUpdate" id="nameChangeForUpdate" value="@ItemName" />
+                            }
+                            <input type="hidden" class="form-control contact-us-input" placeholder="Name your footer page" name="itemNameForUpdate" id="itemNameForUpdate" value="@ItemName" />
+                            <input type="hidden" class="form-control contact-us-input" placeholder="Name your footer page" name="currentTabForUpdate" id="currentTabForUpdate" value=@CurrentTab>
+                        </div>
+                        <label class="footer-configuration-label" name="contentLabel" id="contentLabel">Content</label>
+                        <textarea id="contentChangeForUpdate" name="contentChangeForUpdate">
+ 
+                </textarea>
+                        <div class="row justify-content-between align-items-center p-3">
+                            <p class="col footer-configuration-required align-self-center">All fields are required<sup>*</sup></p>
+                            <div class="col row align-items-center">
+                                <a class="col footer-configuration-cancel-link" asp-area="" asp-controller="Footer" asp-action="FooterConfiguration" asp-route-itemName=@ItemName asp-route-currentTab=@CurrentTab>Cancel</a>
+                                <button type="submit" class="btn btn-danger col footer-configuration-button" value="Save">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                    <script src="https://cdn.tiny.cloud/1/7vvvgt6qrnr0wyn4j126umosqc6ti0055lsi3j1reg6gjy39/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+                    <script>
+    tinymce.init({
+        selector: 'textarea#contentChangeForUpdate',
+        setup: function (editor) {
+            editor.on('init', function (e) {
+                editor.setContent('@Html.Raw(@footerItemsForConfiguration.GetSingleItem(ItemName).Content)');
+            })
+        },
+        height: 426,
+        menubar: false,
+        plugins: [
+            'advlist autolink lists link image charmap print preview anchor',
+            'searchreplace visualblocks code fullscreen',
+            'insertdatetime media table paste code help wordcount'
+        ],
+        toolbar: 'formatselect | ' +
+            'bold italic underline | forecolor | alignleft aligncenter ' +
+            'alignright alignjustify | bullist numlist outdent indent | ' +
+            'removeformat',
+        content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+
+    });
+                    </script>
+                }
+            </div>
+        </div>
+    </div>
+
+    @* Pop-up for adding item *@
+    <div class="modal fade" id="Modal" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content rounded-0 p-4">
+                @using (Html.BeginForm("AddItem", "Footer", FormMethod.Post))
+                {
+                    <div class="modal-body">
+                        <h5 class="modal-title footer-configuration-modal-header text-center" id="ModalLabel">Add new footer page</h5>
+                        <div class="form-group">
+                            <label class="footer-configuration-modal-label">Name</label>
+                            <input type="text" class="form-control footer-configuration-modal-input" placeholder="Name your footer page" name="itemNameForAdd" id="itemNameForAdd">
+                            <input type="hidden" class="form-control" placeholder="Name your footer page" name="currentTabForAdd" id="currentTabForAdd" value=@CurrentTab>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a class="footer-configuration-cancel-link p-2" data-dismiss="modal" href="#">Cancel</a>
+                        <button type="submit" class="btn btn-danger footer-configuration-button p-2" value="Add">Add</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function f17() {
+            var element = document.getElementsByClassName('tox-statusbar')[0];
+            element.style.display = "none";
+            element.style.zIndex = "-2";
+        }
+    </script>
+</body>

@@ -1,5 +1,6 @@
 ﻿body {
     background: #fff;
+    
 }
 
 a {
@@ -26,14 +27,93 @@ a {
     background-color: #eee;
     margin-bottom: 3.5em;
 }
+    .blog-comment .headings {
+        display: flex;
+        justify-content: space-between ;
+        align-items: flex-start;
+    }
+    
+    .blog-comment .sort-comments-dropdown {
+        position: relative;
+        display: inline-block flex;
+        align-items: center;
+    }
+    .blog-comment .sort-comments-dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: white;
+        min-width: 152px;
+        z-index: 1;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    }
+    .blog-comment .sort-comments-button {
+        color: #d54343;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        border: none;
+        font-weight: 700;
+        font-size: 18px;
+        background-color: transparent;
+        outline: none;
+    }   
+    .blog-comment .sort-comments-dropdown-content-element{
+        display: flex;
+        justify-content:center;
+    }
+    .blog-comment .sort-comments-dropdown-content-button {
+        border: none;
+        background-color: transparent;
+        min-width: 152px;
+    }
+    .blog-comment .sort-comments-dropdown:hover .sort-comments-dropdown-content {
+        display: block;
+    }
+    .blog-comment .sort-comments-dropdown:hover .sort-comments-dropdown-start {
+        background-color: white;
+    }
+    .blog-comment .sort-comments-dropdown:hover .sort-comments-dropdown-content .sort-comments-dropdown-content-element:hover {
+        background-color: #eee;
+    }
+    .blog-comment .comment-section {
+        border-top: 1px solid #c4c4c4;
+        border-left: 1px solid #c4c4c4;
+        border-right: 1px solid #c4c4c4;
+        background-color: #fff;
+    }
+
+    .blog-comment .reaction-box {
+        display: flex;
+        
+    }
+        .blog-comment .reaction-box button {
+            outline: none;
+        }
+    .blog-comment .delete-edit-box button {
+        color: #707070;
+        outline: none;
+    }
+            .blog-comment .delete-edit-box button:hover {
+                color: #d54343;
+            }
+
+.blog-comment .delete-edit-box{
+display: flex;
+}
 
 
     .blog-comment ul {
         list-style-type: none;
         padding: 0;
     }
-
-
+    
+    .blog-comment .red-section {
+        display: flex;
+        font-size: 18px;
+        color: #c4c4c4;
+        font-weight: 600;
+        justify-content:space-between;
+    }
     .blog-comment img.avatar {
         position: relative;
         float: left;
@@ -56,17 +136,37 @@ a {
         color: black;
         position: relative;
     }
-
-    .blog-comment .comment-content {
+    .blog-comment .comment-content{
         position: relative;
         word-wrap: break-word;
     }
-
     .blog-comment .meta {
         font-size: 15px;
         color: #aaaaaa;
         padding-bottom: 8px;
         margin-bottom: 10px !important;
+
+    }
+        .blog-comment .meta .nickname-link:hover  {
+            color: #d54343;
+            text-decoration: none;
+        }
+        .blog-comment .meta a {
+            font-weight: 600;
+        }
+            .blog-comment .meta :hover a {
+            color: #d54343;
+            text-decoration: none;
+        }
+    .blog-comment .comment-like {
+        margin-left: -5px;
+    }
+    .blog-comment .comment-dislike{
+        margin-left: 5px; 
+    }
+    .blog-comment .red-section button {
+        background-color: transparent;
+        border: none;
     }
 
     .blog-comment .underpost {
@@ -96,4 +196,29 @@ a {
         line-height: 30px;
         color: black;
         font-weight: 700;
+        margin-top: 10px;
+        font-size: 18px;
     }
+.fa:hover {
+    color: #d54343;
+    outline: none;
+}
+.fa {
+    font-size: 20px;
+    outline: none;
+    }
+.show-more-box{
+    height: 50px;
+}
+    .show-more-box button {
+        width: 100%;
+        background-color: #d54343;
+        border: none;
+        color: #fff;
+        outline: none;
+        font-weight: 700;
+        height: 100%;
+    }
+        .show-more-box button:hover {
+            background-color: #d54343b3;
+        }

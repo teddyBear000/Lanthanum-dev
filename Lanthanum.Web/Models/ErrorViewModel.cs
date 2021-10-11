@@ -1,5 +1,3 @@
-using System;
-
 namespace Lanthanum.Web.Models
 {
     public class ErrorViewModel

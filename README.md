@@ -8,4 +8,11 @@
 > dotnet user-secrets init --project Lanthanum.Web
 > dotnet dotnet user-secrets set "DataBase:Password" "password" --project Lantanum.Web
 > dotnet user-secrets set "DataBase:User" "user" --project Lanthanum.Web
+
+> dotnet user-secrets set "Authentication:Google:ClientId" "750623719907-nbrpj519a0037fdbq97n6hmve53qaqhi.apps.googleusercontent.com" --project Lanthanum.Web
+> dotnet user-secrets set "Authentication:Google:ClientSecret" "n52Zcy5E6DQnk9qI-MAwWAOD" --project Lanthanum.Web
+> dotnet user-secrets set "Authentication:Facebook:AppId" "369918684828323" --project Lanthanum.Web
+> dotnet user-secrets set "Authentication:Facebook:AppSecret" "4e16edc9fedd3f210d6dae4b48dc21b5" --project Lanthanum.Web
 ```
+## How to setup footer and its configuration
+Run commented code from _Layout.cshtml once to add all required entities to database.
