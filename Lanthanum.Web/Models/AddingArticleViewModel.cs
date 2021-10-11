@@ -9,10 +9,10 @@ namespace Lanthanum.Web.Models
 {
     public class AddingArticleViewModel
     {
-        public List<Team> Teams { get; set; }
-        public List<Conference> Conferences { get; set; }
-        public List<KindOfSport> KindsOfSport { get; set; }
-        public List<String> Locations => new List<String>() { "Brazil", "England", "Italy", "France", "China","Europe", "Asia"};
+        public IEnumerable<Team> Teams { get; set; }
+        public IEnumerable<Conference> Conferences { get; set; }
+        public IEnumerable<KindOfSport> KindsOfSport { get; set; }
+        public IEnumerable<String> Locations => new List<String> { "Brazil", "England", "Italy", "France", "China", "Europe", "Asia" };
         public string SelectedSport { get; set; }
     }
 }

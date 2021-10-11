@@ -10,12 +10,13 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Lanthanum.Web.Data.Domain;
 using Lanthanum.Web.Models;
-using Lanthanum.Web.Models;
 using Lanthanum.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Lanthanum.Web.Controllers
 {
+    [Authorize] //TODO: Change to [Authorize(Role="Admin")]
+    [Route("[controller]")]
     public class AdminController : Controller
     {
         private readonly DbRepository<Article> _articleRepository;
@@ -47,12 +48,12 @@ namespace Lanthanum.Web.Controllers
                 sport = selected;
             }
 
-            var model = new AddingArticleViewModel 
+            var model = new AddingArticleViewModel
             {
                 SelectedSport = sport,
-                Teams = _teamRepository.GetAllAsync().Result.ToList(),
-                Conferences = _conferenceRepository.GetAllAsync().Result.ToList(),
-                KindsOfSport = _kindsRepository.GetAllAsync().Result.ToList()
+                Teams = _teamRepository.GetAllAsync().Result,
+                Conferences = _conferenceRepository.GetAllAsync().Result,
+                KindsOfSport = _kindsRepository.GetAllAsync().Result,
             };
 
             return View(model); 
@@ -62,9 +63,9 @@ namespace Lanthanum.Web.Controllers
         [HttpPost]
         public IActionResult Article(string Conference, string Location, string Kindofsport, string Team, string Alt, string Headline, string Caption, string Content, string Filter, string Size, string Crop, IFormFile Logo)
         {
-            var kindOfSport = _kindsRepository.Find(x => x.Name == Kindofsport).First();
-            var team = _teamRepository.Find(x => x.Name == Team).First();
-            var conference = _conferenceRepository.Find(x => x.Name == Conference).First();
+            KindOfSport kindOfSport = (KindOfSport)_kindsRepository.Find(x => x.Name == Kindofsport);
+            Team team = (Team)_teamRepository.Find(x => x.Name == Team);
+            Conference conference = (Conference)_conferenceRepository.Find(x => x.Name == Conference);
 
             var logoPath = " ";
 
@@ -88,7 +89,7 @@ namespace Lanthanum.Web.Controllers
                 Crop = Crop,
             }).Wait();
 
-            Picture picture = _pictureRepository.Find(x => logoPath == x.LogoPath).First();
+            Picture picture = (Picture)_pictureRepository.Find(x => logoPath == x.LogoPath);
 
             _articleRepository.AddAsync(new Article
             {
@@ -100,8 +101,8 @@ namespace Lanthanum.Web.Controllers
                 Alternative = Alt,
                 ViewsCount = 0,
                 CommentsCount = 0,
-                KindsOfSports = new List<KindOfSport>() { kindOfSport },
-                Teams = new List<Team>() { team },
+                KindOfSport = kindOfSport ,
+                Team = team,
                 LogoPicture = picture,
                 Conference = conference
             }).Wait();
