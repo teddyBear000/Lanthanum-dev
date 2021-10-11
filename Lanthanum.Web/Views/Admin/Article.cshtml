@@ -179,7 +179,7 @@
 
                                                 <div class="col p-head-mini-text" style="padding-right: 22px; padding-left: 0;">
                                                     <a class="p-no-merge-text" id=@("Headline"+i)> </a>
-                                                    <div class="mini-text">
+                                                    <div class="p-mini-text">
                                                         <p id=@("Header"+i)> </p>
                                                     </div>
                                                 </div>
@@ -235,7 +235,7 @@
                         <input type="hidden" id="kind_hidden" value="NBA" name="Kindofsport" />
                     </div>
 
-                    <div class="offset-7">
+                    <div class="offset-7" style="margin-top: 9px;">
                         <button id="warn" class="allbuttons secondary-button" type="button">Cancel</button>
                         <button class="allbuttons primary-button" type="submit">Save</button>
                     </div>
@@ -251,18 +251,18 @@
                 </div>
                 <div class="col flex-two pull-left" style="overflow-x: hidden; border-bottom: 0px !important;">
                     <div class="divider-one" id="divider">
-                        @for (int i = 0; i < Model.KindsOfSport.Count; i++)
+                        @foreach (var element in Model.KindsOfSport)
                         {
-                            if ((Model.SelectedSport == Model.KindsOfSport[i].Name))
+                            if ((Model.SelectedSport == element.Name))
                             {
                                 <div class="kinds-text pull-left" style="color: rgb(215,33,48); cursor: default;">
-                                    @Model.KindsOfSport[i].Name
+                                    @element.Name
                                 </div>
                             }
                             else
                             {
                                 <div class="kinds-text pull-left" onclick="">
-                                    @Model.KindsOfSport[i].Name
+                                    @element.Name
                                 </div>
                             }
                         }
@@ -388,9 +388,9 @@
                             <p>
                                 <select class="input-data" style="padding-left: 10px" name="Conference">
                                     <option value="UnSelected">Not Selected</option>
-                                    @for (int i = 0; i < Model.Conferences.Count; i++)
+                                    @foreach (var element in Model.Conferences)
                                     {
-                                        <option value=@Model.Conferences[i].Name>@Model.Conferences[i].Name</option>
+                                        <option value=@element.Name>@element.Name</option>
                                     }
                                 </select>
                             </p>
@@ -401,9 +401,9 @@
                             <p>
                                 <select class="input-data" style="padding-left: 10px" name="Team">
                                     <option value="UnSelected">Not Selected</option>
-                                    @for (int i = 0; i < Model.Teams.Count; i++)
+                                    @foreach (var element in Model.Teams)
                                     {
-                                        <option value=@Model.Teams[i].Name>@Model.Teams[i].Name</option>
+                                        <option value=@element.Name>@element.Name</option>
                                     }
                                 </select>
                             </p>
@@ -414,9 +414,9 @@
                             <p>
                                 <select class="input-data" style="padding-left: 10px" name="Location">
                                     <option value="UnSelected">Not Selected</option>
-                                    @for (int i = 0; i < Model.Locations.Count; i++)
+                                    @foreach (var element in Model.Locations)
                                     {
-                                        <option value=@Model.Locations[i]>@Model.Locations[i]</option>
+                                        <option value=@element>@element</option>
                                     }
                                 </select>
                             </p>
@@ -499,5 +499,6 @@
     <!-- POP UP CONTAINER END -->
     <script src="~/js/popup.js"></script>
     <script src="~/js/drag-drop.js"></script>
+    <script src="~/js/admin-layout.js"></script>
 </body>
 </html>

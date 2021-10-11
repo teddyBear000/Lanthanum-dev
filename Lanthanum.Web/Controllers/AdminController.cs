@@ -12,11 +12,11 @@ using Lanthanum.Web.Data.Domain;
 using Lanthanum.Web.Models;
 using Lanthanum.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using System.Linq;
 
 namespace Lanthanum.Web.Controllers
 {
-    [Authorize] //TODO: Change to [Authorize(Role="Admin")]
-    [Route("[controller]")]
+    //[Authorize] //TODO: Change to [Authorize(Role="Admin")]
     public class AdminController : Controller
     {
         private readonly DbRepository<Article> _articleRepository;
@@ -63,9 +63,9 @@ namespace Lanthanum.Web.Controllers
         [HttpPost]
         public IActionResult Article(string Conference, string Location, string Kindofsport, string Team, string Alt, string Headline, string Caption, string Content, string Filter, string Size, string Crop, IFormFile Logo)
         {
-            KindOfSport kindOfSport = (KindOfSport)_kindsRepository.Find(x => x.Name == Kindofsport);
-            Team team = (Team)_teamRepository.Find(x => x.Name == Team);
-            Conference conference = (Conference)_conferenceRepository.Find(x => x.Name == Conference);
+            KindOfSport kindOfSport = _kindsRepository.Find(x => x.Name == Kindofsport).FirstOrDefault();
+            Team team = _teamRepository.Find(x => x.Name == Team).FirstOrDefault();
+            Conference conference = _conferenceRepository.Find(x => x.Name == Conference).FirstOrDefault();
 
             var logoPath = " ";
 
@@ -89,7 +89,7 @@ namespace Lanthanum.Web.Controllers
                 Crop = Crop,
             }).Wait();
 
-            Picture picture = (Picture)_pictureRepository.Find(x => logoPath == x.LogoPath);
+            Picture picture = _pictureRepository.Find(x => logoPath == x.LogoPath).FirstOrDefault();
 
             _articleRepository.AddAsync(new Article
             {

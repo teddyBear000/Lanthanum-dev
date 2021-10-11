@@ -60,7 +60,7 @@ img.p-image-container {
 
 .p-image-container-f {
     position: relative;
-    left: 3.5%;
+    left: 20%;
     z-index: -1;
     width: 816px;
     height: 459px;
@@ -77,7 +77,7 @@ img.p-background-container {
 
 .p-white-box {
     position: relative;
-    left: 2.8%;
+    left: 43.8%;
     float: left;
     height: auto;
     text-align: justify;

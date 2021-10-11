@@ -15,6 +15,7 @@ namespace Lanthanum.Web.Domain
         public string MainText { get; set; }
         public string Location { get; set; }
         public string Alternative { get; set; }
+        public string LogoPath { get; set; }
         public KindOfSport KindOfSport { get; set; }
         public Team Team { get; set; }
         public List<Comment> Comments { get; set; }

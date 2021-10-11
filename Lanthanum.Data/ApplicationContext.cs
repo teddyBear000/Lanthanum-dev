@@ -145,6 +145,7 @@ namespace Lanthanum.Web.Data
                     new Article(){
                     Headline="Article1",
                     MainText = "The singer’s new engagement to Asghari is mentioned as one of the chief reasons Britney wants the co.213123123123;",
+                    LogoPath = "/images/mock_article_img.png",
                     Team = new Team()
                     {
                         Name="Foks",
@@ -167,6 +168,7 @@ namespace Lanthanum.Web.Data
                     new Article(){
                         Headline="Article2",
                         MainText = "dasdasbla",
+                        LogoPath = "/images/mock_article_img.png",
                         Team = new Team()
                         {
                             Name="Jerks",
@@ -189,6 +191,7 @@ namespace Lanthanum.Web.Data
                     new Article() {
                         Headline="Article3",
                         MainText = "asd",
+                        LogoPath = "/images/mock_article_img.png",
                         Team = new Team()
                         {
                             Name="Foks",
@@ -211,6 +214,7 @@ namespace Lanthanum.Web.Data
                     new Article() {
                         Headline="Article4",
                         MainText = "a",
+                        LogoPath = "/images/mock_article_img.png",
                         Team = new Team()
                         {
                             Name="Jerks",
@@ -234,6 +238,7 @@ namespace Lanthanum.Web.Data
                     new Article(){
                         Headline="Article5",
                         MainText = "b",
+                        LogoPath = "/images/mock_article_img.png",
                         Team = new Team()
                         {
                             Name="Goks",
@@ -255,6 +260,7 @@ namespace Lanthanum.Web.Data
                     new Article(){
                         Headline="Article6",
                         MainText = "f",
+                        LogoPath = "/images/mock_article_img.png",
                         Team = new Team()
                         {
                             Name="Goks",
