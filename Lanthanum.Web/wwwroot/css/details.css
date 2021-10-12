@@ -4,8 +4,8 @@
     height: 290px;
     padding: 10px 20px 30px;
     position: absolute;
-    left: 58%;
-    top: 18.3%;
+    left: 50%;
+    top: 19%;
     text-align: justify;
     word-wrap: break-word;
     background-color: rgba(0,0,0,.03);
@@ -50,14 +50,15 @@ img.ImageContainer {
     z-index: -1;
     width: 816px;
     height: 459px;
+    margin-left: 3%;
 }
 
 img.BackgroundContainer {
     width: 420px;
     height: 290px;
     position: absolute;
-    left: 58%;
-    top: 18.3%;
+    left: 50%;
+    top: 19%;
     z-index: 1;
 }
 
@@ -67,6 +68,8 @@ img.BackgroundContainer {
     text-align: justify;
     word-wrap: break-word;
     z-index: 10;
+    margin-bottom: 14rem;
+    margin-left: 5%;
 }
 
 .TextMain {

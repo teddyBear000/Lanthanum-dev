@@ -287,9 +287,9 @@
                     <div class="col drag-area-file">
                         <p class="form-text input-text">PICTURE *</p>
                         <div class="fix-image">
-                            <div id='taken' class='c-resizable'>
+                            <div id='taken' onmouseover="ShowButtons()" onmouseout="HideButtons()" class='c-resizable' style="width: 100px; height: 100px; top: 100px; left: 100px;">
                                 <div class='c-resizers'>
-                                    <div id='toHide' class='c-resizer c-bottom-right'></div>
+                                    <div id='toHide' class='c-resizer c-bottom-right' style="overflow: hidden"></div>
                                 </div>
                             </div>
                             <div class="drag-area" onmouseover="ShowButtons()" onmouseout="HideButtons()">
