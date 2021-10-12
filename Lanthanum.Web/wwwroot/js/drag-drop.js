@@ -237,7 +237,7 @@ function f17() {
 }
 
 function ShowButtons() {
-    document.querySelector('.view-buttons').style.zIndex = "7";
+    document.querySelector('.view-buttons').style.zIndex = "8";
 
     document.querySelector('.inserted-img').style.filter += " blur(3px)";
 }
@@ -354,6 +354,16 @@ function CropF()
     HideFunc(2);
     HideFunc(3);
 
+    document.querySelector('.crop-one').style.height = "0px";
+    document.querySelector('.crop-four').style.width = "0px";
+
+    var elementTwo = document.querySelector('.crop-two');
+    elementTwo.style.width = "0px";
+    elementTwo.style.left = "831px";
+
+    var elementThree = document.querySelector('.crop-three');
+    elementThree.style.height = "0px";
+    elementThree.style.top = "489px";
     var elementFill = document.getElementById("crop-container");
     elementFill.style.display = "block";
     elementFill.style.zIndex = "4";
@@ -363,75 +373,38 @@ function CropF()
     elementFillTwo.style.zIndex = "12";
 }
 
-function MakeCrop(num, reverse)
-{
-    if (num == 1) {
+function MakeCrop(ftop, sleft, thieght, fwidth) {
+        
         var element = document.getElementById('c-one');
-        console.log(200);
 
-        if (reverse) {
-            element.style.height = (parseInt(element.style.height, 10) + 10).toString() + "px";
-        }
-        else {
-            element.style.height = (parseInt(element.style.height, 10) - 10).toString() + "px";
-        }
+    element.style.height = (parseInt(ftop) - 31) + "px";
 
-        if (parseInt(element.style.height) >= 459)
-        {
-            element.style.height = "459px";
-        }
-    }
-    else if (num == 2) {
-        var element = document.querySelector('.crop-two');
+        var elementOne = document.querySelector('.crop-two');
 
-        if (reverse) {
-            element.style.width = (parseInt(element.style.width, 10) + 10).toString() + "px";
-            element.style.left = (parseInt(element.style.left, 10) - 10).toString() + "px";
-        }
-        else if (parseInt(element.style.width, 10) > 0){
-            element.style.width = (parseInt(element.style.width, 10) - 10).toString() + "px";
-            element.style.left = (parseInt(element.style.left, 10) + 10).toString() + "px";
-        }
-    }
-    else if (num == 3) {
-        var element = document.querySelector('.crop-three');
+    elementOne.style.width = (831 - (parseInt(sleft) + parseInt(fwidth))) + "px";
 
-        if (reverse) {
-            element.style.height = (parseInt(element.style.height, 10) + 10).toString() + "px";
-            element.style.top = (parseInt(element.style.top, 10) - 10).toString() + "px";
-        }
-        else if (parseInt(element.style.height, 10) > 0){
-            element.style.height = (parseInt(element.style.height, 10) - 10).toString() + "px";
-            element.style.top = (parseInt(element.style.top, 10) + 10).toString() + "px";
-        }
-    }
-    else if (num == 4) {
-        var element = document.querySelector('.crop-four');
+    elementOne.style.left = (parseInt(sleft) + parseInt(fwidth)) + "px";
 
-        if (reverse) {
-            element.style.width = (parseInt(element.style.width, 10) + 10).toString() + "px";
-        }
-        else{
-            element.style.width = (parseInt(element.style.width, 10) - 10).toString() + "px";
-        }
+        var elementTwo = document.querySelector('.crop-three');
 
-        if (parseInt(element.style.width) >= 816)
-        {
-            element.style.width = "816px";
-        }
-    }
+    elementTwo.style.height = (489 - (parseInt(ftop) + parseInt(thieght))) + "px";
+    elementTwo.style.top = (parseInt(ftop) + parseInt(thieght)) + "px";
+
+        var elementThree = document.querySelector('.crop-four');
+
+    elementThree.style.width = (parseInt(sleft) - 18) + "px";
 }
 
 function DeleteCrop() {
-    document.querySelector('.crop-one').style.height = "0";
-    document.querySelector('.crop-four').style.width = "0";
+    document.querySelector('.crop-one').style.height = "0px";
+    document.querySelector('.crop-four').style.width = "0px";
 
     var elementTwo = document.querySelector('.crop-two');
-    elementTwo.style.width = "0";
+    elementTwo.style.width = "0px";
     elementTwo.style.left = "831px";
 
     var elementThree = document.querySelector('.crop-three');
-    elementThree.style.height = "0";
+    elementThree.style.height = "0px";
     elementThree.style.top = "489px";
 
     var elementFillTwo = document.getElementById("taken");
@@ -485,6 +458,9 @@ function HideFunc(id)
 
     if (id == 3)
     {
+        var element = document.querySelector(".c-resizable");
+        document.getElementById("getCrop").value = element.style.top + " " + element.style.left + " " + element.style.height + " " + element.style.width;
+        MakeCrop(element.style.top, element.style.left, element.style.height, element.style.width);
         var elementFill = document.getElementById("crop-container");
         elementFill.style.display = "none";
         elementFill.style.zIndex = "-2";
@@ -584,11 +560,11 @@ function removeTo() {
             containment: "parent"
         });
         document.getElementById('toHide').style.display = 'none';
-        document.getElementById('cButton').value = "Change Size";
+        document.getElementById('cButton').innerText = "Change Size";
     }
     else {
         $('.c-resizable').draggable("destroy");
         document.getElementById('toHide').style.display = 'block';
-        document.getElementById('cButton').value = "Change Position";
+        document.getElementById('cButton').innerText = "Change Position";
     }
 }
