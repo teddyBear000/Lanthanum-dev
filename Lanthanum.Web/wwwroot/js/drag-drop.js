@@ -364,7 +364,6 @@ function CropF()
     var elementThree = document.querySelector('.crop-three');
     elementThree.style.height = "0px";
     elementThree.style.top = "489px";
-
     var elementFill = document.getElementById("crop-container");
     elementFill.style.display = "block";
     elementFill.style.zIndex = "4";
@@ -462,7 +461,6 @@ function HideFunc(id)
         var element = document.querySelector(".c-resizable");
         document.getElementById("getCrop").value = element.style.top + " " + element.style.left + " " + element.style.height + " " + element.style.width;
         MakeCrop(element.style.top, element.style.left, element.style.height, element.style.width);
-
         var elementFill = document.getElementById("crop-container");
         elementFill.style.display = "none";
         elementFill.style.zIndex = "-2";
