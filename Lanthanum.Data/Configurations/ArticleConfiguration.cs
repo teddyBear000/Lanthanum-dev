@@ -1,3 +1,4 @@
+using Lanthanum.Web.Data.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

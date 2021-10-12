@@ -1,0 +1,504 @@
+﻿@model Lanthanum.Web.Models.AddingArticleViewModel
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/popup.css">
+    <link rel="stylesheet" href="~/css/drag-and-drop.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/preview.css" />
+    <link rel="stylesheet" href="~/css/comments.css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+          integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
+          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"
+          integrity="sha512-PgQMlq+nqFLV4ylk1gwUOgm6CtIIXkKwaIHp/PAIWHzig/lKZSEGKEysh0TCVbHJXCLN7WetD8TFecIky75ZfQ=="
+          crossorigin="anonymous" />
+    <link rel="stylesheet"
+          href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+          crossorigin="anonymous" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <script src="https://cdn.tiny.cloud/1/7vvvgt6qrnr0wyn4j126umosqc6ti0055lsi3j1reg6gjy39/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+    <script>
+        tinymce.init({
+            selector: 'textarea#textarea1',
+            height: 500,
+            menubar: false,
+            plugins: [
+                'advlist autolink lists link image charmap print preview anchor',
+                'searchreplace visualblocks code fullscreen',
+                'insertdatetime media table paste code help wordcount'
+            ],
+            toolbar: 'formatselect | ' +
+                'bold italic underline | forecolor | alignleft aligncenter ' +
+                'alignright alignjustify | bullist numlist outdent indent | ' +
+                'removeformat',
+            content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+        });
+    </script>
+</head>
+<body onload="f17()">
+
+    <!-- Hiden Article -->
+
+    <div class="secret-page" id="hided">
+        <div class="p-general-view">
+            <div class="p-article-header-one" style="position: absolute; width: 100%;">
+                <div class="row">
+                    <div class="col pull-left" style="max-width: 25px; margin-top: 5px; margin-left: 60%;">
+                        <img src="~/images/Eye.png" onclick="f13()" height="19px">
+                    </div>
+                    <div class="col" style="margin-left: 0; padding-left: 4px;">
+                        <button class="allbuttons secondary-button" style="width: 145px; margin-left: 0; " type="button" onclick="f13()">Back to edit page</button>
+                    </div>
+                </div>
+            </div>
+            <div class="p-article-header">
+                <div class="p-image-container-f" id="image-container">
+                    <img src="/images/background_image.jpg" alt="Photo Of Event" class="p-image-container" id="PrevPhoto">
+                </div>
+                <img src="/images/background_image.jpg" class="p-background-container">
+
+                <div class="p-grey-box">
+
+                    <div class="p-date-time">
+                        <p>Published / 12.05.2002<p>
+                    </div>
+
+                    <div class="p-head-line">
+                        <p id="Headline"> </p>
+                    </div>
+
+                    <div class="p-header-text">
+                        <p id="Header"> </p>
+                    </div>
+
+                </div>
+
+                <div class="p-body-head">
+                    <div class="p-white-box">
+                        <div class="p-text-main" id="MainText">
+                            <span id="contextChange"> </span>
+                        </div>
+
+                        <!-- Comments -->
+
+                        <div class="CommentSectionHide" id="hided2">
+                            <div class="blog-comment">
+                                <h3>COMMENTS(2)</h3>
+
+                                <div class="comment-section" style="border-top: 1px solid #c4c4c4; border-left: 1px solid #c4c4c4; border-right: 1px solid #c4c4c4; background-color: #fff; ">
+                                    <div class="bg-light p-2" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; ">
+                                        <form method="post" action="/Articles/AddComment">
+                                            <div class="d-flex flex-row align-items-start ml-3 mr-5">
+                                                <img class="rounded-circle mr-2" src="~/images/default.jpg" width="55" />
+                                                <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
+                                                <input type="hidden" name="articleId" value="" />
+                                            </div>
+                                            <div class="mt-2 text-right mr-3">
+                                                <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white " type="reset">Cancel</button>
+                                                <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <ul class="comments">
+                                        @foreach (var element in new List<int>() { 1, 2 })
+                                        {
+                                            ;
+                                            var сommentAuthorNickname = "John Bells";
+                                            @if (true)
+                                            {
+                                                <li class="clearfix">
+                                                    <img src="~/images/default.jpg" class="avatar">
+                                                    <div class="post-comments">
+                                                        <p class="meta"><a href="#" style=" font-weight: bold">@сommentAuthorNickname</a> says : <i class="float-right"><a href="#" id="drop" class="collapsed" data-toggle="collapse" data-target="">Reply</a></i></p>
+                                                        <p class="comment-content">
+                                                            Very interesting article!
+                                                        </p>
+                                                        <p class="underpost">19.09.2021</p>
+                                                    </div>
+
+                                                    <div class="bg-light p-2 collapse" style="border-bottom: 1px solid #c4c4c4; background-color: #fff; " id="">
+                                                        <form method="post" action="/Articles/AddComment">
+                                                            <div class="d-flex flex-row align-items-start ml-3 mr-5">
+                                                                <img class="rounded-circle mr-2" src="~/images/default.jpg" width="55" />
+                                                                <textarea class="form-control shadow-none" name="commentContent" style="resize: none;" placeholder="Write a comment..."></textarea>
+                                                                <input type="hidden" name="articleId" value="" />
+                                                                <input type="hidden" name="parentCommentId" value="" />
+                                                            </div>
+                                                            <div class="mt-2 text-right mr-3">
+                                                                <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" data-toggle="collapse" data-target="" type="reset">Cancel</button>
+                                                                <button class="btn btn-primary btn-sm shadow-none" style="background-color: #d54343; border-color: white" type="submit">Submit</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </li>
+                                            }
+                                        }
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- After Comment Section -->
+
+                        <div class="p-border-one">
+                            <div style="width: 100%; height: 20px; border-bottom: 1px solid black; text-align: center">
+                                <span style="font-size: 20px; background-color: #ffffff; font-weight: 680; padding: 0 10px; ">
+                                    MORE ARTICLES
+                                </span>
+                            </div>
+
+                            <div class="p-section-fixed">
+                                <div class="p-general-container">
+                                    @for (int i = 0; i < 3; i++)
+                                    {
+                                        <div class="p-container-first">
+                                            <div class="row" style="overflow: hidden">
+
+                                                <div class="col p-no-merge pull-left" style="padding-left: 0;">
+                                                    <div class="imgAbt p-no-merge">
+                                                        <img width="176" height="99" src='https://cdn.londonandpartners.com/asset/nfl-london-games_jacksonville-jaguars-play-the-houston-texans-during-the-nfl-london-games-2019-image-courtesy-of-hamish-jordan-and-nfl-uk_6988b3828b833960c041194a1e904937.jpg' />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col p-head-mini-text" style="padding-right: 22px; padding-left: 0;">
+                                                    <a class="p-no-merge-text" id=@("Headline"+i)> </a>
+                                                    <div class="p-mini-text">
+                                                        <p id=@("Header"+i)> </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+
+                                <div class="p-general-container-two" style="margin-bottom: 100%;">
+                                    @for (int i = 3; i < 6; i++)
+                                    {
+                                        <div class="p-container-first">
+                                            <div class="row" style="overflow: hidden">
+
+                                                <div class="col p-no-merge pull-left" style="padding-left: 0;">
+                                                    <div class="imgAbt p-no-merge">
+                                                        <img width="176" height="99" src='https://cdn.londonandpartners.com/asset/nfl-london-games_jacksonville-jaguars-play-the-houston-texans-during-the-nfl-london-games-2019-image-courtesy-of-hamish-jordan-and-nfl-uk_6988b3828b833960c041194a1e904937.jpg' />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col p-head-mini-text" style="padding-right: 22px; padding-left: 0;">
+                                                    <a class="p-no-merge-text" id=@("Headline"+i)> </a>
+                                                    <div class="p-mini-text">
+                                                        <p id=@("Header"+i)> </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+
+    <!-- Main Editor -->
+
+    <form method="post" controller="admin" action="article" enctype="multipart/form-data">
+        <div class="conteiner" id="mainContainer">
+            <div class="row">
+                <div class="col flex-one">
+                    <div class="kind-text pull-left">
+                        <h3 id="kind_hidden_text">NBA</h3>
+                        <input type="hidden" id="kind_hidden" value="NBA" name="Kindofsport" />
+                    </div>
+
+                    <div class="offset-7" style="margin-top: 9px;">
+                        <button id="warn" class="allbuttons secondary-button" type="button">Cancel</button>
+                        <button class="allbuttons primary-button" type="submit">Save</button>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- List of Sports -->
+
+            <div class="row" style="border-bottom: 1px solid #dee2e6 !important; padding-bottom: 0.35rem !important;">
+                <div class="col pull-left" style="padding-top: 11px; max-width: 8.1%; width:58px !important;">
+                    <img class="arrow-container" height="20" onclick="f15()" src='~/images/Arrow_L.png' />
+                </div>
+                <div class="col flex-two pull-left" style="overflow-x: hidden; border-bottom: 0px !important;">
+                    <div class="divider-one" id="divider">
+                        @foreach (var element in Model.KindsOfSport)
+                        {
+                            if ((Model.SelectedSport == element.Name))
+                            {
+                                <div class="kinds-text pull-left" style="color: rgb(215,33,48); cursor: default;">
+                                    @element.Name
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="kinds-text pull-left" onclick="">
+                                    @element.Name
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="col" style="padding-top: 11px; max-width: 8.1%; width: 58px !important;">
+                    <img class="arrow-container" height="20" onclick="f16()" src='~/images/Arrow_R.png' />
+                </div>
+            </div>
+
+            <div class="article-header-one">
+                <div class="row">
+                    <div class="col pull-left" style="max-width: 25px; margin-top: 5px; margin-left: 86.35%;">
+                        <img src="~/images/Eye.png" onclick="f12()" height="19px">
+                    </div>
+                    <div class="col" style="margin-left: 0; padding-left: 4px;">
+                        <button id="warn" class="allbuttons secondary-button" style="width: 0; margin-left: 0; " type="button" onclick="f12()">Preview</button>
+                    </div>
+                </div>
+                <!-- DRAG & DROP CONTAINER BEGIN -->
+                <div class="row">
+                    <div class="col drag-area-file">
+                        <p class="form-text input-text">PICTURE *</p>
+                        <div class="fix-image">
+                            <div id='taken' class='c-resizable'>
+                                <div class='c-resizers'>
+                                    <div id='toHide' class='c-resizer c-bottom-right'></div>
+                                </div>
+                            </div>
+                            <div class="drag-area" onmouseover="ShowButtons()" onmouseout="HideButtons()">
+                                <div class="icon icon-form">
+                                    <img src="~/images/PhotoIco.png" height="80px">
+                                </div>
+                                <div class="icon-text">
+                                    <header><span class="hightlight" onclick="AddElement()">+Add picture</span> or drop it rigth there</header>
+                                    <p>You can add next formats: png. jpg. jpeg. tif</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input name="Logo" id="getImage" type="file" hidden>
+                        <input name="Filter" id="getFilter" type="text" hidden>
+                        <input name="Size" id="getSize" type="text" hidden>
+                        <input name="Crop" id="getCrop" type="text" hidden>
+                    </div>
+                </div>
+
+                <!-- Filter -->
+                <div class="filter-container" id="filter-container">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col pull-left">
+                            <p class="input-data red-select" style="padding-top: 20px; margin-left: 33%; color: rgb(215,33,48)">ORIGINAL</p>
+                            <p style="padding-left: 4px">
+                                <img class="filter-photo" width="176" height="99" src="~/images/" onclick="FilterOne()">
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="input-data red-select" style="padding-top: 20px; margin-left: 39%">VVID</p>
+                            <p>
+                                <img class="filter-photo" width="176" height="99" src="~/images/" onclick="FilterTwo()">
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="input-data red-select" style="padding-top: 20px; margin-left: 29%">VVID COOL</p>
+                            <p>
+                                <img class="filter-photo" width="176" height="99" src="~/images/" onclick="FilterThree()">
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="input-data red-select" style="padding-top: 20px; margin-left: 35%">MONO</p>
+                            <p>
+                                <img class="filter-photo" width="176" height="99" src="~/images/" onclick="FilterFour()">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row offset-10" style="margin-bottom: 25px">
+                        <button class="allbuttons primary-button" type="button" onclick="HideFunc(1)">Hide</button>
+                    </div>
+                </div>
+
+                <!-- Resize -->
+                <div class="resize-container" id="resize-container">
+                    <div class="row" style="margin-bottom: 10px">
+                        <div class="col pull-left" style="margin-left: 26%; max-width:5%">
+                            <img width="27" height="20" src="~/images/small-vector.png" />
+                        </div>
+                        <div class="col pull-left" style="max-width: 35%">
+                            <div class="slidecontainer-f">
+                                <input oninput="ResizeImage()" type="range" min="-200" max="0" value="0" class="slider-f" id="myRange">
+                            </div>
+                        </div>
+                        <div class="col" style="max-width:5%; padding-left: 5px">
+                            <img width="41" height="30" src="~/images/big-vector.png" />
+                        </div>
+                    </div>
+
+                    <div class="row offset-10" style="margin-bottom: 25px">
+                        <button class="allbuttons primary-button" type="button" onclick="HideFunc(2)">Hide</button>
+                    </div>
+                </div>
+
+                <!-- Crop -->
+                <div class="crop-container" id="crop-container">
+                    <div class="row offset-5" style="margin-bottom: 25px">
+                        <div class="col pull-left">
+                            <button id="cButton" onclick="removeTo()" class="allbuttons secondary-button" type="button">Change Position</button>
+                        </div>
+                        <div class="col pull-left">
+                            <button onclick="DeleteCrop()" class="allbuttons secondary-button" type="button">Cancel All</button>
+                        </div>
+                        <div class="col">
+                            <button class="allbuttons primary-button" type="button" onclick="HideFunc(3)">Hide</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-text">
+                    <div class="row">
+                        <div class="col pull-left">
+                            <p class="input-text">CONFERENCE</p>
+                            <p>
+                                <select class="input-data" style="padding-left: 10px" name="Conference">
+                                    <option value="UnSelected">Not Selected</option>
+                                    @foreach (var element in Model.Conferences)
+                                    {
+                                        <option value=@element.Name>@element.Name</option>
+                                    }
+                                </select>
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="input-text">TEAM</p>
+                            <p>
+                                <select class="input-data" style="padding-left: 10px" name="Team">
+                                    <option value="UnSelected">Not Selected</option>
+                                    @foreach (var element in Model.Teams)
+                                    {
+                                        <option value=@element.Name>@element.Name</option>
+                                    }
+                                </select>
+                            </p>
+                        </div>
+
+                        <div class="col pull-left">
+                            <p class="input-text">LOCATION</p>
+                            <p>
+                                <select class="input-data" style="padding-left: 10px" name="Location">
+                                    <option value="UnSelected">Not Selected</option>
+                                    @foreach (var element in Model.Locations)
+                                    {
+                                        <option value=@element>@element</option>
+                                    }
+                                </select>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="input-text">ALT *</p>
+                            <input class="input-data" style="padding-left: 10px" type="text" name="Alt" placeholder="Alternative text for picture" required minlength="1" maxlength="20">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="input-text">ARTICLE HEADLINE *</p>
+                            <input class="input-data" style="padding-left: 10px" type="text" name="Headline" placeholder="Name" id="rHeadLine" required minlength="1" maxlength="29">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="input-text">CAPTION *</p>
+                            <input class="input-data" style="padding-left: 10px" type="text" name="Caption" placeholder="Write caption text here" id="rHeader" required minlength="1" maxlength="60">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="input-text">CONTENT *</p>
+                        </div>
+                    </div>
+
+                    <!-- HTML Content field -->
+
+                    <section class="" style="padding-top: 0; padding-bottom: 0%;">
+                        <div class="flex-box" style="display: flex; justify-content: center;">
+                            <textarea id="textarea1" name="Content" style="width: 100%">
+ 
+                            </textarea>
+                        </div>
+                    </section>
+
+                    <div class="row" style="margin-bottom: 150px">
+                        <div class="pull-left" style="width: auto">
+                            <p class="form-text input-text-last" style="">Comments:  Show  </p>
+                        </div>
+
+                        <!-- Switcher -->
+
+                        <div class="col" style="padding-top: 8.5px">
+                            <label class="switch">
+                                <input type="checkbox" id="switcher" onclick="f14()">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- POP UP CONTAINER BEGIN -->
+    <div class="warning-container" id="warning-container" style="z-index: 20">
+        <div class="image">
+            <img src="~/images/WarningIco.png" height="100px" />
+        </div>
+        <div class="warning">
+            <h1>You are about to discard changes</h1>
+            <div class="text">
+                <p>Entered information will be missed!</p>
+                <p>Are you sure?</p>
+            </div>
+            <div class="buttons">
+                <button id="close-warn" class="allbuttons secondary-button">No</button>
+                <button class="allbuttons primary-button" onclick=@($"window.location.href='{Url.Action("Index", "Home")}'") ;>Yes</button>
+            </div>
+        </div>
+    </div>
+    <!-- POP UP CONTAINER END -->
+    <script src="~/js/popup.js"></script>
+    <script src="~/js/drag-drop.js"></script>
+    <script src="~/js/admin-layout.js"></script>
+</body>
+</html>

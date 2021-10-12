@@ -5,15 +5,21 @@ using System.Diagnostics;
 using Lanthanum.Web.Data.Repositories;
 using Lanthanum.Web.Domain;
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using Lanthanum.Web.Data.Domain;
 
 namespace Lanthanum.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly DbRepository<Team> _teamRepository;
+        private readonly DbRepository<KindOfSport> _kindOfSportRepository;
+        private readonly DbRepository<Conference> _conferenceRepository;
         private readonly DbRepository<User> _userRepository;
         private readonly DbRepository<Article> _articleRepository;
         private readonly DbRepository<Comment> _commentRepository;
+
         public HomeController(ILogger<HomeController> logger, DbRepository<User> userRepository, DbRepository<Article> articleRepository, DbRepository<Comment> commentRepository)
         {
             _logger = logger;
@@ -25,12 +31,10 @@ namespace Lanthanum.Web.Controllers
             };
             _articleRepository = articleRepository;
             _commentRepository = commentRepository;
-
         }
+
         public IActionResult Index()
         {
-
-
             var articles = new List<Article>();
             foreach (var articleElement in _articleRepository.GetAllAsync().Result)
             {

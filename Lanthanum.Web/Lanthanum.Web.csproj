@@ -43,4 +43,8 @@
     <Folder Include="Views\Articles\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Files\" />
+  </ItemGroup>
+
 </Project>

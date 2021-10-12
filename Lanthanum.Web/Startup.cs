@@ -15,6 +15,7 @@ using Lanthanum.Web.Services;
 using Lanthanum.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Lanthanum.Web.Data.Domain;
 
 namespace Lanthanum.Web
 {
@@ -101,6 +102,11 @@ namespace Lanthanum.Web
             services.AddScoped<ICommentService, CommentService>();
             services.AddTransient<IFooterService, FooterService>();
             services.AddScoped<DbRepository<FooterItem>>();
+            services.AddTransient<DbRepository<Article>>();
+            services.AddTransient<DbRepository<Team>>();
+            services.AddTransient<DbRepository<KindOfSport>>();
+            services.AddTransient<DbRepository<Picture>>();
+            services.AddTransient<DbRepository<Conference>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,0 +1,167 @@
+﻿.p-grey-box {
+    float: left;
+    width: 420px;
+    height: 290px;
+    padding: 10px 20px 30px;
+    position: absolute;
+    left: 61.15%;
+    top: 18.6%;
+    text-align: justify;
+    word-wrap: break-word;
+    background-color: rgba(0,0,0,.03);
+    z-index: 2;
+    overflow: visible;
+}
+
+.p-article-header-one {
+    margin-top: 1.05em;
+    margin-left: 23%;
+    width: 816px;
+}
+
+
+.p-devider {
+    position: absolute;
+    left: 25.5%;
+    top: 69%;
+}
+
+.p-date-time {
+    z-index: 5;
+    font-family: arial;
+    font-size: 0.85rem;
+    color: rgb(127,123,123);
+    padding-top: 30px;
+    padding-left: 10px;
+}
+
+.p-head-line {
+    z-index: 5;
+    font-family: arial;
+    font-size: 1.15rem;
+    font-weight: bold;
+    color: rgb(224,34,50);
+    padding-left: 10px;
+}
+
+.p-header-text {
+    z-index: 5;
+    font-family: Tahoma;
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: rgb(43,47,67);
+    padding-left: 10px;
+}
+
+img.p-image-container {
+    width: 816px;
+    height: 459px;
+}
+
+.p-image-container-f {
+    position: relative;
+    left: 20%;
+    z-index: -1;
+    width: 816px;
+    height: 459px;
+}
+
+img.p-background-container {
+    width: 420px;
+    height: 290px;
+    position: absolute;
+    left: 61.15%;
+    top: 18.6%;
+    z-index: 1;
+}
+
+.p-white-box {
+    position: relative;
+    left: 43.8%;
+    float: left;
+    height: auto;
+    text-align: justify;
+    word-wrap: break-word;
+    z-index: 10;
+}
+
+.p-text-main {
+    z-index: 1;
+    font-family: arial;
+    font-size: 1.15rem;
+    font-weight: lighter;
+    padding-left: 10px;
+    padding-bottom: 2em;
+}
+
+.p-border-one {
+    height: 100px;
+}
+
+.p-general-container {
+    width: 420px;
+    height: 300px;
+    display: inline-block;
+    float: left;
+    padding-left: 0.65em;
+    padding-top: 2em;
+}
+
+.p-section-fixed {
+    width: 840px;
+}
+
+.p-general-container-two {
+    width: 420px;
+    height: 300px;
+    display: inline-block;
+    float: left;
+    padding-top: 2em;
+    padding-left: 1.6em;
+}
+
+.p-article-header {
+    position: relative;
+    top: 5.8em;
+    margin-bottom: 2em;
+}
+
+.p-body-head {
+    margin-top: 2.4em;
+    width: 825px;
+}
+
+.p-container-first {
+    width: 400px;
+    height: 101px;
+    border: 1px solid rgba(0,0,0,.125);
+}
+
+.p-mini-text {
+    width: 215px;
+    max-height: 80px;
+    font-family: arial;
+    font-size: 0.85rem;
+    color: rgb(127,123,123);
+    text-align: left;
+}
+
+.p-head-mini-text {
+    max-height: 20px;
+    font-family: arial;
+    font-size: 0.9rem;
+    color: black;
+    font-weight: bold;
+    text-align: left;
+    padding-top: 4px;
+}
+
+.p-no-merge {
+    padding: 0;
+    max-width: 44% !important;
+}
+
+.p-no-merge-text {
+    padding: 0;
+    margin-bottom: 0.1rem;
+}
